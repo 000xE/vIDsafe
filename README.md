@@ -22,9 +22,10 @@ vIDsafe - A password manager focused on the idea of compartmentalisation.
 	- [ ] General:
 		- [ ] Display an overview of the user's vault
 		- [ ] Encrypt the vault using the methods bcrypt and AES
-		- [ ] Allow the user to import and export their vault
+		- [ ] Allow the user to import and export their vault in JSON/csv format
 - [ ] Application:
 	- [ ] Allow the user to change the application's settings
+	- [ ] Include validation for inputs
 
 ## Non-functional requirements
 
