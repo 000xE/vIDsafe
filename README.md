@@ -28,7 +28,7 @@ vIDsafe - A password manager focused on the idea of compartmentalisation.
 
 ## Non-functional requirements
 
-- [ ] Ensure the encryption/decryption of the vault is optimally fast.
+- [ ] Ensure the encryption/decryption of the vault is optimally fast and secure.
 - [ ] Ensure the user interface is clear, concise, and pleasant to use
 - [ ] Ensure the application is easy to use
 
