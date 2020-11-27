@@ -2,7 +2,7 @@
 
 vIDsafe - A password manager focused on the idea of compartmentalisation.
 
-# User requirements
+# Specification
 
 ## Functional requirements
 
