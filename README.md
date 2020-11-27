@@ -6,20 +6,25 @@ vIDsafe - A password manager focused on the idea of compartmentalisation.
 
 ## Functional requirements
 
-- [ ] Allow the user to create a master account
-- [ ] Allow the user to login to their master account
-- [ ] Allow the user to create/manage identities/profiles based on their needs
-- [ ] Allow the user to generate or store and manage credentials and assign them to the identities
-- [ ] Allow the user to generate passwords and passphrases
-- [ ] Allow the user to see a history of previously generated passwords
-- [ ] Allow the user to import and export their data (Identities and their credentials)
-- [ ] Allow the user to manage their master account
-- [ ] Allow the user to check for compromised credentials
-- [ ] Allow the user to search for public information of their identities
-- [ ] Allow the user to change the application's settings
-- [ ] Display an overview of the user's vault
-- [ ] Encypt the vault using the methods bcrypt and AES
-
+- [ ] Master account:
+	- [ ] Allow the user to create a master account
+	- [ ] Allow the user to login to their master account
+	- [ ] Allow the user to manage their master account
+- [ ] Vault:
+	- [ ] Identities:	
+		- [ ] Allow the user to create/manage identities/profiles based on their needs
+		- [ ] Allow the user to search for public information of their identities
+	- [ ] Credentials:
+		- [ ] Allow the user to generate or store and manage credentials and assign them to the identities
+		- [ ] Allow the user to generate passwords and passphrases
+		- [ ] Allow the user to see a history of previously generated passwords
+		- [ ] Allow the user to check for compromised credentials
+	- [ ] General:
+		- [ ] Display an overview of the user's vault
+		- [ ] Encrypt the vault using the methods bcrypt and AES
+		- [ ] Allow the user to import and export their vault
+- [ ] Application:
+	- [ ] Allow the user to change the application's settings
 
 ## Non-functional requirements
 
