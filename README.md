@@ -34,6 +34,9 @@ vIDsafe - A password manager focused on the idea of compartmentalisation.
 		- [ ] Allow the user to check for compromised credentials
 	- [ ] General:
 		- [ ] Display an overview of the user's vault
+			- [ ] Identity health scores
+			- [ ] Weak credentials
+			- [ ] Security alerts
 		- [ ] Encrypt the vault using the methods bcrypt and AES
 		- [ ] Allow the user to import and export their vault in JSON/csv format
 - [ ] Application:
