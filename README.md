@@ -8,8 +8,14 @@ vIDsafe - A password manager focused on the idea of compartmentalisation.
 
 - [ ] Master account:
 	- [ ] Allow the user to create a master account
+		- [ ] Name
+		- [ ] Password
+		- [ ] Password hint
 	- [ ] Allow the user to login to their master account
 	- [ ] Allow the user to manage their master account
+		- [ ] Delete account
+		- [ ] Wipe identities
+		- [ ] Purge credentials
 - [ ] Vault:
 	- [ ] Identities:	
 		- [ ] Allow the user to create/manage identities/profiles based on their needs
