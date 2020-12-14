@@ -60,6 +60,7 @@ vIDsafe - A password manager focused on the idea of compartmentalisation.
 - 19/11/2020: 1 hour - Presented some background research of the idea.
 - 26/11/2020: 1 hour - Reviewed the background research and designs made for the projects.
 - 03/12/2020: 30 minutes - Presented refined background research and back-end designs.
+- 10/12/2020: 30 minutes - Discussed ethical approval and presented some progress with the projects.
 
 ## 1-to-1 meetings
 
