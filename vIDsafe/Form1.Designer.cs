@@ -32,7 +32,7 @@
             this.panelMain = new System.Windows.Forms.Panel();
             this.panelNavigation = new System.Windows.Forms.Panel();
             this.btnLogOut = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panelMiscSubMenu = new System.Windows.Forms.Panel();
             this.btnApplicationSettings = new System.Windows.Forms.Button();
             this.btnMisc = new System.Windows.Forms.Button();
             this.panelDataSubMenu = new System.Windows.Forms.Panel();
@@ -51,7 +51,7 @@
             btnPasswordManager = new System.Windows.Forms.Button();
             this.panelMain.SuspendLayout();
             this.panelNavigation.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.panelMiscSubMenu.SuspendLayout();
             this.panelDataSubMenu.SuspendLayout();
             this.panelPMSubMenu.SuspendLayout();
             this.panelProgressBack.SuspendLayout();
@@ -59,6 +59,7 @@
             // 
             // btnPasswordManager
             // 
+            btnPasswordManager.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
             btnPasswordManager.Dock = System.Windows.Forms.DockStyle.Top;
             btnPasswordManager.FlatAppearance.BorderSize = 0;
             btnPasswordManager.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -66,10 +67,11 @@
             btnPasswordManager.ForeColor = System.Drawing.Color.White;
             btnPasswordManager.Location = new System.Drawing.Point(0, 0);
             btnPasswordManager.Name = "btnPasswordManager";
-            btnPasswordManager.Size = new System.Drawing.Size(225, 55);
+            btnPasswordManager.Size = new System.Drawing.Size(225, 45);
             btnPasswordManager.TabIndex = 0;
             btnPasswordManager.Text = "Password manager";
-            btnPasswordManager.UseVisualStyleBackColor = true;
+            btnPasswordManager.UseVisualStyleBackColor = false;
+            btnPasswordManager.Click += new System.EventHandler(this.BtnPasswordManager_Click);
             // 
             // panelMain
             // 
@@ -86,7 +88,7 @@
             // panelNavigation
             // 
             this.panelNavigation.Controls.Add(this.btnLogOut);
-            this.panelNavigation.Controls.Add(this.panel1);
+            this.panelNavigation.Controls.Add(this.panelMiscSubMenu);
             this.panelNavigation.Controls.Add(this.btnMisc);
             this.panelNavigation.Controls.Add(this.panelDataSubMenu);
             this.panelNavigation.Controls.Add(this.btnData);
@@ -112,14 +114,14 @@
             this.btnLogOut.Text = "Logout";
             this.btnLogOut.UseVisualStyleBackColor = false;
             // 
-            // panel1
+            // panelMiscSubMenu
             // 
-            this.panel1.Controls.Add(this.btnApplicationSettings);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 405);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(225, 40);
-            this.panel1.TabIndex = 3;
+            this.panelMiscSubMenu.Controls.Add(this.btnApplicationSettings);
+            this.panelMiscSubMenu.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelMiscSubMenu.Location = new System.Drawing.Point(0, 375);
+            this.panelMiscSubMenu.Name = "panelMiscSubMenu";
+            this.panelMiscSubMenu.Size = new System.Drawing.Size(225, 40);
+            this.panelMiscSubMenu.TabIndex = 3;
             // 
             // btnApplicationSettings
             // 
@@ -137,24 +139,26 @@
             // 
             // btnMisc
             // 
+            this.btnMisc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
             this.btnMisc.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnMisc.FlatAppearance.BorderSize = 0;
             this.btnMisc.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMisc.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnMisc.ForeColor = System.Drawing.Color.White;
-            this.btnMisc.Location = new System.Drawing.Point(0, 350);
+            this.btnMisc.Location = new System.Drawing.Point(0, 330);
             this.btnMisc.Name = "btnMisc";
-            this.btnMisc.Size = new System.Drawing.Size(225, 55);
+            this.btnMisc.Size = new System.Drawing.Size(225, 45);
             this.btnMisc.TabIndex = 0;
             this.btnMisc.Text = "Misc";
-            this.btnMisc.UseVisualStyleBackColor = true;
+            this.btnMisc.UseVisualStyleBackColor = false;
+            this.btnMisc.Click += new System.EventHandler(this.BtnMisc_Click);
             // 
             // panelDataSubMenu
             // 
             this.panelDataSubMenu.Controls.Add(this.btnMasterAccount);
             this.panelDataSubMenu.Controls.Add(this.btnImportExport);
             this.panelDataSubMenu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelDataSubMenu.Location = new System.Drawing.Point(0, 270);
+            this.panelDataSubMenu.Location = new System.Drawing.Point(0, 250);
             this.panelDataSubMenu.Name = "panelDataSubMenu";
             this.panelDataSubMenu.Size = new System.Drawing.Size(225, 80);
             this.panelDataSubMenu.TabIndex = 2;
@@ -189,17 +193,19 @@
             // 
             // btnData
             // 
+            this.btnData.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
             this.btnData.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnData.FlatAppearance.BorderSize = 0;
             this.btnData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnData.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnData.ForeColor = System.Drawing.Color.White;
-            this.btnData.Location = new System.Drawing.Point(0, 215);
+            this.btnData.Location = new System.Drawing.Point(0, 205);
             this.btnData.Name = "btnData";
-            this.btnData.Size = new System.Drawing.Size(225, 55);
+            this.btnData.Size = new System.Drawing.Size(225, 45);
             this.btnData.TabIndex = 0;
             this.btnData.Text = "Data";
-            this.btnData.UseVisualStyleBackColor = true;
+            this.btnData.UseVisualStyleBackColor = false;
+            this.btnData.Click += new System.EventHandler(this.BtnData_Click);
             // 
             // panelPMSubMenu
             // 
@@ -208,7 +214,7 @@
             this.panelPMSubMenu.Controls.Add(this.btnIdentities);
             this.panelPMSubMenu.Controls.Add(this.btnOverview);
             this.panelPMSubMenu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelPMSubMenu.Location = new System.Drawing.Point(0, 55);
+            this.panelPMSubMenu.Location = new System.Drawing.Point(0, 45);
             this.panelPMSubMenu.Name = "panelPMSubMenu";
             this.panelPMSubMenu.Size = new System.Drawing.Size(225, 160);
             this.panelPMSubMenu.TabIndex = 1;
@@ -317,7 +323,7 @@
             this.Text = "vIDsafe";
             this.panelMain.ResumeLayout(false);
             this.panelNavigation.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
+            this.panelMiscSubMenu.ResumeLayout(false);
             this.panelDataSubMenu.ResumeLayout(false);
             this.panelPMSubMenu.ResumeLayout(false);
             this.panelProgressBack.ResumeLayout(false);
@@ -343,7 +349,7 @@
         private System.Windows.Forms.Button btnMisc;
         private System.Windows.Forms.Button btnMasterAccount;
         private System.Windows.Forms.Button btnImportExport;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panelMiscSubMenu;
         private System.Windows.Forms.Button btnApplicationSettings;
         private System.Windows.Forms.Button btnLogOut;
         private System.Windows.Forms.Panel panelForm;
