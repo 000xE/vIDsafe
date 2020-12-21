@@ -72,5 +72,20 @@ namespace vIDsafe
         {
             OpenChildForm(new ApplicationSettings());
         }
+
+        private void BtnPasswordManager_Click(object sender, EventArgs e)
+        {
+            panelPMSubMenu.Visible = !panelPMSubMenu.Visible;
+        }
+
+        private void BtnData_Click(object sender, EventArgs e)
+        {
+            panelDataSubMenu.Visible = !panelDataSubMenu.Visible;
+        }
+
+        private void BtnMisc_Click(object sender, EventArgs e)
+        {
+            panelMiscSubMenu.Visible = !panelMiscSubMenu.Visible;
+        }
     }
 }
