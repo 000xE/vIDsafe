@@ -1,0 +1,14 @@
+{
+   "Work": {
+      "Email": "test@gmail.com",
+      "Usage": "General work use"
+   },
+   "Social": {
+      "Email": "test2@gmail.com",
+      "Usage": "For socialising"
+   },
+   "Personal": {
+      "Email": "test3@gmail.com",
+      "Usage": "Bank, etc."
+   }
+}
