@@ -10,20 +10,26 @@ using System.Windows.Forms;
 
 namespace vIDsafe
 {
-    public partial class vIDsafe : Form
+    public partial class Form1 : Form
     {
         public static Form activeForm = null;
         public static Panel formPanel;
 
-        public vIDsafe()
+        public Form1()
         {
             InitializeComponent();
             GetFormComponents();
+            LoadFormComponents();
         }
 
         private void GetFormComponents()
         {
             formPanel = panelForm;
+        }
+
+        private void LoadFormComponents()
+        {
+            OpenChildForm(new Overview());
         }
 
         private static void OpenChildForm(Form childForm)
@@ -61,6 +67,11 @@ namespace vIDsafe
         private void BtnImportExport_Click(object sender, EventArgs e)
         {
             OpenChildForm(new ImportExport());
+        }
+
+        private void BtnGeneratePassword_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new GeneratePassword());
         }
 
         private void BtnMasterAccount_Click(object sender, EventArgs e)
