@@ -15,3 +15,6 @@ D:\Users\Broly\Documents\Coding related\GitHub\1808827-FYP\vIDsafe\bin\Debug\vID
 D:\Users\Broly\Documents\Coding related\GitHub\1808827-FYP\vIDsafe\obj\Debug\vIDsafe.Form1.resources
 D:\Users\Broly\Documents\Coding related\GitHub\1808827-FYP\vIDsafe\obj\Debug\vIDsafe.exe
 D:\Users\Broly\Documents\Coding related\GitHub\1808827-FYP\vIDsafe\obj\Debug\vIDsafe.pdb
+D:\Users\Broly\Documents\Coding related\GitHub\1808827-FYP\vIDsafe\obj\Debug\vIDsafe.Login.resources
+D:\Users\Broly\Documents\Coding related\GitHub\1808827-FYP\vIDsafe\obj\Debug\vIDsafe.vIDsafe.resources
+D:\Users\Broly\Documents\Coding related\GitHub\1808827-FYP\vIDsafe\obj\Debug\vIDsafe.Register.resources

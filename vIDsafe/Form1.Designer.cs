@@ -60,7 +60,7 @@
             // 
             // btnPasswordManager
             // 
-            this.btnPasswordManager.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.btnPasswordManager.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
             this.btnPasswordManager.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnPasswordManager.FlatAppearance.BorderSize = 0;
             this.btnPasswordManager.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -71,7 +71,7 @@
             this.btnPasswordManager.Size = new System.Drawing.Size(225, 45);
             this.btnPasswordManager.TabIndex = 0;
             this.btnPasswordManager.Text = "Password manager";
-            this.btnPasswordManager.UseVisualStyleBackColor = true;
+            this.btnPasswordManager.UseVisualStyleBackColor = false;
             this.btnPasswordManager.Click += new System.EventHandler(this.BtnPasswordManager_Click);
             // 
             // panelMain
@@ -88,6 +88,7 @@
             // 
             // panelNavigation
             // 
+            this.panelNavigation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(26)))), ((int)(((byte)(26)))));
             this.panelNavigation.Controls.Add(this.btnLogOut);
             this.panelNavigation.Controls.Add(this.panelMiscSubMenu);
             this.panelNavigation.Controls.Add(this.btnMisc);
@@ -115,6 +116,7 @@
             this.btnLogOut.TabIndex = 10;
             this.btnLogOut.Text = "Logout";
             this.btnLogOut.UseVisualStyleBackColor = false;
+            this.btnLogOut.Click += new System.EventHandler(this.BtnLogOut_Click);
             // 
             // panelMiscSubMenu
             // 
@@ -127,6 +129,7 @@
             // 
             // btnApplicationSettings
             // 
+            this.btnApplicationSettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(26)))), ((int)(((byte)(26)))));
             this.btnApplicationSettings.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnApplicationSettings.FlatAppearance.BorderSize = 0;
             this.btnApplicationSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -137,12 +140,12 @@
             this.btnApplicationSettings.Size = new System.Drawing.Size(225, 40);
             this.btnApplicationSettings.TabIndex = 9;
             this.btnApplicationSettings.Text = "Application Settings";
-            this.btnApplicationSettings.UseVisualStyleBackColor = true;
+            this.btnApplicationSettings.UseVisualStyleBackColor = false;
             this.btnApplicationSettings.Click += new System.EventHandler(this.BtnApplicationSettings_Click);
             // 
             // btnMisc
             // 
-            this.btnMisc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.btnMisc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
             this.btnMisc.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnMisc.FlatAppearance.BorderSize = 0;
             this.btnMisc.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -153,7 +156,7 @@
             this.btnMisc.Size = new System.Drawing.Size(225, 45);
             this.btnMisc.TabIndex = 8;
             this.btnMisc.Text = "Misc";
-            this.btnMisc.UseVisualStyleBackColor = true;
+            this.btnMisc.UseVisualStyleBackColor = false;
             this.btnMisc.Click += new System.EventHandler(this.BtnMisc_Click);
             // 
             // panelDataSubMenu
@@ -168,6 +171,7 @@
             // 
             // btnMasterAccount
             // 
+            this.btnMasterAccount.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(26)))), ((int)(((byte)(26)))));
             this.btnMasterAccount.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnMasterAccount.FlatAppearance.BorderSize = 0;
             this.btnMasterAccount.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -178,11 +182,12 @@
             this.btnMasterAccount.Size = new System.Drawing.Size(225, 40);
             this.btnMasterAccount.TabIndex = 7;
             this.btnMasterAccount.Text = "Manage master account";
-            this.btnMasterAccount.UseVisualStyleBackColor = true;
+            this.btnMasterAccount.UseVisualStyleBackColor = false;
             this.btnMasterAccount.Click += new System.EventHandler(this.BtnMasterAccount_Click);
             // 
             // btnImportExport
             // 
+            this.btnImportExport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(26)))), ((int)(((byte)(26)))));
             this.btnImportExport.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnImportExport.FlatAppearance.BorderSize = 0;
             this.btnImportExport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -193,12 +198,12 @@
             this.btnImportExport.Size = new System.Drawing.Size(225, 40);
             this.btnImportExport.TabIndex = 6;
             this.btnImportExport.Text = "Import/Export data";
-            this.btnImportExport.UseVisualStyleBackColor = true;
+            this.btnImportExport.UseVisualStyleBackColor = false;
             this.btnImportExport.Click += new System.EventHandler(this.BtnImportExport_Click);
             // 
             // btnData
             // 
-            this.btnData.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.btnData.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
             this.btnData.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnData.FlatAppearance.BorderSize = 0;
             this.btnData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -209,7 +214,7 @@
             this.btnData.Size = new System.Drawing.Size(225, 45);
             this.btnData.TabIndex = 5;
             this.btnData.Text = "Data";
-            this.btnData.UseVisualStyleBackColor = true;
+            this.btnData.UseVisualStyleBackColor = false;
             this.btnData.Click += new System.EventHandler(this.BtnData_Click);
             // 
             // panelPMSubMenu
@@ -226,6 +231,7 @@
             // 
             // btnGeneratePassword
             // 
+            this.btnGeneratePassword.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(26)))), ((int)(((byte)(26)))));
             this.btnGeneratePassword.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnGeneratePassword.FlatAppearance.BorderSize = 0;
             this.btnGeneratePassword.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -236,11 +242,12 @@
             this.btnGeneratePassword.Size = new System.Drawing.Size(225, 40);
             this.btnGeneratePassword.TabIndex = 4;
             this.btnGeneratePassword.Text = "Generate a password";
-            this.btnGeneratePassword.UseVisualStyleBackColor = true;
+            this.btnGeneratePassword.UseVisualStyleBackColor = false;
             this.btnGeneratePassword.Click += new System.EventHandler(this.BtnGeneratePassword_Click);
             // 
             // btnVault
             // 
+            this.btnVault.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(26)))), ((int)(((byte)(26)))));
             this.btnVault.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnVault.FlatAppearance.BorderSize = 0;
             this.btnVault.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -251,11 +258,12 @@
             this.btnVault.Size = new System.Drawing.Size(225, 40);
             this.btnVault.TabIndex = 3;
             this.btnVault.Text = "Vault";
-            this.btnVault.UseVisualStyleBackColor = true;
+            this.btnVault.UseVisualStyleBackColor = false;
             this.btnVault.Click += new System.EventHandler(this.BtnVault_Click);
             // 
             // btnIdentities
             // 
+            this.btnIdentities.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(26)))), ((int)(((byte)(26)))));
             this.btnIdentities.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnIdentities.FlatAppearance.BorderSize = 0;
             this.btnIdentities.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -266,11 +274,12 @@
             this.btnIdentities.Size = new System.Drawing.Size(225, 40);
             this.btnIdentities.TabIndex = 2;
             this.btnIdentities.Text = "Identities";
-            this.btnIdentities.UseVisualStyleBackColor = true;
+            this.btnIdentities.UseVisualStyleBackColor = false;
             this.btnIdentities.Click += new System.EventHandler(this.BtnIdentities_Click);
             // 
             // btnOverview
             // 
+            this.btnOverview.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(26)))), ((int)(((byte)(26)))));
             this.btnOverview.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnOverview.FlatAppearance.BorderSize = 0;
             this.btnOverview.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -281,7 +290,7 @@
             this.btnOverview.Size = new System.Drawing.Size(225, 40);
             this.btnOverview.TabIndex = 1;
             this.btnOverview.Text = "Overview";
-            this.btnOverview.UseVisualStyleBackColor = true;
+            this.btnOverview.UseVisualStyleBackColor = false;
             this.btnOverview.Click += new System.EventHandler(this.BtnOverview_Click);
             // 
             // panelProgressBack
@@ -315,7 +324,7 @@
             // 
             // lblMAName
             // 
-            this.lblMAName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
+            this.lblMAName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(26)))), ((int)(((byte)(26)))));
             this.lblMAName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblMAName.Font = new System.Drawing.Font("Segoe UI", 14.25F);
             this.lblMAName.ForeColor = System.Drawing.Color.White;
