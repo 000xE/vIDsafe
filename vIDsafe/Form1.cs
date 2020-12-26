@@ -98,5 +98,13 @@ namespace vIDsafe
         {
             panelMiscSubMenu.Visible = !panelMiscSubMenu.Visible;
         }
+
+        private void BtnLogOut_Click(object sender, EventArgs e)
+        {
+            Login loginForm = new Login();
+
+            loginForm.Show();
+            this.Close();
+        }
     }
 }

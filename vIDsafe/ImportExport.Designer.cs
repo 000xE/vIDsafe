@@ -44,31 +44,29 @@
             this.panelTitle.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTitle.Location = new System.Drawing.Point(25, 25);
             this.panelTitle.Name = "panelTitle";
-            this.panelTitle.Size = new System.Drawing.Size(885, 61);
+            this.panelTitle.Padding = new System.Windows.Forms.Padding(0, 0, 0, 25);
+            this.panelTitle.Size = new System.Drawing.Size(885, 67);
             this.panelTitle.TabIndex = 7;
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
             this.label2.Dock = System.Windows.Forms.DockStyle.Top;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label2.ForeColor = System.Drawing.Color.DarkGray;
             this.label2.Location = new System.Drawing.Point(0, 21);
             this.label2.Name = "label2";
-            this.label2.Padding = new System.Windows.Forms.Padding(0, 0, 0, 25);
-            this.label2.Size = new System.Drawing.Size(136, 40);
+            this.label2.Size = new System.Drawing.Size(885, 21);
             this.label2.TabIndex = 4;
             this.label2.Text = "Make your data portable";
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
             this.label1.Dock = System.Windows.Forms.DockStyle.Top;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.label1.ForeColor = System.Drawing.Color.Gainsboro;
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(119, 21);
+            this.label1.Size = new System.Drawing.Size(885, 21);
             this.label1.TabIndex = 3;
             this.label1.Text = "Import/Export";
             // 
@@ -92,7 +90,6 @@
             this.Name = "ImportExport";
             this.Text = "ImportExport";
             this.panelTitle.ResumeLayout(false);
-            this.panelTitle.PerformLayout();
             this.panelBack.ResumeLayout(false);
             this.panelBack.PerformLayout();
             this.ResumeLayout(false);

@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Windows.Media;
 
 namespace vIDsafe
 {
@@ -13,7 +14,12 @@ namespace vIDsafe
         public Overview()
         {
             InitializeComponent();
+            LoadTestGraph();
         }
 
+        void LoadTestGraph()
+        {
+
+        }
     }
 }
