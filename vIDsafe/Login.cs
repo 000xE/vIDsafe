@@ -17,15 +17,21 @@ namespace vIDsafe
             InitializeComponent();
         }
 
-        private void BtnLogin_Click(object sender, EventArgs e)
+        private void testOpen()
+
+        {
+
+        }
+
+        private void btnLogin_Click(object sender, EventArgs e)
         {
             Form1 form = new Form1();
             form.Show();
         }
 
-        private void BtnRegister_Click(object sender, EventArgs e)
+        private void btnRegister_Click(object sender, EventArgs e)
         {
-            vIDsafe.OpenChildForm(new Register());
+            vIDsafe.openChildForm(new Register());
         }
     }
 }

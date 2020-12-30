@@ -10,7 +10,9 @@ using System.Windows.Forms;
 
 namespace vIDsafe
 {
+#pragma warning disable IDE1006 // Naming Styles
     public partial class vIDsafe : Form
+#pragma warning restore IDE1006 // Naming Styles
     {
         public static Form activeForm = null;
         public static Panel formPanel;
@@ -18,21 +20,21 @@ namespace vIDsafe
         public vIDsafe()
         {
             InitializeComponent();
-            GetFormComponents();
-            LoadFormComponents();
+            getFormComponents();
+            loadFormComponents();
         }
 
-        private void GetFormComponents()
+        private void getFormComponents()
         {
             formPanel = panelForm;
         }
 
-        private void LoadFormComponents()
+        private void loadFormComponents()
         {
-            OpenChildForm(new Login());
+            openChildForm(new Login());
         }
 
-        public static void OpenChildForm(Form childForm)
+        public static void openChildForm(Form childForm)
         {
             if (activeForm != null)
             {
@@ -47,6 +49,10 @@ namespace vIDsafe
             formPanel.Tag = childForm;
             childForm.BringToFront();
             childForm.Show();
+        }
+
+        internal class CustomButton
+        {
         }
     }
 }
