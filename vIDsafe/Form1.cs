@@ -18,21 +18,21 @@ namespace vIDsafe
         public Form1()
         {
             InitializeComponent();
-            GetFormComponents();
-            LoadFormComponents();
+            getFormComponents();
+            loadFormComponents();
         }
 
-        private void GetFormComponents()
+        private void getFormComponents()
         {
             formPanel = panelForm;
         }
 
-        private void LoadFormComponents()
+        private void loadFormComponents()
         {
-            OpenChildForm(new Overview());
+            openChildForm(new Overview());
         }
 
-        private static void OpenChildForm(Form childForm)
+        private static void openChildForm(Form childForm)
         {
             if (activeForm != null)
             {
@@ -49,62 +49,103 @@ namespace vIDsafe
             childForm.Show();
         }
 
-        private void BtnOverview_Click(object sender, EventArgs e)
+        private void changeSelectedButton(object sender)
         {
-            OpenChildForm(new Overview());
+            Button selectedButton = (Button)sender;
+            selectedButton.ForeColor = Color.Black;
+            //selectedButton.BackColor = Color.FromArgb(47, 47, 47);
+            selectedButton.BackColor = Color.Gainsboro;
+
+            Control navPanel = Controls.Find("panelNavigation", true)[0];
+
+            foreach (Control mainControls in navPanel.Controls)
+            {
+                foreach (Control navigationControls in mainControls.Controls)
+                {
+                    if (navigationControls.Tag != null)
+                    {
+                        if (navigationControls.Tag.ToString() == "navButton")
+                        {
+                            if (navigationControls != selectedButton)
+                            {
+                                navigationControls.ForeColor = Color.FromArgb(204, 204, 204);
+                                //navigationControls.BackColor = Color.FromArgb(26, 26, 26);
+                                navigationControls.BackColor = Color.FromArgb(32, 32, 32);
+                            }
+                        }
+                    }
+                }
+            }
         }
 
-        private void BtnIdentities_Click(object sender, EventArgs e)
+        private void btnOverview_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new Identities());
+            changeSelectedButton(sender);
+            openChildForm(new Overview());
         }
 
-        private void BtnVault_Click(object sender, EventArgs e)
+        private void btnIdentities_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new Vault());
+            changeSelectedButton(sender);
+            openChildForm(new Identities());
         }
 
-        private void BtnImportExport_Click(object sender, EventArgs e)
+        private void btnVault_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new ImportExport());
+            changeSelectedButton(sender);
+            openChildForm(new Vault());
         }
 
-        private void BtnGeneratePassword_Click(object sender, EventArgs e)
+        private void btnImportExport_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new GeneratePassword());
+            changeSelectedButton(sender);
+            openChildForm(new ImportExport());
         }
 
-        private void BtnMasterAccount_Click(object sender, EventArgs e)
+        private void btnGeneratePassword_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new MasterAccount());
+            changeSelectedButton(sender);
+            openChildForm(new GeneratePassword());
         }
 
-        private void BtnApplicationSettings_Click(object sender, EventArgs e)
+        private void btnMasterAccount_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new ApplicationSettings());
+            changeSelectedButton(sender);
+            openChildForm(new MasterAccount());
         }
 
-        private void BtnPasswordManager_Click(object sender, EventArgs e)
+        private void btnApplicationSettings_Click(object sender, EventArgs e)
+        {
+            changeSelectedButton(sender);
+            openChildForm(new ApplicationSettings());
+        }
+
+        private void btnPasswordManager_Click(object sender, EventArgs e)
         {
             panelPMSubMenu.Visible = !panelPMSubMenu.Visible;
         }
 
-        private void BtnData_Click(object sender, EventArgs e)
+        private void btnData_Click(object sender, EventArgs e)
         {
             panelDataSubMenu.Visible = !panelDataSubMenu.Visible;
         }
 
-        private void BtnMisc_Click(object sender, EventArgs e)
+        private void btnMisc_Click(object sender, EventArgs e)
         {
             panelMiscSubMenu.Visible = !panelMiscSubMenu.Visible;
         }
 
-        private void BtnLogOut_Click(object sender, EventArgs e)
+        private void btnLogOut_Click(object sender, EventArgs e)
         {
-            Login loginForm = new Login();
+            vIDsafe loginForm = new vIDsafe();
 
             loginForm.Show();
-            this.Close();
+            Close();
+        }
+
+        private void panelNavigation_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

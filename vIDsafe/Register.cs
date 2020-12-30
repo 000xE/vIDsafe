@@ -17,14 +17,14 @@ namespace vIDsafe
             InitializeComponent();
         }
 
-        private void BtnRegister_Click(object sender, EventArgs e)
+        private void btnRegister_Click(object sender, EventArgs e)
         {
-            vIDsafe.OpenChildForm(new Login());
+            vIDsafe.openChildForm(new Login());
         }
 
-        private void BtnLogin_Click(object sender, EventArgs e)
+        private void btnLogin_Click(object sender, EventArgs e)
         {
-            vIDsafe.OpenChildForm(new Login());
+            vIDsafe.openChildForm(new Login());
         }
     }
 }

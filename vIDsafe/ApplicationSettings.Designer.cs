@@ -87,6 +87,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(935, 557);
             this.Controls.Add(this.panelBack);
+            this.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.Name = "ApplicationSettings";
             this.Text = "ApplicationSettings";
             this.panelTitle.ResumeLayout(false);
