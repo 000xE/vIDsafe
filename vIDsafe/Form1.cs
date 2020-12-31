@@ -15,6 +15,8 @@ namespace vIDsafe
         public static Form activeForm = null;
         public static Panel formPanel;
 
+        public static Control.ControlCollection controls = null;
+
         public Form1()
         {
             InitializeComponent();
@@ -25,6 +27,7 @@ namespace vIDsafe
         private void getFormComponents()
         {
             formPanel = panelForm;
+            controls = Controls;
         }
 
         private void loadFormComponents()
@@ -32,7 +35,7 @@ namespace vIDsafe
             openChildForm(new Overview());
         }
 
-        private static void openChildForm(Form childForm)
+        public static void openChildForm(Form childForm)
         {
             if (activeForm != null)
             {
@@ -49,14 +52,14 @@ namespace vIDsafe
             childForm.Show();
         }
 
-        private void changeSelectedButton(object sender)
+        public static void changeSelectedButton(object sender)
         {
             Button selectedButton = (Button)sender;
             selectedButton.ForeColor = Color.Black;
             //selectedButton.BackColor = Color.FromArgb(47, 47, 47);
             selectedButton.BackColor = Color.Gainsboro;
 
-            Control navPanel = Controls.Find("panelNavigation", true)[0];
+            Control navPanel = controls.Find("panelNavigation", true)[0];
 
             foreach (Control mainControls in navPanel.Controls)
             {

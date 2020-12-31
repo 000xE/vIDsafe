@@ -150,14 +150,14 @@
             // 
             // panel6
             // 
-            this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
+            this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
             this.panel6.Controls.Add(this.panel10);
             this.panel6.Controls.Add(this.label3);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel6.Location = new System.Drawing.Point(10, 390);
+            this.panel6.Location = new System.Drawing.Point(10, 320);
             this.panel6.Name = "panel6";
             this.panel6.Padding = new System.Windows.Forms.Padding(25);
-            this.panel6.Size = new System.Drawing.Size(962, 167);
+            this.panel6.Size = new System.Drawing.Size(962, 237);
             this.panel6.TabIndex = 16;
             // 
             // panel10
@@ -167,7 +167,7 @@
             this.panel10.Location = new System.Drawing.Point(25, 43);
             this.panel10.Name = "panel10";
             this.panel10.Padding = new System.Windows.Forms.Padding(0, 25, 0, 0);
-            this.panel10.Size = new System.Drawing.Size(912, 99);
+            this.panel10.Size = new System.Drawing.Size(912, 169);
             this.panel10.TabIndex = 6;
             // 
             // listBox1
@@ -180,7 +180,7 @@
             this.listBox1.FormattingEnabled = true;
             this.listBox1.Location = new System.Drawing.Point(0, 25);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(912, 74);
+            this.listBox1.Size = new System.Drawing.Size(912, 144);
             this.listBox1.TabIndex = 0;
             // 
             // label3
@@ -207,7 +207,7 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(962, 390);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(962, 320);
             this.tableLayoutPanel2.TabIndex = 10;
             // 
             // panel1
@@ -222,7 +222,7 @@
             this.panel1.Location = new System.Drawing.Point(484, 3);
             this.panel1.Name = "panel1";
             this.panel1.Padding = new System.Windows.Forms.Padding(25);
-            this.panel1.Size = new System.Drawing.Size(475, 384);
+            this.panel1.Size = new System.Drawing.Size(475, 314);
             this.panel1.TabIndex = 9;
             // 
             // panel4
@@ -234,25 +234,25 @@
             this.panel4.Location = new System.Drawing.Point(25, 47);
             this.panel4.Name = "panel4";
             this.panel4.Padding = new System.Windows.Forms.Padding(0, 25, 0, 0);
-            this.panel4.Size = new System.Drawing.Size(425, 112);
+            this.panel4.Size = new System.Drawing.Size(425, 92);
             this.panel4.TabIndex = 9;
             // 
             // comboBox3
             // 
-            this.comboBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.comboBox3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.comboBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(152, 59);
+            this.comboBox3.Location = new System.Drawing.Point(152, 48);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(121, 21);
             this.comboBox3.TabIndex = 2;
             // 
             // comboBox2
             // 
-            this.comboBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.comboBox2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.comboBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(152, 32);
+            this.comboBox2.Location = new System.Drawing.Point(152, 21);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(121, 21);
             this.comboBox2.TabIndex = 1;
@@ -277,9 +277,9 @@
             this.panel11.Controls.Add(this.radioButton3);
             this.panel11.Controls.Add(this.radioButton4);
             this.panel11.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel11.Location = new System.Drawing.Point(25, 159);
+            this.panel11.Location = new System.Drawing.Point(25, 139);
             this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(425, 100);
+            this.panel11.Size = new System.Drawing.Size(425, 50);
             this.panel11.TabIndex = 10;
             // 
             // radioButton3
@@ -288,7 +288,7 @@
             this.radioButton3.AutoSize = true;
             this.radioButton3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioButton3.ForeColor = System.Drawing.Color.Gainsboro;
-            this.radioButton3.Location = new System.Drawing.Point(224, 42);
+            this.radioButton3.Location = new System.Drawing.Point(224, 17);
             this.radioButton3.Name = "radioButton3";
             this.radioButton3.Size = new System.Drawing.Size(64, 17);
             this.radioButton3.TabIndex = 3;
@@ -302,7 +302,7 @@
             this.radioButton4.AutoSize = true;
             this.radioButton4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioButton4.ForeColor = System.Drawing.Color.Gainsboro;
-            this.radioButton4.Location = new System.Drawing.Point(137, 42);
+            this.radioButton4.Location = new System.Drawing.Point(137, 17);
             this.radioButton4.Name = "radioButton4";
             this.radioButton4.Size = new System.Drawing.Size(81, 17);
             this.radioButton4.TabIndex = 2;
@@ -316,7 +316,7 @@
             this.panel12.Controls.Add(this.button3);
             this.panel12.Controls.Add(this.button2);
             this.panel12.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel12.Location = new System.Drawing.Point(25, 259);
+            this.panel12.Location = new System.Drawing.Point(25, 189);
             this.panel12.Name = "panel12";
             this.panel12.Size = new System.Drawing.Size(425, 100);
             this.panel12.TabIndex = 11;
@@ -364,7 +364,7 @@
             this.panel2.Location = new System.Drawing.Point(3, 3);
             this.panel2.Name = "panel2";
             this.panel2.Padding = new System.Windows.Forms.Padding(25);
-            this.panel2.Size = new System.Drawing.Size(475, 384);
+            this.panel2.Size = new System.Drawing.Size(475, 314);
             this.panel2.TabIndex = 8;
             // 
             // panel5
@@ -375,15 +375,15 @@
             this.panel5.Location = new System.Drawing.Point(25, 47);
             this.panel5.Name = "panel5";
             this.panel5.Padding = new System.Windows.Forms.Padding(0, 25, 0, 0);
-            this.panel5.Size = new System.Drawing.Size(425, 112);
+            this.panel5.Size = new System.Drawing.Size(425, 92);
             this.panel5.TabIndex = 9;
             // 
             // comboBox1
             // 
-            this.comboBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.comboBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(152, 46);
+            this.comboBox1.Location = new System.Drawing.Point(152, 36);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 21);
             this.comboBox1.TabIndex = 0;
@@ -408,9 +408,9 @@
             this.panel7.Controls.Add(this.radioButton2);
             this.panel7.Controls.Add(this.radioButton1);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel7.Location = new System.Drawing.Point(25, 159);
+            this.panel7.Location = new System.Drawing.Point(25, 139);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(425, 100);
+            this.panel7.Size = new System.Drawing.Size(425, 50);
             this.panel7.TabIndex = 10;
             // 
             // radioButton2
@@ -419,7 +419,7 @@
             this.radioButton2.AutoSize = true;
             this.radioButton2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioButton2.ForeColor = System.Drawing.Color.Gainsboro;
-            this.radioButton2.Location = new System.Drawing.Point(210, 42);
+            this.radioButton2.Location = new System.Drawing.Point(210, 17);
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(101, 17);
             this.radioButton2.TabIndex = 3;
@@ -433,7 +433,7 @@
             this.radioButton1.AutoSize = true;
             this.radioButton1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioButton1.ForeColor = System.Drawing.Color.Gainsboro;
-            this.radioButton1.Location = new System.Drawing.Point(113, 42);
+            this.radioButton1.Location = new System.Drawing.Point(113, 17);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(91, 17);
             this.radioButton1.TabIndex = 2;
@@ -447,7 +447,7 @@
             this.panel9.Controls.Add(this.button1);
             this.panel9.Controls.Add(this.button4);
             this.panel9.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel9.Location = new System.Drawing.Point(25, 259);
+            this.panel9.Location = new System.Drawing.Point(25, 189);
             this.panel9.Name = "panel9";
             this.panel9.Size = new System.Drawing.Size(425, 100);
             this.panel9.TabIndex = 11;
