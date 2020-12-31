@@ -32,9 +32,6 @@
             this.panelMain = new System.Windows.Forms.Panel();
             this.panelNavigation = new System.Windows.Forms.Panel();
             this.btnLogOut = new System.Windows.Forms.Button();
-            this.panelMiscSubMenu = new System.Windows.Forms.Panel();
-            this.btnApplicationSettings = new System.Windows.Forms.Button();
-            this.btnMisc = new System.Windows.Forms.Button();
             this.panelDataSubMenu = new System.Windows.Forms.Panel();
             this.btnMasterAccount = new System.Windows.Forms.Button();
             this.btnImportExport = new System.Windows.Forms.Button();
@@ -49,18 +46,35 @@
             this.panelMasterName = new System.Windows.Forms.Panel();
             this.lblMAName = new System.Windows.Forms.Label();
             this.panelForm = new System.Windows.Forms.Panel();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lockToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.windowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hideToTrayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.onCloseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.onMinimiseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.alwaysOnTopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.themeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
+            this.timeoutsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clipboardTimeoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
+            this.vaultTimeoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripTextBox2 = new System.Windows.Forms.ToolStripTextBox();
+            this.onStartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelMain.SuspendLayout();
             this.panelNavigation.SuspendLayout();
-            this.panelMiscSubMenu.SuspendLayout();
             this.panelDataSubMenu.SuspendLayout();
             this.panelPMSubMenu.SuspendLayout();
             this.panelProgressBack.SuspendLayout();
             this.panelMasterName.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnPasswordManager
             // 
-            this.btnPasswordManager.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.btnPasswordManager.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(59)))), ((int)(((byte)(66)))));
             this.btnPasswordManager.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnPasswordManager.FlatAppearance.BorderSize = 0;
             this.btnPasswordManager.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -81,17 +95,15 @@
             this.panelMain.Controls.Add(this.panelProgressBack);
             this.panelMain.Controls.Add(this.panelMasterName);
             this.panelMain.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelMain.Location = new System.Drawing.Point(0, 0);
+            this.panelMain.Location = new System.Drawing.Point(0, 24);
             this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new System.Drawing.Size(225, 681);
+            this.panelMain.Size = new System.Drawing.Size(225, 657);
             this.panelMain.TabIndex = 0;
             // 
             // panelNavigation
             // 
-            this.panelNavigation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.panelNavigation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
             this.panelNavigation.Controls.Add(this.btnLogOut);
-            this.panelNavigation.Controls.Add(this.panelMiscSubMenu);
-            this.panelNavigation.Controls.Add(this.btnMisc);
             this.panelNavigation.Controls.Add(this.panelDataSubMenu);
             this.panelNavigation.Controls.Add(this.btnData);
             this.panelNavigation.Controls.Add(this.panelPMSubMenu);
@@ -99,9 +111,8 @@
             this.panelNavigation.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelNavigation.Location = new System.Drawing.Point(0, 135);
             this.panelNavigation.Name = "panelNavigation";
-            this.panelNavigation.Size = new System.Drawing.Size(225, 546);
+            this.panelNavigation.Size = new System.Drawing.Size(225, 522);
             this.panelNavigation.TabIndex = 2;
-            this.panelNavigation.Paint += new System.Windows.Forms.PaintEventHandler(this.panelNavigation_Paint);
             // 
             // btnLogOut
             // 
@@ -111,55 +122,13 @@
             this.btnLogOut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLogOut.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLogOut.ForeColor = System.Drawing.Color.White;
-            this.btnLogOut.Location = new System.Drawing.Point(0, 506);
+            this.btnLogOut.Location = new System.Drawing.Point(0, 482);
             this.btnLogOut.Name = "btnLogOut";
             this.btnLogOut.Size = new System.Drawing.Size(225, 40);
             this.btnLogOut.TabIndex = 10;
             this.btnLogOut.Text = "Logout";
             this.btnLogOut.UseVisualStyleBackColor = false;
             this.btnLogOut.Click += new System.EventHandler(this.btnLogOut_Click);
-            // 
-            // panelMiscSubMenu
-            // 
-            this.panelMiscSubMenu.Controls.Add(this.btnApplicationSettings);
-            this.panelMiscSubMenu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelMiscSubMenu.Location = new System.Drawing.Point(0, 375);
-            this.panelMiscSubMenu.Name = "panelMiscSubMenu";
-            this.panelMiscSubMenu.Size = new System.Drawing.Size(225, 40);
-            this.panelMiscSubMenu.TabIndex = 3;
-            // 
-            // btnApplicationSettings
-            // 
-            this.btnApplicationSettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.btnApplicationSettings.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnApplicationSettings.FlatAppearance.BorderSize = 0;
-            this.btnApplicationSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnApplicationSettings.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnApplicationSettings.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
-            this.btnApplicationSettings.Location = new System.Drawing.Point(0, 0);
-            this.btnApplicationSettings.Name = "btnApplicationSettings";
-            this.btnApplicationSettings.Size = new System.Drawing.Size(225, 40);
-            this.btnApplicationSettings.TabIndex = 9;
-            this.btnApplicationSettings.Tag = "navButton";
-            this.btnApplicationSettings.Text = "Application Settings";
-            this.btnApplicationSettings.UseVisualStyleBackColor = false;
-            this.btnApplicationSettings.Click += new System.EventHandler(this.btnApplicationSettings_Click);
-            // 
-            // btnMisc
-            // 
-            this.btnMisc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.btnMisc.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnMisc.FlatAppearance.BorderSize = 0;
-            this.btnMisc.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMisc.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            this.btnMisc.ForeColor = System.Drawing.Color.White;
-            this.btnMisc.Location = new System.Drawing.Point(0, 330);
-            this.btnMisc.Name = "btnMisc";
-            this.btnMisc.Size = new System.Drawing.Size(225, 45);
-            this.btnMisc.TabIndex = 8;
-            this.btnMisc.Text = "Misc";
-            this.btnMisc.UseVisualStyleBackColor = false;
-            this.btnMisc.Click += new System.EventHandler(this.btnMisc_Click);
             // 
             // panelDataSubMenu
             // 
@@ -173,7 +142,7 @@
             // 
             // btnMasterAccount
             // 
-            this.btnMasterAccount.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.btnMasterAccount.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
             this.btnMasterAccount.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnMasterAccount.FlatAppearance.BorderSize = 0;
             this.btnMasterAccount.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -190,7 +159,7 @@
             // 
             // btnImportExport
             // 
-            this.btnImportExport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.btnImportExport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
             this.btnImportExport.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnImportExport.FlatAppearance.BorderSize = 0;
             this.btnImportExport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -207,7 +176,7 @@
             // 
             // btnData
             // 
-            this.btnData.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.btnData.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(59)))), ((int)(((byte)(66)))));
             this.btnData.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnData.FlatAppearance.BorderSize = 0;
             this.btnData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -235,7 +204,7 @@
             // 
             // btnGeneratePassword
             // 
-            this.btnGeneratePassword.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.btnGeneratePassword.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
             this.btnGeneratePassword.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnGeneratePassword.FlatAppearance.BorderSize = 0;
             this.btnGeneratePassword.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -252,7 +221,7 @@
             // 
             // btnVault
             // 
-            this.btnVault.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.btnVault.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
             this.btnVault.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnVault.FlatAppearance.BorderSize = 0;
             this.btnVault.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -269,7 +238,7 @@
             // 
             // btnIdentities
             // 
-            this.btnIdentities.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.btnIdentities.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
             this.btnIdentities.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnIdentities.FlatAppearance.BorderSize = 0;
             this.btnIdentities.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -345,12 +314,167 @@
             // 
             // panelForm
             // 
-            this.panelForm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.panelForm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(49)))), ((int)(((byte)(56)))));
             this.panelForm.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelForm.Location = new System.Drawing.Point(225, 0);
+            this.panelForm.Location = new System.Drawing.Point(225, 24);
             this.panelForm.Name = "panelForm";
-            this.panelForm.Size = new System.Drawing.Size(839, 681);
+            this.panelForm.Size = new System.Drawing.Size(839, 657);
             this.panelForm.TabIndex = 1;
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lockToolStripMenuItem});
+            this.fileToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // lockToolStripMenuItem
+            // 
+            this.lockToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.lockToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
+            this.lockToolStripMenuItem.Name = "lockToolStripMenuItem";
+            this.lockToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
+            this.lockToolStripMenuItem.Text = "Lock";
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.windowToolStripMenuItem,
+            this.settingsToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1064, 24);
+            this.menuStrip1.TabIndex = 2;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // windowToolStripMenuItem
+            // 
+            this.windowToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.hideToTrayToolStripMenuItem,
+            this.alwaysOnTopToolStripMenuItem});
+            this.windowToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
+            this.windowToolStripMenuItem.Name = "windowToolStripMenuItem";
+            this.windowToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
+            this.windowToolStripMenuItem.Text = "Window";
+            // 
+            // hideToTrayToolStripMenuItem
+            // 
+            this.hideToTrayToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.hideToTrayToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.onCloseToolStripMenuItem,
+            this.onMinimiseToolStripMenuItem,
+            this.onStartToolStripMenuItem});
+            this.hideToTrayToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
+            this.hideToTrayToolStripMenuItem.Name = "hideToTrayToolStripMenuItem";
+            this.hideToTrayToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.hideToTrayToolStripMenuItem.Text = "Hide to tray";
+            // 
+            // onCloseToolStripMenuItem
+            // 
+            this.onCloseToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.onCloseToolStripMenuItem.CheckOnClick = true;
+            this.onCloseToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
+            this.onCloseToolStripMenuItem.Name = "onCloseToolStripMenuItem";
+            this.onCloseToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.onCloseToolStripMenuItem.Text = "On close";
+            // 
+            // onMinimiseToolStripMenuItem
+            // 
+            this.onMinimiseToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.onMinimiseToolStripMenuItem.CheckOnClick = true;
+            this.onMinimiseToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
+            this.onMinimiseToolStripMenuItem.Name = "onMinimiseToolStripMenuItem";
+            this.onMinimiseToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.onMinimiseToolStripMenuItem.Text = "On minimise";
+            // 
+            // alwaysOnTopToolStripMenuItem
+            // 
+            this.alwaysOnTopToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.alwaysOnTopToolStripMenuItem.CheckOnClick = true;
+            this.alwaysOnTopToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
+            this.alwaysOnTopToolStripMenuItem.Name = "alwaysOnTopToolStripMenuItem";
+            this.alwaysOnTopToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.alwaysOnTopToolStripMenuItem.Text = "Always on top";
+            // 
+            // settingsToolStripMenuItem
+            // 
+            this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.themeToolStripMenuItem,
+            this.timeoutsToolStripMenuItem});
+            this.settingsToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.settingsToolStripMenuItem.Text = "Settings";
+            // 
+            // themeToolStripMenuItem
+            // 
+            this.themeToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.themeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripComboBox1});
+            this.themeToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
+            this.themeToolStripMenuItem.Name = "themeToolStripMenuItem";
+            this.themeToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.themeToolStripMenuItem.Text = "Theme";
+            // 
+            // toolStripComboBox1
+            // 
+            this.toolStripComboBox1.Name = "toolStripComboBox1";
+            this.toolStripComboBox1.Size = new System.Drawing.Size(121, 23);
+            // 
+            // timeoutsToolStripMenuItem
+            // 
+            this.timeoutsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.timeoutsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.clipboardTimeoutToolStripMenuItem,
+            this.vaultTimeoutToolStripMenuItem});
+            this.timeoutsToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
+            this.timeoutsToolStripMenuItem.Name = "timeoutsToolStripMenuItem";
+            this.timeoutsToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.timeoutsToolStripMenuItem.Text = "Timeouts";
+            // 
+            // clipboardTimeoutToolStripMenuItem
+            // 
+            this.clipboardTimeoutToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.clipboardTimeoutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripTextBox1});
+            this.clipboardTimeoutToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
+            this.clipboardTimeoutToolStripMenuItem.Name = "clipboardTimeoutToolStripMenuItem";
+            this.clipboardTimeoutToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.clipboardTimeoutToolStripMenuItem.Text = "Clipboard timeout";
+            // 
+            // toolStripTextBox1
+            // 
+            this.toolStripTextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.toolStripTextBox1.Name = "toolStripTextBox1";
+            this.toolStripTextBox1.Size = new System.Drawing.Size(100, 23);
+            // 
+            // vaultTimeoutToolStripMenuItem
+            // 
+            this.vaultTimeoutToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.vaultTimeoutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripTextBox2});
+            this.vaultTimeoutToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
+            this.vaultTimeoutToolStripMenuItem.Name = "vaultTimeoutToolStripMenuItem";
+            this.vaultTimeoutToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.vaultTimeoutToolStripMenuItem.Text = "Vault timeout";
+            // 
+            // toolStripTextBox2
+            // 
+            this.toolStripTextBox2.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.toolStripTextBox2.Name = "toolStripTextBox2";
+            this.toolStripTextBox2.Size = new System.Drawing.Size(100, 23);
+            // 
+            // onStartToolStripMenuItem
+            // 
+            this.onStartToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.onStartToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
+            this.onStartToolStripMenuItem.Name = "onStartToolStripMenuItem";
+            this.onStartToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.onStartToolStripMenuItem.Text = "On start";
             // 
             // Form1
             // 
@@ -359,7 +483,9 @@
             this.ClientSize = new System.Drawing.Size(1064, 681);
             this.Controls.Add(this.panelForm);
             this.Controls.Add(this.panelMain);
+            this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(1080, 720);
             this.Name = "Form1";
             this.ShowIcon = false;
@@ -367,12 +493,14 @@
             this.Text = "vIDsafe";
             this.panelMain.ResumeLayout(false);
             this.panelNavigation.ResumeLayout(false);
-            this.panelMiscSubMenu.ResumeLayout(false);
             this.panelDataSubMenu.ResumeLayout(false);
             this.panelPMSubMenu.ResumeLayout(false);
             this.panelProgressBack.ResumeLayout(false);
             this.panelMasterName.ResumeLayout(false);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -391,14 +519,28 @@
         private System.Windows.Forms.Button btnVault;
         private System.Windows.Forms.Panel panelDataSubMenu;
         private System.Windows.Forms.Button btnData;
-        private System.Windows.Forms.Button btnMisc;
         private System.Windows.Forms.Button btnMasterAccount;
         private System.Windows.Forms.Button btnImportExport;
-        private System.Windows.Forms.Panel panelMiscSubMenu;
-        private System.Windows.Forms.Button btnApplicationSettings;
         private System.Windows.Forms.Button btnLogOut;
         private System.Windows.Forms.Panel panelForm;
         private System.Windows.Forms.Label lblMAName;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem windowToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem hideToTrayToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem onCloseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem onMinimiseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem alwaysOnTopToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem themeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
+        private System.Windows.Forms.ToolStripMenuItem timeoutsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clipboardTimeoutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
+        private System.Windows.Forms.ToolStripMenuItem vaultTimeoutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripTextBox toolStripTextBox2;
+        private System.Windows.Forms.ToolStripMenuItem lockToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem onStartToolStripMenuItem;
     }
 }
 

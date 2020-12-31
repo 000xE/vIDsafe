@@ -52,12 +52,6 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationSettings.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ApplicationSettings.Designer.cs">
-      <DependentUpon>ApplicationSettings.cs</DependentUpon>
-    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -120,9 +114,6 @@
     <Compile Include="vIDsafe.Designer.cs">
       <DependentUpon>vIDsafe.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="ApplicationSettings.resx">
-      <DependentUpon>ApplicationSettings.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
