@@ -25,22 +25,22 @@ namespace vIDsafe
             chart1.Series["Credentials"].Points[3].SetValueXY("Compromised", 17);
 
             chart1.Series["Credentials"].IsValueShownAsLabel = true;
-
-
         }
 
         private void chart1_PrePaint(object sender, System.Windows.Forms.DataVisualization.Charting.ChartPaintEventArgs e)
         {
             if (e.ChartElement is System.Windows.Forms.DataVisualization.Charting.ChartArea)
             {
-                var ta = new System.Windows.Forms.DataVisualization.Charting.TextAnnotation();
-                ta.Text = "200";
-                ta.Width = e.Position.Width;
-                ta.Height = e.Position.Height;
-                ta.X = e.Position.X-(ta.Width/100);
-                ta.Y = e.Position.Y;
-                ta.Font = new Font("Segoe UI", 12, FontStyle.Bold);
-                ta.ForeColor = Color.Gainsboro;
+                var ta = new System.Windows.Forms.DataVisualization.Charting.TextAnnotation
+                {
+                    Text = "200",
+                    Width = e.Position.Width,
+                    Height = e.Position.Height,
+                    X = e.Position.X - (e.Position.Width / 100),
+                    Y = e.Position.Y,
+                    Font = new Font("Segoe UI", 12, FontStyle.Bold),
+                    ForeColor = Color.Gainsboro
+                };
                 //ta.Alignment = ContentAlignment.MiddleCenter;
 
                 chart1.Annotations.Clear();
