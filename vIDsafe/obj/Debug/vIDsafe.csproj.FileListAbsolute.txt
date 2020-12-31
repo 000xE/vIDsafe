@@ -1,5 +1,4 @@
 D:\Users\Broly\Documents\Coding related\GitHub\1808827-FYP\vIDsafe\obj\Debug\vIDsafe.csprojAssemblyReference.cache
-D:\Users\Broly\Documents\Coding related\GitHub\1808827-FYP\vIDsafe\obj\Debug\vIDsafe.ApplicationSettings.resources
 D:\Users\Broly\Documents\Coding related\GitHub\1808827-FYP\vIDsafe\obj\Debug\vIDsafe.GeneratePassword.resources
 D:\Users\Broly\Documents\Coding related\GitHub\1808827-FYP\vIDsafe\obj\Debug\vIDsafe.Identities.resources
 D:\Users\Broly\Documents\Coding related\GitHub\1808827-FYP\vIDsafe\obj\Debug\vIDsafe.ImportExport.resources

@@ -70,7 +70,8 @@ namespace vIDsafe
                             {
                                 navigationControls.ForeColor = Color.FromArgb(204, 204, 204);
                                 //navigationControls.BackColor = Color.FromArgb(26, 26, 26);
-                                navigationControls.BackColor = Color.FromArgb(32, 32, 32);
+                                //navigationControls.BackColor = Color.FromArgb(32, 32, 32);
+                                navigationControls.BackColor = Color.FromArgb(29, 32, 36);                        
                             }
                         }
                     }
@@ -114,12 +115,6 @@ namespace vIDsafe
             openChildForm(new MasterAccount());
         }
 
-        private void btnApplicationSettings_Click(object sender, EventArgs e)
-        {
-            changeSelectedButton(sender);
-            openChildForm(new ApplicationSettings());
-        }
-
         private void btnPasswordManager_Click(object sender, EventArgs e)
         {
             panelPMSubMenu.Visible = !panelPMSubMenu.Visible;
@@ -130,22 +125,12 @@ namespace vIDsafe
             panelDataSubMenu.Visible = !panelDataSubMenu.Visible;
         }
 
-        private void btnMisc_Click(object sender, EventArgs e)
-        {
-            panelMiscSubMenu.Visible = !panelMiscSubMenu.Visible;
-        }
-
         private void btnLogOut_Click(object sender, EventArgs e)
         {
             vIDsafe loginForm = new vIDsafe();
 
             loginForm.Show();
             Close();
-        }
-
-        private void panelNavigation_Paint(object sender, PaintEventArgs e)
-        {
-
         }
     }
 }

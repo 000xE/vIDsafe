@@ -36,6 +36,8 @@
             System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint3 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 7D);
             System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint4 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 17D);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.label3 = new System.Windows.Forms.Label();
             this.panelBack = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -61,9 +63,11 @@
             this.panelTitle = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnViewVault = new System.Windows.Forms.Button();
+            this.btnManageIdentities = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
+            this.panel6.SuspendLayout();
             this.panelBack.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel7.SuspendLayout();
@@ -78,12 +82,12 @@
             this.panel4.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panelTitle.SuspendLayout();
-            this.panel6.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
             this.panel1.Controls.Add(this.panel6);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
@@ -92,6 +96,29 @@
             this.panel1.Padding = new System.Windows.Forms.Padding(25);
             this.panel1.Size = new System.Drawing.Size(229, 557);
             this.panel1.TabIndex = 0;
+            // 
+            // panel6
+            // 
+            this.panel6.Controls.Add(this.listBox1);
+            this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel6.Location = new System.Drawing.Point(25, 43);
+            this.panel6.Name = "panel6";
+            this.panel6.Padding = new System.Windows.Forms.Padding(0, 25, 0, 0);
+            this.panel6.Size = new System.Drawing.Size(179, 489);
+            this.panel6.TabIndex = 7;
+            // 
+            // listBox1
+            // 
+            this.listBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
+            this.listBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listBox1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listBox1.ForeColor = System.Drawing.Color.Gainsboro;
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(0, 25);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(179, 464);
+            this.listBox1.TabIndex = 0;
             // 
             // label3
             // 
@@ -107,7 +134,7 @@
             // 
             // panelBack
             // 
-            this.panelBack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(47)))), ((int)(((byte)(47)))));
+            this.panelBack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(49)))), ((int)(((byte)(56)))));
             this.panelBack.Controls.Add(this.panel3);
             this.panelBack.Controls.Add(this.panelTitle);
             this.panelBack.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -119,9 +146,10 @@
             // 
             // panel3
             // 
-            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
             this.panel3.Controls.Add(this.panel7);
             this.panel3.Controls.Add(this.panel8);
+            this.panel3.Controls.Add(this.tableLayoutPanel3);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(25, 92);
             this.panel3.Name = "panel3";
@@ -131,25 +159,25 @@
             // 
             // panel7
             // 
-            this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(47)))), ((int)(((byte)(47)))));
+            this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
             this.panel7.Controls.Add(this.panel9);
             this.panel7.Controls.Add(this.label5);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel7.Location = new System.Drawing.Point(25, 172);
             this.panel7.Name = "panel7";
-            this.panel7.Padding = new System.Windows.Forms.Padding(10, 25, 10, 25);
-            this.panel7.Size = new System.Drawing.Size(606, 243);
+            this.panel7.Padding = new System.Windows.Forms.Padding(10, 0, 10, 25);
+            this.panel7.Size = new System.Drawing.Size(606, 191);
             this.panel7.TabIndex = 7;
             // 
             // panel9
             // 
-            this.panel9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(47)))), ((int)(((byte)(47)))));
+            this.panel9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
             this.panel9.Controls.Add(this.panel11);
             this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel9.Location = new System.Drawing.Point(10, 47);
+            this.panel9.Location = new System.Drawing.Point(10, 22);
             this.panel9.Name = "panel9";
             this.panel9.Padding = new System.Windows.Forms.Padding(10, 25, 10, 0);
-            this.panel9.Size = new System.Drawing.Size(586, 171);
+            this.panel9.Size = new System.Drawing.Size(586, 144);
             this.panel9.TabIndex = 9;
             // 
             // panel11
@@ -158,7 +186,7 @@
             this.panel11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel11.Location = new System.Drawing.Point(10, 25);
             this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(566, 146);
+            this.panel11.Size = new System.Drawing.Size(566, 119);
             this.panel11.TabIndex = 0;
             // 
             // tableLayoutPanel2
@@ -173,12 +201,12 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(566, 146);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(566, 119);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // chart1
             // 
-            this.chart1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.chart1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
             chartArea1.BackColor = System.Drawing.Color.Transparent;
             chartArea1.Name = "ChartArea1";
             this.chart1.ChartAreas.Add(chartArea1);
@@ -210,18 +238,18 @@
             series1.Points.Add(dataPoint3);
             series1.Points.Add(dataPoint4);
             this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(560, 140);
+            this.chart1.Size = new System.Drawing.Size(560, 113);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
             this.chart1.PrePaint += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ChartPaintEventArgs>(this.chart1_PrePaint);
             // 
             // label5
             // 
-            this.label5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(47)))), ((int)(((byte)(47)))));
+            this.label5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
             this.label5.Dock = System.Windows.Forms.DockStyle.Top;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.label5.ForeColor = System.Drawing.Color.LightGray;
-            this.label5.Location = new System.Drawing.Point(10, 25);
+            this.label5.Location = new System.Drawing.Point(10, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(586, 22);
             this.label5.TabIndex = 8;
@@ -232,22 +260,22 @@
             // panel8
             // 
             this.panel8.AutoSize = true;
-            this.panel8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(47)))), ((int)(((byte)(47)))));
+            this.panel8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
             this.panel8.Controls.Add(this.panel10);
             this.panel8.Controls.Add(this.label4);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel8.Location = new System.Drawing.Point(25, 25);
             this.panel8.Name = "panel8";
-            this.panel8.Padding = new System.Windows.Forms.Padding(10, 25, 10, 0);
+            this.panel8.Padding = new System.Windows.Forms.Padding(10, 0, 10, 25);
             this.panel8.Size = new System.Drawing.Size(606, 147);
             this.panel8.TabIndex = 6;
             // 
             // panel10
             // 
-            this.panel10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(47)))), ((int)(((byte)(47)))));
+            this.panel10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
             this.panel10.Controls.Add(this.tableLayoutPanel1);
             this.panel10.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel10.Location = new System.Drawing.Point(10, 47);
+            this.panel10.Location = new System.Drawing.Point(10, 22);
             this.panel10.Name = "panel10";
             this.panel10.Padding = new System.Windows.Forms.Padding(10, 25, 10, 0);
             this.panel10.Size = new System.Drawing.Size(586, 100);
@@ -255,7 +283,7 @@
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.tableLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
@@ -382,11 +410,11 @@
             // 
             // label4
             // 
-            this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(47)))), ((int)(((byte)(47)))));
+            this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
             this.label4.Dock = System.Windows.Forms.DockStyle.Top;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.label4.ForeColor = System.Drawing.Color.LightGray;
-            this.label4.Location = new System.Drawing.Point(10, 25);
+            this.label4.Location = new System.Drawing.Point(10, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(586, 22);
             this.label4.TabIndex = 7;
@@ -428,28 +456,54 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "Overview";
             // 
-            // panel6
+            // tableLayoutPanel3
             // 
-            this.panel6.Controls.Add(this.listBox1);
-            this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel6.Location = new System.Drawing.Point(25, 43);
-            this.panel6.Name = "panel6";
-            this.panel6.Padding = new System.Windows.Forms.Padding(0, 25, 0, 0);
-            this.panel6.Size = new System.Drawing.Size(179, 489);
-            this.panel6.TabIndex = 7;
+            this.tableLayoutPanel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
+            this.tableLayoutPanel3.ColumnCount = 2;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.Controls.Add(this.btnViewVault, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.btnManageIdentities, 1, 0);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(25, 363);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 1;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(606, 52);
+            this.tableLayoutPanel3.TabIndex = 18;
             // 
-            // listBox1
+            // btnViewVault
             // 
-            this.listBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
-            this.listBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBox1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listBox1.ForeColor = System.Drawing.Color.Gainsboro;
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(0, 25);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(179, 464);
-            this.listBox1.TabIndex = 0;
+            this.btnViewVault.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnViewVault.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnViewVault.FlatAppearance.BorderSize = 0;
+            this.btnViewVault.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnViewVault.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnViewVault.ForeColor = System.Drawing.Color.Gainsboro;
+            this.btnViewVault.Location = new System.Drawing.Point(0, 0);
+            this.btnViewVault.Margin = new System.Windows.Forms.Padding(0);
+            this.btnViewVault.Name = "btnViewVault";
+            this.btnViewVault.Size = new System.Drawing.Size(303, 52);
+            this.btnViewVault.TabIndex = 0;
+            this.btnViewVault.Text = "View vault";
+            this.btnViewVault.UseVisualStyleBackColor = false;
+            // 
+            // btnManageIdentities
+            // 
+            this.btnManageIdentities.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.btnManageIdentities.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnManageIdentities.FlatAppearance.BorderSize = 0;
+            this.btnManageIdentities.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnManageIdentities.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnManageIdentities.ForeColor = System.Drawing.Color.Gainsboro;
+            this.btnManageIdentities.Location = new System.Drawing.Point(303, 0);
+            this.btnManageIdentities.Margin = new System.Windows.Forms.Padding(0);
+            this.btnManageIdentities.Name = "btnManageIdentities";
+            this.btnManageIdentities.Size = new System.Drawing.Size(303, 52);
+            this.btnManageIdentities.TabIndex = 1;
+            this.btnManageIdentities.Text = "Manage identities";
+            this.btnManageIdentities.UseVisualStyleBackColor = false;
             // 
             // Overview
             // 
@@ -463,6 +517,7 @@
             this.Name = "Overview";
             this.Text = "Overview";
             this.panel1.ResumeLayout(false);
+            this.panel6.ResumeLayout(false);
             this.panelBack.ResumeLayout(false);
             this.panelBack.PerformLayout();
             this.panel3.ResumeLayout(false);
@@ -479,7 +534,7 @@
             this.panel4.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panelTitle.ResumeLayout(false);
-            this.panel6.ResumeLayout(false);
+            this.tableLayoutPanel3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -514,5 +569,8 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.Button btnViewVault;
+        private System.Windows.Forms.Button btnManageIdentities;
     }
 }
