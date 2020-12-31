@@ -143,7 +143,6 @@
             this.panelBack.Padding = new System.Windows.Forms.Padding(25);
             this.panelBack.Size = new System.Drawing.Size(706, 557);
             this.panelBack.TabIndex = 1;
-            this.panelBack.Paint += new System.Windows.Forms.PaintEventHandler(this.panelBack_Paint);
             // 
             // panel3
             // 
