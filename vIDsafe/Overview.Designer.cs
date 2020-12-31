@@ -59,13 +59,13 @@
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.btnViewVault = new System.Windows.Forms.Button();
             this.btnManageIdentities = new System.Windows.Forms.Button();
-            this.panelTitle = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.panelTitle = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.panelBack.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel7.SuspendLayout();
@@ -80,9 +80,9 @@
             this.panel4.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
-            this.panelTitle.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel6.SuspendLayout();
+            this.panelTitle.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelBack
@@ -427,40 +427,6 @@
             this.btnManageIdentities.UseVisualStyleBackColor = false;
             this.btnManageIdentities.Click += new System.EventHandler(this.btnManageIdentities_Click);
             // 
-            // panelTitle
-            // 
-            this.panelTitle.AutoSize = true;
-            this.panelTitle.Controls.Add(this.label2);
-            this.panelTitle.Controls.Add(this.label1);
-            this.panelTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelTitle.Location = new System.Drawing.Point(25, 25);
-            this.panelTitle.Name = "panelTitle";
-            this.panelTitle.Padding = new System.Windows.Forms.Padding(0, 0, 0, 25);
-            this.panelTitle.Size = new System.Drawing.Size(885, 67);
-            this.panelTitle.TabIndex = 7;
-            // 
-            // label2
-            // 
-            this.label2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label2.ForeColor = System.Drawing.Color.DarkGray;
-            this.label2.Location = new System.Drawing.Point(0, 21);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(885, 21);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "A summary of your vault";
-            // 
-            // label1
-            // 
-            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.label1.ForeColor = System.Drawing.Color.Gainsboro;
-            this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(885, 21);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Overview";
-            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
@@ -508,6 +474,40 @@
             this.label3.Text = "Security alerts";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // panelTitle
+            // 
+            this.panelTitle.AutoSize = true;
+            this.panelTitle.Controls.Add(this.label2);
+            this.panelTitle.Controls.Add(this.label1);
+            this.panelTitle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelTitle.Location = new System.Drawing.Point(25, 25);
+            this.panelTitle.Name = "panelTitle";
+            this.panelTitle.Padding = new System.Windows.Forms.Padding(0, 0, 0, 25);
+            this.panelTitle.Size = new System.Drawing.Size(885, 67);
+            this.panelTitle.TabIndex = 7;
+            // 
+            // label2
+            // 
+            this.label2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.label2.ForeColor = System.Drawing.Color.DarkGray;
+            this.label2.Location = new System.Drawing.Point(0, 21);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(885, 21);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "A summary of your vault";
+            // 
+            // label1
+            // 
+            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.label1.ForeColor = System.Drawing.Color.Gainsboro;
+            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(885, 21);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Overview";
+            // 
             // Overview
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -534,9 +534,9 @@
             this.panel4.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
-            this.panelTitle.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
+            this.panelTitle.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
