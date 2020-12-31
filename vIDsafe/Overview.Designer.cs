@@ -60,12 +60,12 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.panelTitle = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.btnViewVault = new System.Windows.Forms.Button();
             this.btnManageIdentities = new System.Windows.Forms.Button();
+            this.panelTitle = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panelBack.SuspendLayout();
@@ -81,8 +81,8 @@
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.panelTitle.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
+            this.panelTitle.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -165,7 +165,7 @@
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel7.Location = new System.Drawing.Point(25, 172);
             this.panel7.Name = "panel7";
-            this.panel7.Padding = new System.Windows.Forms.Padding(10, 0, 10, 25);
+            this.panel7.Padding = new System.Windows.Forms.Padding(0, 0, 0, 25);
             this.panel7.Size = new System.Drawing.Size(606, 191);
             this.panel7.TabIndex = 7;
             // 
@@ -174,19 +174,19 @@
             this.panel9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
             this.panel9.Controls.Add(this.panel11);
             this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel9.Location = new System.Drawing.Point(10, 22);
+            this.panel9.Location = new System.Drawing.Point(0, 22);
             this.panel9.Name = "panel9";
-            this.panel9.Padding = new System.Windows.Forms.Padding(10, 25, 10, 0);
-            this.panel9.Size = new System.Drawing.Size(586, 144);
+            this.panel9.Padding = new System.Windows.Forms.Padding(0, 25, 0, 0);
+            this.panel9.Size = new System.Drawing.Size(606, 144);
             this.panel9.TabIndex = 9;
             // 
             // panel11
             // 
             this.panel11.Controls.Add(this.tableLayoutPanel2);
             this.panel11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel11.Location = new System.Drawing.Point(10, 25);
+            this.panel11.Location = new System.Drawing.Point(0, 25);
             this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(566, 119);
+            this.panel11.Size = new System.Drawing.Size(606, 119);
             this.panel11.TabIndex = 0;
             // 
             // tableLayoutPanel2
@@ -201,7 +201,7 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(566, 119);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(606, 119);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // chart1
@@ -238,7 +238,7 @@
             series1.Points.Add(dataPoint3);
             series1.Points.Add(dataPoint4);
             this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(560, 113);
+            this.chart1.Size = new System.Drawing.Size(600, 113);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
             this.chart1.PrePaint += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ChartPaintEventArgs>(this.chart1_PrePaint);
@@ -249,9 +249,9 @@
             this.label5.Dock = System.Windows.Forms.DockStyle.Top;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.label5.ForeColor = System.Drawing.Color.LightGray;
-            this.label5.Location = new System.Drawing.Point(10, 0);
+            this.label5.Location = new System.Drawing.Point(0, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(586, 22);
+            this.label5.Size = new System.Drawing.Size(606, 22);
             this.label5.TabIndex = 8;
             this.label5.Text = "Credential summary";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -266,7 +266,7 @@
             this.panel8.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel8.Location = new System.Drawing.Point(25, 25);
             this.panel8.Name = "panel8";
-            this.panel8.Padding = new System.Windows.Forms.Padding(10, 0, 10, 25);
+            this.panel8.Padding = new System.Windows.Forms.Padding(0, 0, 0, 25);
             this.panel8.Size = new System.Drawing.Size(606, 147);
             this.panel8.TabIndex = 6;
             // 
@@ -275,15 +275,15 @@
             this.panel10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
             this.panel10.Controls.Add(this.tableLayoutPanel1);
             this.panel10.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel10.Location = new System.Drawing.Point(10, 22);
+            this.panel10.Location = new System.Drawing.Point(0, 22);
             this.panel10.Name = "panel10";
-            this.panel10.Padding = new System.Windows.Forms.Padding(10, 25, 10, 0);
-            this.panel10.Size = new System.Drawing.Size(586, 100);
+            this.panel10.Padding = new System.Windows.Forms.Padding(0, 25, 0, 0);
+            this.panel10.Size = new System.Drawing.Size(606, 100);
             this.panel10.TabIndex = 8;
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
+            this.tableLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(59)))), ((int)(((byte)(66)))));
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
@@ -293,11 +293,11 @@
             this.tableLayoutPanel1.Controls.Add(this.panel2, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(10, 25);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 25);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(566, 75);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(606, 75);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // panel5
@@ -306,10 +306,10 @@
             this.panel5.Controls.Add(this.label10);
             this.panel5.Controls.Add(this.label11);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel5.Location = new System.Drawing.Point(379, 3);
+            this.panel5.Location = new System.Drawing.Point(407, 3);
             this.panel5.Name = "panel5";
             this.panel5.Padding = new System.Windows.Forms.Padding(10);
-            this.panel5.Size = new System.Drawing.Size(184, 69);
+            this.panel5.Size = new System.Drawing.Size(196, 69);
             this.panel5.TabIndex = 4;
             // 
             // label10
@@ -319,7 +319,7 @@
             this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label10.Location = new System.Drawing.Point(10, 32);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(164, 27);
+            this.label10.Size = new System.Drawing.Size(176, 27);
             this.label10.TabIndex = 1;
             this.label10.Text = "25%";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -331,7 +331,7 @@
             this.label11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label11.Location = new System.Drawing.Point(10, 10);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(164, 27);
+            this.label11.Size = new System.Drawing.Size(176, 27);
             this.label11.TabIndex = 0;
             this.label11.Text = "Identity 3";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -342,10 +342,10 @@
             this.panel4.Controls.Add(this.label8);
             this.panel4.Controls.Add(this.label9);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(191, 3);
+            this.panel4.Location = new System.Drawing.Point(205, 3);
             this.panel4.Name = "panel4";
             this.panel4.Padding = new System.Windows.Forms.Padding(10);
-            this.panel4.Size = new System.Drawing.Size(182, 69);
+            this.panel4.Size = new System.Drawing.Size(196, 69);
             this.panel4.TabIndex = 3;
             // 
             // label8
@@ -355,7 +355,7 @@
             this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label8.Location = new System.Drawing.Point(10, 32);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(162, 27);
+            this.label8.Size = new System.Drawing.Size(176, 27);
             this.label8.TabIndex = 1;
             this.label8.Text = "55%";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -367,7 +367,7 @@
             this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label9.Location = new System.Drawing.Point(10, 10);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(162, 27);
+            this.label9.Size = new System.Drawing.Size(176, 27);
             this.label9.TabIndex = 0;
             this.label9.Text = "Identity 2";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -381,7 +381,7 @@
             this.panel2.Location = new System.Drawing.Point(3, 3);
             this.panel2.Name = "panel2";
             this.panel2.Padding = new System.Windows.Forms.Padding(10);
-            this.panel2.Size = new System.Drawing.Size(182, 69);
+            this.panel2.Size = new System.Drawing.Size(196, 69);
             this.panel2.TabIndex = 0;
             // 
             // label7
@@ -391,7 +391,7 @@
             this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label7.Location = new System.Drawing.Point(10, 32);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(162, 27);
+            this.label7.Size = new System.Drawing.Size(176, 27);
             this.label7.TabIndex = 1;
             this.label7.Text = "100%";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -403,7 +403,7 @@
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label6.Location = new System.Drawing.Point(10, 10);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(162, 27);
+            this.label6.Size = new System.Drawing.Size(176, 27);
             this.label6.TabIndex = 0;
             this.label6.Text = "Identity 1";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -414,47 +414,13 @@
             this.label4.Dock = System.Windows.Forms.DockStyle.Top;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.label4.ForeColor = System.Drawing.Color.LightGray;
-            this.label4.Location = new System.Drawing.Point(10, 0);
+            this.label4.Location = new System.Drawing.Point(0, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(586, 22);
+            this.label4.Size = new System.Drawing.Size(606, 22);
             this.label4.TabIndex = 7;
             this.label4.Text = "Health scores";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label4.UseMnemonic = false;
-            // 
-            // panelTitle
-            // 
-            this.panelTitle.AutoSize = true;
-            this.panelTitle.Controls.Add(this.label2);
-            this.panelTitle.Controls.Add(this.label1);
-            this.panelTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelTitle.Location = new System.Drawing.Point(25, 25);
-            this.panelTitle.Name = "panelTitle";
-            this.panelTitle.Padding = new System.Windows.Forms.Padding(0, 0, 0, 25);
-            this.panelTitle.Size = new System.Drawing.Size(656, 67);
-            this.panelTitle.TabIndex = 7;
-            // 
-            // label2
-            // 
-            this.label2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label2.ForeColor = System.Drawing.Color.DarkGray;
-            this.label2.Location = new System.Drawing.Point(0, 21);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(656, 21);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "A summary of your vault";
-            // 
-            // label1
-            // 
-            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.label1.ForeColor = System.Drawing.Color.Gainsboro;
-            this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(656, 21);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Overview";
             // 
             // tableLayoutPanel3
             // 
@@ -469,7 +435,7 @@
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 52F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(606, 52);
             this.tableLayoutPanel3.TabIndex = 18;
             // 
@@ -505,6 +471,40 @@
             this.btnManageIdentities.Text = "Manage identities";
             this.btnManageIdentities.UseVisualStyleBackColor = false;
             // 
+            // panelTitle
+            // 
+            this.panelTitle.AutoSize = true;
+            this.panelTitle.Controls.Add(this.label2);
+            this.panelTitle.Controls.Add(this.label1);
+            this.panelTitle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelTitle.Location = new System.Drawing.Point(25, 25);
+            this.panelTitle.Name = "panelTitle";
+            this.panelTitle.Padding = new System.Windows.Forms.Padding(0, 0, 0, 25);
+            this.panelTitle.Size = new System.Drawing.Size(656, 67);
+            this.panelTitle.TabIndex = 7;
+            // 
+            // label2
+            // 
+            this.label2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.label2.ForeColor = System.Drawing.Color.DarkGray;
+            this.label2.Location = new System.Drawing.Point(0, 21);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(656, 21);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "A summary of your vault";
+            // 
+            // label1
+            // 
+            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.label1.ForeColor = System.Drawing.Color.Gainsboro;
+            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(656, 21);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Overview";
+            // 
             // Overview
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -533,8 +533,8 @@
             this.panel5.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
-            this.panelTitle.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
+            this.panelTitle.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
