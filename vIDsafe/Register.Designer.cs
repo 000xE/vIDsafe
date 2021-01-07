@@ -31,7 +31,6 @@ namespace vIDsafe
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.txtPasswordHint = new System.Windows.Forms.TextBox();
             this.txtConfirmPassword = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtPassword = new System.Windows.Forms.TextBox();
@@ -57,7 +56,6 @@ namespace vIDsafe
             // 
             // panel3
             // 
-            this.panel3.Controls.Add(this.txtPasswordHint);
             this.panel3.Controls.Add(this.txtConfirmPassword);
             this.panel3.Controls.Add(this.label2);
             this.panel3.Controls.Add(this.txtPassword);
@@ -68,18 +66,6 @@ namespace vIDsafe
             this.panel3.Size = new System.Drawing.Size(434, 431);
             this.panel3.TabIndex = 1;
             // 
-            // txtPasswordHint
-            // 
-            this.txtPasswordHint.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtPasswordHint.BackColor = System.Drawing.Color.DimGray;
-            this.txtPasswordHint.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtPasswordHint.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPasswordHint.ForeColor = System.Drawing.Color.Gainsboro;
-            this.txtPasswordHint.Location = new System.Drawing.Point(137, 247);
-            this.txtPasswordHint.Name = "txtPasswordHint";
-            this.txtPasswordHint.Size = new System.Drawing.Size(160, 23);
-            this.txtPasswordHint.TabIndex = 7;
-            // 
             // txtConfirmPassword
             // 
             this.txtConfirmPassword.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -87,7 +73,7 @@ namespace vIDsafe
             this.txtConfirmPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtConfirmPassword.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtConfirmPassword.ForeColor = System.Drawing.Color.Gainsboro;
-            this.txtConfirmPassword.Location = new System.Drawing.Point(137, 218);
+            this.txtConfirmPassword.Location = new System.Drawing.Point(137, 233);
             this.txtConfirmPassword.Name = "txtConfirmPassword";
             this.txtConfirmPassword.PasswordChar = '*';
             this.txtConfirmPassword.Size = new System.Drawing.Size(160, 23);
@@ -112,7 +98,7 @@ namespace vIDsafe
             this.txtPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtPassword.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPassword.ForeColor = System.Drawing.Color.Gainsboro;
-            this.txtPassword.Location = new System.Drawing.Point(137, 189);
+            this.txtPassword.Location = new System.Drawing.Point(137, 204);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(160, 23);
@@ -125,7 +111,7 @@ namespace vIDsafe
             this.txtName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtName.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtName.ForeColor = System.Drawing.Color.Gainsboro;
-            this.txtName.Location = new System.Drawing.Point(137, 160);
+            this.txtName.Location = new System.Drawing.Point(137, 175);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(160, 23);
             this.txtName.TabIndex = 0;
@@ -188,7 +174,6 @@ namespace vIDsafe
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.Button btnRegister;
-        private System.Windows.Forms.TextBox txtPasswordHint;
         private System.Windows.Forms.TextBox txtConfirmPassword;
     }
 }
