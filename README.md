@@ -7,11 +7,11 @@ vIDsafe - A password manager focused on the idea of compartmentalisation.
 ## Functional requirements
 
 - [ ] Master account:
-	- [ ] Allow the user to create a master account
-		- [ ] Name
-		- [ ] Password
-		- [ ] Password hint
-	- [ ] Allow the user to login to their master account
+	- [x] Allow the user to create a master account
+		- [x] Name
+		- [x] Password
+		~~- [ ] Password hint~~
+	- [x] Allow the user to login to their master account
 	- [ ] Allow the user to manage their master account
 		- [ ] Delete account
 		- [ ] Wipe identities
