@@ -33,6 +33,7 @@ namespace vIDsafe
         private void loadFormComponents()
         {
             openChildForm(new Overview());
+            lblMAName.Text = vIDsafe.main.user.getName();
         }
 
         public static void openChildForm(Form childForm)
@@ -130,9 +131,8 @@ namespace vIDsafe
 
         private void btnLogOut_Click(object sender, EventArgs e)
         {
-            vIDsafe loginForm = new vIDsafe();
+            vIDsafe.main.Show();
 
-            loginForm.Show();
             Close();
         }
     }

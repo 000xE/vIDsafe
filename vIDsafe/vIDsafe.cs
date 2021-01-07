@@ -17,6 +17,10 @@ namespace vIDsafe
         public static Form activeForm = null;
         public static Panel formPanel;
 
+        public UserAccount user;
+
+        public static vIDsafe main;
+
         public vIDsafe()
         {
             InitializeComponent();
@@ -27,6 +31,8 @@ namespace vIDsafe
         private void getFormComponents()
         {
             formPanel = panelForm;
+
+            main = this;
         }
 
         private void loadFormComponents()
@@ -49,10 +55,6 @@ namespace vIDsafe
             formPanel.Tag = childForm;
             childForm.BringToFront();
             childForm.Show();
-        }
-
-        internal class CustomButton
-        {
         }
     }
 }
