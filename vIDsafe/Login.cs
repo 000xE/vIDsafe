@@ -15,17 +15,6 @@ namespace vIDsafe
         public Login()
         {
             InitializeComponent();
-
-            string testkey = Convert.ToBase64String(Encryption.hashPassword("TestPass", "TestName"));
-
-            string encrypted = Encryption.aesEncrypt("TestEncryption one two three four five", Convert.FromBase64String(testkey));
-
-
-            string decrypted = Encryption.aesDecrypt(encrypted, Convert.FromBase64String(testkey));
-
-            Console.WriteLine("Encrypted: " + encrypted);
-
-            Console.WriteLine("Decrypted: " + decrypted);
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
