@@ -37,7 +37,7 @@ namespace vIDsafe
                     Width = e.Position.Width,
                     Height = e.Position.Height,
                     X = e.Position.X - (e.Position.Width / 100),
-                    Y = e.Position.Y,
+                    Y = e.Position.Y + (e.Position.Height / 100),
                     Font = new Font("Segoe UI", 12, FontStyle.Bold),
                     ForeColor = Color.Gainsboro
                 };

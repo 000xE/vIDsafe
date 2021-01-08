@@ -131,9 +131,19 @@ namespace vIDsafe
 
         private void btnLogOut_Click(object sender, EventArgs e)
         {
-            vIDsafe.main.Show();
+            logout();
+        }
+        
+        private void logout()
+        {
+            vIDsafe.main.user.logout();
 
             Close();
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            vIDsafe.main.Show();
         }
     }
 }

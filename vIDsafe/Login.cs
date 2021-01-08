@@ -23,7 +23,7 @@ namespace vIDsafe
 
             if (isValid())
             {
-                int loginStatusCode = vIDsafe.main.user.returnLoginSuccess();
+                int loginStatusCode = vIDsafe.main.user.tryLogin();
 
                 switch (loginStatusCode)
                 {

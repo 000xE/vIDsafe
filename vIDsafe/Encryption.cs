@@ -35,70 +35,70 @@ namespace vIDsafe
         {
             byte[] textBytes = ASCIIEncoding.ASCII.GetBytes(plainText);
 
-            using (AesCryptoServiceProvider AES = new AesCryptoServiceProvider())
+            AesCryptoServiceProvider AES = getAES(key);
+
+            //https://stackoverflow.com/q/8041451
+            using (var encryptor = AES.CreateEncryptor(AES.Key, AES.IV))
             {
-                AES.BlockSize = blockSize;
-                AES.KeySize = keySize;
-                AES.Key = key;
-                AES.Padding = PaddingMode.PKCS7;
-                AES.Mode = CipherMode.CBC;
-
-                //https://stackoverflow.com/q/8041451
-                using (var encryptor = AES.CreateEncryptor(AES.Key, AES.IV))
+                using (var ms = new MemoryStream())
                 {
-                    using (var ms = new MemoryStream())
+                    ms.Write(AES.IV, 0, ivSize);
+                    using (var cs = new CryptoStream(ms, encryptor, CryptoStreamMode.Write))
                     {
-                        ms.Write(AES.IV, 0, ivSize);
-                        using (var cs = new CryptoStream(ms, encryptor, CryptoStreamMode.Write))
-                        {
-                            cs.Write(textBytes, 0, textBytes.Length);
-                            cs.FlushFinalBlock();
-                        }
-
-
-                        return Convert.ToBase64String(ms.ToArray());
+                        cs.Write(textBytes, 0, textBytes.Length);
+                        cs.FlushFinalBlock();
                     }
+
+                    return Convert.ToBase64String(ms.ToArray());
                 }
-            };
+            }
         }
 
 
         public static string aesDecrypt(string encryptedText, byte[] key)
         {
             byte[] textBytes = Convert.FromBase64String(encryptedText);
-            using (AesCryptoServiceProvider AES = new AesCryptoServiceProvider())
+
+            AesCryptoServiceProvider AES = getAES(key);
+
+            //https://stackoverflow.com/q/8041451
+            try
             {
-                AES.BlockSize = blockSize;
-                AES.KeySize = keySize;
-                AES.Key = key;
-                AES.Padding = PaddingMode.PKCS7;
-                AES.Mode = CipherMode.CBC;
-
-                //https://stackoverflow.com/q/8041451
-                try
+                using (var ms = new MemoryStream(textBytes))
                 {
-                    using (var ms = new MemoryStream(textBytes))
-                    {
-                        byte[] buffer = new byte[ivSize];
-                        ms.Read(buffer, 0, ivSize);
-                        AES.IV = buffer;
+                    byte[] buffer = new byte[ivSize];
+                    ms.Read(buffer, 0, ivSize);
+                    AES.IV = buffer;
 
-                        using (var decryptor = AES.CreateDecryptor(AES.Key, AES.IV))
+                    using (var decryptor = AES.CreateDecryptor(AES.Key, AES.IV))
+                    {
+                        using (var cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Read))
                         {
-                            using (var cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Read))
-                            {
-                                byte[] decrypted = new byte[textBytes.Length];
-                                var byteCount = cs.Read(decrypted, 0, textBytes.Length);
-                                return Encoding.UTF8.GetString(decrypted, 0, byteCount);
-                            }
+                            byte[] decrypted = new byte[textBytes.Length];
+                            var byteCount = cs.Read(decrypted, 0, textBytes.Length);
+                            return Encoding.UTF8.GetString(decrypted, 0, byteCount);
                         }
                     }
                 }
-                catch (CryptographicException)
-                {
-                    return null;
-                }
+            }
+            catch (CryptographicException)
+            {
+                return null;
+            }
+        }
+
+        private static AesCryptoServiceProvider getAES (byte [] key)
+        {
+            AesCryptoServiceProvider AES = new AesCryptoServiceProvider
+            {
+                BlockSize = blockSize,
+                KeySize = keySize,
+                Key = key,
+                Padding = PaddingMode.PKCS7,
+                Mode = CipherMode.CBC
             };
+
+            return AES;
         }
     }
 }
