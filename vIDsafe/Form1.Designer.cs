@@ -53,6 +53,7 @@
             this.hideToTrayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.onCloseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.onMinimiseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.onStartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.alwaysOnTopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.themeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -62,7 +63,6 @@
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.vaultTimeoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripTextBox2 = new System.Windows.Forms.ToolStripTextBox();
-            this.onStartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelMain.SuspendLayout();
             this.panelNavigation.SuspendLayout();
             this.panelDataSubMenu.SuspendLayout();
@@ -370,7 +370,7 @@
             this.onStartToolStripMenuItem});
             this.hideToTrayToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
             this.hideToTrayToolStripMenuItem.Name = "hideToTrayToolStripMenuItem";
-            this.hideToTrayToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.hideToTrayToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.hideToTrayToolStripMenuItem.Text = "Hide to tray";
             // 
             // onCloseToolStripMenuItem
@@ -390,6 +390,14 @@
             this.onMinimiseToolStripMenuItem.Name = "onMinimiseToolStripMenuItem";
             this.onMinimiseToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.onMinimiseToolStripMenuItem.Text = "On minimise";
+            // 
+            // onStartToolStripMenuItem
+            // 
+            this.onStartToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.onStartToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
+            this.onStartToolStripMenuItem.Name = "onStartToolStripMenuItem";
+            this.onStartToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.onStartToolStripMenuItem.Text = "On start";
             // 
             // alwaysOnTopToolStripMenuItem
             // 
@@ -468,14 +476,6 @@
             this.toolStripTextBox2.Name = "toolStripTextBox2";
             this.toolStripTextBox2.Size = new System.Drawing.Size(100, 23);
             // 
-            // onStartToolStripMenuItem
-            // 
-            this.onStartToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.onStartToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
-            this.onStartToolStripMenuItem.Name = "onStartToolStripMenuItem";
-            this.onStartToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.onStartToolStripMenuItem.Text = "On start";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -491,6 +491,7 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "vIDsafe";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.panelMain.ResumeLayout(false);
             this.panelNavigation.ResumeLayout(false);
             this.panelDataSubMenu.ResumeLayout(false);

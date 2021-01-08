@@ -23,7 +23,7 @@ namespace vIDsafe
 
             if (isValid())
             {
-                int registerStatusCode = vIDsafe.main.user.returnRegisterSuccess();
+                int registerStatusCode = vIDsafe.main.user.tryRegister();
 
                 switch (registerStatusCode)
                 {

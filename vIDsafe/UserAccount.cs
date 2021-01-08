@@ -21,7 +21,6 @@ namespace vIDsafe
         {
             this.name = name;
             this.password = password;
-            vault = new UserVault();
         }
 
         public string getName()
@@ -39,7 +38,7 @@ namespace vIDsafe
             return false;
         }
 
-        public int returnLoginSuccess()
+        public int tryLogin()
         {
             if (accountExists())
             {
@@ -61,10 +60,11 @@ namespace vIDsafe
         }
 
         //https://stackoverflow.com/a/2955425
-        public int returnRegisterSuccess()
+        public int tryRegister()
         {
             if (!accountExists())
             {
+                vault = new UserVault();
                 string encryptedVault = encryptVault();
 
                 FileInfo file = new FileInfo(vaultFolder + name);
@@ -77,6 +77,13 @@ namespace vIDsafe
             {
                 return 0;
             }
+        }
+
+        public void logout()
+        {
+            this.name = "";
+            this.password = "";
+            vault = new UserVault();
         }
 
 
@@ -111,6 +118,7 @@ namespace vIDsafe
             }                   
         }
 
+        //https://stackoverflow.com/questions/6979718/c-sharp-object-to-string-and-back/6979843#6979843
         public string objectToString(object obj)
         {
             using (MemoryStream ms = new MemoryStream())
@@ -120,6 +128,7 @@ namespace vIDsafe
             }
         }
 
+        //https://stackoverflow.com/questions/6979718/c-sharp-object-to-string-and-back/6979843#6979843
         public object stringToObject(string base64String)
         {
             byte[] bytes = Convert.FromBase64String(base64String);
