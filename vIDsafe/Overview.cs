@@ -51,16 +51,16 @@ namespace vIDsafe
 
         private void btnViewVault_Click(object sender, EventArgs e)
         {
-            object btnVault = Form1.controls.Find("btnVault", true)[0];
-            Form1.changeSelectedButton(btnVault);
-            Form1.openChildForm(new Vault());
+            object btnVault = Form1.FormControls.Find("btnVault", true)[0];
+            Form1.ChangeSelectedButton(btnVault);
+            Form1.OpenChildForm(new Vault());
         }
 
         private void btnManageIdentities_Click(object sender, EventArgs e)
         {
-            object btnIdentities = Form1.controls.Find("btnIdentities", true)[0];
-            Form1.changeSelectedButton(btnIdentities);
-            Form1.openChildForm(new Identities());
+            object btnIdentities = Form1.FormControls.Find("btnIdentities", true)[0];
+            Form1.ChangeSelectedButton(btnIdentities);
+            Form1.OpenChildForm(new Identities());
         }
     }
 }

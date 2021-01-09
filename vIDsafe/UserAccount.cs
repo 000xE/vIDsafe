@@ -11,26 +11,23 @@ namespace vIDsafe
     [Serializable]
     public class UserAccount
     {
-        private string name;
-        private string password;
+        private string _name;
+        private string _password;
 
-        private UserVault vault;
+        public UserVault Vault = new UserVault();
 
-        private readonly string vaultFolder = "Vaults/";
+        private readonly string _vaultFolder = "Vaults/";
         public UserAccount(string name, string password)
         {
-            this.name = name;
-            this.password = password;
+            this._name = name;
+            this._password = password;
         }
 
-        public string getName()
-        {
-            return name;
-        }
+        public string Name => _name;
 
         private bool accountExists()
         {
-            if (File.Exists(vaultFolder + name))
+            if (File.Exists(_vaultFolder + _name))
             {
                 return true;
             }
@@ -38,15 +35,15 @@ namespace vIDsafe
             return false;
         }
 
-        public int tryLogin()
+        public int TryLogin()
         {
             if (accountExists())
             {
-                string encryptedVault = File.ReadAllText(vaultFolder + name);
+                hashPassword();
 
-                this.vault = decryptVault(encryptedVault);
+                this.Vault = getVault();
 
-                if (this.vault == null)
+                if (this.Vault == null)
                 {
                     return 2;
                 }
@@ -60,16 +57,13 @@ namespace vIDsafe
         }
 
         //https://stackoverflow.com/a/2955425
-        public int tryRegister()
+        public int TryRegister()
         {
             if (!accountExists())
             {
-                vault = new UserVault();
-                string encryptedVault = encryptVault();
+                hashPassword();
 
-                FileInfo file = new FileInfo(vaultFolder + name);
-                file.Directory.Create(); // If the directory already exists, this method does nothing.
-                File.WriteAllText(file.FullName, encryptedVault);
+                SaveVault();
 
                 return 1;
             }
@@ -79,38 +73,49 @@ namespace vIDsafe
             }
         }
 
-        public void logout()
+        private UserVault getVault()
         {
-            this.name = "";
-            this.password = "";
-            vault = new UserVault();
+            string encryptedVault = File.ReadAllText(_vaultFolder + _name);
+
+            return (decryptVault(encryptedVault));           
         }
 
+        public void SaveVault()
+        {
+            string encryptedVault = encryptVault();
+
+            FileInfo file = new FileInfo(_vaultFolder + _name);
+            file.Directory.Create(); // If the directory already exists, this method does nothing.
+            File.WriteAllText(file.FullName, encryptedVault);
+        }
+
+        public void Logout()
+        {
+            this._name = "";
+            this._password = "";
+            Vault = new UserVault();
+        }
 
         private void hashPassword()
         {
             //password = Encryption.hashPassword(password, name);
 
-            password = Convert.ToBase64String(Encryption.hashPassword(password, name));
+            _password = Convert.ToBase64String(Encryption.HashPassword(_password, _name));
         }
 
         private string encryptVault()
         {
-            hashPassword();
+            string serialisedVault = ObjectToString(this.Vault);
 
-            string serialisedVault = objectToString(this.vault);
-
-            return Encryption.aesEncrypt(serialisedVault, Convert.FromBase64String(password));
+            return Encryption.AesEncrypt(serialisedVault, Convert.FromBase64String(_password));
         }
         private UserVault decryptVault(string encryptedVault)
         {
-            hashPassword();
-
-            string decryptedVault = Encryption.aesDecrypt(encryptedVault, Convert.FromBase64String(password));
+            string decryptedVault = Encryption.AesDecrypt(encryptedVault, Convert.FromBase64String(_password));
 
             if (decryptedVault != null)
             {
-                return (UserVault)stringToObject(decryptedVault);
+                return (UserVault)StringToObject(decryptedVault);
             }
             else
             {
@@ -119,7 +124,7 @@ namespace vIDsafe
         }
 
         //https://stackoverflow.com/questions/6979718/c-sharp-object-to-string-and-back/6979843#6979843
-        public string objectToString(object obj)
+        public string ObjectToString(object obj)
         {
             using (MemoryStream ms = new MemoryStream())
             {
@@ -129,7 +134,7 @@ namespace vIDsafe
         }
 
         //https://stackoverflow.com/questions/6979718/c-sharp-object-to-string-and-back/6979843#6979843
-        public object stringToObject(string base64String)
+        public object StringToObject(string base64String)
         {
             byte[] bytes = Convert.FromBase64String(base64String);
             using (MemoryStream ms = new MemoryStream(bytes, 0, bytes.Length))

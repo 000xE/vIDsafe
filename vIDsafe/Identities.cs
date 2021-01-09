@@ -13,6 +13,13 @@ namespace vIDsafe
         public Identities()
         {
             InitializeComponent();
+
+            loadFormComponents();
+        }
+
+        private void loadFormComponents()
+        {
+            getIdentities();
             loadTestGraph();
         }
 
@@ -46,6 +53,70 @@ namespace vIDsafe
                 chart2.Annotations.Clear();
                 chart2.Annotations.Add(ta);
 
+            }
+        }
+
+        private void btnNewIdentity_Click(object sender, EventArgs e)
+        {
+            string defaultIdentityName = "Identity " + (cmbIdentity.Items.Count + 1);
+
+            vIDsafe.Main.User.Vault.NewIdentity(defaultIdentityName);
+
+            int lastIndex = cmbIdentity.Items.Add(defaultIdentityName);
+            cmbIdentity.SelectedIndex = lastIndex;
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            vIDsafe.Main.User.Vault.GetIdentity(cmbIdentity.SelectedIndex).SetDetails(txtIdentityName.Text, txtIdentityEmail.Text, txtIdentityUsage.Text);
+
+            cmbIdentity.Items[cmbIdentity.SelectedIndex] = txtIdentityName.Text;
+        }
+
+        private void btnDeleteDiscard_Click(object sender, EventArgs e)
+        {
+            deleteIdentity();
+        }
+
+        private void cmbIdentity_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            reloadDetails();
+        }
+
+        private void getIdentities()
+        {
+            foreach (Identity identity in vIDsafe.Main.User.Vault.Identities)
+            {
+                cmbIdentity.Items.Add(identity.Name);
+            }
+        }
+
+        private void reloadDetails()
+        {
+            if (cmbIdentity.SelectedIndex >= 0)
+            {
+                txtIdentityName.Text = vIDsafe.Main.User.Vault.GetIdentity(cmbIdentity.SelectedIndex).Name;
+                txtIdentityEmail.Text = vIDsafe.Main.User.Vault.GetIdentity(cmbIdentity.SelectedIndex).Email;
+                txtIdentityUsage.Text = vIDsafe.Main.User.Vault.GetIdentity(cmbIdentity.SelectedIndex).Usage;
+            }
+            else
+            {
+                txtIdentityName.Clear();
+                txtIdentityEmail.Clear();
+                txtIdentityUsage.Clear();
+                cmbIdentity.Text = "";
+            }
+        }
+
+        private void deleteIdentity()
+        {
+            if (cmbIdentity.SelectedIndex >= 0)
+            {
+                vIDsafe.Main.User.Vault.DeleteIdentity(cmbIdentity.SelectedIndex);
+
+                cmbIdentity.Items.RemoveAt(cmbIdentity.SelectedIndex);
+
+                reloadDetails();
             }
         }
     }

@@ -120,6 +120,7 @@
             this.btnGeneratePassword.TabIndex = 15;
             this.btnGeneratePassword.Text = "Generate";
             this.btnGeneratePassword.UseVisualStyleBackColor = false;
+            this.btnGeneratePassword.Click += new System.EventHandler(this.btnGeneratePassword_Click);
             // 
             // btnGenerateUsername
             // 
@@ -135,6 +136,7 @@
             this.btnGenerateUsername.TabIndex = 14;
             this.btnGenerateUsername.Text = "Generate";
             this.btnGenerateUsername.UseVisualStyleBackColor = false;
+            this.btnGenerateUsername.Click += new System.EventHandler(this.btnGenerateUsername_Click);
             // 
             // textBox5
             // 
