@@ -19,11 +19,11 @@ namespace vIDsafe
 
         private void btnRegister_Click(object sender, EventArgs e)
         {
-            vIDsafe.main.user = new UserAccount(txtName.Text, txtPassword.Text);
+            vIDsafe.Main.User = new UserAccount(txtName.Text, txtPassword.Text);
 
             if (isValid())
             {
-                int registerStatusCode = vIDsafe.main.user.tryRegister();
+                int registerStatusCode = vIDsafe.Main.User.TryRegister();
 
                 switch (registerStatusCode)
                 {
@@ -47,7 +47,7 @@ namespace vIDsafe
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            vIDsafe.openChildForm(new Login());
+            vIDsafe.OpenChildForm(new Login());
         }
     }
 }

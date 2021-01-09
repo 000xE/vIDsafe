@@ -10,16 +10,14 @@ using System.Windows.Forms;
 
 namespace vIDsafe
 {
-#pragma warning disable IDE1006 // Naming Styles
     public partial class vIDsafe : Form
-#pragma warning restore IDE1006 // Naming Styles
     {
-        public static Form activeForm = null;
-        public static Panel formPanel;
+        public static Form CurrentChildForm = null;
+        public static Panel ChildFormPanel;
 
-        public UserAccount user;
+        public UserAccount User;
 
-        public static vIDsafe main;
+        public static vIDsafe Main;
 
         public vIDsafe()
         {
@@ -30,29 +28,29 @@ namespace vIDsafe
 
         private void getFormComponents()
         {
-            formPanel = panelForm;
+            ChildFormPanel = panelForm;
 
-            main = this;
+            Main = this;
         }
 
         private void loadFormComponents()
         {
-            openChildForm(new Login());
+            OpenChildForm(new Login());
         }
 
-        public static void openChildForm(Form childForm)
+        public static void OpenChildForm(Form childForm)
         {
-            if (activeForm != null)
+            if (CurrentChildForm != null)
             {
-                activeForm.Close();
+                CurrentChildForm.Close();
             }
-            activeForm = childForm;
+            CurrentChildForm = childForm;
             childForm.TopLevel = false;
             childForm.FormBorderStyle = FormBorderStyle.None;
             childForm.Dock = DockStyle.Fill;
-            formPanel.Enabled = true;
-            formPanel.Controls.Add(childForm);
-            formPanel.Tag = childForm;
+            ChildFormPanel.Enabled = true;
+            ChildFormPanel.Controls.Add(childForm);
+            ChildFormPanel.Tag = childForm;
             childForm.BringToFront();
             childForm.Show();
         }

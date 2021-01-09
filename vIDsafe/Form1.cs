@@ -12,10 +12,9 @@ namespace vIDsafe
 {
     public partial class Form1 : Form
     {
-        public static Form activeForm = null;
-        public static Panel formPanel;
-
-        public static Control.ControlCollection controls = null;
+        public static Form CurrentChildForm = null;
+        public static Panel ChildFormPanel;
+        public static Control.ControlCollection FormControls = null;
 
         public Form1()
         {
@@ -26,41 +25,41 @@ namespace vIDsafe
 
         private void getFormComponents()
         {
-            formPanel = panelForm;
-            controls = Controls;
+            ChildFormPanel = panelForm;
+            FormControls = base.Controls;
         }
 
         private void loadFormComponents()
         {
-            openChildForm(new Overview());
-            lblMAName.Text = vIDsafe.main.user.getName();
+            OpenChildForm(new Overview());
+            lblMAName.Text = vIDsafe.Main.User.Name;
         }
 
-        public static void openChildForm(Form childForm)
+        public static void OpenChildForm(Form childForm)
         {
-            if (activeForm != null)
+            if (CurrentChildForm != null)
             {
-                activeForm.Close();
+                CurrentChildForm.Close();
             }
-            activeForm = childForm;
+            CurrentChildForm = childForm;
             childForm.TopLevel = false;
             childForm.FormBorderStyle = FormBorderStyle.None;
             childForm.Dock = DockStyle.Fill;
-            formPanel.Enabled = true;
-            formPanel.Controls.Add(childForm);
-            formPanel.Tag = childForm;
+            ChildFormPanel.Enabled = true;
+            ChildFormPanel.Controls.Add(childForm);
+            ChildFormPanel.Tag = childForm;
             childForm.BringToFront();
             childForm.Show();
         }
 
-        public static void changeSelectedButton(object sender)
+        public static void ChangeSelectedButton(object sender)
         {
             Button selectedButton = (Button)sender;
             selectedButton.ForeColor = Color.Black;
             //selectedButton.BackColor = Color.FromArgb(47, 47, 47);
             selectedButton.BackColor = Color.Gainsboro;
 
-            Control navPanel = controls.Find("panelNavigation", true)[0];
+            Control navPanel = FormControls.Find("panelNavigation", true)[0];
 
             foreach (Control mainControls in navPanel.Controls)
             {
@@ -85,38 +84,38 @@ namespace vIDsafe
 
         private void btnOverview_Click(object sender, EventArgs e)
         {
-            changeSelectedButton(sender);
-            openChildForm(new Overview());
+            ChangeSelectedButton(sender);
+            OpenChildForm(new Overview());
         }
 
         private void btnIdentities_Click(object sender, EventArgs e)
         {
-            changeSelectedButton(sender);
-            openChildForm(new Identities());
+            ChangeSelectedButton(sender);
+            OpenChildForm(new Identities());
         }
 
         private void btnVault_Click(object sender, EventArgs e)
         {
-            changeSelectedButton(sender);
-            openChildForm(new Vault());
+            ChangeSelectedButton(sender);
+            OpenChildForm(new Vault());
         }
 
         private void btnImportExport_Click(object sender, EventArgs e)
         {
-            changeSelectedButton(sender);
-            openChildForm(new ImportExport());
+            ChangeSelectedButton(sender);
+            OpenChildForm(new ImportExport());
         }
 
         private void btnGeneratePassword_Click(object sender, EventArgs e)
         {
-            changeSelectedButton(sender);
-            openChildForm(new GeneratePassword());
+            ChangeSelectedButton(sender);
+            OpenChildForm(new GeneratePassword());
         }
 
         private void btnMasterAccount_Click(object sender, EventArgs e)
         {
-            changeSelectedButton(sender);
-            openChildForm(new MasterAccount());
+            ChangeSelectedButton(sender);
+            OpenChildForm(new MasterAccount());
         }
 
         private void btnPasswordManager_Click(object sender, EventArgs e)
@@ -136,14 +135,14 @@ namespace vIDsafe
         
         private void logout()
         {
-            vIDsafe.main.user.logout();
+            vIDsafe.Main.User.Logout();
 
             Close();
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            vIDsafe.main.Show();
+            vIDsafe.Main.Show();
         }
     }
 }

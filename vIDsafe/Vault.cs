@@ -14,5 +14,15 @@ namespace vIDsafe
         {
             InitializeComponent();
         }
+
+        private void btnGenerateUsername_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnGeneratePassword_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
