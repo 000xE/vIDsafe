@@ -19,18 +19,24 @@ namespace vIDsafe
         private int _weakCredentials;
         private int _conflictCredentials;
         private int _compromisedCredentials;
+        private int _safeCredentials;
 
         public Identity(string name)
         {
             this._name = name;
         }
 
-        private void calculateHealthScore()
+        private void CalculateHealthScore()
         {
             _healthScore = (_weakCredentials + _conflictCredentials + _compromisedCredentials) / _credentials.Count * 100;
         }
 
-        private void deleteCredential(int index)
+        private void CalculateSafeCredentials()
+        {
+            _safeCredentials = _credentials.Count - (_weakCredentials + _conflictCredentials + _compromisedCredentials);
+        }
+
+        private void DeleteCredential(int index)
         {
             _credentials.RemoveAt(index);
         }
@@ -41,6 +47,15 @@ namespace vIDsafe
 
         public string Usage => _usage;
 
+        public int HealthScore => _healthScore;
+        public int WeakCredentials => _weakCredentials;
+
+        public int ConflictCredentials => _conflictCredentials;
+
+        public int CompromisedCredentials => _compromisedCredentials;
+
+        public int SafeCredentials => _safeCredentials;
+
         public void SetDetails(string name, string email, string usage)
         {
             this._name = name;
@@ -48,6 +63,16 @@ namespace vIDsafe
             this._usage = usage;
 
             vIDsafe.Main.User.SaveVault();
+        }
+
+        public int GetCredentialCount()
+        {
+            if (_credentials.Count > 0)
+            {
+                return _credentials.Count;
+            }
+
+            return 0;
         }
     }
 }

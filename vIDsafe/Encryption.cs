@@ -35,7 +35,7 @@ namespace vIDsafe
         {
             byte[] textBytes = ASCIIEncoding.ASCII.GetBytes(plainText);
 
-            AesCryptoServiceProvider AES = getAES(key);
+            AesCryptoServiceProvider AES = GetAES(key);
 
             //https://stackoverflow.com/q/8041451
             using (var encryptor = AES.CreateEncryptor(AES.Key, AES.IV))
@@ -59,7 +59,7 @@ namespace vIDsafe
         {
             byte[] textBytes = Convert.FromBase64String(encryptedText);
 
-            AesCryptoServiceProvider AES = getAES(key);
+            AesCryptoServiceProvider AES = GetAES(key);
 
             //https://stackoverflow.com/q/8041451
             try
@@ -87,7 +87,7 @@ namespace vIDsafe
             }
         }
 
-        private static AesCryptoServiceProvider getAES (byte [] key)
+        private static AesCryptoServiceProvider GetAES (byte [] key)
         {
             AesCryptoServiceProvider AES = new AesCryptoServiceProvider
             {

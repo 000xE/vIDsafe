@@ -25,7 +25,7 @@ namespace vIDsafe
 
         public string Name => _name;
 
-        private bool accountExists()
+        private bool AccountExists()
         {
             if (File.Exists(_vaultFolder + _name))
             {
@@ -37,11 +37,11 @@ namespace vIDsafe
 
         public int TryLogin()
         {
-            if (accountExists())
+            if (AccountExists())
             {
-                hashPassword();
+                HashPassword();
 
-                this.Vault = getVault();
+                this.Vault = GetVault();
 
                 if (this.Vault == null)
                 {
@@ -59,9 +59,9 @@ namespace vIDsafe
         //https://stackoverflow.com/a/2955425
         public int TryRegister()
         {
-            if (!accountExists())
+            if (!AccountExists())
             {
-                hashPassword();
+                HashPassword();
 
                 SaveVault();
 
@@ -73,16 +73,16 @@ namespace vIDsafe
             }
         }
 
-        private UserVault getVault()
+        private UserVault GetVault()
         {
             string encryptedVault = File.ReadAllText(_vaultFolder + _name);
 
-            return (decryptVault(encryptedVault));           
+            return (DecryptVault(encryptedVault));           
         }
 
         public void SaveVault()
         {
-            string encryptedVault = encryptVault();
+            string encryptedVault = EncryptVault();
 
             FileInfo file = new FileInfo(_vaultFolder + _name);
             file.Directory.Create(); // If the directory already exists, this method does nothing.
@@ -96,20 +96,20 @@ namespace vIDsafe
             Vault = new UserVault();
         }
 
-        private void hashPassword()
+        private void HashPassword()
         {
             //password = Encryption.hashPassword(password, name);
 
             _password = Convert.ToBase64String(Encryption.HashPassword(_password, _name));
         }
 
-        private string encryptVault()
+        private string EncryptVault()
         {
             string serialisedVault = ObjectToString(this.Vault);
 
             return Encryption.AesEncrypt(serialisedVault, Convert.FromBase64String(_password));
         }
-        private UserVault decryptVault(string encryptedVault)
+        private UserVault DecryptVault(string encryptedVault)
         {
             string decryptedVault = Encryption.AesDecrypt(encryptedVault, Convert.FromBase64String(_password));
 
