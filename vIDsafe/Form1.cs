@@ -12,36 +12,36 @@ namespace vIDsafe
 {
     public partial class Form1 : Form
     {
-        public static Form CurrentChildForm = null;
         public static Panel ChildFormPanel;
         public static Control.ControlCollection FormControls = null;
 
         public Form1()
         {
             InitializeComponent();
-            getFormComponents();
-            loadFormComponents();
+            GetFormComponents();
+            LoadFormComponents();
         }
 
-        private void getFormComponents()
+        private void GetFormComponents()
         {
             ChildFormPanel = panelForm;
-            FormControls = base.Controls;
+            FormControls = this.Controls;
         }
 
-        private void loadFormComponents()
+        private void LoadFormComponents()
         {
             OpenChildForm(new Overview());
             lblMAName.Text = vIDsafe.Main.User.Name;
         }
 
+        //https://stackoverflow.com/a/28811266
         public static void OpenChildForm(Form childForm)
         {
-            if (CurrentChildForm != null)
+            while (ChildFormPanel.Controls.Count > 0)
             {
-                CurrentChildForm.Close();
+                ChildFormPanel.Controls[0].Dispose();
             }
-            CurrentChildForm = childForm;
+
             childForm.TopLevel = false;
             childForm.FormBorderStyle = FormBorderStyle.None;
             childForm.Dock = DockStyle.Fill;
@@ -130,10 +130,10 @@ namespace vIDsafe
 
         private void btnLogOut_Click(object sender, EventArgs e)
         {
-            logout();
+            Logout();
         }
         
-        private void logout()
+        private void Logout()
         {
             vIDsafe.Main.User.Logout();
 

@@ -21,7 +21,7 @@ namespace vIDsafe
         {
             vIDsafe.Main.User = new UserAccount(txtName.Text, txtPassword.Text);
 
-            if (isValid())
+            if (IsValid())
             {
                 int loginStatusCode = vIDsafe.Main.User.TryLogin();
 
@@ -43,7 +43,7 @@ namespace vIDsafe
             }
         }
 
-        private bool isValid()
+        private bool IsValid()
         {
             return true;
         }

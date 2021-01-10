@@ -14,45 +14,36 @@ namespace vIDsafe
         {
             InitializeComponent();
 
-            loadFormComponents();
+            LoadFormComponents();
         }
 
-        private void loadFormComponents()
+        private void LoadFormComponents()
         {
-            getIdentities();
-            loadTestGraph();
-        }
-
-        void loadTestGraph()
-        {
-
-            chart2.Series["Credentials"].Points[0].SetValueXY("Safe", 28);
-            chart2.Series["Credentials"].Points[1].SetValueXY("Weak", 12);
-            chart2.Series["Credentials"].Points[2].SetValueXY("Conflicts", 5);
-            chart2.Series["Credentials"].Points[3].SetValueXY("Compromised", 5);
-
-            chart2.Series["Credentials"].IsValueShownAsLabel = true;
+            GetIdentities();
         }
 
         private void chart2_PrePaint(object sender, System.Windows.Forms.DataVisualization.Charting.ChartPaintEventArgs e)
         {
-            if (e.ChartElement is System.Windows.Forms.DataVisualization.Charting.ChartArea)
+            if (cmbIdentity.SelectedIndex >= 0)
             {
-                var ta = new System.Windows.Forms.DataVisualization.Charting.TextAnnotation
+                if (e.ChartElement is System.Windows.Forms.DataVisualization.Charting.ChartArea)
                 {
-                    Text = "50",
-                    Width = e.Position.Width,
-                    Height = e.Position.Height,
-                    X = e.Position.X - (e.Position.Width / 100),
-                    Y = e.Position.Y + (e.Position.Height / 100),
-                    Font = new Font("Segoe UI", 12, FontStyle.Bold),
-                    ForeColor = Color.Gainsboro
-                };
-                //ta.Alignment = ContentAlignment.MiddleCenter;
+                    var ta = new System.Windows.Forms.DataVisualization.Charting.TextAnnotation
+                    {
+                        Text = Convert.ToString(vIDsafe.Main.User.Vault.GetIdentity(cmbIdentity.SelectedIndex).GetCredentialCount()),
+                        Width = e.Position.Width,
+                        Height = e.Position.Height,
+                        X = e.Position.X - (e.Position.Width / 100),
+                        Y = e.Position.Y + (e.Position.Height / 100),
+                        Font = new Font("Segoe UI", 12, FontStyle.Bold),
+                        ForeColor = Color.Gainsboro
+                    };
+                    //ta.Alignment = ContentAlignment.MiddleCenter;
 
-                chart2.Annotations.Clear();
-                chart2.Annotations.Add(ta);
+                    chart2.Annotations.Clear();
+                    chart2.Annotations.Add(ta);
 
+                }
             }
         }
 
@@ -75,15 +66,15 @@ namespace vIDsafe
 
         private void btnDeleteDiscard_Click(object sender, EventArgs e)
         {
-            deleteIdentity();
+            DeleteIdentity();
         }
 
         private void cmbIdentity_SelectedIndexChanged(object sender, EventArgs e)
         {
-            reloadDetails();
+            ReloadDetails();
         }
 
-        private void getIdentities()
+        private void GetIdentities()
         {
             foreach (Identity identity in vIDsafe.Main.User.Vault.Identities)
             {
@@ -91,7 +82,13 @@ namespace vIDsafe
             }
         }
 
-        private void reloadDetails()
+        private void ReloadDetails()
+        {
+            GetIdentityDetails();
+            GetCredentialInformation();
+        }
+
+        private void GetIdentityDetails()
         {
             if (cmbIdentity.SelectedIndex >= 0)
             {
@@ -108,7 +105,20 @@ namespace vIDsafe
             }
         }
 
-        private void deleteIdentity()
+        private void GetCredentialInformation()
+        {
+            if (cmbIdentity.SelectedIndex >= 0)
+            {
+                chart2.Series["Credentials"].Points[0].SetValueXY("Safe", vIDsafe.Main.User.Vault.GetIdentity(cmbIdentity.SelectedIndex).SafeCredentials);
+                chart2.Series["Credentials"].Points[1].SetValueXY("Weak", vIDsafe.Main.User.Vault.GetIdentity(cmbIdentity.SelectedIndex).WeakCredentials);
+                chart2.Series["Credentials"].Points[2].SetValueXY("Conflicts", vIDsafe.Main.User.Vault.GetIdentity(cmbIdentity.SelectedIndex).ConflictCredentials);
+                chart2.Series["Credentials"].Points[3].SetValueXY("Compromised", vIDsafe.Main.User.Vault.GetIdentity(cmbIdentity.SelectedIndex).CompromisedCredentials);
+
+                chart2.Series["Credentials"].IsValueShownAsLabel = true;
+            }
+        }
+
+        private void DeleteIdentity()
         {
             if (cmbIdentity.SelectedIndex >= 0)
             {
@@ -116,7 +126,7 @@ namespace vIDsafe
 
                 cmbIdentity.Items.RemoveAt(cmbIdentity.SelectedIndex);
 
-                reloadDetails();
+                ReloadDetails();
             }
         }
     }

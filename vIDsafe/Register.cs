@@ -21,7 +21,7 @@ namespace vIDsafe
         {
             vIDsafe.Main.User = new UserAccount(txtName.Text, txtPassword.Text);
 
-            if (isValid())
+            if (IsValid())
             {
                 int registerStatusCode = vIDsafe.Main.User.TryRegister();
 
@@ -40,7 +40,7 @@ namespace vIDsafe
             }
         }
 
-        private bool isValid()
+        private bool IsValid()
         {
             return true;
         }
