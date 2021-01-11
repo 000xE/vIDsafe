@@ -2,6 +2,8 @@
 
 vIDsafe - A password manager focused on the idea of compartmentalisation.
 
+[![CodeFactor](https://www.codefactor.io/repository/github/outerme/1808827-fyp/badge)](https://www.codefactor.io/repository/github/outerme/1808827-fyp)
+
 # Specification
 
 ## Functional requirements
