@@ -29,3 +29,4 @@ jobs:
           name: "Test the executable"
           command: .\bin\Release\win10-x64\publish\vIDsafe.exe 
       - store_artifacts:
+          path: .\bin\Release\win10-x64\publish\vIDsafe.exe
