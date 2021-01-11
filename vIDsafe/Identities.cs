@@ -43,7 +43,6 @@ namespace vIDsafe
 
                     chart2.Annotations.Clear();
                     chart2.Annotations.Add(ta);
-
                 }
             }
         }

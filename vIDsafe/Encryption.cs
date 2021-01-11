@@ -30,7 +30,6 @@ namespace vIDsafe
             return pbkdf2.GetBytes(_hashSize);
         }
 
-
         public static string AesEncrypt(string plainText, byte[] key)
         {
             byte[] textBytes = ASCIIEncoding.ASCII.GetBytes(plainText);
@@ -53,7 +52,6 @@ namespace vIDsafe
                 }
             }
         }
-
 
         public static string AesDecrypt(string encryptedText, byte[] key)
         {
@@ -86,7 +84,6 @@ namespace vIDsafe
                 return null;
             }
         }
-
         private static AesCryptoServiceProvider GetAES (byte [] key)
         {
             AesCryptoServiceProvider AES = new AesCryptoServiceProvider

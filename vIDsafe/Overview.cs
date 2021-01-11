@@ -18,7 +18,6 @@ namespace vIDsafe
 
         void loadTestGraph()
         {
-
             chart1.Series["Credentials"].Points[0].SetValueXY("Safe", 146);
             chart1.Series["Credentials"].Points[1].SetValueXY("Weak", 30);
             chart1.Series["Credentials"].Points[2].SetValueXY("Conflicts", 7);
@@ -45,7 +44,6 @@ namespace vIDsafe
 
                 chart1.Annotations.Clear();
                 chart1.Annotations.Add(ta);
-
             }
         }
 
@@ -55,7 +53,6 @@ namespace vIDsafe
             Form1.ChangeSelectedButton(btnVault);
             Form1.OpenChildForm(new Vault());
         }
-
         private void btnManageIdentities_Click(object sender, EventArgs e)
         {
             object btnIdentities = Form1.FormControls.Find("btnIdentities", true)[0];
