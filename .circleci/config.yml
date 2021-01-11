@@ -1,14 +1,31 @@
- version: 2.1
+version: 2.1
 
- orbs:
-  win: circleci/windows@2.2.0
+orbs:
+  win: circleci/windows@1.0.0
 
- jobs:
-   build:
-     executor: win/default
+jobs:
+  build:
+    executor:
+      name: win/vs2019
+      shell: powershell.exe   
+    working_directory: "~/1808827-FYP/vIDsafe"     
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - dotnet-packages-v1-{{ checksum "vIDsafe.csproj" }}
+      - run:
+          name: "Install project dependencies"
+          command: dotnet.exe restore
+      - save_cache:
+          paths:
+            - C:\Users\circleci\.nuget\packages
+          key: dotnet-packages-v1-{{ checksum "vIDsafe.csproj" }}
 
-     working_directory: "~/1808827-FYP/vIDsafe"     
-    
-     steps:
-       - checkout
-       - run: dotnet build
+      - run:
+          name: "Run Build step"
+          command: dotnet.exe publish -c Release -r win10-x64
+      - run:
+          name: "Test the executable"
+          command: .\bin\Release\win10-x64\publish\vIDsafe.exe 
+      - store_artifacts:
