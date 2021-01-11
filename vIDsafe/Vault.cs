@@ -48,7 +48,7 @@ namespace vIDsafe
         {
             vIDsafe.Main.User.Vault.GetIdentity(cmbIdentity.SelectedIndex).GetCredential(lstCredentials.SelectedIndex).SetDetails(txtUsername.Text, txtPassword.Text, txtURL.Text, txtNotes.Text);
 
-            lstCredentials.Items[lstCredentials.SelectedIndex] = txtUsername.Text + " + " + txtURL.Text;
+            lstCredentials.Items[lstCredentials.SelectedIndex] = txtUsername.Text + "  " + txtURL.Text;
         }
 
         private void btnDeleteDiscard_Click(object sender, EventArgs e)
@@ -58,25 +58,14 @@ namespace vIDsafe
 
         private void cmbIdentity_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ReloadDetails(false);
+            EnableDisableInputs();
+            GetCredentials();
         }
 
         private void lstCredentials_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ReloadDetails(true);
-        }
-
-        private void ReloadDetails(bool credentialDetails)
-        {
             EnableDisableInputs();
-            if (credentialDetails)
-            {
-                GetCredentialDetails();
-            }
-            else
-            {
-                GetCredentials();
-            }
+            GetCredentialDetails();
         }
 
         private void GetIdentities()
@@ -92,7 +81,7 @@ namespace vIDsafe
             lstCredentials.Items.Clear();
             foreach (Credential credential in vIDsafe.Main.User.Vault.GetIdentity(cmbIdentity.SelectedIndex).Credentials)
             {
-                lstCredentials.Items.Add(credential.Username + " + " + credential.URL);
+                lstCredentials.Items.Add(credential.Username + " " + credential.URL);
             }
         }
 
@@ -127,43 +116,43 @@ namespace vIDsafe
             if (cmbIdentity.SelectedIndex >= 0)
             {
                 btnNewCredential.Enabled = true;
-
-                if (lstCredentials.SelectedIndex >= 0)
-                {
-                    txtURL.Enabled = true;
-                    txtUsername.Enabled = true;
-                    txtPassword.Enabled = true;
-                    txtNotes.Enabled = true;
-
-                    btnSave.Enabled = true;
-                    btnDeleteDiscard.Enabled = true;
-
-                    btnGenerateUsername.Enabled = true;
-                    btnGeneratePassword.Enabled = true;
-                }
-                else
-                {
-                    txtURL.Clear();
-                    txtUsername.Clear();
-                    txtPassword.Clear();
-                    txtNotes.Clear();
-                    cmbIdentity.Text = "";
-
-                    txtURL.Enabled = false;
-                    txtUsername.Enabled = false;
-                    txtPassword.Enabled = false;
-                    txtNotes.Enabled = false;
-
-                    btnSave.Enabled = false;
-                    btnDeleteDiscard.Enabled = false;
-
-                    btnGenerateUsername.Enabled = false;
-                    btnGeneratePassword.Enabled = false;
-                }
             }
             else
             {
                 btnNewCredential.Enabled = false;
+            }
+
+            if (lstCredentials.SelectedIndex >= 0)
+            {
+                txtURL.Enabled = true;
+                txtUsername.Enabled = true;
+                txtPassword.Enabled = true;
+                txtNotes.Enabled = true;
+
+                btnSave.Enabled = true;
+                btnDeleteDiscard.Enabled = true;
+
+                btnGenerateUsername.Enabled = true;
+                btnGeneratePassword.Enabled = true;
+            }
+            else
+            {
+                txtURL.Clear();
+                txtUsername.Clear();
+                txtPassword.Clear();
+                txtNotes.Clear();
+                cmbIdentity.Text = "";
+
+                txtURL.Enabled = false;
+                txtUsername.Enabled = false;
+                txtPassword.Enabled = false;
+                txtNotes.Enabled = false;
+
+                btnSave.Enabled = false;
+                btnDeleteDiscard.Enabled = false;
+
+                btnGenerateUsername.Enabled = false;
+                btnGeneratePassword.Enabled = false;
             }
         }
     }
