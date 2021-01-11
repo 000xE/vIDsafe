@@ -20,6 +20,7 @@ namespace vIDsafe
         private void LoadFormComponents()
         {
             GetIdentities();
+            EnableDisableInputs();
         }
 
         private void chart2_PrePaint(object sender, System.Windows.Forms.DataVisualization.Charting.ChartPaintEventArgs e)
@@ -74,45 +75,45 @@ namespace vIDsafe
             ReloadDetails();
         }
 
+        private void ReloadDetails()
+        {
+            EnableDisableInputs();
+            GetIdentityDetails();
+            GetCredentialInformation();
+        }
+
         private void GetIdentities()
         {
+            cmbIdentity.Items.Clear();
+
             foreach (Identity identity in vIDsafe.Main.User.Vault.Identities)
             {
                 cmbIdentity.Items.Add(identity.Name);
             }
         }
 
-        private void ReloadDetails()
-        {
-            GetIdentityDetails();
-            GetCredentialInformation();
-        }
-
         private void GetIdentityDetails()
         {
             if (cmbIdentity.SelectedIndex >= 0)
             {
-                txtIdentityName.Text = vIDsafe.Main.User.Vault.GetIdentity(cmbIdentity.SelectedIndex).Name;
-                txtIdentityEmail.Text = vIDsafe.Main.User.Vault.GetIdentity(cmbIdentity.SelectedIndex).Email;
-                txtIdentityUsage.Text = vIDsafe.Main.User.Vault.GetIdentity(cmbIdentity.SelectedIndex).Usage;
-            }
-            else
-            {
-                txtIdentityName.Clear();
-                txtIdentityEmail.Clear();
-                txtIdentityUsage.Clear();
-                cmbIdentity.Text = "";
-            }
+                Identity currentIdentity = vIDsafe.Main.User.Vault.GetIdentity(cmbIdentity.SelectedIndex);
+
+                txtIdentityName.Text = currentIdentity.Name;
+                txtIdentityEmail.Text = currentIdentity.Email;
+                txtIdentityUsage.Text = currentIdentity.Usage;
+            }  
         }
 
         private void GetCredentialInformation()
         {
             if (cmbIdentity.SelectedIndex >= 0)
             {
-                chart2.Series["Credentials"].Points[0].SetValueXY("Safe", vIDsafe.Main.User.Vault.GetIdentity(cmbIdentity.SelectedIndex).SafeCredentials);
-                chart2.Series["Credentials"].Points[1].SetValueXY("Weak", vIDsafe.Main.User.Vault.GetIdentity(cmbIdentity.SelectedIndex).WeakCredentials);
-                chart2.Series["Credentials"].Points[2].SetValueXY("Conflicts", vIDsafe.Main.User.Vault.GetIdentity(cmbIdentity.SelectedIndex).ConflictCredentials);
-                chart2.Series["Credentials"].Points[3].SetValueXY("Compromised", vIDsafe.Main.User.Vault.GetIdentity(cmbIdentity.SelectedIndex).CompromisedCredentials);
+                Identity currentIdentity = vIDsafe.Main.User.Vault.GetIdentity(cmbIdentity.SelectedIndex);
+
+                chart2.Series["Credentials"].Points[0].SetValueXY("Safe", currentIdentity.SafeCredentials);
+                chart2.Series["Credentials"].Points[1].SetValueXY("Weak", currentIdentity.WeakCredentials);
+                chart2.Series["Credentials"].Points[2].SetValueXY("Conflicts", currentIdentity.ConflictCredentials);
+                chart2.Series["Credentials"].Points[3].SetValueXY("Compromised", currentIdentity.CompromisedCredentials);
 
                 chart2.Series["Credentials"].IsValueShownAsLabel = true;
             }
@@ -126,7 +127,34 @@ namespace vIDsafe
 
                 cmbIdentity.Items.RemoveAt(cmbIdentity.SelectedIndex);
 
-                ReloadDetails();
+                ReloadDetails(); //SelectedIndex doesn't work with -1 for comboboxes for some reason?
+            }
+        }
+
+        private void EnableDisableInputs()
+        {
+            if (cmbIdentity.SelectedIndex >= 0)
+            {
+                txtIdentityName.Enabled = true;
+                txtIdentityEmail.Enabled = true;
+                txtIdentityUsage.Enabled = true;
+
+                btnSave.Enabled = true;
+                btnDeleteDiscard.Enabled = true;
+            }
+            else
+            {
+                txtIdentityName.Clear();
+                txtIdentityEmail.Clear();
+                txtIdentityUsage.Clear();
+                cmbIdentity.Text = "";
+
+                txtIdentityName.Enabled = false;
+                txtIdentityEmail.Enabled = false;
+                txtIdentityUsage.Enabled = false;
+
+                btnSave.Enabled = false;
+                btnDeleteDiscard.Enabled = false;
             }
         }
     }
