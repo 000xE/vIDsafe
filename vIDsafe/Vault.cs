@@ -23,7 +23,6 @@ namespace vIDsafe
             EnableDisableInputs();
         }
 
-
         private void btnGenerateUsername_Click(object sender, EventArgs e)
         {
 
