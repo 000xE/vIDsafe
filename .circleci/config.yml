@@ -5,7 +5,9 @@
 
  jobs:
    build:
-     executor: win/default     
+     executor: win/default
+
+     working_directory: "~/1808827-FYP/vIDsafe"     
     
      steps:
        - checkout
