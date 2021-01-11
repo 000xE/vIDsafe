@@ -33,16 +33,16 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnGeneratePassword = new System.Windows.Forms.Button();
             this.btnGenerateUsername = new System.Windows.Forms.Button();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtNotes = new System.Windows.Forms.TextBox();
+            this.txtURL = new System.Windows.Forms.TextBox();
+            this.txtPassword = new System.Windows.Forms.TextBox();
+            this.txtUsername = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel10 = new System.Windows.Forms.Panel();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.lstCredentials = new System.Windows.Forms.ListBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cmbIdentity = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.panelTitle = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
@@ -95,10 +95,10 @@
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
             this.panel2.Controls.Add(this.btnGeneratePassword);
             this.panel2.Controls.Add(this.btnGenerateUsername);
-            this.panel2.Controls.Add(this.textBox5);
-            this.panel2.Controls.Add(this.textBox4);
-            this.panel2.Controls.Add(this.textBox3);
-            this.panel2.Controls.Add(this.textBox2);
+            this.panel2.Controls.Add(this.txtNotes);
+            this.panel2.Controls.Add(this.txtURL);
+            this.panel2.Controls.Add(this.txtPassword);
+            this.panel2.Controls.Add(this.txtUsername);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(25, 43);
             this.panel2.Name = "panel2";
@@ -138,54 +138,54 @@
             this.btnGenerateUsername.UseVisualStyleBackColor = false;
             this.btnGenerateUsername.Click += new System.EventHandler(this.btnGenerateUsername_Click);
             // 
-            // textBox5
+            // txtNotes
             // 
-            this.textBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.textBox5.BackColor = System.Drawing.Color.DimGray;
-            this.textBox5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox5.ForeColor = System.Drawing.Color.Gainsboro;
-            this.textBox5.Location = new System.Drawing.Point(48, 112);
-            this.textBox5.Multiline = true;
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(367, 220);
-            this.textBox5.TabIndex = 13;
+            this.txtNotes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.txtNotes.BackColor = System.Drawing.Color.DimGray;
+            this.txtNotes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtNotes.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNotes.ForeColor = System.Drawing.Color.Gainsboro;
+            this.txtNotes.Location = new System.Drawing.Point(48, 112);
+            this.txtNotes.Multiline = true;
+            this.txtNotes.Name = "txtNotes";
+            this.txtNotes.Size = new System.Drawing.Size(367, 220);
+            this.txtNotes.TabIndex = 13;
             // 
-            // textBox4
+            // txtURL
             // 
-            this.textBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.textBox4.BackColor = System.Drawing.Color.DimGray;
-            this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox4.ForeColor = System.Drawing.Color.Gainsboro;
-            this.textBox4.Location = new System.Drawing.Point(48, 25);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(367, 23);
-            this.textBox4.TabIndex = 12;
+            this.txtURL.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.txtURL.BackColor = System.Drawing.Color.DimGray;
+            this.txtURL.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtURL.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtURL.ForeColor = System.Drawing.Color.Gainsboro;
+            this.txtURL.Location = new System.Drawing.Point(48, 25);
+            this.txtURL.Name = "txtURL";
+            this.txtURL.Size = new System.Drawing.Size(367, 23);
+            this.txtURL.TabIndex = 12;
             // 
-            // textBox3
+            // txtPassword
             // 
-            this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.textBox3.BackColor = System.Drawing.Color.DimGray;
-            this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.ForeColor = System.Drawing.Color.Gainsboro;
-            this.textBox3.Location = new System.Drawing.Point(48, 83);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(252, 23);
-            this.textBox3.TabIndex = 11;
+            this.txtPassword.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.txtPassword.BackColor = System.Drawing.Color.DimGray;
+            this.txtPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtPassword.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPassword.ForeColor = System.Drawing.Color.Gainsboro;
+            this.txtPassword.Location = new System.Drawing.Point(48, 83);
+            this.txtPassword.Name = "txtPassword";
+            this.txtPassword.Size = new System.Drawing.Size(252, 23);
+            this.txtPassword.TabIndex = 11;
             // 
-            // textBox2
+            // txtUsername
             // 
-            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.textBox2.BackColor = System.Drawing.Color.DimGray;
-            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.ForeColor = System.Drawing.Color.Gainsboro;
-            this.textBox2.Location = new System.Drawing.Point(48, 54);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(252, 23);
-            this.textBox2.TabIndex = 10;
+            this.txtUsername.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.txtUsername.BackColor = System.Drawing.Color.DimGray;
+            this.txtUsername.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtUsername.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtUsername.ForeColor = System.Drawing.Color.Gainsboro;
+            this.txtUsername.Location = new System.Drawing.Point(48, 54);
+            this.txtUsername.Name = "txtUsername";
+            this.txtUsername.Size = new System.Drawing.Size(252, 23);
+            this.txtUsername.TabIndex = 10;
             // 
             // label3
             // 
@@ -214,9 +214,9 @@
             // panel10
             // 
             this.panel10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(59)))), ((int)(((byte)(66)))));
-            this.panel10.Controls.Add(this.listBox1);
+            this.panel10.Controls.Add(this.lstCredentials);
             this.panel10.Controls.Add(this.textBox1);
-            this.panel10.Controls.Add(this.comboBox1);
+            this.panel10.Controls.Add(this.cmbIdentity);
             this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel10.Location = new System.Drawing.Point(25, 47);
             this.panel10.Name = "panel10";
@@ -224,19 +224,20 @@
             this.panel10.Size = new System.Drawing.Size(318, 328);
             this.panel10.TabIndex = 8;
             // 
-            // listBox1
+            // lstCredentials
             // 
-            this.listBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
-            this.listBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBox1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listBox1.ForeColor = System.Drawing.Color.Gainsboro;
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 15;
-            this.listBox1.Location = new System.Drawing.Point(0, 71);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(318, 257);
-            this.listBox1.TabIndex = 2;
+            this.lstCredentials.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
+            this.lstCredentials.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lstCredentials.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstCredentials.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstCredentials.ForeColor = System.Drawing.Color.Gainsboro;
+            this.lstCredentials.FormattingEnabled = true;
+            this.lstCredentials.ItemHeight = 15;
+            this.lstCredentials.Location = new System.Drawing.Point(0, 71);
+            this.lstCredentials.Name = "lstCredentials";
+            this.lstCredentials.Size = new System.Drawing.Size(318, 257);
+            this.lstCredentials.TabIndex = 2;
+            this.lstCredentials.SelectedIndexChanged += new System.EventHandler(this.lstCredentials_SelectedIndexChanged);
             // 
             // textBox1
             // 
@@ -250,22 +251,19 @@
             this.textBox1.Size = new System.Drawing.Size(318, 23);
             this.textBox1.TabIndex = 1;
             // 
-            // comboBox1
+            // cmbIdentity
             // 
-            this.comboBox1.BackColor = System.Drawing.Color.White;
-            this.comboBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboBox1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Identity 1",
-            "Identity 2",
-            "Identity 3"});
-            this.comboBox1.Location = new System.Drawing.Point(0, 25);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(318, 23);
-            this.comboBox1.TabIndex = 0;
+            this.cmbIdentity.BackColor = System.Drawing.Color.White;
+            this.cmbIdentity.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmbIdentity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbIdentity.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbIdentity.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbIdentity.FormattingEnabled = true;
+            this.cmbIdentity.Location = new System.Drawing.Point(0, 25);
+            this.cmbIdentity.Name = "cmbIdentity";
+            this.cmbIdentity.Size = new System.Drawing.Size(318, 23);
+            this.cmbIdentity.TabIndex = 0;
+            this.cmbIdentity.SelectedIndexChanged += new System.EventHandler(this.cmbIdentity_SelectedIndexChanged);
             // 
             // label4
             // 
@@ -357,6 +355,7 @@
             this.btnSave.TabIndex = 0;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = false;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnDeleteDiscard
             // 
@@ -373,6 +372,7 @@
             this.btnDeleteDiscard.TabIndex = 1;
             this.btnDeleteDiscard.Text = "Delete/Discard";
             this.btnDeleteDiscard.UseVisualStyleBackColor = false;
+            this.btnDeleteDiscard.Click += new System.EventHandler(this.btnDeleteDiscard_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -404,6 +404,7 @@
             this.btnNewCredential.TabIndex = 0;
             this.btnNewCredential.Text = "Add";
             this.btnNewCredential.UseVisualStyleBackColor = false;
+            this.btnNewCredential.Click += new System.EventHandler(this.btnNewCredential_Click);
             // 
             // Vault
             // 
@@ -441,14 +442,14 @@
         private System.Windows.Forms.Panel panel10;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox lstCredentials;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cmbIdentity;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtNotes;
+        private System.Windows.Forms.TextBox txtURL;
+        private System.Windows.Forms.TextBox txtPassword;
+        private System.Windows.Forms.TextBox txtUsername;
         private System.Windows.Forms.Button btnGenerateUsername;
         private System.Windows.Forms.Button btnGeneratePassword;
         private System.Windows.Forms.Panel panel4;

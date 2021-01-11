@@ -36,9 +36,26 @@ namespace vIDsafe
             _safeCredentials = _credentials.Count - (_weakCredentials + _conflictCredentials + _compromisedCredentials);
         }
 
-        private void DeleteCredential(int index)
+        public Credential GetCredential(int index)
+        {
+            return _credentials[index];
+        }
+
+        public List<Credential> Credentials => _credentials;
+
+        public void NewCredential(string username)
+        {
+            Credential credential = new Credential(username);
+            _credentials.Add(credential);
+
+            vIDsafe.Main.User.SaveVault();
+        }
+
+        public void DeleteCredential(int index)
         {
             _credentials.RemoveAt(index);
+
+            vIDsafe.Main.User.SaveVault();
         }
 
         public string Name =>_name;
