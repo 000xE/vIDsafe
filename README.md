@@ -14,10 +14,10 @@ vIDsafe - A password manager focused on the idea of compartmentalisation.
 		- [x] Password
 		~~- [ ] Password hint~~
 	- [x] Allow the user to login to their master account
-	- [ ] Allow the user to manage their master account
-		- [ ] Delete account
-		- [ ] Wipe identities
-		- [ ] Purge credentials
+	- [x] Allow the user to manage their master account
+		- [x] Delete account
+		- [x] Wipe identities
+		- [x] Purge credentials
 - [ ] Vault:
 	- [ ] Identities:	
 		- [x] Allow the user to create/manage identities/profiles based on their needs
@@ -39,7 +39,7 @@ vIDsafe - A password manager focused on the idea of compartmentalisation.
 			- [ ] Identity health scores
 			- [ ] Weak credentials
 			- [ ] Security alerts
-		- [ ] Encrypt the vault using the methods bcrypt and AES
+		- [x] Encrypt the vault using the methods bcrypt and AES
 		- [ ] Allow the user to import and export their vault in JSON/csv format
 - [ ] Application:
 	- [ ] Allow the user to change the application's settings
