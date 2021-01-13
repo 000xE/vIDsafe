@@ -36,5 +36,20 @@ namespace vIDsafe
             _identities.RemoveAt(index);
             vIDsafe.Main.User.SaveVault();
         }
+
+        public void DeleteAllIdentities()
+        {
+            _identities.Clear();
+            vIDsafe.Main.User.SaveVault();
+        }
+        public void DeleteAllCredentials()
+        {
+            foreach (Identity identity in _identities)
+            {
+                identity.Credentials.Clear();
+
+                vIDsafe.Main.User.SaveVault(); 
+            }
+        }
     }
 }
