@@ -11,9 +11,32 @@ namespace vIDsafe
     {
         private List<Identity> _identities = new List<Identity>();
 
+        private int _overallHealthScore;
+
+        private int _totalCredentialCount;
+        private int _totalWeakCredentials;
+        private int _totalConflictCredentials;
+        private int _totalCompromisedCredentials;
+        private int _totalSafeCredentials;
+
         public UserVault()
         {
 
+        }
+
+        private void CalculateHealthScore()
+        {
+            foreach (Identity identity in Identities)
+            {
+                _totalCredentialCount += identity.GetCredentialCount();
+
+                _totalWeakCredentials += identity.WeakCredentials;
+                _totalConflictCredentials += identity.ConflictCredentials;
+                _totalCompromisedCredentials += identity.CompromisedCredentials;
+                _totalSafeCredentials += identity.SafeCredentials;
+            }
+
+            _overallHealthScore = (_totalSafeCredentials) / _totalCredentialCount * 100;
         }
 
         public void NewIdentity(string name)

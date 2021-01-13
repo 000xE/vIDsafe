@@ -59,8 +59,6 @@ namespace vIDsafe
         {
             EnableDisableInputs();
             GetCredentials();
-
-            //TODO: clear credential details when switching identities (doesnt do that only doe sit hwen u go back)
         }
 
         private void lstCredentials_SelectedIndexChanged(object sender, EventArgs e)
@@ -120,6 +118,8 @@ namespace vIDsafe
 
         private void EnableDisableInputs()
         {
+            ClearInputs();
+
             if (cmbIdentity.SelectedIndex >= 0)
             {
                 btnNewCredential.Enabled = true;
@@ -144,12 +144,6 @@ namespace vIDsafe
             }
             else
             {
-                txtURL.Clear();
-                txtUsername.Clear();
-                txtPassword.Clear();
-                txtNotes.Clear();
-                cmbIdentity.Text = "";
-
                 txtURL.Enabled = false;
                 txtUsername.Enabled = false;
                 txtPassword.Enabled = false;
@@ -161,6 +155,15 @@ namespace vIDsafe
                 btnGenerateUsername.Enabled = false;
                 btnGeneratePassword.Enabled = false;
             }
+        }
+
+        private void ClearInputs()
+        {
+            txtURL.Clear();
+            txtUsername.Clear();
+            txtPassword.Clear();
+            txtNotes.Clear();
+            cmbIdentity.Text = "";
         }
 
         private void txtSearchCredential_TextChanged(object sender, EventArgs e)
