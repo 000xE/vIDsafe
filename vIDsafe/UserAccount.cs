@@ -73,7 +73,7 @@ namespace vIDsafe
             }
         }
 
-        private int VerifyPassword (string oldPassword)
+        private int VerifyPassword(string oldPassword)
         {
             if (HashPassword(oldPassword) == this._password)
             {
@@ -105,8 +105,8 @@ namespace vIDsafe
             if (VerifyPassword(oldPassword) == 1)
             {
                 File.Move(_vaultFolder + this._name, _vaultFolder + name);
-                this._name = name;
 
+                this._name = name;
                 this._password = HashPassword(oldPassword);
                 SaveVault();
 
@@ -176,7 +176,6 @@ namespace vIDsafe
             SaveVault();
 
             File.Delete(_vaultFolder + _name);
-            //TODO: LOGOUT AND OBFUSCATE + REMOVE THE USER ACCOUNT FILE
         }
 
         //https://stackoverflow.com/questions/6979718/c-sharp-object-to-string-and-back/6979843#6979843

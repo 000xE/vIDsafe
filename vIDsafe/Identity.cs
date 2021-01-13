@@ -30,12 +30,19 @@ namespace vIDsafe
 
         private void CalculateHealthScore()
         {
-            _healthScore = (_weakCredentials + _conflictCredentials + _compromisedCredentials) / _credentials.Count * 100;
+            _safeCredentials = _credentials.Count - (_weakCredentials + _conflictCredentials + _compromisedCredentials);
+
+            _healthScore = (_safeCredentials) / _credentials.Count * 100;
         }
 
-        private void CalculateSafeCredentials()
+        public int GetCredentialCount()
         {
-            _safeCredentials = _credentials.Count - (_weakCredentials + _conflictCredentials + _compromisedCredentials);
+            if (_credentials.Count > 0)
+            {
+                return _credentials.Count;
+            }
+
+            return 0;
         }
 
         public Credential GetCredential(int index)
@@ -82,16 +89,6 @@ namespace vIDsafe
             this._usage = usage;
 
             vIDsafe.Main.User.SaveVault();
-        }
-
-        public int GetCredentialCount()
-        {
-            if (_credentials.Count > 0)
-            {
-                return _credentials.Count;
-            }
-
-            return 0;
         }
     }
 }

@@ -132,6 +132,8 @@ namespace vIDsafe
 
         private void EnableDisableInputs()
         {
+            ClearInputs();
+
             if (cmbIdentity.SelectedIndex >= 0)
             {
                 txtIdentityName.Enabled = true;
@@ -143,11 +145,6 @@ namespace vIDsafe
             }
             else
             {
-                txtIdentityName.Clear();
-                txtIdentityEmail.Clear();
-                txtIdentityUsage.Clear();
-                cmbIdentity.Text = "";
-
                 txtIdentityName.Enabled = false;
                 txtIdentityEmail.Enabled = false;
                 txtIdentityUsage.Enabled = false;
@@ -155,6 +152,14 @@ namespace vIDsafe
                 btnSave.Enabled = false;
                 btnDeleteDiscard.Enabled = false;
             }
+        }
+
+        private void ClearInputs()
+        {
+            txtIdentityName.Clear();
+            txtIdentityEmail.Clear();
+            txtIdentityUsage.Clear();
+            cmbIdentity.Text = "";
         }
     }
 }

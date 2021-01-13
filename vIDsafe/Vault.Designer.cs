@@ -229,10 +229,9 @@
             this.lstCredentials.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
             this.lstCredentials.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lstCredentials.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lstCredentials.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstCredentials.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.lstCredentials.ForeColor = System.Drawing.Color.Gainsboro;
             this.lstCredentials.FormattingEnabled = true;
-            this.lstCredentials.ItemHeight = 15;
             this.lstCredentials.Location = new System.Drawing.Point(0, 71);
             this.lstCredentials.Name = "lstCredentials";
             this.lstCredentials.Size = new System.Drawing.Size(318, 257);
