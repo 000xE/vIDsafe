@@ -28,11 +28,26 @@ namespace vIDsafe
             this._name = name;
         }
 
-        private void CalculateHealthScore()
+        private void ResetCredentialCounts()
         {
+            _healthScore = 100;
+
+            _weakCredentials = 0;
+            _conflictCredentials = 0;
+            _compromisedCredentials = 0;
+            _safeCredentials = 0;
+        }
+
+        public void CalculateHealthScore()
+        {
+            ResetCredentialCounts();
+
             _safeCredentials = _credentials.Count - (_weakCredentials + _conflictCredentials + _compromisedCredentials);
 
-            _healthScore = (_safeCredentials) / _credentials.Count * 100;
+            if (_credentials.Count > 0)
+            {
+                _healthScore = (_safeCredentials) / _credentials.Count * 100;
+            }
         }
 
         public int GetCredentialCount()
