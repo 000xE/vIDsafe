@@ -24,8 +24,21 @@ namespace vIDsafe
 
         }
 
-        private void CalculateHealthScore()
+        private void ResetCredentialCounts()
         {
+            _overallHealthScore = 100;
+
+            _totalCredentialCount = 0;
+            _totalWeakCredentials = 0;
+            _totalConflictCredentials = 0;
+            _totalCompromisedCredentials = 0;
+            _totalSafeCredentials = 0;
+        }
+
+        public void CalculateHealthScore()
+        {
+            ResetCredentialCounts();
+
             foreach (Identity identity in Identities)
             {
                 _totalCredentialCount += identity.GetCredentialCount();
@@ -49,6 +62,7 @@ namespace vIDsafe
 
         public Identity GetIdentity(int index)
         {
+            _identities[index].CalculateHealthScore();
             return _identities[index];
         }
 
