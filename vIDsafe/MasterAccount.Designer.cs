@@ -45,16 +45,16 @@
             this.label5 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.txtCurrentPassword2 = new System.Windows.Forms.TextBox();
+            this.txtConfirmPassword = new System.Windows.Forms.TextBox();
+            this.txtNewPassword = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.panel11 = new System.Windows.Forms.Panel();
             this.btnChangePassword = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtCurrentPassword = new System.Windows.Forms.TextBox();
+            this.txtName = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
             this.btnChangeDetails = new System.Windows.Forms.Button();
@@ -229,6 +229,7 @@
             this.btnDeleteAccount.TabIndex = 29;
             this.btnDeleteAccount.Text = "Delete Account";
             this.btnDeleteAccount.UseVisualStyleBackColor = false;
+            this.btnDeleteAccount.Click += new System.EventHandler(this.btnDeleteAccount_Click);
             // 
             // btnDeleteCredentials
             // 
@@ -244,6 +245,7 @@
             this.btnDeleteCredentials.TabIndex = 27;
             this.btnDeleteCredentials.Text = "Delete Credentials";
             this.btnDeleteCredentials.UseVisualStyleBackColor = false;
+            this.btnDeleteCredentials.Click += new System.EventHandler(this.btnDeleteCredentials_Click);
             // 
             // btnDeleteIdentities
             // 
@@ -259,6 +261,7 @@
             this.btnDeleteIdentities.TabIndex = 28;
             this.btnDeleteIdentities.Text = "Delete Identities";
             this.btnDeleteIdentities.UseVisualStyleBackColor = false;
+            this.btnDeleteIdentities.Click += new System.EventHandler(this.btnDeleteIdentities_Click);
             // 
             // label5
             // 
@@ -291,9 +294,9 @@
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
-            this.panel4.Controls.Add(this.textBox4);
-            this.panel4.Controls.Add(this.textBox5);
-            this.panel4.Controls.Add(this.textBox6);
+            this.panel4.Controls.Add(this.txtCurrentPassword2);
+            this.panel4.Controls.Add(this.txtConfirmPassword);
+            this.panel4.Controls.Add(this.txtNewPassword);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(25, 47);
             this.panel4.Name = "panel4";
@@ -301,38 +304,41 @@
             this.panel4.Size = new System.Drawing.Size(270, 140);
             this.panel4.TabIndex = 9;
             // 
-            // textBox4
+            // txtCurrentPassword2
             // 
-            this.textBox4.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.textBox4.BackColor = System.Drawing.Color.DimGray;
-            this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox4.ForeColor = System.Drawing.Color.Gainsboro;
-            this.textBox4.Location = new System.Drawing.Point(75, 87);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(121, 22);
-            this.textBox4.TabIndex = 8;
+            this.txtCurrentPassword2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.txtCurrentPassword2.BackColor = System.Drawing.Color.DimGray;
+            this.txtCurrentPassword2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtCurrentPassword2.ForeColor = System.Drawing.Color.Gainsboro;
+            this.txtCurrentPassword2.Location = new System.Drawing.Point(75, 87);
+            this.txtCurrentPassword2.Name = "txtCurrentPassword2";
+            this.txtCurrentPassword2.PasswordChar = '*';
+            this.txtCurrentPassword2.Size = new System.Drawing.Size(121, 22);
+            this.txtCurrentPassword2.TabIndex = 8;
             // 
-            // textBox5
+            // txtConfirmPassword
             // 
-            this.textBox5.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.textBox5.BackColor = System.Drawing.Color.DimGray;
-            this.textBox5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox5.ForeColor = System.Drawing.Color.Gainsboro;
-            this.textBox5.Location = new System.Drawing.Point(75, 59);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(121, 22);
-            this.textBox5.TabIndex = 7;
+            this.txtConfirmPassword.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.txtConfirmPassword.BackColor = System.Drawing.Color.DimGray;
+            this.txtConfirmPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtConfirmPassword.ForeColor = System.Drawing.Color.Gainsboro;
+            this.txtConfirmPassword.Location = new System.Drawing.Point(75, 59);
+            this.txtConfirmPassword.Name = "txtConfirmPassword";
+            this.txtConfirmPassword.PasswordChar = '*';
+            this.txtConfirmPassword.Size = new System.Drawing.Size(121, 22);
+            this.txtConfirmPassword.TabIndex = 7;
             // 
-            // textBox6
+            // txtNewPassword
             // 
-            this.textBox6.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.textBox6.BackColor = System.Drawing.Color.DimGray;
-            this.textBox6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox6.ForeColor = System.Drawing.Color.Gainsboro;
-            this.textBox6.Location = new System.Drawing.Point(75, 31);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(121, 22);
-            this.textBox6.TabIndex = 6;
+            this.txtNewPassword.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.txtNewPassword.BackColor = System.Drawing.Color.DimGray;
+            this.txtNewPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtNewPassword.ForeColor = System.Drawing.Color.Gainsboro;
+            this.txtNewPassword.Location = new System.Drawing.Point(75, 31);
+            this.txtNewPassword.Name = "txtNewPassword";
+            this.txtNewPassword.PasswordChar = '*';
+            this.txtNewPassword.Size = new System.Drawing.Size(121, 22);
+            this.txtNewPassword.TabIndex = 6;
             // 
             // label4
             // 
@@ -372,6 +378,7 @@
             this.btnChangePassword.TabIndex = 0;
             this.btnChangePassword.Text = "Change";
             this.btnChangePassword.UseVisualStyleBackColor = false;
+            this.btnChangePassword.Click += new System.EventHandler(this.btnChangePassword_Click);
             // 
             // panel2
             // 
@@ -390,8 +397,8 @@
             // panel5
             // 
             this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
-            this.panel5.Controls.Add(this.textBox3);
-            this.panel5.Controls.Add(this.textBox1);
+            this.panel5.Controls.Add(this.txtCurrentPassword);
+            this.panel5.Controls.Add(this.txtName);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(25, 47);
             this.panel5.Name = "panel5";
@@ -399,27 +406,28 @@
             this.panel5.Size = new System.Drawing.Size(270, 140);
             this.panel5.TabIndex = 9;
             // 
-            // textBox3
+            // txtCurrentPassword
             // 
-            this.textBox3.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.textBox3.BackColor = System.Drawing.Color.DimGray;
-            this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox3.ForeColor = System.Drawing.Color.Gainsboro;
-            this.textBox3.Location = new System.Drawing.Point(75, 73);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(121, 22);
-            this.textBox3.TabIndex = 5;
+            this.txtCurrentPassword.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.txtCurrentPassword.BackColor = System.Drawing.Color.DimGray;
+            this.txtCurrentPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtCurrentPassword.ForeColor = System.Drawing.Color.Gainsboro;
+            this.txtCurrentPassword.Location = new System.Drawing.Point(75, 73);
+            this.txtCurrentPassword.Name = "txtCurrentPassword";
+            this.txtCurrentPassword.PasswordChar = '*';
+            this.txtCurrentPassword.Size = new System.Drawing.Size(121, 22);
+            this.txtCurrentPassword.TabIndex = 5;
             // 
-            // textBox1
+            // txtName
             // 
-            this.textBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.textBox1.BackColor = System.Drawing.Color.DimGray;
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox1.ForeColor = System.Drawing.Color.Gainsboro;
-            this.textBox1.Location = new System.Drawing.Point(75, 45);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(121, 22);
-            this.textBox1.TabIndex = 3;
+            this.txtName.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.txtName.BackColor = System.Drawing.Color.DimGray;
+            this.txtName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtName.ForeColor = System.Drawing.Color.Gainsboro;
+            this.txtName.Location = new System.Drawing.Point(75, 45);
+            this.txtName.Name = "txtName";
+            this.txtName.Size = new System.Drawing.Size(121, 22);
+            this.txtName.TabIndex = 3;
             // 
             // label6
             // 
@@ -431,7 +439,7 @@
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(270, 22);
             this.label6.TabIndex = 7;
-            this.label6.Text = "Account details";
+            this.label6.Text = "Change name";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label6.UseMnemonic = false;
             // 
@@ -459,6 +467,7 @@
             this.btnChangeDetails.TabIndex = 2;
             this.btnChangeDetails.Text = "Change";
             this.btnChangeDetails.UseVisualStyleBackColor = false;
+            this.btnChangeDetails.Click += new System.EventHandler(this.btnChangeDetails_Click);
             // 
             // panelTitle
             // 
@@ -553,11 +562,11 @@
         private System.Windows.Forms.Panel panel10;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtCurrentPassword2;
+        private System.Windows.Forms.TextBox txtConfirmPassword;
+        private System.Windows.Forms.TextBox txtNewPassword;
+        private System.Windows.Forms.TextBox txtCurrentPassword;
+        private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Panel panel12;
         private System.Windows.Forms.Button btnDeleteAccount;

@@ -41,7 +41,7 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel10 = new System.Windows.Forms.Panel();
             this.lstCredentials = new System.Windows.Forms.ListBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtSearchCredential = new System.Windows.Forms.TextBox();
             this.cmbIdentity = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.panelTitle = new System.Windows.Forms.Panel();
@@ -215,7 +215,7 @@
             // 
             this.panel10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(59)))), ((int)(((byte)(66)))));
             this.panel10.Controls.Add(this.lstCredentials);
-            this.panel10.Controls.Add(this.textBox1);
+            this.panel10.Controls.Add(this.txtSearchCredential);
             this.panel10.Controls.Add(this.cmbIdentity);
             this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel10.Location = new System.Drawing.Point(25, 47);
@@ -239,17 +239,18 @@
             this.lstCredentials.TabIndex = 2;
             this.lstCredentials.SelectedIndexChanged += new System.EventHandler(this.lstCredentials_SelectedIndexChanged);
             // 
-            // textBox1
+            // txtSearchCredential
             // 
-            this.textBox1.BackColor = System.Drawing.Color.DimGray;
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.textBox1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.ForeColor = System.Drawing.Color.Gainsboro;
-            this.textBox1.Location = new System.Drawing.Point(0, 48);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(318, 23);
-            this.textBox1.TabIndex = 1;
+            this.txtSearchCredential.BackColor = System.Drawing.Color.DimGray;
+            this.txtSearchCredential.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtSearchCredential.Dock = System.Windows.Forms.DockStyle.Top;
+            this.txtSearchCredential.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSearchCredential.ForeColor = System.Drawing.Color.Gainsboro;
+            this.txtSearchCredential.Location = new System.Drawing.Point(0, 48);
+            this.txtSearchCredential.Name = "txtSearchCredential";
+            this.txtSearchCredential.Size = new System.Drawing.Size(318, 23);
+            this.txtSearchCredential.TabIndex = 1;
+            this.txtSearchCredential.TextChanged += new System.EventHandler(this.txtSearchCredential_TextChanged);
             // 
             // cmbIdentity
             // 
@@ -443,7 +444,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.ListBox lstCredentials;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtSearchCredential;
         private System.Windows.Forms.ComboBox cmbIdentity;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TextBox txtNotes;

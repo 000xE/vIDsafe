@@ -59,6 +59,8 @@ namespace vIDsafe
         {
             EnableDisableInputs();
             GetCredentials();
+
+            //TODO: clear credential details when switching identities (doesnt do that only doe sit hwen u go back)
         }
 
         private void lstCredentials_SelectedIndexChanged(object sender, EventArgs e)
@@ -81,6 +83,12 @@ namespace vIDsafe
             foreach (Credential credential in vIDsafe.Main.User.Vault.GetIdentity(cmbIdentity.SelectedIndex).Credentials)
             {
                 lstCredentials.Items.Add(credential.Username + " " + credential.URL);
+                //Console.WriteLine(credential.Username.GetHashCode());
+
+
+                /*ListViewItem lvi = new ListViewItem(credential.Username);
+                lvi.SubItems.Add(credential.URL);
+                listView1.Items.Add(credential.Username, credential.URL);*/
             }
         }
 
@@ -152,6 +160,18 @@ namespace vIDsafe
 
                 btnGenerateUsername.Enabled = false;
                 btnGeneratePassword.Enabled = false;
+            }
+        }
+
+        private void txtSearchCredential_TextChanged(object sender, EventArgs e)
+        {
+            if (txtSearchCredential.Text.Length > 0)
+            {
+                //TODO: make credentials mapped to hashmap with key as name + url as string, so that it doesnt matter if index changes
+            }
+            else
+            {
+                GetCredentials();
             }
         }
     }

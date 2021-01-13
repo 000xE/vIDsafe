@@ -14,6 +14,9 @@ namespace vIDsafe
         private string _url;
         private string _notes;
 
+        //TODO: make enum for safe/weak/compromised etc credentials and set to a variable here and retrieve for health score calculation
+        //Compromised = top prio, conflict 2nd top, etc. upon recalculation the next prio should be set
+
         public Credential(string username)
         {
             this._userName = username;
@@ -35,6 +38,16 @@ namespace vIDsafe
             this._notes = notes;
 
             vIDsafe.Main.User.SaveVault();
+        }
+
+        private void CheckBreach()
+        {
+
+        }
+
+        private void CheckStrength()
+        {
+
         }
     }
 }

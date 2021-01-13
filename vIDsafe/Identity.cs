@@ -11,6 +11,8 @@ namespace vIDsafe
     {
         private List<Credential> _credentials = new List<Credential>();
 
+        //private Dictionary<string, Credential> _credentials = new Dictionary<string, Credential>();
+
         private string _name;
         private string _email;
         private string _usage;

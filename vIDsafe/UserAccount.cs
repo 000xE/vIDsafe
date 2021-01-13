@@ -39,7 +39,7 @@ namespace vIDsafe
         {
             if (AccountExists())
             {
-                HashPassword();
+                _password = HashPassword(_password);
 
                 this.Vault = GetVault();
 
@@ -61,9 +61,55 @@ namespace vIDsafe
         {
             if (!AccountExists())
             {
-                HashPassword();
+                _password = HashPassword(_password);
 
                 SaveVault();
+
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        private int VerifyPassword (string oldPassword)
+        {
+            if (HashPassword(oldPassword) == this._password)
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        public int TryChangePassword(string oldPassword, string password)
+        {
+            if (VerifyPassword(oldPassword) == 1)
+            {
+                this._password = HashPassword(password);
+                SaveVault();
+
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        public int TryChangeName(string oldPassword, string name)
+        {
+            if (VerifyPassword(oldPassword) == 1)
+            {
+                File.Move(_vaultFolder + this._name, _vaultFolder + name);
+                this._name = name;
+
+                this._password = HashPassword(oldPassword);
+                SaveVault();
+
 
                 return 1;
             }
@@ -96,11 +142,11 @@ namespace vIDsafe
             Vault = new UserVault();
         }
 
-        private void HashPassword()
+        private string HashPassword(string password)
         {
             //password = Encryption.hashPassword(password, name);
 
-            _password = Convert.ToBase64String(Encryption.HashPassword(_password, _name));
+            return Convert.ToBase64String(Encryption.HashPassword(password, _name));
         }
 
         private string EncryptVault()
@@ -121,6 +167,16 @@ namespace vIDsafe
             {
                 return null;
             }                   
+        }
+
+        public void DeleteAccount()
+        {
+            Vault = new UserVault();
+
+            SaveVault();
+
+            File.Delete(_vaultFolder + _name);
+            //TODO: LOGOUT AND OBFUSCATE + REMOVE THE USER ACCOUNT FILE
         }
 
         //https://stackoverflow.com/questions/6979718/c-sharp-object-to-string-and-back/6979843#6979843
