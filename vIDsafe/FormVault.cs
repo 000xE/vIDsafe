@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace vIDsafe
 {
@@ -69,9 +70,11 @@ namespace vIDsafe
             int selectedIdentityIndex = cmbIdentity.SelectedIndex;
             int credentialCount = lvCredentials.Items.Count;
 
-            FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).NewCredential(defaultIdentityName);
+            string credentialID = FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).NewCredential(defaultIdentityName);
 
-            DisplayCredential(credentialCount, defaultIdentityName, "", Credential.CredentialStatus.Safe);
+            Credential credential = FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).GetCredential(credentialID);
+
+            DisplayCredential(credentialID, credential);
             lvCredentials.Items[credentialCount].Selected = true;
         }
 
@@ -87,12 +90,13 @@ namespace vIDsafe
                 string credentialNotes = txtNotes.Text;
 
                 ListViewItem currentItem = lvCredentials.SelectedItems[0];
-                int currentCredentialIndex = Convert.ToInt32(currentItem.SubItems[0].Text);
+                string currentCredentialID = currentItem.SubItems[0].Text;
                 int selectedIdentityIndex = cmbIdentity.SelectedIndex;
 
-                FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).GetCredential(currentCredentialIndex).SetDetails(credentialUsername, credentialPassword, credentialURL, credentialNotes);
-                lvCredentials.Items[currentCredentialIndex].SubItems[1].Text = credentialUsername;
-                lvCredentials.Items[currentCredentialIndex].SubItems[2].Text = credentialURL;
+                FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).GetCredential(currentCredentialID).SetDetails(credentialUsername, credentialPassword, credentialURL, credentialNotes);
+
+                lvCredentials.SelectedItems[0].SubItems[1].Text = credentialUsername;
+                lvCredentials.SelectedItems[0].SubItems[2].Text = credentialURL;
             }
         }
 
@@ -105,8 +109,9 @@ namespace vIDsafe
             if (searchedText.Length > 0)
             {
                 int selectedIdentityIndex = cmbIdentity.SelectedIndex;
-                List<Credential> credentials = FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).Credentials;
-                credentials = credentials.FindAll(crd => crd.Username.ToLower().Contains(searchedText.ToLower().Trim()));
+                Dictionary<string, Credential> credentials = FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).Credentials;
+
+                credentials = credentials.Where(pair => pair.Value.Username.ToLower().Contains(searchedText.ToLower().Trim())).ToDictionary(pair => pair.Key, pair => pair.Value);
 
                 DisplayCredentials(credentials);
             }
@@ -132,28 +137,26 @@ namespace vIDsafe
 
             int selectedIdentityIndex = cmbIdentity.SelectedIndex;
 
-            List<Credential> credentials = FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).Credentials;
+            Dictionary<string, Credential> credentials = FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).Credentials;
 
             DisplayCredentials(credentials);
         }
 
-        private void DisplayCredentials(List<Credential> credentials)
+        private void DisplayCredentials(Dictionary<string, Credential> credentials)
         {
             lvCredentials.Items.Clear();
-            foreach (Credential credential in credentials)
+            foreach (KeyValuePair<string, Credential> credential in credentials)
             {
-                int currentCredentialIndex = credentials.IndexOf(credential);
-
-                DisplayCredential(currentCredentialIndex, credential.Username, credential.URL, credential.Status);
+                DisplayCredential(credential.Key, credential.Value);
             }
         }
 
-        private void DisplayCredential(int index, string username, string url, Credential.CredentialStatus status)
+        private void DisplayCredential(string credentialID, Credential credential)
         {
-            ListViewItem lvi = new ListViewItem(index.ToString());
-            lvi.SubItems.Add(username);
-            lvi.SubItems.Add(url);
-            lvi.SubItems.Add(status.ToString());
+            ListViewItem lvi = new ListViewItem(credentialID);
+            lvi.SubItems.Add(credential.Username);
+            lvi.SubItems.Add(credential.URL);
+            lvi.SubItems.Add(credential.Status.ToString());
 
             lvCredentials.Items.Add(lvi);
 
@@ -162,7 +165,7 @@ namespace vIDsafe
 
         private void FixColumnWidths()
         {
-            lvCredentials.Columns[0].Width = -2;
+            //lvCredentials.Columns[0].Width = -2;
             lvCredentials.Columns[1].Width = -2;
             lvCredentials.Columns[2].Width = -2;
             lvCredentials.Columns[3].Width = -2;
@@ -177,15 +180,15 @@ namespace vIDsafe
             if (selectedCredentialCount > 0)
             {
                 ListViewItem currentItem = lvCredentials.SelectedItems[0];
-                int currentCredentialIndex = Convert.ToInt32(currentItem.SubItems[0].Text);
+                string currentCredentialID = currentItem.SubItems[0].Text;
                 int selectedIdentityIndex = cmbIdentity.SelectedIndex;
 
-                Credential currentCredential = FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).GetCredential(currentCredentialIndex);
+                Credential credential = FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).GetCredential(currentCredentialID);
 
-                txtURL.Text = currentCredential.URL;
-                txtUsername.Text = currentCredential.Username;
-                txtPassword.Text = currentCredential.Password;
-                txtNotes.Text = currentCredential.Notes;
+                txtURL.Text = credential.URL;
+                txtUsername.Text = credential.Username;
+                txtPassword.Text = credential.Password;
+                txtNotes.Text = credential.Notes;
             }
         }
 
@@ -199,13 +202,11 @@ namespace vIDsafe
                 if (selectedCredentialCount > 0)
                 {
                     ListViewItem currentItem = lvCredentials.SelectedItems[0];
-                    int currentCredentialIndex = Convert.ToInt32(currentItem.SubItems[0].Text);
+                    string currentCredentialID = currentItem.SubItems[0].Text;
 
-                    FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).DeleteCredential(currentCredentialIndex);
+                    FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).DeleteCredential(currentCredentialID);
 
                     lvCredentials.Items.RemoveAt(currentItem.Index);
-
-                    GetCredentials(); //To update the indexes
                 }
             }
         }

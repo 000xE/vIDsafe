@@ -9,7 +9,9 @@ namespace vIDsafe
     [Serializable]
     public class Identity
     {
-        private List<Credential> _credentials = new List<Credential>();
+        //private List<Credential> _credentials = new List<Credential>();
+
+        private Dictionary<string, Credential> _credentials = new Dictionary<string, Credential>();
 
         private string _name;
         private string _email;
@@ -58,11 +60,11 @@ namespace vIDsafe
             return 0;
         }
 
-        public Credential GetCredential(int index)
+        public Credential GetCredential(string key)
         {
-            if (_credentials.Count > 0)
+            if (_credentials.ContainsKey(key))
             {
-                return _credentials[index];
+                return _credentials[key];
             }
             else
             {
@@ -70,21 +72,27 @@ namespace vIDsafe
             }
         }
 
-        public List<Credential> Credentials => _credentials;
+        public Dictionary<string, Credential> Credentials => _credentials;
 
-        public void NewCredential(string username)
+        public string NewCredential(string username)
         {
             Credential credential = new Credential(username);
-            _credentials.Add(credential);
+
+            string uniqueID = Guid.NewGuid().ToString();
+
+            _credentials.Add(uniqueID, credential);
 
             FormvIDsafe.Main.User.SaveVault();
+
+            return uniqueID;
         }
 
-        public void DeleteCredential(int index)
+        public void DeleteCredential(string key)
         {
-            if (_credentials.Count > index)
+            if (_credentials.ContainsKey(key))
             {
-                _credentials.RemoveAt(index);
+                Console.WriteLine(_credentials[key].Username);
+                _credentials.Remove(key);
                 FormvIDsafe.Main.User.SaveVault();
             }
         }

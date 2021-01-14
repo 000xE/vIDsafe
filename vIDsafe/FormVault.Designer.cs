@@ -41,7 +41,7 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel10 = new System.Windows.Forms.Panel();
             this.lvCredentials = new System.Windows.Forms.ListView();
-            this.columnIndex = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnURL = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnStatus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -233,7 +233,7 @@
             this.lvCredentials.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
             this.lvCredentials.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lvCredentials.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnIndex,
+            this.columnID,
             this.columnName,
             this.columnURL,
             this.columnStatus});
@@ -250,10 +250,10 @@
             this.lvCredentials.View = System.Windows.Forms.View.Details;
             this.lvCredentials.SelectedIndexChanged += new System.EventHandler(this.lvCredentials_SelectedIndexChanged);
             // 
-            // columnIndex
+            // columnID
             // 
-            this.columnIndex.Text = "#";
-            this.columnIndex.Width = 40;
+            this.columnID.Text = "#";
+            this.columnID.Width = 0;
             // 
             // columnName
             // 
@@ -489,7 +489,7 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnDeleteDiscard;
         private System.Windows.Forms.ListView lvCredentials;
-        private System.Windows.Forms.ColumnHeader columnIndex;
+        private System.Windows.Forms.ColumnHeader columnID;
         private System.Windows.Forms.ColumnHeader columnName;
         private System.Windows.Forms.ColumnHeader columnURL;
         private System.Windows.Forms.ColumnHeader columnStatus;
