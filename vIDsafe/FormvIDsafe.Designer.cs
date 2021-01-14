@@ -1,7 +1,7 @@
 ﻿
 namespace vIDsafe
 {
-    partial class vIDsafe
+    partial class FormvIDsafe
     {
         /// <summary>
         /// Required designer variable.

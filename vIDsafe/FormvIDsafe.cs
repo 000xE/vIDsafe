@@ -10,15 +10,15 @@ using System.Windows.Forms;
 
 namespace vIDsafe
 {
-    public partial class vIDsafe : Form
+    public partial class FormvIDsafe : Form
     {
         public static Panel ChildFormPanel;
 
-        public UserAccount User;
+        public MasterAccount User;
 
-        public static vIDsafe Main;
+        public static FormvIDsafe Main;
 
-        public vIDsafe()
+        public FormvIDsafe()
         {
             InitializeComponent();
             GetFormComponents();
@@ -34,7 +34,7 @@ namespace vIDsafe
 
         private void LoadFormComponents()
         {
-            OpenChildForm(new Login());
+            OpenChildForm(new FormLogin());
         }
 
         //https://stackoverflow.com/a/28811266

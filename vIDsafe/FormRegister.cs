@@ -10,20 +10,20 @@ using System.Windows.Forms;
 
 namespace vIDsafe
 {
-    public partial class Register : Form
+    public partial class FormRegister : Form
     {
-        public Register()
+        public FormRegister()
         {
             InitializeComponent();
         }
 
         private void btnRegister_Click(object sender, EventArgs e)
         {
-            vIDsafe.Main.User = new UserAccount(txtName.Text, txtPassword.Text);
+            FormvIDsafe.Main.User = new MasterAccount(txtName.Text, txtPassword.Text);
 
             if (IsValid())
             {
-                int registerStatusCode = vIDsafe.Main.User.TryRegister();
+                int registerStatusCode = FormvIDsafe.Main.User.TryRegister();
 
                 switch (registerStatusCode)
                 {
@@ -31,7 +31,7 @@ namespace vIDsafe
                         Console.WriteLine("Account already exist");
                         break;
                     case 1:
-                        Form1 form = new Form1();
+                        FormHome form = new FormHome();
                         form.Show();
 
                         ParentForm.Hide();
@@ -47,7 +47,7 @@ namespace vIDsafe
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            vIDsafe.OpenChildForm(new Login());
+            FormvIDsafe.OpenChildForm(new FormLogin());
         }
     }
 }

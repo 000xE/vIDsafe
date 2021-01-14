@@ -1,6 +1,6 @@
 ﻿namespace vIDsafe
 {
-    partial class ImportExport
+    partial class FormImportExport
     {
         /// <summary>
         /// Required designer variable.

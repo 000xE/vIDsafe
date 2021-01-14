@@ -8,9 +8,9 @@ using System.Windows.Forms;
 
 namespace vIDsafe
 {
-    public partial class Overview : Form
+    public partial class FormOverview : Form
     {
-        public Overview()
+        public FormOverview()
         {
             InitializeComponent();
             loadTestGraph();
@@ -49,15 +49,15 @@ namespace vIDsafe
 
         private void btnViewVault_Click(object sender, EventArgs e)
         {
-            object btnVault = Form1.FormControls.Find("btnVault", true)[0];
-            Form1.ChangeSelectedButton(btnVault);
-            Form1.OpenChildForm(new Vault());
+            object btnVault = FormHome.FormControls.Find("btnVault", true)[0];
+            FormHome.ChangeSelectedButton(btnVault);
+            FormHome.OpenChildForm(new FormVault());
         }
         private void btnManageIdentities_Click(object sender, EventArgs e)
         {
-            object btnIdentities = Form1.FormControls.Find("btnIdentities", true)[0];
-            Form1.ChangeSelectedButton(btnIdentities);
-            Form1.OpenChildForm(new Identities());
+            object btnIdentities = FormHome.FormControls.Find("btnIdentities", true)[0];
+            FormHome.ChangeSelectedButton(btnIdentities);
+            FormHome.OpenChildForm(new FormIdentities());
         }
     }
 }

@@ -14,8 +14,18 @@ namespace vIDsafe
         private string _url;
         private string _notes;
 
+        private CredentialStatus _status = CredentialStatus.Safe;
+
         //TODO: make enum for safe/weak/compromised etc credentials and set to a variable here and retrieve for health score calculation
         //Compromised = top prio, conflict 2nd top, etc. upon recalculation the next prio should be set
+
+        public enum CredentialStatus
+        {
+            Safe,
+            Weak,
+            Conflicted,
+            Compromised
+        }
 
         public Credential(string username)
         {
@@ -30,6 +40,8 @@ namespace vIDsafe
 
         public string Notes => _notes;
 
+        public CredentialStatus Status => _status;
+
         public void SetDetails(string username, string password, string url, string notes)
         {
             this._userName = username;
@@ -37,7 +49,7 @@ namespace vIDsafe
             this._url = url;
             this._notes = notes;
 
-            vIDsafe.Main.User.SaveVault();
+            FormvIDsafe.Main.User.SaveVault();
         }
 
         private void CheckBreach()

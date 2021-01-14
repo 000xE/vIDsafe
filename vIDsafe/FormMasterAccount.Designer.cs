@@ -1,6 +1,6 @@
 ﻿namespace vIDsafe
 {
-    partial class MasterAccount
+    partial class FormMasterAccount
     {
         /// <summary>
         /// Required designer variable.

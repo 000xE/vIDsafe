@@ -59,91 +59,91 @@
   <ItemGroup>
     <Compile Include="Credential.cs" />
     <Compile Include="Encryption.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="FormHome.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="FormHome.Designer.cs">
+      <DependentUpon>FormHome.cs</DependentUpon>
     </Compile>
-    <Compile Include="GeneratePassword.cs">
+    <Compile Include="FormGeneratePassword.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GeneratePassword.Designer.cs">
-      <DependentUpon>GeneratePassword.cs</DependentUpon>
+    <Compile Include="FormGeneratePassword.Designer.cs">
+      <DependentUpon>FormGeneratePassword.cs</DependentUpon>
     </Compile>
-    <Compile Include="Identities.cs">
+    <Compile Include="FormIdentities.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Identities.Designer.cs">
-      <DependentUpon>Identities.cs</DependentUpon>
+    <Compile Include="FormIdentities.Designer.cs">
+      <DependentUpon>FormIdentities.cs</DependentUpon>
     </Compile>
     <Compile Include="Identity.cs" />
-    <Compile Include="ImportExport.cs">
+    <Compile Include="FormImportExport.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ImportExport.Designer.cs">
-      <DependentUpon>ImportExport.cs</DependentUpon>
+    <Compile Include="FormImportExport.Designer.cs">
+      <DependentUpon>FormImportExport.cs</DependentUpon>
     </Compile>
-    <Compile Include="Login.cs">
+    <Compile Include="FormLogin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Login.Designer.cs">
-      <DependentUpon>Login.cs</DependentUpon>
+    <Compile Include="FormLogin.Designer.cs">
+      <DependentUpon>FormLogin.cs</DependentUpon>
     </Compile>
-    <Compile Include="MasterAccount.cs">
+    <Compile Include="FormMasterAccount.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MasterAccount.Designer.cs">
-      <DependentUpon>MasterAccount.cs</DependentUpon>
+    <Compile Include="FormMasterAccount.Designer.cs">
+      <DependentUpon>FormMasterAccount.cs</DependentUpon>
     </Compile>
-    <Compile Include="Overview.cs">
+    <Compile Include="FormOverview.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Overview.Designer.cs">
-      <DependentUpon>Overview.cs</DependentUpon>
+    <Compile Include="FormOverview.Designer.cs">
+      <DependentUpon>FormOverview.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Register.cs">
+    <Compile Include="FormRegister.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Register.Designer.cs">
-      <DependentUpon>Register.cs</DependentUpon>
+    <Compile Include="FormRegister.Designer.cs">
+      <DependentUpon>FormRegister.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserAccount.cs" />
-    <Compile Include="UserVault.cs" />
-    <Compile Include="Vault.cs">
+    <Compile Include="MasterAccount.cs" />
+    <Compile Include="Vault.cs" />
+    <Compile Include="FormVault.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Vault.Designer.cs">
-      <DependentUpon>Vault.cs</DependentUpon>
+    <Compile Include="FormVault.Designer.cs">
+      <DependentUpon>FormVault.cs</DependentUpon>
     </Compile>
-    <Compile Include="vIDsafe.cs">
+    <Compile Include="FormvIDsafe.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="vIDsafe.Designer.cs">
-      <DependentUpon>vIDsafe.cs</DependentUpon>
+    <Compile Include="FormvIDsafe.Designer.cs">
+      <DependentUpon>FormvIDsafe.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="FormHome.resx">
+      <DependentUpon>FormHome.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GeneratePassword.resx">
-      <DependentUpon>GeneratePassword.cs</DependentUpon>
+    <EmbeddedResource Include="FormGeneratePassword.resx">
+      <DependentUpon>FormGeneratePassword.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Identities.resx">
-      <DependentUpon>Identities.cs</DependentUpon>
+    <EmbeddedResource Include="FormIdentities.resx">
+      <DependentUpon>FormIdentities.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ImportExport.resx">
-      <DependentUpon>ImportExport.cs</DependentUpon>
+    <EmbeddedResource Include="FormImportExport.resx">
+      <DependentUpon>FormImportExport.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Login.resx">
-      <DependentUpon>Login.cs</DependentUpon>
+    <EmbeddedResource Include="FormLogin.resx">
+      <DependentUpon>FormLogin.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MasterAccount.resx">
-      <DependentUpon>MasterAccount.cs</DependentUpon>
+    <EmbeddedResource Include="FormMasterAccount.resx">
+      <DependentUpon>FormMasterAccount.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Overview.resx">
-      <DependentUpon>Overview.cs</DependentUpon>
+    <EmbeddedResource Include="FormOverview.resx">
+      <DependentUpon>FormOverview.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -154,14 +154,14 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Register.resx">
-      <DependentUpon>Register.cs</DependentUpon>
+    <EmbeddedResource Include="FormRegister.resx">
+      <DependentUpon>FormRegister.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Vault.resx">
-      <DependentUpon>Vault.cs</DependentUpon>
+    <EmbeddedResource Include="FormVault.resx">
+      <DependentUpon>FormVault.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="vIDsafe.resx">
-      <DependentUpon>vIDsafe.cs</DependentUpon>
+    <EmbeddedResource Include="FormvIDsafe.resx">
+      <DependentUpon>FormvIDsafe.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

@@ -1,6 +1,6 @@
 ﻿namespace vIDsafe
 {
-    partial class Vault
+    partial class FormVault
     {
         /// <summary>
         /// Required designer variable.
@@ -40,7 +40,11 @@
             this.label3 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel10 = new System.Windows.Forms.Panel();
-            this.lstCredentials = new System.Windows.Forms.ListBox();
+            this.lvCredentials = new System.Windows.Forms.ListView();
+            this.columnIndex = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnURL = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnStatus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.txtSearchCredential = new System.Windows.Forms.TextBox();
             this.cmbIdentity = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -214,7 +218,7 @@
             // panel10
             // 
             this.panel10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(59)))), ((int)(((byte)(66)))));
-            this.panel10.Controls.Add(this.lstCredentials);
+            this.panel10.Controls.Add(this.lvCredentials);
             this.panel10.Controls.Add(this.txtSearchCredential);
             this.panel10.Controls.Add(this.cmbIdentity);
             this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -224,19 +228,46 @@
             this.panel10.Size = new System.Drawing.Size(318, 328);
             this.panel10.TabIndex = 8;
             // 
-            // lstCredentials
+            // lvCredentials
             // 
-            this.lstCredentials.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
-            this.lstCredentials.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.lstCredentials.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lstCredentials.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            this.lstCredentials.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lstCredentials.FormattingEnabled = true;
-            this.lstCredentials.Location = new System.Drawing.Point(0, 71);
-            this.lstCredentials.Name = "lstCredentials";
-            this.lstCredentials.Size = new System.Drawing.Size(318, 257);
-            this.lstCredentials.TabIndex = 2;
-            this.lstCredentials.SelectedIndexChanged += new System.EventHandler(this.lstCredentials_SelectedIndexChanged);
+            this.lvCredentials.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
+            this.lvCredentials.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lvCredentials.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnIndex,
+            this.columnName,
+            this.columnURL,
+            this.columnStatus});
+            this.lvCredentials.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvCredentials.ForeColor = System.Drawing.Color.Gainsboro;
+            this.lvCredentials.FullRowSelect = true;
+            this.lvCredentials.HideSelection = false;
+            this.lvCredentials.Location = new System.Drawing.Point(0, 71);
+            this.lvCredentials.MultiSelect = false;
+            this.lvCredentials.Name = "lvCredentials";
+            this.lvCredentials.Size = new System.Drawing.Size(318, 257);
+            this.lvCredentials.TabIndex = 3;
+            this.lvCredentials.UseCompatibleStateImageBehavior = false;
+            this.lvCredentials.View = System.Windows.Forms.View.Details;
+            this.lvCredentials.SelectedIndexChanged += new System.EventHandler(this.lvCredentials_SelectedIndexChanged);
+            // 
+            // columnIndex
+            // 
+            this.columnIndex.Text = "#";
+            this.columnIndex.Width = 40;
+            // 
+            // columnName
+            // 
+            this.columnName.Text = "Name";
+            this.columnName.Width = 101;
+            // 
+            // columnURL
+            // 
+            this.columnURL.Text = "URL";
+            this.columnURL.Width = 115;
+            // 
+            // columnStatus
+            // 
+            this.columnStatus.Text = "Status";
             // 
             // txtSearchCredential
             // 
@@ -406,14 +437,14 @@
             this.btnNewCredential.UseVisualStyleBackColor = false;
             this.btnNewCredential.Click += new System.EventHandler(this.btnNewCredential_Click);
             // 
-            // Vault
+            // FormVault
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(935, 557);
             this.Controls.Add(this.panelBack);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Name = "Vault";
+            this.Name = "FormVault";
             this.Text = "Vault";
             this.panelBack.ResumeLayout(false);
             this.panelBack.PerformLayout();
@@ -442,7 +473,6 @@
         private System.Windows.Forms.Panel panel10;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.ListBox lstCredentials;
         private System.Windows.Forms.TextBox txtSearchCredential;
         private System.Windows.Forms.ComboBox cmbIdentity;
         private System.Windows.Forms.Panel panel2;
@@ -458,5 +488,10 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnDeleteDiscard;
+        private System.Windows.Forms.ListView lvCredentials;
+        private System.Windows.Forms.ColumnHeader columnIndex;
+        private System.Windows.Forms.ColumnHeader columnName;
+        private System.Windows.Forms.ColumnHeader columnURL;
+        private System.Windows.Forms.ColumnHeader columnStatus;
     }
 }

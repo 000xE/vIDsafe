@@ -10,12 +10,12 @@ using System.Windows.Forms;
 
 namespace vIDsafe
 {
-    public partial class Form1 : Form
+    public partial class FormHome : Form
     {
         public static Panel ChildFormPanel;
         public static Control.ControlCollection FormControls = null;
 
-        public Form1()
+        public FormHome()
         {
             InitializeComponent();
             GetFormComponents();
@@ -30,8 +30,8 @@ namespace vIDsafe
 
         private void LoadFormComponents()
         {
-            OpenChildForm(new Overview());
-            lblMAName.Text = vIDsafe.Main.User.Name;
+            OpenChildForm(new FormOverview());
+            lblMAName.Text = FormvIDsafe.Main.User.Name;
         }
 
         //https://stackoverflow.com/a/28811266
@@ -85,37 +85,37 @@ namespace vIDsafe
         private void btnOverview_Click(object sender, EventArgs e)
         {
             ChangeSelectedButton(sender);
-            OpenChildForm(new Overview());
+            OpenChildForm(new FormOverview());
         }
 
         private void btnIdentities_Click(object sender, EventArgs e)
         {
             ChangeSelectedButton(sender);
-            OpenChildForm(new Identities());
+            OpenChildForm(new FormIdentities());
         }
 
         private void btnVault_Click(object sender, EventArgs e)
         {
             ChangeSelectedButton(sender);
-            OpenChildForm(new Vault());
+            OpenChildForm(new FormVault());
         }
 
         private void btnImportExport_Click(object sender, EventArgs e)
         {
             ChangeSelectedButton(sender);
-            OpenChildForm(new ImportExport());
+            OpenChildForm(new FormImportExport());
         }
 
         private void btnGeneratePassword_Click(object sender, EventArgs e)
         {
             ChangeSelectedButton(sender);
-            OpenChildForm(new GeneratePassword());
+            OpenChildForm(new FormGeneratePassword());
         }
 
         private void btnMasterAccount_Click(object sender, EventArgs e)
         {
             ChangeSelectedButton(sender);
-            OpenChildForm(new MasterAccount());
+            OpenChildForm(new FormMasterAccount());
         }
 
         private void btnPasswordManager_Click(object sender, EventArgs e)
@@ -135,14 +135,14 @@ namespace vIDsafe
         
         private void Logout()
         {
-            vIDsafe.Main.User.Logout();
+            FormvIDsafe.Main.User.Logout();
 
             Close();
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            vIDsafe.Main.Show();
+            FormvIDsafe.Main.Show();
         }
     }
 }

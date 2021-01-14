@@ -1,6 +1,6 @@
 ﻿namespace vIDsafe
 {
-    partial class Overview
+    partial class FormOverview
     {
         /// <summary>
         /// Required designer variable.

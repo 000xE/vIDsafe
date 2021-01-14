@@ -1,82 +1,202 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+using System.Linq;
 using System.Text;
-using System.Windows.Forms;
+using System.Threading.Tasks;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace vIDsafe
 {
-    public partial class MasterAccount : Form
+    [Serializable]
+    public class MasterAccount
     {
-        public MasterAccount()
+        private string _name;
+        private string _password;
+
+        public Vault Vault = new Vault();
+
+        private readonly string _vaultFolder = "Vaults/";
+        public MasterAccount(string name, string password)
         {
-            InitializeComponent();
+            this._name = name;
+            this._password = password;
         }
 
-        private void btnDeleteCredentials_Click(object sender, EventArgs e)
-        {
-            DeleteCredentials();
-        }
+        public string Name => _name;
 
-        private void DeleteCredentials()
+        private bool AccountExists()
         {
-            vIDsafe.Main.User.Vault.DeleteAllCredentials();
-        }
-
-        private void btnDeleteIdentities_Click(object sender, EventArgs e)
-        {
-            DeleteIdentities();
-        }
-
-        private void DeleteIdentities()
-        {
-            vIDsafe.Main.User.Vault.DeleteAllIdentities();
-        }
-
-        private void btnDeleteAccount_Click(object sender, EventArgs e)
-        {
-            DeleteAccount();
-        }
-
-        private void DeleteAccount()
-        {
-            vIDsafe.Main.User.DeleteAccount();
-
-            ParentForm.Close();
-        }
-
-        private void btnChangeDetails_Click(object sender, EventArgs e)
-        {
-            ChangeName();
-        }
-        private void ChangeName()
-        {
-            if (vIDsafe.Main.User.TryChangeName(txtCurrentPassword.Text, txtName.Text) == 1)
+            if (File.Exists(_vaultFolder + _name))
             {
-                Console.WriteLine("Name changed");
+                return true;
+            }
+
+            return false;
+        }
+
+        public int TryLogin()
+        {
+            if (AccountExists())
+            {
+                _password = HashPassword(_password);
+
+                this.Vault = GetVault();
+
+                if (this.Vault == null)
+                {
+                    return 2;
+                }
+
+                return 1;
             }
             else
             {
-                Console.WriteLine("Wrong old password");
+                return 0;
             }
         }
 
-        private void btnChangePassword_Click(object sender, EventArgs e)
+        //https://stackoverflow.com/a/2955425
+        public int TryRegister()
         {
-            ChangePassword();
-        }
-
-        private void ChangePassword()
-        {
-            if (vIDsafe.Main.User.TryChangePassword(txtCurrentPassword2.Text, txtNewPassword.Text) == 1)
+            if (!AccountExists())
             {
-                Console.WriteLine("Pass changed");
+                _password = HashPassword(_password);
+
+                SaveVault();
+
+                return 1;
             }
             else
             {
-                Console.WriteLine("Wrong old password");
+                return 0;
+            }
+        }
+
+        private bool VerifyPassword(string oldPassword)
+        {
+            if (HashPassword(oldPassword) == this._password)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool TryChangePassword(string oldPassword, string password)
+        {
+            if (VerifyPassword(oldPassword) == true)
+            {
+                this._password = HashPassword(password);
+                SaveVault();
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool TryChangeName(string oldPassword, string name)
+        {
+            if (VerifyPassword(oldPassword) == true)
+            {
+                File.Move(_vaultFolder + this._name, _vaultFolder + name);
+
+                this._name = name;
+                this._password = HashPassword(oldPassword);
+                SaveVault();
+
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private Vault GetVault()
+        {
+            string encryptedVault = File.ReadAllText(_vaultFolder + _name);
+
+            return (DecryptVault(encryptedVault));           
+        }
+
+        public void SaveVault()
+        {
+            string encryptedVault = EncryptVault();
+
+            FileInfo file = new FileInfo(_vaultFolder + _name);
+            file.Directory.Create(); // If the directory already exists, this method does nothing.
+            File.WriteAllText(file.FullName, encryptedVault);
+        }
+
+        public void Logout()
+        {
+            this._name = "";
+            this._password = "";
+            Vault = new Vault();
+        }
+
+        private string HashPassword(string password)
+        {
+            //password = Encryption.hashPassword(password, name);
+
+            return Convert.ToBase64String(Encryption.HashPassword(password, _name));
+        }
+
+        private string EncryptVault()
+        {
+            string serialisedVault = ObjectToString(this.Vault);
+
+            return Encryption.AesEncrypt(serialisedVault, Convert.FromBase64String(_password));
+        }
+        private Vault DecryptVault(string encryptedVault)
+        {
+            string decryptedVault = Encryption.AesDecrypt(encryptedVault, Convert.FromBase64String(_password));
+
+            if (decryptedVault != null)
+            {
+                return (Vault)StringToObject(decryptedVault);
+            }
+            else
+            {
+                return null;
+            }                   
+        }
+
+        public void DeleteAccount()
+        {
+            Vault = new Vault();
+
+            SaveVault();
+
+            File.Delete(_vaultFolder + _name);
+        }
+
+        //https://stackoverflow.com/questions/6979718/c-sharp-object-to-string-and-back/6979843#6979843
+        public string ObjectToString(object obj)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                new BinaryFormatter().Serialize(ms, obj);
+                return Convert.ToBase64String(ms.ToArray());
+            }
+        }
+
+        //https://stackoverflow.com/questions/6979718/c-sharp-object-to-string-and-back/6979843#6979843
+        public object StringToObject(string base64String)
+        {
+            byte[] bytes = Convert.FromBase64String(base64String);
+            using (MemoryStream ms = new MemoryStream(bytes, 0, bytes.Length))
+            {
+                ms.Write(bytes, 0, bytes.Length);
+                ms.Position = 0;
+                return (Vault) new BinaryFormatter().Deserialize(ms);
             }
         }
     }

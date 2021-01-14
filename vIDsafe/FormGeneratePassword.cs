@@ -8,9 +8,9 @@ using System.Windows.Forms;
 
 namespace vIDsafe
 {
-    public partial class ImportExport : Form
+    public partial class FormGeneratePassword : Form
     {
-        public ImportExport()
+        public FormGeneratePassword()
         {
             InitializeComponent();
         }

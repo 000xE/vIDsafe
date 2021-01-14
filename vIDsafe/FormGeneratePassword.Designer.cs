@@ -1,6 +1,6 @@
 ﻿namespace vIDsafe
 {
-    partial class GeneratePassword
+    partial class FormGeneratePassword
     {
         /// <summary>
         /// Required designer variable.
