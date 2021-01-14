@@ -16,7 +16,7 @@ namespace vIDsafe
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new vIDsafe());
+            Application.Run(new FormvIDsafe());
         }
     }
 }

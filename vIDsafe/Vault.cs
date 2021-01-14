@@ -1,180 +1,101 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+using System.Linq;
 using System.Text;
-using System.Windows.Forms;
+using System.Threading.Tasks;
 
 namespace vIDsafe
 {
-    public partial class Vault : Form
+    [Serializable]
+    public class Vault
     {
+        private List<Identity> _identities = new List<Identity>();
+
+        private int _overallHealthScore;
+
+        private int _totalCredentialCount;
+        private int _totalWeakCredentials;
+        private int _totalConflictCredentials;
+        private int _totalCompromisedCredentials;
+        private int _totalSafeCredentials;
+
         public Vault()
         {
-            InitializeComponent();
-
-            LoadFormComponents();
-        }
-
-        private void LoadFormComponents()
-        {
-            GetIdentities();
-            EnableDisableInputs();
-        }
-
-        private void btnGenerateUsername_Click(object sender, EventArgs e)
-        {
 
         }
 
-        private void btnGeneratePassword_Click(object sender, EventArgs e)
+        private void ResetCredentialCounts()
         {
+            _overallHealthScore = 100;
 
+            _totalCredentialCount = 0;
+            _totalWeakCredentials = 0;
+            _totalConflictCredentials = 0;
+            _totalCompromisedCredentials = 0;
+            _totalSafeCredentials = 0;
         }
 
-        private void btnNewCredential_Click(object sender, EventArgs e)
+        public void CalculateHealthScore()
         {
-            string defaultIdentityName = "Credential " + (lstCredentials.Items.Count + 1);
+            ResetCredentialCounts();
 
-            vIDsafe.Main.User.Vault.GetIdentity(cmbIdentity.SelectedIndex).NewCredential(defaultIdentityName);
-
-            int lastIndex = lstCredentials.Items.Add(defaultIdentityName);
-            lstCredentials.SelectedIndex = lastIndex;
-        }
-
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            vIDsafe.Main.User.Vault.GetIdentity(cmbIdentity.SelectedIndex).GetCredential(lstCredentials.SelectedIndex).SetDetails(txtUsername.Text, txtPassword.Text, txtURL.Text, txtNotes.Text);
-
-            lstCredentials.Items[lstCredentials.SelectedIndex] = txtUsername.Text + "  " + txtURL.Text;
-        }
-
-        private void btnDeleteDiscard_Click(object sender, EventArgs e)
-        {
-            DeleteCredential();
-        }
-
-        private void cmbIdentity_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            EnableDisableInputs();
-            GetCredentials();
-        }
-
-        private void lstCredentials_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            EnableDisableInputs();
-            GetCredentialDetails();
-        }
-
-        private void GetIdentities()
-        {
-            foreach (Identity identity in vIDsafe.Main.User.Vault.Identities)
+            foreach (Identity identity in Identities)
             {
-                cmbIdentity.Items.Add(identity.Name);
+                _totalCredentialCount += identity.GetCredentialCount();
+
+                _totalWeakCredentials += identity.WeakCredentials;
+                _totalConflictCredentials += identity.ConflictCredentials;
+                _totalCompromisedCredentials += identity.CompromisedCredentials;
+                _totalSafeCredentials += identity.SafeCredentials;
             }
+
+            _overallHealthScore = (_totalSafeCredentials) / _totalCredentialCount * 100;
         }
 
-        private void GetCredentials()
+        public void NewIdentity(string name)
         {
-            lstCredentials.Items.Clear();
-            foreach (Credential credential in vIDsafe.Main.User.Vault.GetIdentity(cmbIdentity.SelectedIndex).Credentials)
-            {
-                lstCredentials.Items.Add(credential.Username + " " + credential.URL);
-                //Console.WriteLine(credential.Username.GetHashCode());
+            Identity identity = new Identity(name);
+            _identities.Add(identity);
 
-
-                /*ListViewItem lvi = new ListViewItem(credential.Username);
-                lvi.SubItems.Add(credential.URL);
-                listView1.Items.Add(credential.Username, credential.URL);*/
-            }
+            FormvIDsafe.Main.User.SaveVault();
         }
 
-        private void GetCredentialDetails()
+        public Identity GetIdentity(int index)
         {
-            if (lstCredentials.SelectedIndex >= 0)
+            if (_identities.Count > 0)
             {
-                Credential currentCredential = vIDsafe.Main.User.Vault.GetIdentity(cmbIdentity.SelectedIndex).GetCredential(lstCredentials.SelectedIndex);
-
-                txtURL.Text = currentCredential.URL;
-                txtUsername.Text = currentCredential.Username;
-                txtPassword.Text = currentCredential.Password;
-                txtNotes.Text = currentCredential.Notes;
-            }
-        }
-
-        private void DeleteCredential()
-        {
-            if (cmbIdentity.SelectedIndex >= 0)
-            {
-                if (lstCredentials.SelectedIndex >= 0)
-                {
-                    vIDsafe.Main.User.Vault.GetIdentity(cmbIdentity.SelectedIndex).DeleteCredential(lstCredentials.SelectedIndex);
-
-                    lstCredentials.Items.RemoveAt(lstCredentials.SelectedIndex);
-                }
-            }
-        }
-
-        private void EnableDisableInputs()
-        {
-            ClearInputs();
-
-            if (cmbIdentity.SelectedIndex >= 0)
-            {
-                btnNewCredential.Enabled = true;
+                _identities[index].CalculateHealthScore();
+                return _identities[index];
             }
             else
             {
-                btnNewCredential.Enabled = false;
-            }
-
-            if (lstCredentials.SelectedIndex >= 0)
-            {
-                txtURL.Enabled = true;
-                txtUsername.Enabled = true;
-                txtPassword.Enabled = true;
-                txtNotes.Enabled = true;
-
-                btnSave.Enabled = true;
-                btnDeleteDiscard.Enabled = true;
-
-                btnGenerateUsername.Enabled = true;
-                btnGeneratePassword.Enabled = true;
-            }
-            else
-            {
-                txtURL.Enabled = false;
-                txtUsername.Enabled = false;
-                txtPassword.Enabled = false;
-                txtNotes.Enabled = false;
-
-                btnSave.Enabled = false;
-                btnDeleteDiscard.Enabled = false;
-
-                btnGenerateUsername.Enabled = false;
-                btnGeneratePassword.Enabled = false;
+                return new Identity("");
             }
         }
 
-        private void ClearInputs()
+        public List<Identity> Identities => _identities;
+
+        public void DeleteIdentity(int index)
         {
-            txtURL.Clear();
-            txtUsername.Clear();
-            txtPassword.Clear();
-            txtNotes.Clear();
-            cmbIdentity.Text = "";
+            if (_identities.Count > index)
+            {
+                _identities.RemoveAt(index);
+                FormvIDsafe.Main.User.SaveVault();
+            }
         }
 
-        private void txtSearchCredential_TextChanged(object sender, EventArgs e)
+        public void DeleteAllIdentities()
         {
-            if (txtSearchCredential.Text.Length > 0)
+            _identities.Clear();
+            FormvIDsafe.Main.User.SaveVault();
+        }
+        public void DeleteAllCredentials()
+        {
+            foreach (Identity identity in _identities)
             {
-                //TODO: make credentials mapped to hashmap with key as name + url as string, so that it doesnt matter if index changes
-            }
-            else
-            {
-                GetCredentials();
+                identity.Credentials.Clear();
+
+                FormvIDsafe.Main.User.SaveVault(); 
             }
         }
     }

@@ -8,9 +8,9 @@ using System.Windows.Forms;
 
 namespace vIDsafe
 {
-    public partial class Identities : Form
+    public partial class FormIdentities : Form
     {
-        public Identities()
+        public FormIdentities()
         {
             InitializeComponent();
 
@@ -20,10 +20,10 @@ namespace vIDsafe
         private void LoadFormComponents()
         {
             GetIdentities();
-            EnableDisableInputs();
+            EnableDisableDetails();
         }
 
-        private void chart2_PrePaint(object sender, System.Windows.Forms.DataVisualization.Charting.ChartPaintEventArgs e)
+        private void chartCredentials_PrePaint(object sender, System.Windows.Forms.DataVisualization.Charting.ChartPaintEventArgs e)
         {
             if (cmbIdentity.SelectedIndex >= 0)
             {
@@ -31,7 +31,7 @@ namespace vIDsafe
                 {
                     var ta = new System.Windows.Forms.DataVisualization.Charting.TextAnnotation
                     {
-                        Text = Convert.ToString(vIDsafe.Main.User.Vault.GetIdentity(cmbIdentity.SelectedIndex).GetCredentialCount()),
+                        Text = Convert.ToString(FormvIDsafe.Main.User.Vault.GetIdentity(cmbIdentity.SelectedIndex).GetCredentialCount()),
                         Width = e.Position.Width,
                         Height = e.Position.Height,
                         X = e.Position.X - (e.Position.Width / 100),
@@ -41,17 +41,22 @@ namespace vIDsafe
                     };
                     //ta.Alignment = ContentAlignment.MiddleCenter;
 
-                    chart2.Annotations.Clear();
-                    chart2.Annotations.Add(ta);
+                    chartCredentials.Annotations.Clear();
+                    chartCredentials.Annotations.Add(ta);
                 }
             }
         }
 
         private void btnNewIdentity_Click(object sender, EventArgs e)
         {
-            string defaultIdentityName = "Identity " + (cmbIdentity.Items.Count + 1);
+            NewIdentity();
+        }
 
-            vIDsafe.Main.User.Vault.NewIdentity(defaultIdentityName);
+        private void NewIdentity()
+        {
+            string defaultIdentityName = "New identity";
+
+            FormvIDsafe.Main.User.Vault.NewIdentity(defaultIdentityName);
 
             int lastIndex = cmbIdentity.Items.Add(defaultIdentityName);
             cmbIdentity.SelectedIndex = lastIndex;
@@ -59,9 +64,20 @@ namespace vIDsafe
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            vIDsafe.Main.User.Vault.GetIdentity(cmbIdentity.SelectedIndex).SetDetails(txtIdentityName.Text, txtIdentityEmail.Text, txtIdentityUsage.Text);
+            SaveIdentity();
+        }
 
-            cmbIdentity.Items[cmbIdentity.SelectedIndex] = txtIdentityName.Text;
+        private void SaveIdentity()
+        {
+            string identityName = txtIdentityName.Text;
+            string identityEmail = txtIdentityEmail.Text;
+            string identityUsage = txtIdentityUsage.Text;
+
+            int selectedIdentityIndex = cmbIdentity.SelectedIndex;
+
+            FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).SetDetails(identityName, identityEmail, identityUsage);
+
+            cmbIdentity.Items[selectedIdentityIndex] = identityName;
         }
 
         private void btnDeleteDiscard_Click(object sender, EventArgs e)
@@ -76,7 +92,7 @@ namespace vIDsafe
 
         private void ReloadDetails()
         {
-            EnableDisableInputs();
+            EnableDisableDetails();
             GetIdentityDetails();
             GetCredentialInformation();
         }
@@ -85,7 +101,7 @@ namespace vIDsafe
         {
             cmbIdentity.Items.Clear();
 
-            foreach (Identity identity in vIDsafe.Main.User.Vault.Identities)
+            foreach (Identity identity in FormvIDsafe.Main.User.Vault.Identities)
             {
                 cmbIdentity.Items.Add(identity.Name);
             }
@@ -93,9 +109,11 @@ namespace vIDsafe
 
         private void GetIdentityDetails()
         {
-            if (cmbIdentity.SelectedIndex >= 0)
+            int selectedIdentityIndex = cmbIdentity.SelectedIndex;
+
+            if (selectedIdentityIndex >= 0)
             {
-                Identity currentIdentity = vIDsafe.Main.User.Vault.GetIdentity(cmbIdentity.SelectedIndex);
+                Identity currentIdentity = FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex);
 
                 txtIdentityName.Text = currentIdentity.Name;
                 txtIdentityEmail.Text = currentIdentity.Email;
@@ -105,36 +123,42 @@ namespace vIDsafe
 
         private void GetCredentialInformation()
         {
-            if (cmbIdentity.SelectedIndex >= 0)
+            int selectedIdentityIndex = cmbIdentity.SelectedIndex;
+
+            if (selectedIdentityIndex >= 0)
             {
-                Identity currentIdentity = vIDsafe.Main.User.Vault.GetIdentity(cmbIdentity.SelectedIndex);
+                Identity currentIdentity = FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex);
 
-                chart2.Series["Credentials"].Points[0].SetValueXY("Safe", currentIdentity.SafeCredentials);
-                chart2.Series["Credentials"].Points[1].SetValueXY("Weak", currentIdentity.WeakCredentials);
-                chart2.Series["Credentials"].Points[2].SetValueXY("Conflicts", currentIdentity.ConflictCredentials);
-                chart2.Series["Credentials"].Points[3].SetValueXY("Compromised", currentIdentity.CompromisedCredentials);
+                chartCredentials.Series["Credentials"].Points[0].SetValueXY("Safe", currentIdentity.SafeCredentials);
+                chartCredentials.Series["Credentials"].Points[1].SetValueXY("Weak", currentIdentity.WeakCredentials);
+                chartCredentials.Series["Credentials"].Points[2].SetValueXY("Conflicts", currentIdentity.ConflictCredentials);
+                chartCredentials.Series["Credentials"].Points[3].SetValueXY("Compromised", currentIdentity.CompromisedCredentials);
 
-                chart2.Series["Credentials"].IsValueShownAsLabel = true;
+                chartCredentials.Series["Credentials"].IsValueShownAsLabel = true;
             }
         }
 
         private void DeleteIdentity()
         {
-            if (cmbIdentity.SelectedIndex >= 0)
-            {
-                vIDsafe.Main.User.Vault.DeleteIdentity(cmbIdentity.SelectedIndex);
+            int selectedIdentityIndex = cmbIdentity.SelectedIndex;
 
-                cmbIdentity.Items.RemoveAt(cmbIdentity.SelectedIndex);
+            if (selectedIdentityIndex >= 0)
+            {
+                FormvIDsafe.Main.User.Vault.DeleteIdentity(selectedIdentityIndex);
+
+                cmbIdentity.Items.RemoveAt(selectedIdentityIndex);
 
                 ReloadDetails(); //SelectedIndex doesn't work with -1 for comboboxes for some reason?
             }
         }
 
-        private void EnableDisableInputs()
+        private void EnableDisableDetails()
         {
             ClearInputs();
 
-            if (cmbIdentity.SelectedIndex >= 0)
+            int selectedIdentityIndex = cmbIdentity.SelectedIndex;
+
+            if (selectedIdentityIndex >= 0)
             {
                 txtIdentityName.Enabled = true;
                 txtIdentityEmail.Enabled = true;
@@ -142,6 +166,9 @@ namespace vIDsafe
 
                 btnSave.Enabled = true;
                 btnDeleteDiscard.Enabled = true;
+
+                chartPublicInformation.Visible = true;
+                chartCredentials.Visible = true;
             }
             else
             {
@@ -151,6 +178,9 @@ namespace vIDsafe
 
                 btnSave.Enabled = false;
                 btnDeleteDiscard.Enabled = false;
+
+                chartPublicInformation.Visible = false;
+                chartCredentials.Visible = false;
             }
         }
 

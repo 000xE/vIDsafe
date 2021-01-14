@@ -1,6 +1,6 @@
 ﻿namespace vIDsafe
 {
-    partial class Form1
+    partial class FormHome
     {
         /// <summary>
         ///  Required designer variable.

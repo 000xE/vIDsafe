@@ -11,8 +11,6 @@ namespace vIDsafe
     {
         private List<Credential> _credentials = new List<Credential>();
 
-        //private Dictionary<string, Credential> _credentials = new Dictionary<string, Credential>();
-
         private string _name;
         private string _email;
         private string _usage;
@@ -62,7 +60,14 @@ namespace vIDsafe
 
         public Credential GetCredential(int index)
         {
-            return _credentials[index];
+            if (_credentials.Count > 0)
+            {
+                return _credentials[index];
+            }
+            else
+            {
+                return new Credential("");
+            }
         }
 
         public List<Credential> Credentials => _credentials;
@@ -72,14 +77,16 @@ namespace vIDsafe
             Credential credential = new Credential(username);
             _credentials.Add(credential);
 
-            vIDsafe.Main.User.SaveVault();
+            FormvIDsafe.Main.User.SaveVault();
         }
 
         public void DeleteCredential(int index)
         {
-            _credentials.RemoveAt(index);
-
-            vIDsafe.Main.User.SaveVault();
+            if (_credentials.Count > index)
+            {
+                _credentials.RemoveAt(index);
+                FormvIDsafe.Main.User.SaveVault();
+            }
         }
 
         public string Name =>_name;
@@ -103,7 +110,7 @@ namespace vIDsafe
             this._email = email;
             this._usage = usage;
 
-            vIDsafe.Main.User.SaveVault();
+            FormvIDsafe.Main.User.SaveVault();
         }
     }
 }

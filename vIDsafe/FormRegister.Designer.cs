@@ -1,7 +1,7 @@
 ﻿
 namespace vIDsafe
 {
-    partial class Login
+    partial class FormRegister
     {
         /// <summary>
         /// Required designer variable.
@@ -31,11 +31,12 @@ namespace vIDsafe
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.txtConfirmPassword = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.txtName = new System.Windows.Forms.TextBox();
-            this.btnLogin = new System.Windows.Forms.Button();
             this.btnRegister = new System.Windows.Forms.Button();
+            this.btnLogin = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.SuspendLayout();
@@ -44,17 +45,18 @@ namespace vIDsafe
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(26)))), ((int)(((byte)(26)))));
             this.panel1.Controls.Add(this.panel3);
-            this.panel1.Controls.Add(this.btnLogin);
             this.panel1.Controls.Add(this.btnRegister);
+            this.panel1.Controls.Add(this.btnLogin);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Padding = new System.Windows.Forms.Padding(25);
             this.panel1.Size = new System.Drawing.Size(484, 561);
-            this.panel1.TabIndex = 1;
+            this.panel1.TabIndex = 2;
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.txtConfirmPassword);
             this.panel3.Controls.Add(this.label2);
             this.panel3.Controls.Add(this.txtPassword);
             this.panel3.Controls.Add(this.txtName);
@@ -63,6 +65,19 @@ namespace vIDsafe
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(434, 431);
             this.panel3.TabIndex = 1;
+            // 
+            // txtConfirmPassword
+            // 
+            this.txtConfirmPassword.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.txtConfirmPassword.BackColor = System.Drawing.Color.DimGray;
+            this.txtConfirmPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtConfirmPassword.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtConfirmPassword.ForeColor = System.Drawing.Color.Gainsboro;
+            this.txtConfirmPassword.Location = new System.Drawing.Point(137, 233);
+            this.txtConfirmPassword.Name = "txtConfirmPassword";
+            this.txtConfirmPassword.PasswordChar = '*';
+            this.txtConfirmPassword.Size = new System.Drawing.Size(160, 23);
+            this.txtConfirmPassword.TabIndex = 6;
             // 
             // label2
             // 
@@ -73,7 +88,7 @@ namespace vIDsafe
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(434, 21);
             this.label2.TabIndex = 5;
-            this.label2.Text = "Login";
+            this.label2.Text = "Register";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // txtPassword
@@ -83,7 +98,7 @@ namespace vIDsafe
             this.txtPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtPassword.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPassword.ForeColor = System.Drawing.Color.Gainsboro;
-            this.txtPassword.Location = new System.Drawing.Point(137, 218);
+            this.txtPassword.Location = new System.Drawing.Point(137, 204);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(160, 23);
@@ -96,36 +111,20 @@ namespace vIDsafe
             this.txtName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtName.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtName.ForeColor = System.Drawing.Color.Gainsboro;
-            this.txtName.Location = new System.Drawing.Point(137, 189);
+            this.txtName.Location = new System.Drawing.Point(137, 175);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(160, 23);
             this.txtName.TabIndex = 0;
             // 
-            // btnLogin
-            // 
-            this.btnLogin.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.btnLogin.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btnLogin.FlatAppearance.BorderSize = 0;
-            this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLogin.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLogin.ForeColor = System.Drawing.Color.White;
-            this.btnLogin.Location = new System.Drawing.Point(25, 456);
-            this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(434, 40);
-            this.btnLogin.TabIndex = 2;
-            this.btnLogin.Text = "Login";
-            this.btnLogin.UseVisualStyleBackColor = false;
-            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
-            // 
             // btnRegister
             // 
-            this.btnRegister.BackColor = System.Drawing.Color.DimGray;
+            this.btnRegister.BackColor = System.Drawing.Color.CornflowerBlue;
             this.btnRegister.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btnRegister.FlatAppearance.BorderSize = 0;
             this.btnRegister.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRegister.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRegister.ForeColor = System.Drawing.Color.White;
-            this.btnRegister.Location = new System.Drawing.Point(25, 496);
+            this.btnRegister.Location = new System.Drawing.Point(25, 456);
             this.btnRegister.Name = "btnRegister";
             this.btnRegister.Size = new System.Drawing.Size(434, 40);
             this.btnRegister.TabIndex = 3;
@@ -133,19 +132,32 @@ namespace vIDsafe
             this.btnRegister.UseVisualStyleBackColor = false;
             this.btnRegister.Click += new System.EventHandler(this.btnRegister_Click);
             // 
-            // Login
+            // btnLogin
+            // 
+            this.btnLogin.BackColor = System.Drawing.Color.DimGray;
+            this.btnLogin.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnLogin.FlatAppearance.BorderSize = 0;
+            this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLogin.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLogin.ForeColor = System.Drawing.Color.White;
+            this.btnLogin.Location = new System.Drawing.Point(25, 496);
+            this.btnLogin.Name = "btnLogin";
+            this.btnLogin.Size = new System.Drawing.Size(434, 40);
+            this.btnLogin.TabIndex = 2;
+            this.btnLogin.Text = "Login";
+            this.btnLogin.UseVisualStyleBackColor = false;
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
+            // 
+            // Register
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
             this.ClientSize = new System.Drawing.Size(484, 561);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(500, 600);
-            this.Name = "Login";
-            this.Text = "Login";
+            this.Name = "Register";
+            this.Text = "Register";
             this.panel1.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
@@ -162,5 +174,6 @@ namespace vIDsafe
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.Button btnRegister;
+        private System.Windows.Forms.TextBox txtConfirmPassword;
     }
 }

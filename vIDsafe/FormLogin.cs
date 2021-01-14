@@ -10,20 +10,20 @@ using System.Windows.Forms;
 
 namespace vIDsafe
 {
-    public partial class Login : Form
+    public partial class FormLogin : Form
     {
-        public Login()
+        public FormLogin()
         {
             InitializeComponent();
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            vIDsafe.Main.User = new UserAccount(txtName.Text, txtPassword.Text);
+            FormvIDsafe.Main.User = new MasterAccount(txtName.Text, txtPassword.Text);
 
             if (IsValid())
             {
-                int loginStatusCode = vIDsafe.Main.User.TryLogin();
+                int loginStatusCode = FormvIDsafe.Main.User.TryLogin();
 
                 switch (loginStatusCode)
                 {
@@ -31,7 +31,7 @@ namespace vIDsafe
                         Console.WriteLine("Account doesn't exist");
                         break;
                     case 1:
-                        Form1 form = new Form1();
+                        FormHome form = new FormHome();
                         form.Show();
 
                         ParentForm.Hide();
@@ -50,7 +50,7 @@ namespace vIDsafe
 
         private void btnRegister_Click(object sender, EventArgs e)
         {
-            vIDsafe.OpenChildForm(new Register());
+            FormvIDsafe.OpenChildForm(new FormRegister());
         }
     }
 }
