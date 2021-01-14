@@ -23,22 +23,16 @@ namespace vIDsafe
 
             if (IsValid())
             {
-                int loginStatusCode = FormvIDsafe.Main.User.TryLogin();
-
-                switch (loginStatusCode)
+                if (FormvIDsafe.Main.User.Login() == true)
                 {
-                    case 0:
-                        Console.WriteLine("Account doesn't exist");
-                        break;
-                    case 1:
-                        FormHome form = new FormHome();
-                        form.Show();
+                    FormHome form = new FormHome();
+                    form.Show();
 
-                        ParentForm.Hide();
-                        break;
-                    case 2:
-                        Console.WriteLine("Wrong password");
-                        break;
+                    ParentForm.Hide();
+                }
+                else
+                {
+                    Console.WriteLine("Account doesn't exist or wrong password");
                 }
             }
         }

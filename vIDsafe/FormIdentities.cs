@@ -20,7 +20,6 @@ namespace vIDsafe
         private void LoadFormComponents()
         {
             GetIdentities();
-            EnableDisableDetails();
         }
 
         private void chartCredentials_PrePaint(object sender, System.Windows.Forms.DataVisualization.Charting.ChartPaintEventArgs e)
@@ -87,18 +86,12 @@ namespace vIDsafe
 
         private void cmbIdentity_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ReloadDetails();
-        }
-
-        private void ReloadDetails()
-        {
-            EnableDisableDetails();
             GetIdentityDetails();
-            GetCredentialInformation();
         }
 
         private void GetIdentities()
         {
+            ResetDetails();
             cmbIdentity.Items.Clear();
 
             foreach (Identity identity in FormvIDsafe.Main.User.Vault.Identities)
@@ -109,6 +102,7 @@ namespace vIDsafe
 
         private void GetIdentityDetails()
         {
+            ResetDetails();
             int selectedIdentityIndex = cmbIdentity.SelectedIndex;
 
             if (selectedIdentityIndex >= 0)
@@ -118,24 +112,13 @@ namespace vIDsafe
                 txtIdentityName.Text = currentIdentity.Name;
                 txtIdentityEmail.Text = currentIdentity.Email;
                 txtIdentityUsage.Text = currentIdentity.Usage;
-            }  
-        }
-
-        private void GetCredentialInformation()
-        {
-            int selectedIdentityIndex = cmbIdentity.SelectedIndex;
-
-            if (selectedIdentityIndex >= 0)
-            {
-                Identity currentIdentity = FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex);
 
                 chartCredentials.Series["Credentials"].Points[0].SetValueXY("Safe", currentIdentity.SafeCredentials);
                 chartCredentials.Series["Credentials"].Points[1].SetValueXY("Weak", currentIdentity.WeakCredentials);
                 chartCredentials.Series["Credentials"].Points[2].SetValueXY("Conflicts", currentIdentity.ConflictCredentials);
                 chartCredentials.Series["Credentials"].Points[3].SetValueXY("Compromised", currentIdentity.CompromisedCredentials);
-
                 chartCredentials.Series["Credentials"].IsValueShownAsLabel = true;
-            }
+            }  
         }
 
         private void DeleteIdentity()
@@ -148,11 +131,11 @@ namespace vIDsafe
 
                 cmbIdentity.Items.RemoveAt(selectedIdentityIndex);
 
-                ReloadDetails(); //SelectedIndex doesn't work with -1 for comboboxes for some reason?
+                GetIdentityDetails(); //SelectedIndex doesn't work with -1 for comboboxes for some reason?
             }
         }
 
-        private void EnableDisableDetails()
+        private void ResetDetails()
         {
             ClearInputs();
 
