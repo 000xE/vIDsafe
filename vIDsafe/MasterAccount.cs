@@ -35,7 +35,7 @@ namespace vIDsafe
             return false;
         }
 
-        public int TryLogin()
+        public bool Login()
         {
             if (AccountExists())
             {
@@ -45,19 +45,20 @@ namespace vIDsafe
 
                 if (this.Vault == null)
                 {
-                    return 2;
+                    return false;
                 }
-
-                return 1;
+                else
+                {
+                    return true;
+                }
             }
             else
             {
-                return 0;
+                return false;
             }
         }
 
-        //https://stackoverflow.com/a/2955425
-        public int TryRegister()
+        public bool Register()
         {
             if (!AccountExists())
             {
@@ -65,11 +66,11 @@ namespace vIDsafe
 
                 SaveVault();
 
-                return 1;
+                return true;
             }
             else
             {
-                return 0;
+                return false;
             }
         }
 
@@ -85,7 +86,7 @@ namespace vIDsafe
             }
         }
 
-        public bool TryChangePassword(string oldPassword, string password)
+        public bool ChangePassword(string oldPassword, string password)
         {
             if (VerifyPassword(oldPassword) == true)
             {
@@ -100,7 +101,7 @@ namespace vIDsafe
             }
         }
 
-        public bool TryChangeName(string oldPassword, string name)
+        public bool ChangeName(string oldPassword, string name)
         {
             if (VerifyPassword(oldPassword) == true)
             {
@@ -109,7 +110,6 @@ namespace vIDsafe
                 this._name = name;
                 this._password = HashPassword(oldPassword);
                 SaveVault();
-
 
                 return true;
             }

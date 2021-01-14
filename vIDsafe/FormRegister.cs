@@ -23,19 +23,16 @@ namespace vIDsafe
 
             if (IsValid())
             {
-                int registerStatusCode = FormvIDsafe.Main.User.TryRegister();
-
-                switch (registerStatusCode)
+                if (FormvIDsafe.Main.User.Register() == true)
                 {
-                    case 0:
-                        Console.WriteLine("Account already exist");
-                        break;
-                    case 1:
-                        FormHome form = new FormHome();
-                        form.Show();
+                    FormHome form = new FormHome();
+                    form.Show();
 
-                        ParentForm.Hide();
-                        break;
+                    ParentForm.Hide();
+                }
+                else
+                {
+                    Console.WriteLine("Account already exist");
                 }
             }
         }

@@ -20,7 +20,6 @@ namespace vIDsafe
         private void LoadFormComponents()
         {
             GetIdentities();
-            EnableDisableDetails();
         }
 
         private void btnGenerateUsername_Click(object sender, EventArgs e)
@@ -50,13 +49,11 @@ namespace vIDsafe
 
         private void cmbIdentity_SelectedIndexChanged(object sender, EventArgs e)
         {
-            EnableDisableDetails();
             GetCredentials();
         }
 
         private void lvCredentials_SelectedIndexChanged(object sender, EventArgs e)
         {
-            EnableDisableDetails();
             GetCredentialDetails();
         }
 
@@ -101,6 +98,8 @@ namespace vIDsafe
 
         private void SearchCredentials()
         {
+            ResetDetails();
+
             string searchedText = txtSearchCredential.Text;
 
             if (searchedText.Length > 0)
@@ -119,6 +118,8 @@ namespace vIDsafe
 
         private void GetIdentities()
         {
+            ResetDetails();
+
             foreach (Identity identity in FormvIDsafe.Main.User.Vault.Identities)
             {
                 cmbIdentity.Items.Add(identity.Name);
@@ -127,6 +128,8 @@ namespace vIDsafe
 
         private void GetCredentials()
         {
+            ResetDetails();
+
             int selectedIdentityIndex = cmbIdentity.SelectedIndex;
 
             List<Credential> credentials = FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).Credentials;
@@ -153,10 +156,22 @@ namespace vIDsafe
             lvi.SubItems.Add(status.ToString());
 
             lvCredentials.Items.Add(lvi);
+
+            FixColumnWidths();
+        }
+
+        private void FixColumnWidths()
+        {
+            lvCredentials.Columns[0].Width = -2;
+            lvCredentials.Columns[1].Width = -2;
+            lvCredentials.Columns[2].Width = -2;
+            lvCredentials.Columns[3].Width = -2;
         }
 
         private void GetCredentialDetails()
         {
+            ResetDetails();
+
             int selectedCredentialCount = lvCredentials.SelectedItems.Count;
 
             if (selectedCredentialCount > 0)
@@ -195,7 +210,7 @@ namespace vIDsafe
             }
         }
 
-        private void EnableDisableDetails()
+        private void ResetDetails()
         {
             ClearInputs();
 
