@@ -258,16 +258,20 @@
             // columnName
             // 
             this.columnName.Text = "Name";
-            this.columnName.Width = 101;
+            this.columnName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnName.Width = 106;
             // 
             // columnURL
             // 
             this.columnURL.Text = "URL";
-            this.columnURL.Width = 115;
+            this.columnURL.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnURL.Width = 106;
             // 
             // columnStatus
             // 
             this.columnStatus.Text = "Status";
+            this.columnStatus.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnStatus.Width = 106;
             // 
             // txtSearchCredential
             // 
