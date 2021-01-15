@@ -53,7 +53,7 @@ namespace vIDsafe
         }
         private void ChangeName()
         {
-            if (FormvIDsafe.Main.User.ChangeName(txtCurrentPassword.Text, txtName.Text) == true)
+            if (FormvIDsafe.Main.User.TryChangeName(txtCurrentPassword.Text, txtName.Text) == true)
             {
                 Console.WriteLine("Name changed");
             }
@@ -70,7 +70,7 @@ namespace vIDsafe
 
         private void ChangePassword()
         {
-            if (FormvIDsafe.Main.User.ChangePassword(txtCurrentPassword2.Text, txtNewPassword.Text) == true)
+            if (FormvIDsafe.Main.User.TryChangePassword(txtCurrentPassword2.Text, txtNewPassword.Text) == true)
             {
                 Console.WriteLine("Pass changed");
             }

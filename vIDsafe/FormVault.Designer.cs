@@ -42,7 +42,7 @@
             this.panel10 = new System.Windows.Forms.Panel();
             this.lvCredentials = new System.Windows.Forms.ListView();
             this.columnID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnUserName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnURL = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnStatus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.txtSearchCredential = new System.Windows.Forms.TextBox();
@@ -234,7 +234,7 @@
             this.lvCredentials.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lvCredentials.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnID,
-            this.columnName,
+            this.columnUserName,
             this.columnURL,
             this.columnStatus});
             this.lvCredentials.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -255,11 +255,11 @@
             this.columnID.Text = "#";
             this.columnID.Width = 0;
             // 
-            // columnName
+            // columnUserName
             // 
-            this.columnName.Text = "Name";
-            this.columnName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnName.Width = 106;
+            this.columnUserName.Text = "Username";
+            this.columnUserName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnUserName.Width = 106;
             // 
             // columnURL
             // 
@@ -494,7 +494,7 @@
         private System.Windows.Forms.Button btnDeleteDiscard;
         private System.Windows.Forms.ListView lvCredentials;
         private System.Windows.Forms.ColumnHeader columnID;
-        private System.Windows.Forms.ColumnHeader columnName;
+        private System.Windows.Forms.ColumnHeader columnUserName;
         private System.Windows.Forms.ColumnHeader columnURL;
         private System.Windows.Forms.ColumnHeader columnStatus;
     }
