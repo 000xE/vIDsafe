@@ -23,7 +23,7 @@ namespace vIDsafe
 
             if (IsValid())
             {
-                if (FormvIDsafe.Main.User.Login() == true)
+                if (FormvIDsafe.Main.User.TryLogin() == true)
                 {
                     FormHome form = new FormHome();
                     form.Show();

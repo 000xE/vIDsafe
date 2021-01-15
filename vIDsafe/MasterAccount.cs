@@ -35,7 +35,7 @@ namespace vIDsafe
             return false;
         }
 
-        public bool Login()
+        public bool TryLogin()
         {
             if (AccountExists())
             {
@@ -58,7 +58,7 @@ namespace vIDsafe
             }
         }
 
-        public bool Register()
+        public bool TryRegister()
         {
             if (!AccountExists())
             {
@@ -86,7 +86,7 @@ namespace vIDsafe
             }
         }
 
-        public bool ChangePassword(string oldPassword, string password)
+        public bool TryChangePassword(string oldPassword, string password)
         {
             if (VerifyPassword(oldPassword) == true)
             {
@@ -101,7 +101,7 @@ namespace vIDsafe
             }
         }
 
-        public bool ChangeName(string oldPassword, string name)
+        public bool TryChangeName(string oldPassword, string name)
         {
             if (VerifyPassword(oldPassword) == true)
             {
