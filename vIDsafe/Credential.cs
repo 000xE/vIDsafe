@@ -62,14 +62,14 @@ namespace vIDsafe
 
         }
 
-        public string GenerateUsername(string identityName, int length)
+        public static string GenerateUsername(string deriveName, int length)
         {
-            identityName = identityName.Replace(" ", "");
+            deriveName = deriveName.Replace(" ", "");
 
             string username = "";
 
-            char[] lowers = identityName.ToLower().ToCharArray();
-            char[] uppers = identityName.ToUpper().ToCharArray();
+            char[] lowers = deriveName.ToLower().ToCharArray();
+            char[] uppers = deriveName.ToUpper().ToCharArray();
 
             //char[] lowers = new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'm', 'n', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
             //char[] uppers = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
@@ -104,6 +104,13 @@ namespace vIDsafe
             }
 
             return username;
+        }
+
+        public static string GeneratePassword(bool passPhrase)
+        {
+            string password = "";
+
+            return password;
         }
     }
 }

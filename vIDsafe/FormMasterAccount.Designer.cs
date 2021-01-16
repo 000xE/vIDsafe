@@ -63,6 +63,7 @@
             this.panelTitle = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panelBack.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel8.SuspendLayout();
@@ -154,6 +155,7 @@
             this.lvLogs.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(59)))), ((int)(((byte)(66)))));
             this.lvLogs.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lvLogs.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
             this.columnDateTime,
             this.columnLog});
             this.lvLogs.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -170,12 +172,16 @@
             // 
             // columnDateTime
             // 
+            this.columnDateTime.DisplayIndex = 0;
             this.columnDateTime.Text = "Date/Time";
+            this.columnDateTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.columnDateTime.Width = 466;
             // 
             // columnLog
             // 
+            this.columnLog.DisplayIndex = 1;
             this.columnLog.Text = "Log";
+            this.columnLog.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.columnLog.Width = 466;
             // 
             // label3
@@ -521,6 +527,11 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "Master account";
             // 
+            // columnHeader1
+            // 
+            this.columnHeader1.DisplayIndex = 2;
+            this.columnHeader1.Width = 0;
+            // 
             // FormMasterAccount
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -594,5 +605,6 @@
         private System.Windows.Forms.ListView lvLogs;
         private System.Windows.Forms.ColumnHeader columnDateTime;
         private System.Windows.Forms.ColumnHeader columnLog;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
     }
 }

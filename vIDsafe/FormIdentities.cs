@@ -20,6 +20,7 @@ namespace vIDsafe
         private void LoadFormComponents()
         {
             GetIdentities();
+            FixColumnWidths();
         }
 
         private void chartCredentials_PrePaint(object sender, System.Windows.Forms.DataVisualization.Charting.ChartPaintEventArgs e)
@@ -63,16 +64,14 @@ namespace vIDsafe
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            SaveIdentity();
+            SetIdentityDetails(cmbIdentity.SelectedIndex);
         }
 
-        private void SaveIdentity()
+        private void SetIdentityDetails(int selectedIdentityIndex)
         {
             string identityName = txtIdentityName.Text;
             string identityEmail = txtIdentityEmail.Text;
-            string identityUsage = txtIdentityUsage.Text;
-
-            int selectedIdentityIndex = cmbIdentity.SelectedIndex;
+            string identityUsage = txtIdentityUsage.Text; 
 
             FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).SetDetails(identityName, identityEmail, identityUsage);
 
@@ -81,12 +80,12 @@ namespace vIDsafe
 
         private void btnDeleteDiscard_Click(object sender, EventArgs e)
         {
-            DeleteIdentity();
+            DeleteIdentity(cmbIdentity.SelectedIndex);
         }
 
         private void cmbIdentity_SelectedIndexChanged(object sender, EventArgs e)
         {
-            GetIdentityDetails();
+            GetIdentityDetails(cmbIdentity.SelectedIndex);
         }
 
         private void GetIdentities()
@@ -100,10 +99,9 @@ namespace vIDsafe
             }
         }
 
-        private void GetIdentityDetails()
+        private void GetIdentityDetails(int selectedIdentityIndex)
         {
             ResetDetails();
-            int selectedIdentityIndex = cmbIdentity.SelectedIndex;
 
             if (selectedIdentityIndex >= 0)
             {
@@ -121,17 +119,13 @@ namespace vIDsafe
             }  
         }
 
-        private void DeleteIdentity()
+        private void DeleteIdentity(int selectedIdentityIndex)
         {
-            int selectedIdentityIndex = cmbIdentity.SelectedIndex;
-
             if (selectedIdentityIndex >= 0)
             {
                 FormvIDsafe.Main.User.Vault.DeleteIdentity(selectedIdentityIndex);
 
                 cmbIdentity.Items.RemoveAt(selectedIdentityIndex);
-
-                GetIdentityDetails(); //SelectedIndex doesn't work with -1 for comboboxes for some reason?
             }
         }
 
@@ -150,7 +144,7 @@ namespace vIDsafe
                 btnSave.Enabled = true;
                 btnDeleteDiscard.Enabled = true;
 
-                chartPublicInformation.Visible = true;
+                //lvPublicInformation.Visible = true;
                 chartCredentials.Visible = true;
             }
             else
@@ -162,7 +156,7 @@ namespace vIDsafe
                 btnSave.Enabled = false;
                 btnDeleteDiscard.Enabled = false;
 
-                chartPublicInformation.Visible = false;
+                //lvPublicInformation.Visible = false;
                 chartCredentials.Visible = false;
             }
         }
@@ -173,6 +167,16 @@ namespace vIDsafe
             txtIdentityEmail.Clear();
             txtIdentityUsage.Clear();
             cmbIdentity.Text = "";
+        }
+
+        private void FormIdentities_Resize(object sender, EventArgs e)
+        {
+            FixColumnWidths();
+        }
+        private void FixColumnWidths()
+        {
+            lvPublicInformation.Columns[1].Width = lvPublicInformation.Width / (lvPublicInformation.Columns.Count - 1);
+            lvPublicInformation.Columns[2].Width = lvPublicInformation.Width / (lvPublicInformation.Columns.Count - 1);
         }
     }
 }

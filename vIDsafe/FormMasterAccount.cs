@@ -32,7 +32,8 @@ namespace vIDsafe
 
         private void DisplayLog(DateTime dateTime, string log)
         {
-            ListViewItem lvi = new ListViewItem(dateTime.ToString());
+            ListViewItem lvi = new ListViewItem("");
+            lvi.SubItems.Add(dateTime.ToString());
             lvi.SubItems.Add(log);
 
             lvLogs.Items.Add(lvi);
@@ -40,8 +41,8 @@ namespace vIDsafe
 
         private void FixColumnWidths()
         {
-            lvLogs.Columns[0].Width = -1;
-            lvLogs.Columns[1].Width = -2;
+            lvLogs.Columns[1].Width = lvLogs.Width / (lvLogs.Columns.Count - 1);
+            lvLogs.Columns[2].Width = lvLogs.Width / (lvLogs.Columns.Count - 1);
         }
 
         private void btnDeleteCredentials_Click(object sender, EventArgs e)

@@ -14,5 +14,15 @@ namespace vIDsafe
         {
             InitializeComponent();
         }
+
+        private void btnRegenerate_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCopy_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
