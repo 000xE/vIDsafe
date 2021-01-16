@@ -9,8 +9,6 @@ namespace vIDsafe
     [Serializable]
     public class Identity
     {
-        //private List<Credential> _credentials = new List<Credential>();
-
         private Dictionary<string, Credential> _credentials = new Dictionary<string, Credential>();
 
         private string _name;
