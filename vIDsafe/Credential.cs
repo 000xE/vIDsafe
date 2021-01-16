@@ -62,46 +62,11 @@ namespace vIDsafe
 
         }
 
-        public string GenerateUsername(string identityName, int length)
+        public string GenerateUsername()
         {
-            identityName = identityName.Replace(" ", "");
-
             string username = "";
 
-            char[] lowers = identityName.ToLower().ToCharArray();
-            char[] uppers = identityName.ToUpper().ToCharArray();
-
-            //char[] lowers = new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'm', 'n', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
-            //char[] uppers = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
-            char[] numbers = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
-
-            int l = lowers.Length;
-            int u = uppers.Length;
-            int n = numbers.Length;
-
-            Random random = new Random();
-
-            for (int i = 0; i < length; i++)
-            {
-                int randomCharacterChoice = random.Next(0, 3);
-
-                char randomChar = '0';
-
-                switch (randomCharacterChoice)
-                {
-                    case 0:
-                        randomChar = lowers[random.Next(0, l)];
-                        break;
-                    case 1:
-                        randomChar = uppers[random.Next(0, u)];
-                        break;
-                    case 2:
-                        randomChar = numbers[random.Next(0, n)];
-                        break;
-                }
-
-                username += randomChar;
-            }
+            //TODO: GENERATE A USERNAME
 
             return username;
         }

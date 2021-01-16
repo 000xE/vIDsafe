@@ -25,12 +25,12 @@ namespace vIDsafe
 
         private void btnGenerateUsername_Click(object sender, EventArgs e)
         {
-            GenerateUsername();
+
         }
 
         private void btnGeneratePassword_Click(object sender, EventArgs e)
         {
-            GeneratePassword();
+
         }
 
         private void btnNewCredential_Click(object sender, EventArgs e)
@@ -65,13 +65,7 @@ namespace vIDsafe
 
         private void GenerateUsername()
         {
-            ListViewItem currentItem = lvCredentials.SelectedItems[0];
-            string currentCredentialID = currentItem.SubItems[0].Text;
-            int selectedIdentityIndex = cmbIdentity.SelectedIndex;
 
-            string identityName = cmbIdentity.Text;
-
-            txtUsername.Text = FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).GetCredential(currentCredentialID).GenerateUsername(identityName, 10);
         }
 
         private void GeneratePassword()
