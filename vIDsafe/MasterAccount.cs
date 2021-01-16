@@ -150,7 +150,7 @@ namespace vIDsafe
         {
             //password = Encryption.hashPassword(password, name);
 
-            return Convert.ToBase64String(Encryption.HashPassword(password, _name, Encryption.KeyDerivationFunction.PBKDF2));
+            return Convert.ToBase64String(Encryption.DeriveKey(password, _name, Encryption.KeyDerivationFunction.PBKDF2));
         }
 
         private string EncryptVault()
