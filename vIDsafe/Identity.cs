@@ -91,7 +91,6 @@ namespace vIDsafe
         {
             if (_credentials.ContainsKey(key))
             {
-                Console.WriteLine(_credentials[key].Username);
                 _credentials.Remove(key);
                 FormvIDsafe.Main.User.SaveVault();
             }

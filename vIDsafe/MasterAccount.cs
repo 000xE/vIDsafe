@@ -93,6 +93,8 @@ namespace vIDsafe
                 this._password = HashPassword(password);
                 SaveVault();
 
+                Vault.Log("Account", "Password changed");
+
                 return true;
             }
             else
@@ -110,6 +112,8 @@ namespace vIDsafe
                 this._name = name;
                 this._password = HashPassword(oldPassword);
                 SaveVault();
+
+                Vault.Log("Account", "Name changed");
 
                 return true;
             }
@@ -146,7 +150,7 @@ namespace vIDsafe
         {
             //password = Encryption.hashPassword(password, name);
 
-            return Convert.ToBase64String(Encryption.HashPassword(password, _name));
+            return Convert.ToBase64String(Encryption.HashPassword(password, _name, Encryption.KeyDerivationFunction.PBKDF2));
         }
 
         private string EncryptVault()

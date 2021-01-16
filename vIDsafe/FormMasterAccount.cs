@@ -13,11 +13,41 @@ namespace vIDsafe
         public FormMasterAccount()
         {
             InitializeComponent();
+            LoadFormComponents();
+        }
+
+        private void LoadFormComponents()
+        {
+            GetLogs();
+        }
+
+        private void GetLogs()
+        {
+            lvLogs.Items.Clear();
+            foreach (KeyValuePair<DateTime, string> log in FormvIDsafe.Main.User.Vault.GetLogs("Account"))
+            {
+                DisplayLog(log.Key, log.Value);
+            }
+        }
+
+        private void DisplayLog(DateTime dateTime, string log)
+        {
+            ListViewItem lvi = new ListViewItem(dateTime.ToString());
+            lvi.SubItems.Add(log);
+
+            lvLogs.Items.Add(lvi);
+        }
+
+        private void FixColumnWidths()
+        {
+            lvLogs.Columns[0].Width = -1;
+            lvLogs.Columns[1].Width = -2;
         }
 
         private void btnDeleteCredentials_Click(object sender, EventArgs e)
         {
             DeleteCredentials();
+            GetLogs();
         }
 
         private void DeleteCredentials()
@@ -28,6 +58,7 @@ namespace vIDsafe
         private void btnDeleteIdentities_Click(object sender, EventArgs e)
         {
             DeleteIdentities();
+            GetLogs();
         }
 
         private void DeleteIdentities()
@@ -50,6 +81,7 @@ namespace vIDsafe
         private void btnChangeDetails_Click(object sender, EventArgs e)
         {
             ChangeName();
+            GetLogs();
         }
         private void ChangeName()
         {
@@ -66,6 +98,7 @@ namespace vIDsafe
         private void btnChangePassword_Click(object sender, EventArgs e)
         {
             ChangePassword();
+            GetLogs();
         }
 
         private void ChangePassword()
@@ -78,6 +111,11 @@ namespace vIDsafe
             {
                 Console.WriteLine("Wrong old password");
             }
+        }
+
+        private void FormMasterAccount_Resize(object sender, EventArgs e)
+        {
+            FixColumnWidths();
         }
     }
 }

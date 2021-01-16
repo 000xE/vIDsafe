@@ -63,6 +63,16 @@ namespace vIDsafe
             SearchCredentials();
         }
 
+        private void GenerateUsername()
+        {
+
+        }
+
+        private void GeneratePassword()
+        {
+
+        }
+
         private void NewCredential()
         {
             string defaultIdentityName = "New credential";
@@ -161,16 +171,6 @@ namespace vIDsafe
             lvi.SubItems.Add(credential.Status.ToString());
 
             lvCredentials.Items.Add(lvi);
-
-            //FixColumnWidths();
-        }
-
-        private void FixColumnWidths()
-        {
-            //lvCredentials.Columns[0].Width = -2;
-            lvCredentials.Columns[1].Width = -1;
-            lvCredentials.Columns[2].Width = -1;
-            lvCredentials.Columns[3].Width = -1;
         }
 
         private void GetCredentialDetails()

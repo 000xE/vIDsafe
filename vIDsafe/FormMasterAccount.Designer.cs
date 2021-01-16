@@ -34,7 +34,9 @@
             this.panel13 = new System.Windows.Forms.Panel();
             this.panel9 = new System.Windows.Forms.Panel();
             this.panel10 = new System.Windows.Forms.Panel();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.lvLogs = new System.Windows.Forms.ListView();
+            this.columnDateTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnLog = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label3 = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel6 = new System.Windows.Forms.Panel();
@@ -139,7 +141,7 @@
             // 
             // panel10
             // 
-            this.panel10.Controls.Add(this.listBox1);
+            this.panel10.Controls.Add(this.lvLogs);
             this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel10.Location = new System.Drawing.Point(25, 43);
             this.panel10.Name = "panel10";
@@ -147,18 +149,34 @@
             this.panel10.Size = new System.Drawing.Size(932, 179);
             this.panel10.TabIndex = 6;
             // 
-            // listBox1
+            // lvLogs
             // 
-            this.listBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(59)))), ((int)(((byte)(66)))));
-            this.listBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBox1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listBox1.ForeColor = System.Drawing.Color.Gainsboro;
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(0, 25);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(932, 154);
-            this.listBox1.TabIndex = 0;
+            this.lvLogs.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(59)))), ((int)(((byte)(66)))));
+            this.lvLogs.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lvLogs.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnDateTime,
+            this.columnLog});
+            this.lvLogs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvLogs.ForeColor = System.Drawing.Color.Gainsboro;
+            this.lvLogs.FullRowSelect = true;
+            this.lvLogs.HideSelection = false;
+            this.lvLogs.Location = new System.Drawing.Point(0, 25);
+            this.lvLogs.Name = "lvLogs";
+            this.lvLogs.Size = new System.Drawing.Size(932, 154);
+            this.lvLogs.Sorting = System.Windows.Forms.SortOrder.Descending;
+            this.lvLogs.TabIndex = 1;
+            this.lvLogs.UseCompatibleStateImageBehavior = false;
+            this.lvLogs.View = System.Windows.Forms.View.Details;
+            // 
+            // columnDateTime
+            // 
+            this.columnDateTime.Text = "Date/Time";
+            this.columnDateTime.Width = 466;
+            // 
+            // columnLog
+            // 
+            this.columnLog.Text = "Log";
+            this.columnLog.Width = 466;
             // 
             // label3
             // 
@@ -503,15 +521,16 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "Master account";
             // 
-            // MasterAccount
+            // FormMasterAccount
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1082, 734);
             this.Controls.Add(this.panelBack);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            this.Name = "MasterAccount";
+            this.Name = "FormMasterAccount";
             this.Text = "MasterAccount";
+            this.Resize += new System.EventHandler(this.FormMasterAccount_Resize);
             this.panelBack.ResumeLayout(false);
             this.panelBack.PerformLayout();
             this.panel3.ResumeLayout(false);
@@ -560,7 +579,6 @@
         private System.Windows.Forms.Panel panel13;
         private System.Windows.Forms.Panel panel9;
         private System.Windows.Forms.Panel panel10;
-        private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtCurrentPassword2;
         private System.Windows.Forms.TextBox txtConfirmPassword;
@@ -573,5 +591,8 @@
         private System.Windows.Forms.Button btnDeleteCredentials;
         private System.Windows.Forms.Button btnDeleteIdentities;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ListView lvLogs;
+        private System.Windows.Forms.ColumnHeader columnDateTime;
+        private System.Windows.Forms.ColumnHeader columnLog;
     }
 }
