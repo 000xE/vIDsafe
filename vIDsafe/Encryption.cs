@@ -10,14 +10,19 @@ namespace vIDsafe
 {
     class Encryption
     {
-        private const int _hashIterations = 100000; //Work factor, higher = longer
+        //AES VARIABLES
         private const int _blockSize = 128;
         private const int _keySize = 256;
 
         private const int _ivSize = _blockSize / 8;
         private const int _hashSize = _keySize / 8;
 
-        public static byte[] HashPassword(string newPassword, string salt)
+        public enum KeyDerivationFunction
+        {
+            PBKDF2
+        }
+
+        public static byte[] DeriveKey(string secret, string salt, KeyDerivationFunction keyDerivationFunction)
         {
             //a new password hash is generated from a generated salt with the passed settings
             //https://shawnmclean.com/simplecrypto-net-a-pbkdf2-hashing-wrapper-for-net-framework/
@@ -25,9 +30,18 @@ namespace vIDsafe
 
             byte[] convertedSalt = ASCIIEncoding.ASCII.GetBytes(salt);
 
-            // Generate the hash
-            Rfc2898DeriveBytes pbkdf2 = new Rfc2898DeriveBytes(newPassword, convertedSalt, _hashIterations);
-            return pbkdf2.GetBytes(_hashSize);
+            byte[] hashedPassword = null;
+
+            switch (keyDerivationFunction)
+            {
+                case KeyDerivationFunction.PBKDF2:
+                    int _hashIterations = 100000; //Work factor, higher = longer
+                    Rfc2898DeriveBytes pbkdf2 = new Rfc2898DeriveBytes(secret, convertedSalt, _hashIterations);
+                    hashedPassword = pbkdf2.GetBytes(_hashSize);
+                    break;
+            }
+
+            return hashedPassword;
         }
 
         public static string AesEncrypt(string plainText, byte[] key)

@@ -61,5 +61,14 @@ namespace vIDsafe
         {
 
         }
+
+        public string GenerateUsername()
+        {
+            string username = "";
+
+            //TODO: GENERATE A USERNAME
+
+            return username;
+        }
     }
 }
