@@ -71,15 +71,15 @@
             // panelBack
             // 
             this.panelBack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(49)))), ((int)(((byte)(56)))));
-            this.panelBack.Controls.Add(this.panel1);
             this.panelBack.Controls.Add(this.panel3);
+            this.panelBack.Controls.Add(this.panel1);
             this.panelBack.Controls.Add(this.panelTitle);
             this.panelBack.Controls.Add(this.panel4);
             this.panelBack.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelBack.Location = new System.Drawing.Point(0, 0);
             this.panelBack.Name = "panelBack";
             this.panelBack.Padding = new System.Windows.Forms.Padding(25);
-            this.panelBack.Size = new System.Drawing.Size(935, 557);
+            this.panelBack.Size = new System.Drawing.Size(823, 618);
             this.panelBack.TabIndex = 3;
             // 
             // panel1
@@ -87,11 +87,11 @@
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.label3);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(393, 92);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel1.Location = new System.Drawing.Point(281, 92);
             this.panel1.Name = "panel1";
             this.panel1.Padding = new System.Windows.Forms.Padding(25);
-            this.panel1.Size = new System.Drawing.Size(517, 400);
+            this.panel1.Size = new System.Drawing.Size(517, 461);
             this.panel1.TabIndex = 8;
             // 
             // panel2
@@ -106,8 +106,8 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(25, 43);
             this.panel2.Name = "panel2";
-            this.panel2.Padding = new System.Windows.Forms.Padding(25);
-            this.panel2.Size = new System.Drawing.Size(467, 332);
+            this.panel2.Padding = new System.Windows.Forms.Padding(0, 25, 0, 25);
+            this.panel2.Size = new System.Drawing.Size(467, 393);
             this.panel2.TabIndex = 6;
             // 
             // btnGeneratePassword
@@ -118,7 +118,7 @@
             this.btnGeneratePassword.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGeneratePassword.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGeneratePassword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
-            this.btnGeneratePassword.Location = new System.Drawing.Point(306, 83);
+            this.btnGeneratePassword.Location = new System.Drawing.Point(306, 88);
             this.btnGeneratePassword.Name = "btnGeneratePassword";
             this.btnGeneratePassword.Size = new System.Drawing.Size(109, 23);
             this.btnGeneratePassword.TabIndex = 15;
@@ -134,7 +134,7 @@
             this.btnGenerateUsername.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGenerateUsername.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGenerateUsername.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
-            this.btnGenerateUsername.Location = new System.Drawing.Point(306, 54);
+            this.btnGenerateUsername.Location = new System.Drawing.Point(306, 59);
             this.btnGenerateUsername.Name = "btnGenerateUsername";
             this.btnGenerateUsername.Size = new System.Drawing.Size(109, 23);
             this.btnGenerateUsername.TabIndex = 14;
@@ -149,10 +149,10 @@
             this.txtNotes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtNotes.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNotes.ForeColor = System.Drawing.Color.Gainsboro;
-            this.txtNotes.Location = new System.Drawing.Point(48, 112);
+            this.txtNotes.Location = new System.Drawing.Point(48, 117);
             this.txtNotes.Multiline = true;
             this.txtNotes.Name = "txtNotes";
-            this.txtNotes.Size = new System.Drawing.Size(367, 220);
+            this.txtNotes.Size = new System.Drawing.Size(367, 249);
             this.txtNotes.TabIndex = 13;
             // 
             // txtURL
@@ -162,7 +162,7 @@
             this.txtURL.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtURL.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtURL.ForeColor = System.Drawing.Color.Gainsboro;
-            this.txtURL.Location = new System.Drawing.Point(48, 25);
+            this.txtURL.Location = new System.Drawing.Point(48, 30);
             this.txtURL.Name = "txtURL";
             this.txtURL.Size = new System.Drawing.Size(367, 23);
             this.txtURL.TabIndex = 12;
@@ -174,7 +174,7 @@
             this.txtPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtPassword.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPassword.ForeColor = System.Drawing.Color.Gainsboro;
-            this.txtPassword.Location = new System.Drawing.Point(48, 83);
+            this.txtPassword.Location = new System.Drawing.Point(48, 88);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(252, 23);
@@ -187,7 +187,7 @@
             this.txtUsername.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtUsername.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtUsername.ForeColor = System.Drawing.Color.Gainsboro;
-            this.txtUsername.Location = new System.Drawing.Point(48, 54);
+            this.txtUsername.Location = new System.Drawing.Point(48, 59);
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(252, 23);
             this.txtUsername.TabIndex = 10;
@@ -209,11 +209,11 @@
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(59)))), ((int)(((byte)(66)))));
             this.panel3.Controls.Add(this.panel10);
             this.panel3.Controls.Add(this.label4);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(25, 92);
             this.panel3.Name = "panel3";
             this.panel3.Padding = new System.Windows.Forms.Padding(25);
-            this.panel3.Size = new System.Drawing.Size(368, 400);
+            this.panel3.Size = new System.Drawing.Size(256, 461);
             this.panel3.TabIndex = 9;
             // 
             // panel10
@@ -226,7 +226,7 @@
             this.panel10.Location = new System.Drawing.Point(25, 47);
             this.panel10.Name = "panel10";
             this.panel10.Padding = new System.Windows.Forms.Padding(0, 25, 0, 0);
-            this.panel10.Size = new System.Drawing.Size(318, 328);
+            this.panel10.Size = new System.Drawing.Size(206, 389);
             this.panel10.TabIndex = 8;
             // 
             // lvCredentials
@@ -245,11 +245,12 @@
             this.lvCredentials.Location = new System.Drawing.Point(0, 71);
             this.lvCredentials.MultiSelect = false;
             this.lvCredentials.Name = "lvCredentials";
-            this.lvCredentials.Size = new System.Drawing.Size(318, 257);
+            this.lvCredentials.Size = new System.Drawing.Size(206, 318);
             this.lvCredentials.TabIndex = 3;
             this.lvCredentials.UseCompatibleStateImageBehavior = false;
             this.lvCredentials.View = System.Windows.Forms.View.Details;
             this.lvCredentials.SelectedIndexChanged += new System.EventHandler(this.lvCredentials_SelectedIndexChanged);
+            this.lvCredentials.Resize += new System.EventHandler(this.lvCredentials_Resize);
             // 
             // columnID
             // 
@@ -283,7 +284,7 @@
             this.txtSearchCredential.ForeColor = System.Drawing.Color.Gainsboro;
             this.txtSearchCredential.Location = new System.Drawing.Point(0, 48);
             this.txtSearchCredential.Name = "txtSearchCredential";
-            this.txtSearchCredential.Size = new System.Drawing.Size(318, 23);
+            this.txtSearchCredential.Size = new System.Drawing.Size(206, 23);
             this.txtSearchCredential.TabIndex = 1;
             this.txtSearchCredential.TextChanged += new System.EventHandler(this.txtSearchCredential_TextChanged);
             // 
@@ -292,12 +293,11 @@
             this.cmbIdentity.BackColor = System.Drawing.Color.White;
             this.cmbIdentity.Dock = System.Windows.Forms.DockStyle.Top;
             this.cmbIdentity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbIdentity.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbIdentity.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbIdentity.FormattingEnabled = true;
             this.cmbIdentity.Location = new System.Drawing.Point(0, 25);
             this.cmbIdentity.Name = "cmbIdentity";
-            this.cmbIdentity.Size = new System.Drawing.Size(318, 23);
+            this.cmbIdentity.Size = new System.Drawing.Size(206, 23);
             this.cmbIdentity.TabIndex = 0;
             this.cmbIdentity.SelectedIndexChanged += new System.EventHandler(this.cmbIdentity_SelectedIndexChanged);
             // 
@@ -309,7 +309,7 @@
             this.label4.ForeColor = System.Drawing.Color.LightGray;
             this.label4.Location = new System.Drawing.Point(25, 25);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(318, 22);
+            this.label4.Size = new System.Drawing.Size(206, 22);
             this.label4.TabIndex = 7;
             this.label4.Text = "Credentials";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -324,7 +324,7 @@
             this.panelTitle.Location = new System.Drawing.Point(25, 25);
             this.panelTitle.Name = "panelTitle";
             this.panelTitle.Padding = new System.Windows.Forms.Padding(0, 0, 0, 25);
-            this.panelTitle.Size = new System.Drawing.Size(885, 67);
+            this.panelTitle.Size = new System.Drawing.Size(773, 67);
             this.panelTitle.TabIndex = 7;
             // 
             // label2
@@ -334,7 +334,7 @@
             this.label2.ForeColor = System.Drawing.Color.DarkGray;
             this.label2.Location = new System.Drawing.Point(0, 21);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(885, 21);
+            this.label2.Size = new System.Drawing.Size(773, 21);
             this.label2.TabIndex = 4;
             this.label2.Text = "Create and view credentials";
             // 
@@ -345,18 +345,18 @@
             this.label1.ForeColor = System.Drawing.Color.Gainsboro;
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(885, 21);
+            this.label1.Size = new System.Drawing.Size(773, 21);
             this.label1.TabIndex = 3;
             this.label1.Text = "Vault";
             // 
             // panel4
             // 
-            this.panel4.Controls.Add(this.tableLayoutPanel2);
             this.panel4.Controls.Add(this.tableLayoutPanel1);
+            this.panel4.Controls.Add(this.tableLayoutPanel2);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel4.Location = new System.Drawing.Point(25, 492);
+            this.panel4.Location = new System.Drawing.Point(25, 553);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(885, 40);
+            this.panel4.Size = new System.Drawing.Size(773, 40);
             this.panel4.TabIndex = 10;
             // 
             // tableLayoutPanel2
@@ -367,8 +367,8 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Controls.Add(this.btnSave, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.btnDeleteDiscard, 1, 0);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(368, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(256, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -416,13 +416,13 @@
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Controls.Add(this.btnNewCredential, 0, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(368, 40);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(256, 40);
             this.tableLayoutPanel1.TabIndex = 4;
             // 
             // btnNewCredential
@@ -436,7 +436,7 @@
             this.btnNewCredential.Location = new System.Drawing.Point(0, 0);
             this.btnNewCredential.Margin = new System.Windows.Forms.Padding(0);
             this.btnNewCredential.Name = "btnNewCredential";
-            this.btnNewCredential.Size = new System.Drawing.Size(368, 40);
+            this.btnNewCredential.Size = new System.Drawing.Size(256, 40);
             this.btnNewCredential.TabIndex = 0;
             this.btnNewCredential.Text = "Add";
             this.btnNewCredential.UseVisualStyleBackColor = false;
@@ -446,7 +446,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(935, 557);
+            this.ClientSize = new System.Drawing.Size(823, 618);
             this.Controls.Add(this.panelBack);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "FormVault";

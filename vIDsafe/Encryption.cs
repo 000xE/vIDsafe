@@ -28,7 +28,7 @@ namespace vIDsafe
             //https://shawnmclean.com/simplecrypto-net-a-pbkdf2-hashing-wrapper-for-net-framework/
             //return cryptoService.Compute(newPassword, HASH_ITERATIONS + "." + salt);
 
-            byte[] convertedSalt = ASCIIEncoding.ASCII.GetBytes(salt);
+            byte[] convertedSalt = Encoding.ASCII.GetBytes(salt);
 
             byte[] derivedKey = null;
 
@@ -46,7 +46,7 @@ namespace vIDsafe
 
         public static string AesEncrypt(string plainText, byte[] key)
         {
-            byte[] textBytes = ASCIIEncoding.ASCII.GetBytes(plainText);
+            byte[] textBytes = Encoding.ASCII.GetBytes(plainText);
 
             AesCryptoServiceProvider AES = GetAES(key);
 

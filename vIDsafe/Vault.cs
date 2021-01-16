@@ -124,6 +124,7 @@ namespace vIDsafe
         public void Log(LogType type, string log)
         {
            _logs[type].Add(DateTime.Now, log);
+            FormvIDsafe.Main.User.SaveVault();
         }
     }
 }
