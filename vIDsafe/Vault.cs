@@ -20,7 +20,16 @@ namespace vIDsafe
         private int _totalCompromisedCredentials;
         private int _totalSafeCredentials;
 
-        private Dictionary<string, Dictionary<DateTime, string>> _logs = new Dictionary<string, Dictionary<DateTime, string>>();
+        public enum LogType
+        {
+            Account
+        }
+
+        private Dictionary<LogType, Dictionary<DateTime, string>> _logs = new Dictionary<LogType, Dictionary<DateTime, string>>
+        {
+            { LogType.Account, new Dictionary<DateTime, string>()}
+        };
+
 
         public Vault()
         {
@@ -92,7 +101,7 @@ namespace vIDsafe
             _identities.Clear();
             FormvIDsafe.Main.User.SaveVault();
 
-            Log("Account", "All identities deleted");
+            Log(LogType.Account, "All identities deleted");
         }
 
         public void DeleteAllCredentials()
@@ -104,35 +113,17 @@ namespace vIDsafe
                 FormvIDsafe.Main.User.SaveVault(); 
             }
 
-            Log("Account", "All credentials deleted");
+            Log(LogType.Account, "All credentials deleted");
         }
 
-        public Dictionary<DateTime, string> GetLogs(string type)
+        public Dictionary<DateTime, string> GetLogs(LogType type)
         {
-            if (_logs.ContainsKey(type))
-            {
-                return _logs[type];
-            }
-            else
-            {
-                return new Dictionary<DateTime, string>(); 
-            }
+            return _logs[type];
         }
 
-        public void Log(string type, string log)
+        public void Log(LogType type, string log)
         {
-            if (_logs.ContainsKey(type))
-            {
-                _logs[type].Add(DateTime.Now, log);
-            }
-            else
-            {
-                Dictionary<DateTime, string> logs = new Dictionary<DateTime, string>
-                {
-                    { DateTime.Now, log }
-                };
-                _logs.Add(type, logs);
-            }
+           _logs[type].Add(DateTime.Now, log);
         }
     }
 }

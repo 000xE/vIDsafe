@@ -24,7 +24,7 @@ namespace vIDsafe
         private void GetLogs()
         {
             lvLogs.Items.Clear();
-            foreach (KeyValuePair<DateTime, string> log in FormvIDsafe.Main.User.Vault.GetLogs("Account"))
+            foreach (KeyValuePair<DateTime, string> log in FormvIDsafe.Main.User.Vault.GetLogs(Vault.LogType.Account))
             {
                 DisplayLog(log.Key, log.Value);
             }
