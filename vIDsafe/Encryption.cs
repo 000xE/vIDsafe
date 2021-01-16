@@ -30,18 +30,18 @@ namespace vIDsafe
 
             byte[] convertedSalt = ASCIIEncoding.ASCII.GetBytes(salt);
 
-            byte[] hashedPassword = null;
+            byte[] derivedKey = null;
 
             switch (keyDerivationFunction)
             {
                 case KeyDerivationFunction.PBKDF2:
                     int _hashIterations = 100000; //Work factor, higher = longer
                     Rfc2898DeriveBytes pbkdf2 = new Rfc2898DeriveBytes(secret, convertedSalt, _hashIterations);
-                    hashedPassword = pbkdf2.GetBytes(_hashSize);
+                    derivedKey = pbkdf2.GetBytes(_hashSize);
                     break;
             }
 
-            return hashedPassword;
+            return derivedKey;
         }
 
         public static string AesEncrypt(string plainText, byte[] key)
