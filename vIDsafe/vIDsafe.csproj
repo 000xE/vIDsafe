@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Credential.cs" />
+    <Compile Include="CryptoRandom.cs" />
     <Compile Include="Encryption.cs" />
     <Compile Include="FormHome.cs">
       <SubType>Form</SubType>
@@ -124,6 +125,7 @@
     <Compile Include="FormvIDsafe.Designer.cs">
       <DependentUpon>FormvIDsafe.cs</DependentUpon>
     </Compile>
+    <Compile Include="WordList.cs" />
     <EmbeddedResource Include="FormHome.resx">
       <DependentUpon>FormHome.cs</DependentUpon>
     </EmbeddedResource>

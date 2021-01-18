@@ -52,6 +52,11 @@ namespace vIDsafe
             FormvIDsafe.Main.User.SaveVault();
         }
 
+        public void SetStatus(CredentialStatus credentialStatus)
+        {
+            _status = credentialStatus;
+        }
+
         private void CheckBreach()
         {
 
@@ -66,51 +71,125 @@ namespace vIDsafe
         {
             deriveName = deriveName.Replace(" ", "");
 
-            string username = "";
+            StringBuilder username = new StringBuilder("");
 
             char[] lowers = deriveName.ToLower().ToCharArray();
             char[] uppers = deriveName.ToUpper().ToCharArray();
 
-            //char[] lowers = new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'm', 'n', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
-            //char[] uppers = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
             char[] numbers = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
 
             int l = lowers.Length;
             int u = uppers.Length;
             int n = numbers.Length;
 
-            Random random = new Random();
+            freakcode.Cryptography.CryptoRandom cryptoRandom = new freakcode.Cryptography.CryptoRandom();
 
-            for (int i = 0; i < length; i++)
+            int nextCharacterChoice = cryptoRandom.Next(0, 3);
+
+            //Console.WriteLine(cryptoRandom.Next(0, 1));
+
+            while (0 < length--)
             {
-                int randomCharacterChoice = random.Next(0, 3);
-
                 char randomChar = '0';
 
-                switch (randomCharacterChoice)
+                switch (nextCharacterChoice)
                 {
                     case 0:
-                        randomChar = lowers[random.Next(0, l)];
+                        randomChar = lowers[cryptoRandom.Next(0, l)];
+                        nextCharacterChoice = 1;
                         break;
                     case 1:
-                        randomChar = uppers[random.Next(0, u)];
+                        randomChar = uppers[cryptoRandom.Next(0, u)];
+                        nextCharacterChoice = 2;
                         break;
                     case 2:
-                        randomChar = numbers[random.Next(0, n)];
+                        randomChar = numbers[cryptoRandom.Next(0, n)];
+                        nextCharacterChoice = 0;
                         break;
                 }
 
-                username += randomChar;
+                username.Append(randomChar);
+
+                //TODO: ensure length is bigger than list count, and maybe add min chars for each
             }
 
-            return username;
+            Console.WriteLine(username);
+
+            Encryption.SecurelyRandomizeArray(username);
+
+            Console.WriteLine(username);
+
+            return username.ToString();
         }
 
-        public static string GeneratePassword(bool passPhrase)
+        public static string GeneratePassword(bool passPhrase, int length)
         {
-            string password = "";
+            StringBuilder password = new StringBuilder("");
 
-            return password;
+            freakcode.Cryptography.CryptoRandom cryptoRandom = new freakcode.Cryptography.CryptoRandom();
+
+            if (!passPhrase)
+            {
+                char[] lowers = new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'm', 'n', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+                char[] uppers = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
+                char[] numbers = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+                char[] special = new char[] { '!', '$', '@', '^', '%', '&', '#', '*' };
+
+                int l = lowers.Length;
+                int u = uppers.Length;
+                int n = numbers.Length;
+                int s = special.Length;
+
+                int nextCharacterChoice = cryptoRandom.Next(0, 4);
+
+                while (0 < length--)
+                {
+                    char randomChar = '0';
+
+                    switch (nextCharacterChoice)
+                    {
+                        case 0:
+                            randomChar = lowers[cryptoRandom.Next(0, l)];
+                            nextCharacterChoice = 1;
+                            break;
+                        case 1:
+                            randomChar = uppers[cryptoRandom.Next(0, u)];
+                            nextCharacterChoice = 2;
+                            break;
+                        case 2:
+                            randomChar = numbers[cryptoRandom.Next(0, n)];
+                            nextCharacterChoice = 3;
+                            break;
+                        case 3:
+                            randomChar = numbers[cryptoRandom.Next(0, s)];
+                            nextCharacterChoice = 0;
+                            break;
+                    }
+
+                    password.Append(randomChar);
+                }
+            }
+            else
+            {
+                int wordListLength = WordList.EEFLongWordList.Length;
+
+                string[] passWordList = new string[length];
+
+                string wordSeparator = "-";
+
+                while (0 < length--)
+                {
+                    string randomWord = WordList.EEFLongWordList[cryptoRandom.Next(0, wordListLength)];
+
+                    passWordList[length] = randomWord;
+                }
+
+                password.Append(string.Join(wordSeparator, passWordList));
+            }
+
+            Encryption.SecurelyRandomizeArray(password);
+
+            return password.ToString();
         }
     }
 }

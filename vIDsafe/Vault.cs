@@ -30,6 +30,17 @@ namespace vIDsafe
             { LogType.Account, new Dictionary<DateTime, string>()}
         };
 
+        public int OverallHealthScore => _overallHealthScore;
+
+        public int TotalCredentialCount => _totalCredentialCount;
+        public int TotalWeakCredentials => _totalWeakCredentials;
+
+        public int TotalConflictCredentials => _totalConflictCredentials;
+
+        public int TotalCompromisedCredentials => _totalCompromisedCredentials;
+
+        public int TotalSafeCredentials => _totalSafeCredentials;
+
 
         public Vault()
         {
@@ -53,15 +64,19 @@ namespace vIDsafe
 
             foreach (Identity identity in Identities)
             {
-                _totalCredentialCount += identity.GetCredentialCount();
+                identity.CalculateHealthScore();
 
+                _totalCredentialCount += identity.GetCredentialCount();
                 _totalWeakCredentials += identity.WeakCredentials;
                 _totalConflictCredentials += identity.ConflictCredentials;
                 _totalCompromisedCredentials += identity.CompromisedCredentials;
                 _totalSafeCredentials += identity.SafeCredentials;
             }
 
-            _overallHealthScore = (_totalSafeCredentials) / _totalCredentialCount * 100;
+            if (_totalCredentialCount > 0)
+            {
+                _overallHealthScore = (_totalSafeCredentials) / _totalCredentialCount * 100;
+            }
         }
 
         public void NewIdentity(string name)
