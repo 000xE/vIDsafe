@@ -21,7 +21,6 @@ namespace vIDsafe
         private void LoadFormComponents()
         {
             GetIdentities();
-            FixColumnWidths();
         }
 
         private void btnGenerateUsername_Click(object sender, EventArgs e)
@@ -74,7 +73,9 @@ namespace vIDsafe
 
         private void GeneratePassword()
         {
+            int passwordLength = 10;
 
+            txtPassword.Text = Credential.GeneratePassword(true, passwordLength);
         }
 
         private void NewCredential(int selectedIdentityIndex)
@@ -207,10 +208,18 @@ namespace vIDsafe
             if (selectedIdentityIndex >= 0)
             {
                 btnNewCredential.Enabled = true;
+                txtSearchCredential.Visible = true;
+
+                lvCredentials.Visible = true;
+                lvCredentials.BringToFront();
+
+                FixColumnWidths();
             }
             else
             {
                 btnNewCredential.Enabled = false;
+                txtSearchCredential.Visible = false;
+                lvCredentials.Visible = false;
             }
 
             if (selectedCredentialCount > 0)
@@ -247,7 +256,6 @@ namespace vIDsafe
             txtUsername.Clear();
             txtPassword.Clear();
             txtNotes.Clear();
-            cmbIdentity.Text = "";
         }
 
         private void lvCredentials_Resize(object sender, EventArgs e)

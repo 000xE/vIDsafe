@@ -20,7 +20,6 @@ namespace vIDsafe
         private void LoadFormComponents()
         {
             GetIdentities();
-            FixColumnWidths();
         }
 
         private void chartCredentials_PrePaint(object sender, System.Windows.Forms.DataVisualization.Charting.ChartPaintEventArgs e)
@@ -111,10 +110,15 @@ namespace vIDsafe
                 txtIdentityEmail.Text = currentIdentity.Email;
                 txtIdentityUsage.Text = currentIdentity.Usage;
 
-                chartCredentials.Series["Credentials"].Points[0].SetValueXY("Safe", currentIdentity.SafeCredentials);
-                chartCredentials.Series["Credentials"].Points[1].SetValueXY("Weak", currentIdentity.WeakCredentials);
-                chartCredentials.Series["Credentials"].Points[2].SetValueXY("Conflicts", currentIdentity.ConflictCredentials);
-                chartCredentials.Series["Credentials"].Points[3].SetValueXY("Compromised", currentIdentity.CompromisedCredentials);
+                int safeCount = currentIdentity.SafeCredentials;
+                int weakCount = currentIdentity.WeakCredentials;
+                int conflictCount = currentIdentity.ConflictCredentials;
+                int compromisedCount = currentIdentity.CompromisedCredentials;
+
+                chartCredentials.Series["Credentials"].Points[0].SetValueXY("Safe", safeCount);
+                chartCredentials.Series["Credentials"].Points[1].SetValueXY("Weak", weakCount);
+                chartCredentials.Series["Credentials"].Points[2].SetValueXY("Conflicts", conflictCount);
+                chartCredentials.Series["Credentials"].Points[3].SetValueXY("Compromised", compromisedCount);
                 chartCredentials.Series["Credentials"].IsValueShownAsLabel = true;
             }  
         }
@@ -126,6 +130,8 @@ namespace vIDsafe
                 FormvIDsafe.Main.User.Vault.DeleteIdentity(selectedIdentityIndex);
 
                 cmbIdentity.Items.RemoveAt(selectedIdentityIndex);
+
+                ResetDetails();
             }
         }
 
@@ -144,8 +150,10 @@ namespace vIDsafe
                 btnSave.Enabled = true;
                 btnDeleteDiscard.Enabled = true;
 
-                //lvPublicInformation.Visible = true;
+                lvPublicInformation.Visible = true;
                 chartCredentials.Visible = true;
+
+                FixColumnWidths();
             }
             else
             {
@@ -156,7 +164,7 @@ namespace vIDsafe
                 btnSave.Enabled = false;
                 btnDeleteDiscard.Enabled = false;
 
-                //lvPublicInformation.Visible = false;
+                lvPublicInformation.Visible = false;
                 chartCredentials.Visible = false;
             }
         }
@@ -166,7 +174,6 @@ namespace vIDsafe
             txtIdentityName.Clear();
             txtIdentityEmail.Clear();
             txtIdentityUsage.Clear();
-            cmbIdentity.Text = "";
         }
 
         private void FormIdentities_Resize(object sender, EventArgs e)

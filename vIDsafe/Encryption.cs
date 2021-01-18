@@ -36,8 +36,10 @@ namespace vIDsafe
             {
                 case KeyDerivationFunction.PBKDF2:
                     int _hashIterations = 100000; //Work factor, higher = longer
-                    Rfc2898DeriveBytes pbkdf2 = new Rfc2898DeriveBytes(secret, convertedSalt, _hashIterations);
-                    derivedKey = pbkdf2.GetBytes(_hashSize);
+                    using (Rfc2898DeriveBytes pbkdf2 = new Rfc2898DeriveBytes(secret, convertedSalt, _hashIterations))
+                    {
+                        derivedKey = pbkdf2.GetBytes(_hashSize);
+                    }
                     break;
             }
 
@@ -48,21 +50,27 @@ namespace vIDsafe
         {
             byte[] textBytes = Encoding.ASCII.GetBytes(plainText);
 
-            AesCryptoServiceProvider AES = GetAES(key);
 
             //https://stackoverflow.com/q/8041451
-            using (var encryptor = AES.CreateEncryptor(AES.Key, AES.IV))
-            {
-                using (var ms = new MemoryStream())
-                {
-                    ms.Write(AES.IV, 0, _ivSize);
-                    using (var cs = new CryptoStream(ms, encryptor, CryptoStreamMode.Write))
-                    {
-                        cs.Write(textBytes, 0, textBytes.Length);
-                        cs.FlushFinalBlock();
-                    }
 
-                    return Convert.ToBase64String(ms.ToArray());
+            using (AesCryptoServiceProvider AES = GetAES(key))
+            {
+                using (var encryptor = AES.CreateEncryptor(AES.Key, AES.IV))
+                {
+                    using (var ms = new MemoryStream())
+                    {
+                        ms.Write(AES.IV, 0, _ivSize);
+
+                        AES.Dispose();
+
+                        using (var cs = new CryptoStream(ms, encryptor, CryptoStreamMode.Write))
+                        {
+                            cs.Write(textBytes, 0, textBytes.Length);
+                            cs.FlushFinalBlock();
+                        }
+
+                        return Convert.ToBase64String(ms.ToArray());
+                    }
                 }
             }
         }
@@ -71,31 +79,33 @@ namespace vIDsafe
         {
             byte[] textBytes = Convert.FromBase64String(encryptedText);
 
-            AesCryptoServiceProvider AES = GetAES(key);
-
-            //https://stackoverflow.com/q/8041451
-            try
+            using (AesCryptoServiceProvider AES = GetAES(key))
             {
-                using (var ms = new MemoryStream(textBytes))
+                //https://stackoverflow.com/q/8041451
+                try
                 {
-                    byte[] buffer = new byte[_ivSize];
-                    ms.Read(buffer, 0, _ivSize);
-                    AES.IV = buffer;
-
-                    using (var decryptor = AES.CreateDecryptor(AES.Key, AES.IV))
+                    using (var ms = new MemoryStream(textBytes))
                     {
-                        using (var cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Read))
+                        byte[] buffer = new byte[_ivSize];
+                        ms.Read(buffer, 0, _ivSize);
+                        AES.IV = buffer;
+
+                        using (var decryptor = AES.CreateDecryptor(AES.Key, AES.IV))
                         {
-                            byte[] decrypted = new byte[textBytes.Length];
-                            var byteCount = cs.Read(decrypted, 0, textBytes.Length);
-                            return Encoding.UTF8.GetString(decrypted, 0, byteCount);
+                            using (var cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Read))
+                            {
+                                byte[] decrypted = new byte[textBytes.Length];
+                                var byteCount = cs.Read(decrypted, 0, textBytes.Length);
+
+                                return Encoding.UTF8.GetString(decrypted, 0, byteCount);
+                            }
                         }
                     }
                 }
-            }
-            catch (CryptographicException)
-            {
-                return null;
+                catch (CryptographicException)
+                {
+                    return null;
+                }
             }
         }
         private static AesCryptoServiceProvider GetAES (byte [] key)
@@ -110,6 +120,20 @@ namespace vIDsafe
             };
 
             return AES;
+        }
+
+        //https://stackoverflow.com/a/12646864
+        public static void SecurelyRandomizeArray(StringBuilder sb)
+        {
+            freakcode.Cryptography.CryptoRandom cryptoRandom = new freakcode.Cryptography.CryptoRandom();
+
+            for (int i = sb.Length - 1; i > 0; i--)
+            {
+                int randomIndex = cryptoRandom.Next(0, i);
+                char temp = sb[i];
+                sb[i] = sb[randomIndex];
+                sb[randomIndex] = temp;
+            }
         }
     }
 }
