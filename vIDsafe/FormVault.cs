@@ -66,16 +66,13 @@ namespace vIDsafe
         private void GenerateUsername()
         {
             string identityName = cmbIdentity.Text;
-            int usernameLength = 10;
 
-            txtUsername.Text = Credential.GenerateUsername(identityName, usernameLength);
+            txtUsername.Text = CredentialGeneration.GenerateUsername(identityName);
         }
 
         private void GeneratePassword()
         {
-            int passwordLength = 10;
-
-            txtPassword.Text = Credential.GeneratePassword(true, passwordLength);
+            txtPassword.Text = CredentialGeneration.GeneratePassword();
         }
 
         private void NewCredential(int selectedIdentityIndex)
