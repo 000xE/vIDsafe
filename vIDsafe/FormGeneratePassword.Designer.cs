@@ -42,10 +42,11 @@
             this.btnCopy = new System.Windows.Forms.Button();
             this.btnRegenerate = new System.Windows.Forms.Button();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.lblLength = new System.Windows.Forms.Label();
+            this.rbPassphrase = new System.Windows.Forms.RadioButton();
+            this.rbPassword = new System.Windows.Forms.RadioButton();
+            this.tbPasswordLength = new System.Windows.Forms.TrackBar();
+            this.clbSettings = new System.Windows.Forms.CheckedListBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
             this.listBox1 = new System.Windows.Forms.ListBox();
@@ -56,7 +57,7 @@
             this.panel2.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbPasswordLength)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel7.SuspendLayout();
             this.SuspendLayout();
@@ -229,73 +230,91 @@
             // panel5
             // 
             this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
-            this.panel5.Controls.Add(this.radioButton2);
-            this.panel5.Controls.Add(this.radioButton1);
-            this.panel5.Controls.Add(this.trackBar1);
-            this.panel5.Controls.Add(this.checkedListBox1);
+            this.panel5.Controls.Add(this.lblLength);
+            this.panel5.Controls.Add(this.rbPassphrase);
+            this.panel5.Controls.Add(this.rbPassword);
+            this.panel5.Controls.Add(this.tbPasswordLength);
+            this.panel5.Controls.Add(this.clbSettings);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel5.Location = new System.Drawing.Point(25, 315);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(544, 100);
             this.panel5.TabIndex = 11;
             // 
-            // radioButton2
+            // lblLength
             // 
-            this.radioButton2.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButton2.ForeColor = System.Drawing.Color.Gainsboro;
-            this.radioButton2.Location = new System.Drawing.Point(34, 53);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(82, 17);
-            this.radioButton2.TabIndex = 3;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Passphrase";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.lblLength.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.lblLength.AutoSize = true;
+            this.lblLength.ForeColor = System.Drawing.Color.Gainsboro;
+            this.lblLength.Location = new System.Drawing.Point(266, 59);
+            this.lblLength.Name = "lblLength";
+            this.lblLength.Size = new System.Drawing.Size(13, 13);
+            this.lblLength.TabIndex = 4;
+            this.lblLength.Text = "5";
+            this.lblLength.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // radioButton1
+            // rbPassphrase
             // 
-            this.radioButton1.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButton1.ForeColor = System.Drawing.Color.Gainsboro;
-            this.radioButton1.Location = new System.Drawing.Point(34, 29);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(74, 17);
-            this.radioButton1.TabIndex = 2;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Password";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.rbPassphrase.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.rbPassphrase.AutoSize = true;
+            this.rbPassphrase.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbPassphrase.ForeColor = System.Drawing.Color.Gainsboro;
+            this.rbPassphrase.Location = new System.Drawing.Point(34, 53);
+            this.rbPassphrase.Name = "rbPassphrase";
+            this.rbPassphrase.Size = new System.Drawing.Size(82, 17);
+            this.rbPassphrase.TabIndex = 3;
+            this.rbPassphrase.Text = "Passphrase";
+            this.rbPassphrase.UseVisualStyleBackColor = true;
+            this.rbPassphrase.CheckedChanged += new System.EventHandler(this.rbPassphrase_CheckedChanged);
             // 
-            // trackBar1
+            // rbPassword
             // 
-            this.trackBar1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.trackBar1.AutoSize = false;
-            this.trackBar1.Location = new System.Drawing.Point(220, 41);
-            this.trackBar1.Maximum = 20;
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(104, 18);
-            this.trackBar1.TabIndex = 1;
-            this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.rbPassword.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.rbPassword.AutoSize = true;
+            this.rbPassword.Checked = true;
+            this.rbPassword.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbPassword.ForeColor = System.Drawing.Color.Gainsboro;
+            this.rbPassword.Location = new System.Drawing.Point(34, 29);
+            this.rbPassword.Name = "rbPassword";
+            this.rbPassword.Size = new System.Drawing.Size(74, 17);
+            this.rbPassword.TabIndex = 2;
+            this.rbPassword.TabStop = true;
+            this.rbPassword.Text = "Password";
+            this.rbPassword.UseVisualStyleBackColor = true;
+            this.rbPassword.CheckedChanged += new System.EventHandler(this.rbPassword_CheckedChanged);
             // 
-            // checkedListBox1
+            // tbPasswordLength
             // 
-            this.checkedListBox1.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.checkedListBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
-            this.checkedListBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.checkedListBox1.CheckOnClick = true;
-            this.checkedListBox1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkedListBox1.ForeColor = System.Drawing.Color.Gainsboro;
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Items.AddRange(new object[] {
+            this.tbPasswordLength.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.tbPasswordLength.AutoSize = false;
+            this.tbPasswordLength.Location = new System.Drawing.Point(220, 41);
+            this.tbPasswordLength.Maximum = 20;
+            this.tbPasswordLength.Minimum = 5;
+            this.tbPasswordLength.Name = "tbPasswordLength";
+            this.tbPasswordLength.Size = new System.Drawing.Size(104, 18);
+            this.tbPasswordLength.TabIndex = 1;
+            this.tbPasswordLength.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.tbPasswordLength.Value = 5;
+            this.tbPasswordLength.Scroll += new System.EventHandler(this.tbPasswordLength_Scroll);
+            // 
+            // clbSettings
+            // 
+            this.clbSettings.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.clbSettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
+            this.clbSettings.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.clbSettings.CheckOnClick = true;
+            this.clbSettings.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clbSettings.ForeColor = System.Drawing.Color.Gainsboro;
+            this.clbSettings.FormattingEnabled = true;
+            this.clbSettings.Items.AddRange(new object[] {
             "A-Z",
             "0-9",
             "a-z",
             "!$@^%&#*"});
-            this.checkedListBox1.Location = new System.Drawing.Point(439, 14);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(85, 68);
-            this.checkedListBox1.TabIndex = 0;
+            this.clbSettings.Location = new System.Drawing.Point(439, 14);
+            this.clbSettings.Name = "clbSettings";
+            this.clbSettings.Size = new System.Drawing.Size(85, 68);
+            this.clbSettings.TabIndex = 0;
             // 
             // panel1
             // 
@@ -362,7 +381,7 @@
             this.panel4.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbPasswordLength)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -388,9 +407,10 @@
         private System.Windows.Forms.Button btnCopy;
         private System.Windows.Forms.Button btnRegenerate;
         private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.TrackBar trackBar1;
-        private System.Windows.Forms.CheckedListBox checkedListBox1;
+        private System.Windows.Forms.RadioButton rbPassphrase;
+        private System.Windows.Forms.RadioButton rbPassword;
+        private System.Windows.Forms.TrackBar tbPasswordLength;
+        private System.Windows.Forms.CheckedListBox clbSettings;
+        private System.Windows.Forms.Label lblLength;
     }
 }

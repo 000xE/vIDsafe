@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Credential.cs" />
+    <Compile Include="CredentialGeneration.cs" />
     <Compile Include="CryptoRandom.cs" />
     <Compile Include="Encryption.cs" />
     <Compile Include="FormHome.cs">
