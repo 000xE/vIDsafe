@@ -49,7 +49,10 @@
             this.clbSettings = new System.Windows.Forms.CheckedListBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.lvPasswordHistory = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnDateTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnPassword = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label4 = new System.Windows.Forms.Label();
             this.panelTitle.SuspendLayout();
             this.panelBack.SuspendLayout();
@@ -310,11 +313,13 @@
             "A-Z",
             "0-9",
             "a-z",
-            "!$@^%&#*"});
+            "!$@^%#*"});
             this.clbSettings.Location = new System.Drawing.Point(439, 14);
             this.clbSettings.Name = "clbSettings";
             this.clbSettings.Size = new System.Drawing.Size(85, 68);
             this.clbSettings.TabIndex = 0;
+            this.clbSettings.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.clbSettings_ItemCheck);
+            this.clbSettings.SelectedIndexChanged += new System.EventHandler(this.clbSettings_SelectedIndexChanged);
             // 
             // panel1
             // 
@@ -330,7 +335,7 @@
             // 
             // panel7
             // 
-            this.panel7.Controls.Add(this.listBox1);
+            this.panel7.Controls.Add(this.lvPasswordHistory);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel7.Location = new System.Drawing.Point(25, 43);
             this.panel7.Name = "panel7";
@@ -338,18 +343,44 @@
             this.panel7.Size = new System.Drawing.Size(241, 372);
             this.panel7.TabIndex = 6;
             // 
-            // listBox1
+            // lvPasswordHistory
             // 
-            this.listBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
-            this.listBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBox1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listBox1.ForeColor = System.Drawing.Color.Gainsboro;
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(0, 25);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(241, 347);
-            this.listBox1.TabIndex = 0;
+            this.lvPasswordHistory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(59)))), ((int)(((byte)(66)))));
+            this.lvPasswordHistory.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lvPasswordHistory.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnDateTime,
+            this.columnPassword});
+            this.lvPasswordHistory.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvPasswordHistory.ForeColor = System.Drawing.Color.Gainsboro;
+            this.lvPasswordHistory.FullRowSelect = true;
+            this.lvPasswordHistory.HideSelection = false;
+            this.lvPasswordHistory.Location = new System.Drawing.Point(0, 25);
+            this.lvPasswordHistory.Name = "lvPasswordHistory";
+            this.lvPasswordHistory.Size = new System.Drawing.Size(241, 347);
+            this.lvPasswordHistory.Sorting = System.Windows.Forms.SortOrder.Descending;
+            this.lvPasswordHistory.TabIndex = 3;
+            this.lvPasswordHistory.UseCompatibleStateImageBehavior = false;
+            this.lvPasswordHistory.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.DisplayIndex = 2;
+            this.columnHeader1.Width = 0;
+            // 
+            // columnDateTime
+            // 
+            this.columnDateTime.DisplayIndex = 0;
+            this.columnDateTime.Text = "Date/Time";
+            this.columnDateTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnDateTime.Width = 121;
+            // 
+            // columnPassword
+            // 
+            this.columnPassword.DisplayIndex = 1;
+            this.columnPassword.Text = "Password";
+            this.columnPassword.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnPassword.Width = 121;
             // 
             // label4
             // 
@@ -397,7 +428,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panel7;
-        private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label lblGeneratedPassword;
@@ -412,5 +442,9 @@
         private System.Windows.Forms.TrackBar tbPasswordLength;
         private System.Windows.Forms.CheckedListBox clbSettings;
         private System.Windows.Forms.Label lblLength;
+        private System.Windows.Forms.ListView lvPasswordHistory;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnDateTime;
+        private System.Windows.Forms.ColumnHeader columnPassword;
     }
 }

@@ -335,7 +335,7 @@
             this.lockToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.lockToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
             this.lockToolStripMenuItem.Name = "lockToolStripMenuItem";
-            this.lockToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
+            this.lockToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.lockToolStripMenuItem.Text = "Lock";
             // 
             // menuStrip1
@@ -370,7 +370,7 @@
             this.onStartToolStripMenuItem});
             this.hideToTrayToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
             this.hideToTrayToolStripMenuItem.Name = "hideToTrayToolStripMenuItem";
-            this.hideToTrayToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.hideToTrayToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.hideToTrayToolStripMenuItem.Text = "Hide to tray";
             // 
             // onCloseToolStripMenuItem
@@ -379,7 +379,7 @@
             this.onCloseToolStripMenuItem.CheckOnClick = true;
             this.onCloseToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
             this.onCloseToolStripMenuItem.Name = "onCloseToolStripMenuItem";
-            this.onCloseToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.onCloseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.onCloseToolStripMenuItem.Text = "On close";
             // 
             // onMinimiseToolStripMenuItem
@@ -388,7 +388,7 @@
             this.onMinimiseToolStripMenuItem.CheckOnClick = true;
             this.onMinimiseToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
             this.onMinimiseToolStripMenuItem.Name = "onMinimiseToolStripMenuItem";
-            this.onMinimiseToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.onMinimiseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.onMinimiseToolStripMenuItem.Text = "On minimise";
             // 
             // onStartToolStripMenuItem
@@ -396,7 +396,7 @@
             this.onStartToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.onStartToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
             this.onStartToolStripMenuItem.Name = "onStartToolStripMenuItem";
-            this.onStartToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.onStartToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.onStartToolStripMenuItem.Text = "On start";
             // 
             // alwaysOnTopToolStripMenuItem
@@ -405,7 +405,7 @@
             this.alwaysOnTopToolStripMenuItem.CheckOnClick = true;
             this.alwaysOnTopToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
             this.alwaysOnTopToolStripMenuItem.Name = "alwaysOnTopToolStripMenuItem";
-            this.alwaysOnTopToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.alwaysOnTopToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.alwaysOnTopToolStripMenuItem.Text = "Always on top";
             // 
             // settingsToolStripMenuItem
@@ -425,11 +425,14 @@
             this.toolStripComboBox1});
             this.themeToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
             this.themeToolStripMenuItem.Name = "themeToolStripMenuItem";
-            this.themeToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.themeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.themeToolStripMenuItem.Text = "Theme";
             // 
             // toolStripComboBox1
             // 
+            this.toolStripComboBox1.Items.AddRange(new object[] {
+            "Dark",
+            "Light"});
             this.toolStripComboBox1.Name = "toolStripComboBox1";
             this.toolStripComboBox1.Size = new System.Drawing.Size(121, 23);
             // 
@@ -441,7 +444,7 @@
             this.vaultTimeoutToolStripMenuItem});
             this.timeoutsToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
             this.timeoutsToolStripMenuItem.Name = "timeoutsToolStripMenuItem";
-            this.timeoutsToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.timeoutsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.timeoutsToolStripMenuItem.Text = "Timeouts";
             // 
             // clipboardTimeoutToolStripMenuItem
@@ -451,7 +454,7 @@
             this.toolStripTextBox1});
             this.clipboardTimeoutToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
             this.clipboardTimeoutToolStripMenuItem.Name = "clipboardTimeoutToolStripMenuItem";
-            this.clipboardTimeoutToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.clipboardTimeoutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.clipboardTimeoutToolStripMenuItem.Text = "Clipboard timeout";
             // 
             // toolStripTextBox1
@@ -467,7 +470,7 @@
             this.toolStripTextBox2});
             this.vaultTimeoutToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
             this.vaultTimeoutToolStripMenuItem.Name = "vaultTimeoutToolStripMenuItem";
-            this.vaultTimeoutToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.vaultTimeoutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.vaultTimeoutToolStripMenuItem.Text = "Vault timeout";
             // 
             // toolStripTextBox2
@@ -476,7 +479,7 @@
             this.toolStripTextBox2.Name = "toolStripTextBox2";
             this.toolStripTextBox2.Size = new System.Drawing.Size(100, 23);
             // 
-            // Form1
+            // FormHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -487,7 +490,7 @@
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(1080, 720);
-            this.Name = "Form1";
+            this.Name = "FormHome";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "vIDsafe";

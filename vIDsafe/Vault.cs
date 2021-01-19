@@ -22,12 +22,14 @@ namespace vIDsafe
 
         public enum LogType
         {
-            Account
+            Account,
+            Passwords
         }
 
         private Dictionary<LogType, Dictionary<DateTime, string>> _logs = new Dictionary<LogType, Dictionary<DateTime, string>>
         {
-            { LogType.Account, new Dictionary<DateTime, string>()}
+            [LogType.Account] = new Dictionary<DateTime, string>(),
+            [LogType.Passwords] = new Dictionary<DateTime, string>()
         };
 
         public int OverallHealthScore => _overallHealthScore;
@@ -131,14 +133,14 @@ namespace vIDsafe
             Log(LogType.Account, "All credentials deleted");
         }
 
-        public Dictionary<DateTime, string> GetLogs(LogType type)
+        public Dictionary<DateTime, string> GetLogs(LogType key)
         {
-            return _logs[type];
+            return _logs[key];
         }
 
-        public void Log(LogType type, string log)
+        public void Log(LogType key, string log)
         {
-           _logs[type].Add(DateTime.Now, log);
+            _logs[key].Add(DateTime.Now, log);
             FormvIDsafe.Main.User.SaveVault();
         }
     }
