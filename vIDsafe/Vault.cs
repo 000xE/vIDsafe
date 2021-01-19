@@ -117,8 +117,6 @@ namespace vIDsafe
         {
             _identities.Clear();
             FormvIDsafe.Main.User.SaveVault();
-
-            Log(LogType.Account, "All identities deleted");
         }
 
         public void DeleteAllCredentials()
@@ -129,8 +127,6 @@ namespace vIDsafe
 
                 FormvIDsafe.Main.User.SaveVault(); 
             }
-
-            Log(LogType.Account, "All credentials deleted");
         }
 
         public Dictionary<DateTime, string> GetLogs(LogType key)
@@ -138,10 +134,14 @@ namespace vIDsafe
             return _logs[key];
         }
 
-        public void Log(LogType key, string log)
+        public KeyValuePair<DateTime, string> Log(LogType key, string log)
         {
-            _logs[key].Add(DateTime.Now, log);
+            DateTime currentTime = DateTime.Now;
+
+            _logs[key].Add(currentTime, log);
             FormvIDsafe.Main.User.SaveVault();
+
+            return new KeyValuePair<DateTime, string>(currentTime, log);
         }
     }
 }
