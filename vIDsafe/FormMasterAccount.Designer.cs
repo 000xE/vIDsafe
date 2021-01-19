@@ -35,6 +35,7 @@
             this.panel9 = new System.Windows.Forms.Panel();
             this.panel10 = new System.Windows.Forms.Panel();
             this.lvLogs = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnDateTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnLog = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label3 = new System.Windows.Forms.Label();
@@ -63,7 +64,6 @@
             this.panelTitle = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panelBack.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel8.SuspendLayout();
@@ -169,6 +169,11 @@
             this.lvLogs.TabIndex = 1;
             this.lvLogs.UseCompatibleStateImageBehavior = false;
             this.lvLogs.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.DisplayIndex = 2;
+            this.columnHeader1.Width = 0;
             // 
             // columnDateTime
             // 
@@ -526,11 +531,6 @@
             this.label1.Size = new System.Drawing.Size(1032, 21);
             this.label1.TabIndex = 3;
             this.label1.Text = "Master account";
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.DisplayIndex = 2;
-            this.columnHeader1.Width = 0;
             // 
             // FormMasterAccount
             // 

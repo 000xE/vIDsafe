@@ -36,6 +36,9 @@
             System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint3 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 7D);
             System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint4 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 17D);
             this.panelBack = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnViewVault = new System.Windows.Forms.Button();
+            this.btnManageIdentities = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
             this.panel9 = new System.Windows.Forms.Panel();
@@ -54,10 +57,8 @@
             this.panelTitle = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.btnViewVault = new System.Windows.Forms.Button();
-            this.btnManageIdentities = new System.Windows.Forms.Button();
             this.panelBack.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel7.SuspendLayout();
             this.panel9.SuspendLayout();
@@ -69,7 +70,6 @@
             this.panel1.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panelTitle.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelBack
@@ -85,6 +85,57 @@
             this.panelBack.Padding = new System.Windows.Forms.Padding(25);
             this.panelBack.Size = new System.Drawing.Size(935, 557);
             this.panelBack.TabIndex = 1;
+            // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
+            this.tableLayoutPanel3.ColumnCount = 2;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.Controls.Add(this.btnViewVault, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.btnManageIdentities, 1, 0);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(25, 492);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 1;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(594, 40);
+            this.tableLayoutPanel3.TabIndex = 19;
+            // 
+            // btnViewVault
+            // 
+            this.btnViewVault.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.btnViewVault.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnViewVault.FlatAppearance.BorderSize = 0;
+            this.btnViewVault.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnViewVault.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnViewVault.ForeColor = System.Drawing.Color.Gainsboro;
+            this.btnViewVault.Location = new System.Drawing.Point(0, 0);
+            this.btnViewVault.Margin = new System.Windows.Forms.Padding(0);
+            this.btnViewVault.Name = "btnViewVault";
+            this.btnViewVault.Size = new System.Drawing.Size(297, 40);
+            this.btnViewVault.TabIndex = 0;
+            this.btnViewVault.Text = "View vault";
+            this.btnViewVault.UseVisualStyleBackColor = false;
+            this.btnViewVault.Click += new System.EventHandler(this.btnViewVault_Click);
+            // 
+            // btnManageIdentities
+            // 
+            this.btnManageIdentities.BackColor = System.Drawing.Color.SlateBlue;
+            this.btnManageIdentities.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnManageIdentities.FlatAppearance.BorderSize = 0;
+            this.btnManageIdentities.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnManageIdentities.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnManageIdentities.ForeColor = System.Drawing.Color.Gainsboro;
+            this.btnManageIdentities.Location = new System.Drawing.Point(297, 0);
+            this.btnManageIdentities.Margin = new System.Windows.Forms.Padding(0);
+            this.btnManageIdentities.Name = "btnManageIdentities";
+            this.btnManageIdentities.Size = new System.Drawing.Size(297, 40);
+            this.btnManageIdentities.TabIndex = 1;
+            this.btnManageIdentities.Text = "Manage identities";
+            this.btnManageIdentities.UseVisualStyleBackColor = false;
+            this.btnManageIdentities.Click += new System.EventHandler(this.btnManageIdentities_Click);
             // 
             // panel3
             // 
@@ -338,55 +389,6 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "Overview";
             // 
-            // tableLayoutPanel3
-            // 
-            this.tableLayoutPanel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
-            this.tableLayoutPanel3.ColumnCount = 2;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Controls.Add(this.btnViewVault, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.btnManageIdentities, 1, 0);
-            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(25, 492);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 1;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 52F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(594, 40);
-            this.tableLayoutPanel3.TabIndex = 19;
-            // 
-            // btnViewVault
-            // 
-            this.btnViewVault.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.btnViewVault.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnViewVault.FlatAppearance.BorderSize = 0;
-            this.btnViewVault.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnViewVault.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnViewVault.ForeColor = System.Drawing.Color.Gainsboro;
-            this.btnViewVault.Location = new System.Drawing.Point(0, 0);
-            this.btnViewVault.Margin = new System.Windows.Forms.Padding(0);
-            this.btnViewVault.Name = "btnViewVault";
-            this.btnViewVault.Size = new System.Drawing.Size(297, 40);
-            this.btnViewVault.TabIndex = 0;
-            this.btnViewVault.Text = "View vault";
-            this.btnViewVault.UseVisualStyleBackColor = false;
-            // 
-            // btnManageIdentities
-            // 
-            this.btnManageIdentities.BackColor = System.Drawing.Color.SlateBlue;
-            this.btnManageIdentities.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnManageIdentities.FlatAppearance.BorderSize = 0;
-            this.btnManageIdentities.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnManageIdentities.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnManageIdentities.ForeColor = System.Drawing.Color.Gainsboro;
-            this.btnManageIdentities.Location = new System.Drawing.Point(297, 0);
-            this.btnManageIdentities.Margin = new System.Windows.Forms.Padding(0);
-            this.btnManageIdentities.Name = "btnManageIdentities";
-            this.btnManageIdentities.Size = new System.Drawing.Size(297, 40);
-            this.btnManageIdentities.TabIndex = 1;
-            this.btnManageIdentities.Text = "Manage identities";
-            this.btnManageIdentities.UseVisualStyleBackColor = false;
-            // 
             // FormOverview
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -399,6 +401,7 @@
             this.Text = "Overview";
             this.panelBack.ResumeLayout(false);
             this.panelBack.PerformLayout();
+            this.tableLayoutPanel3.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel7.ResumeLayout(false);
@@ -411,7 +414,6 @@
             this.panel1.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
             this.panelTitle.ResumeLayout(false);
-            this.tableLayoutPanel3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
