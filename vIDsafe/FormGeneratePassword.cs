@@ -25,15 +25,20 @@ namespace vIDsafe
 
         private void GetPasswordHistory()
         {
-            //TODO: OPTIMIZE! Maybe add a maximum num of passwords
             lvPasswordHistory.Items.Clear();
             foreach (KeyValuePair<DateTime, string> password in FormvIDsafe.Main.User.Vault.GetLogs(Vault.LogType.Passwords))
             {
-                ListViewItem lvi = new ListViewItem("");
-                lvi.SubItems.Add(password.Key.ToString());
-                lvi.SubItems.Add(password.Value);
-                lvPasswordHistory.Items.Add(lvi);
+                DisplayPassword(password.Key, password.Value);
             }
+        }
+
+        private void DisplayPassword(DateTime dateTime, string password)
+        {
+            ListViewItem lvi = new ListViewItem("");
+            lvi.SubItems.Add(dateTime.ToString());
+            lvi.SubItems.Add(password);
+
+            lvPasswordHistory.Items.Add(lvi);
         }
 
         private void btnRegenerate_Click(object sender, EventArgs e)
@@ -43,9 +48,19 @@ namespace vIDsafe
 
         private void GeneratePassword()
         {
-            lblGeneratedPassword.Text = CredentialGeneration.GeneratePassword();
+            string password = CredentialGeneration.GeneratePassword();
+            CheckStrength(password);
 
-            GetPasswordHistory();
+            KeyValuePair<DateTime, string> passwordLog = FormvIDsafe.Main.User.Vault.Log(Vault.LogType.Passwords, password.ToString());
+            DisplayPassword(passwordLog.Key, passwordLog.Value);
+
+            lblGeneratedPassword.Text = password;
+        }
+
+        private void CheckStrength(string password)
+        {
+            //https://stackoverflow.com/questions/12899876/checking-strings-for-a-strong-enough-password
+            //https://www.ryadel.com/en/passwordcheck-c-sharp-password-class-calculate-password-strength-policy-aspnet/
         }
 
         private void btnCopy_Click(object sender, EventArgs e)

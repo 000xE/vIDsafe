@@ -140,8 +140,6 @@ namespace vIDsafe
                 }
             }
 
-            FormvIDsafe.Main.User.Vault.Log(Vault.LogType.Passwords, password.ToString());
-
             return password.ToString();
         }
     }

@@ -93,8 +93,6 @@ namespace vIDsafe
                 this._password = HashPassword(password);
                 SaveVault();
 
-                Vault.Log(Vault.LogType.Account, "Password changed");
-
                 return true;
             }
             else
@@ -112,8 +110,6 @@ namespace vIDsafe
                 this._name = name;
                 this._password = HashPassword(oldPassword);
                 SaveVault();
-
-                Vault.Log(Vault.LogType.Account, "Name changed");
 
                 return true;
             }

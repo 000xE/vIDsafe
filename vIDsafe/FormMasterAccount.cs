@@ -54,6 +54,9 @@ namespace vIDsafe
         private void DeleteCredentials()
         {
             FormvIDsafe.Main.User.Vault.DeleteAllCredentials();
+
+            KeyValuePair<DateTime, string> log = FormvIDsafe.Main.User.Vault.Log(Vault.LogType.Account, "All credentials deleted");
+            DisplayLog(log.Key, log.Value);
         }
 
         private void btnDeleteIdentities_Click(object sender, EventArgs e)
@@ -65,6 +68,9 @@ namespace vIDsafe
         private void DeleteIdentities()
         {
             FormvIDsafe.Main.User.Vault.DeleteAllIdentities();
+
+            KeyValuePair<DateTime, string> log = FormvIDsafe.Main.User.Vault.Log(Vault.LogType.Account, "All identities deleted");
+            DisplayLog(log.Key, log.Value);
         }
 
         private void btnDeleteAccount_Click(object sender, EventArgs e)
@@ -89,6 +95,9 @@ namespace vIDsafe
             if (FormvIDsafe.Main.User.TryChangeName(txtCurrentPassword.Text, txtName.Text) == true)
             {
                 Console.WriteLine("Name changed");
+
+                KeyValuePair<DateTime, string> log = FormvIDsafe.Main.User.Vault.Log(Vault.LogType.Account, "Name changed");
+                DisplayLog(log.Key, log.Value);
             }
             else
             {
@@ -107,6 +116,9 @@ namespace vIDsafe
             if (FormvIDsafe.Main.User.TryChangePassword(txtCurrentPassword2.Text, txtNewPassword.Text) == true)
             {
                 Console.WriteLine("Pass changed");
+
+                KeyValuePair<DateTime, string> log = FormvIDsafe.Main.User.Vault.Log(Vault.LogType.Account, "Password changed");
+                DisplayLog(log.Key, log.Value);
             }
             else
             {
