@@ -2,16 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace vIDsafe
 {
     class CredentialGeneration
     {
-        public static int UsernameLength = 10;
-        public static int PasswordLength = 10;
+        public const int MinPasswordLength = 5;
+        public const int MaxPasswordLength = 128;
 
-        public static bool PassPhrase = false;
+        public const int MinPassphraseLength = 3;
+        public const int MaxPassphraseLength = 20;
+
+        public static int UsernameLength = 10;
+        public static int PasswordLength = MinPasswordLength;
+        public static int PassphraseLength = MinPassphraseLength;
+
+        public static bool Passphrase = false;
 
         private static readonly char[] _lowerAZ = new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'm', 'n', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
         private static readonly char[] _upperAZ = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
@@ -85,7 +93,7 @@ namespace vIDsafe
 
             freakcode.Cryptography.CryptoRandom cryptoRandom = new freakcode.Cryptography.CryptoRandom();
 
-            if (!PassPhrase)
+            if (!Passphrase)
             {
                 List<char[]> characters = new List<char[]>();
 
@@ -125,7 +133,7 @@ namespace vIDsafe
 
                 string wordSeparator = "-";
 
-                for (int i = 0; i < PasswordLength; i++)
+                for (int i = 0; i < PassphraseLength; i++)
                 {
                     string randomWord = WordList.EEFLongWordList[cryptoRandom.Next(0, wordListLength)];
 
@@ -141,6 +149,49 @@ namespace vIDsafe
             }
 
             return password.ToString();
+        }
+
+        public static double CheckStrength(string password, bool passPhrase)
+        {
+            int score = password.Length;
+
+            int maxScore;
+
+            string[] regexPatterns = new string[]
+            {
+                @"\d+",
+                @"[a-z]",
+                @"[A-Z]",
+                @"[!,@,#,$,%,^,*]",
+            };
+
+            if (!passPhrase)
+            {
+                /*if (password.Length >= 8)
+                    score++;
+                if (password.Length >= 12)
+                    score++;*/
+
+                foreach (string pattern in regexPatterns)
+                {
+                    if (Regex.Match(password, pattern).Success)
+                    {
+                        score += (MaxPasswordLength / 10);
+                    }
+                }
+
+                maxScore = MaxPasswordLength + ((MaxPasswordLength / 10) * regexPatterns.Length);
+            }
+            else
+            {
+                string[] passWordList = password.Split('-');
+
+                score = passWordList.Length + (passWordList.Length - 1);
+
+                maxScore = MaxPassphraseLength + (MaxPassphraseLength - 1);
+            }
+
+            return (double) score / maxScore;
         }
     }
 }

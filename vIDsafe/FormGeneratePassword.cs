@@ -25,8 +25,16 @@ namespace vIDsafe
 
         private void GetPasswordHistory()
         {
+            Dictionary<DateTime, string> passwords = FormvIDsafe.Main.User.Vault.GetLogs(Vault.LogType.Passwords);
+
+            DisplayPasswords(passwords);
+        }
+
+        private void DisplayPasswords(Dictionary<DateTime, string> passwords)
+        {
             lvPasswordHistory.Items.Clear();
-            foreach (KeyValuePair<DateTime, string> password in FormvIDsafe.Main.User.Vault.GetLogs(Vault.LogType.Passwords))
+
+            foreach (KeyValuePair<DateTime, string> password in passwords)
             {
                 DisplayPassword(password.Key, password.Value);
             }
@@ -61,21 +69,37 @@ namespace vIDsafe
         {
             //https://stackoverflow.com/questions/12899876/checking-strings-for-a-strong-enough-password
             //https://www.ryadel.com/en/passwordcheck-c-sharp-password-class-calculate-password-strength-policy-aspnet/
+
+            double score = CredentialGeneration.CheckStrength(password, rbPassphrase.Checked);
+
+            Color color = Color.SpringGreen;
+
+            Color newColor = Color.FromArgb((int) (color.R * score), (int) (color.G * score), (int) (color.B * score));
+
+            panelPasswordStrength.BackColor = newColor;
         }
 
         private void btnCopy_Click(object sender, EventArgs e)
         {
-            CopyPassword();
+            CopyPassword(lblGeneratedPassword.Text);
         }
 
-        private void CopyPassword()
+        private void CopyPassword(string password)
         {
-            Clipboard.SetText(lblGeneratedPassword.Text);
+            Clipboard.SetText(password);
         }
 
         private void tbPasswordLength_Scroll(object sender, EventArgs e)
         {
-            CredentialGeneration.PasswordLength = tbPasswordLength.Value;
+            if (rbPassphrase.Checked)
+            {
+                CredentialGeneration.PassphraseLength = tbPasswordLength.Value;
+            }
+            else
+            {
+                CredentialGeneration.PasswordLength = tbPasswordLength.Value;
+            }
+
             lblLength.Text = tbPasswordLength.Value.ToString();
         }
 
@@ -86,7 +110,29 @@ namespace vIDsafe
 
         private void rbPassphrase_CheckedChanged(object sender, EventArgs e)
         {
-            CredentialGeneration.PassPhrase = rbPassphrase.Checked;
+            ResetPasswordLengths(rbPassphrase.Checked);
+        }
+
+        private void ResetPasswordLengths(bool passphrase)
+        {
+            CredentialGeneration.Passphrase = passphrase;
+
+            if (passphrase)
+            {
+                tbPasswordLength.Minimum = CredentialGeneration.MinPassphraseLength;
+                tbPasswordLength.Maximum = CredentialGeneration.MaxPassphraseLength;
+
+                tbPasswordLength.Value = CredentialGeneration.PassphraseLength;
+            }
+            else
+            {
+                tbPasswordLength.Minimum = CredentialGeneration.MinPasswordLength;
+                tbPasswordLength.Maximum = CredentialGeneration.MaxPasswordLength;
+
+                tbPasswordLength.Value = CredentialGeneration.PasswordLength;
+            }
+
+            lblLength.Text = tbPasswordLength.Value.ToString();
         }
 
         private void clbSettings_SelectedIndexChanged(object sender, EventArgs e)
@@ -100,7 +146,6 @@ namespace vIDsafe
             {
                 if (clbSettings.CheckedItems.Count == 1)
                 {
-                    Console.WriteLine(e.NewValue);
                     e.NewValue = e.CurrentValue;
                 }
             }
@@ -113,11 +158,9 @@ namespace vIDsafe
                 clbSettings.SetItemChecked(setting.Key, setting.Value); 
             }
 
-            tbPasswordLength.Value = CredentialGeneration.PasswordLength;
+            rbPassphrase.Checked = CredentialGeneration.Passphrase;
 
-            rbPassphrase.Checked = CredentialGeneration.PassPhrase;
-
-            lblLength.Text = tbPasswordLength.Value.ToString();
+            ResetPasswordLengths(rbPassphrase.Checked);
         }
 
         private void SetSettings(int checkboxIndex, bool value)

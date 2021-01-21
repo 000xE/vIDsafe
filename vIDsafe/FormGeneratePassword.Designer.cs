@@ -36,7 +36,7 @@
             this.panel8 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblGeneratedPassword = new System.Windows.Forms.Label();
-            this.panel6 = new System.Windows.Forms.Panel();
+            this.panelPasswordStrength = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.btnCopy = new System.Windows.Forms.Button();
@@ -143,7 +143,7 @@
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(59)))), ((int)(((byte)(66)))));
             this.panel2.Controls.Add(this.lblGeneratedPassword);
-            this.panel2.Controls.Add(this.panel6);
+            this.panel2.Controls.Add(this.panelPasswordStrength);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(25, 47);
             this.panel2.Name = "panel2";
@@ -164,14 +164,14 @@
             this.lblGeneratedPassword.Text = "abcdef0123";
             this.lblGeneratedPassword.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // panel6
+            // panelPasswordStrength
             // 
-            this.panel6.BackColor = System.Drawing.Color.SpringGreen;
-            this.panel6.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel6.Location = new System.Drawing.Point(0, 153);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(544, 15);
-            this.panel6.TabIndex = 9;
+            this.panelPasswordStrength.BackColor = System.Drawing.Color.SpringGreen;
+            this.panelPasswordStrength.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelPasswordStrength.Location = new System.Drawing.Point(0, 153);
+            this.panelPasswordStrength.Name = "panelPasswordStrength";
+            this.panelPasswordStrength.Size = new System.Drawing.Size(544, 15);
+            this.panelPasswordStrength.TabIndex = 9;
             // 
             // label6
             // 
@@ -247,13 +247,12 @@
             // lblLength
             // 
             this.lblLength.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.lblLength.AutoSize = true;
             this.lblLength.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lblLength.Location = new System.Drawing.Point(266, 59);
+            this.lblLength.Location = new System.Drawing.Point(251, 59);
             this.lblLength.Name = "lblLength";
-            this.lblLength.Size = new System.Drawing.Size(13, 13);
+            this.lblLength.Size = new System.Drawing.Size(43, 13);
             this.lblLength.TabIndex = 4;
-            this.lblLength.Text = "5";
+            this.lblLength.Text = "Length";
             this.lblLength.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // rbPassphrase
@@ -291,7 +290,7 @@
             this.tbPasswordLength.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.tbPasswordLength.AutoSize = false;
             this.tbPasswordLength.Location = new System.Drawing.Point(220, 41);
-            this.tbPasswordLength.Maximum = 20;
+            this.tbPasswordLength.Maximum = 128;
             this.tbPasswordLength.Minimum = 5;
             this.tbPasswordLength.Name = "tbPasswordLength";
             this.tbPasswordLength.Size = new System.Drawing.Size(104, 18);
@@ -365,19 +364,16 @@
             // 
             // columnHeader1
             // 
-            this.columnHeader1.DisplayIndex = 2;
             this.columnHeader1.Width = 0;
             // 
             // columnDateTime
             // 
-            this.columnDateTime.DisplayIndex = 0;
             this.columnDateTime.Text = "Date/Time";
             this.columnDateTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.columnDateTime.Width = 121;
             // 
             // columnPassword
             // 
-            this.columnPassword.DisplayIndex = 1;
             this.columnPassword.Text = "Password";
             this.columnPassword.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.columnPassword.Width = 121;
@@ -431,7 +427,7 @@
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label lblGeneratedPassword;
-        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Panel panelPasswordStrength;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Button btnCopy;

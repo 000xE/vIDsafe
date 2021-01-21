@@ -15,11 +15,19 @@ namespace vIDsafe
         public FormLogin()
         {
             InitializeComponent();
+
+            txtName.Text = "testacc123";
+            txtPassword.Text = "123";
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            FormvIDsafe.Main.User = new MasterAccount(txtName.Text, txtPassword.Text);
+            Login(txtName.Text, txtPassword.Text);
+        }
+
+        private void Login(string name, string password)
+        {
+            FormvIDsafe.Main.User = new MasterAccount(name, password);
 
             if (IsValid())
             {
