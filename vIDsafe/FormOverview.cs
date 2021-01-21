@@ -84,18 +84,22 @@ namespace vIDsafe
         {
             Color color = new Color();
 
+            double colorMultiplier = (double)healthScore / 100;
+
             if (healthScore >= 75)
             {
-                color = Color.FromArgb(Color.MediumSeaGreen.ToArgb() * (healthScore / 100));
+                color = Color.FromArgb(Color.MediumSeaGreen.ToArgb() * ((int) (colorMultiplier)));
             }
             else if (healthScore >= 50)
             {
-                color = Color.FromArgb(Color.Khaki.ToArgb() * (healthScore / 100));
+                color = Color.FromArgb(Color.Khaki.ToArgb() * ((int)(colorMultiplier)));
             }
             else if (healthScore >= 0)
             {
-                color = Color.FromArgb(Color.DarkSalmon.ToArgb() * (healthScore / 100));
+                color = Color.FromArgb(Color.DarkSalmon.ToArgb() * ((int)(colorMultiplier)));
             }
+
+            Console.WriteLine(color);
 
             return color;
         }

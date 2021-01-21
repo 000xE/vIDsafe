@@ -172,19 +172,16 @@
             // 
             // columnHeader1
             // 
-            this.columnHeader1.DisplayIndex = 2;
             this.columnHeader1.Width = 0;
             // 
             // columnDateTime
             // 
-            this.columnDateTime.DisplayIndex = 0;
             this.columnDateTime.Text = "Date/Time";
             this.columnDateTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.columnDateTime.Width = 466;
             // 
             // columnLog
             // 
-            this.columnLog.DisplayIndex = 1;
             this.columnLog.Text = "Log";
             this.columnLog.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.columnLog.Width = 466;

@@ -19,6 +19,11 @@ namespace vIDsafe
 
         private void btnRegister_Click(object sender, EventArgs e)
         {
+            Register();
+        }
+
+        private void Register()
+        {
             FormvIDsafe.Main.User = new MasterAccount(txtName.Text, txtPassword.Text);
 
             if (IsValid())
