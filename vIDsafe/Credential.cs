@@ -42,6 +42,21 @@ namespace vIDsafe
 
         public CredentialStatus Status => _status;
 
+        public string GetDomain()
+        {
+            //TODO: Cleanup
+            if (_url != null)
+            {
+                if (_url.Length > 0)
+                {
+                    string host = new Uri(_url).Host;
+                    return host.Substring(host.LastIndexOf('.', host.LastIndexOf('.') - 1) + 1);
+                }
+            }
+
+            return "";
+        }
+
         public void SetDetails(string username, string password, string url, string notes)
         {
             this._userName = username;
