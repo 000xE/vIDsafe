@@ -57,6 +57,7 @@
             this.panelTitle = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnRefresh = new System.Windows.Forms.Button();
             this.panelBack.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -154,6 +155,7 @@
             this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(59)))), ((int)(((byte)(66)))));
             this.panel7.Controls.Add(this.panel9);
             this.panel7.Controls.Add(this.label5);
+            this.panel7.Controls.Add(this.btnRefresh);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel7.Location = new System.Drawing.Point(25, 172);
             this.panel7.Name = "panel7";
@@ -169,7 +171,7 @@
             this.panel9.Location = new System.Drawing.Point(0, 22);
             this.panel9.Name = "panel9";
             this.panel9.Padding = new System.Windows.Forms.Padding(0, 25, 0, 0);
-            this.panel9.Size = new System.Drawing.Size(544, 196);
+            this.panel9.Size = new System.Drawing.Size(544, 156);
             this.panel9.TabIndex = 9;
             // 
             // panel11
@@ -178,7 +180,7 @@
             this.panel11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel11.Location = new System.Drawing.Point(0, 25);
             this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(544, 171);
+            this.panel11.Size = new System.Drawing.Size(544, 131);
             this.panel11.TabIndex = 0;
             // 
             // tableLayoutPanel2
@@ -193,7 +195,8 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(544, 171);
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(544, 131);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // chart1
@@ -230,7 +233,7 @@
             series1.Points.Add(dataPoint3);
             series1.Points.Add(dataPoint4);
             this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(538, 165);
+            this.chart1.Size = new System.Drawing.Size(538, 125);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
             this.chart1.PrePaint += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ChartPaintEventArgs>(this.chart1_PrePaint);
@@ -389,6 +392,21 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "Overview";
             // 
+            // btnRefresh
+            // 
+            this.btnRefresh.BackColor = System.Drawing.Color.Gray;
+            this.btnRefresh.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnRefresh.FlatAppearance.BorderSize = 0;
+            this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRefresh.ForeColor = System.Drawing.Color.White;
+            this.btnRefresh.Location = new System.Drawing.Point(0, 178);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(544, 40);
+            this.btnRefresh.TabIndex = 23;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.UseVisualStyleBackColor = false;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
             // FormOverview
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -441,5 +459,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.Button btnViewVault;
         private System.Windows.Forms.Button btnManageIdentities;
+        private System.Windows.Forms.Button btnRefresh;
     }
 }

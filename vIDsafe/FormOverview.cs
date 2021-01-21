@@ -19,20 +19,28 @@ namespace vIDsafe
 
         private void LoadFormComponents()
         {
+            AddIdentityColumns();
             DisplayHealthScores();
             DisplayCredentialInformation();
         }
 
-        private void DisplayHealthScores()
+        private void AddIdentityColumns()
         {
-            FormvIDsafe.Main.User.Vault.CalculateHealthScore();
-
+            //TODO: Cleanup
             tlpIdentities.ColumnStyles.Clear();
-
             foreach (Identity identity in FormvIDsafe.Main.User.Vault.Identities)
             {
                 tlpIdentities.ColumnCount += 1;
                 tlpIdentities.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            }
+        }
+
+        private void DisplayHealthScores()
+        {
+            //TODO: Cleanup
+            for (int i = 0; i < FormvIDsafe.Main.User.Vault.Identities.Count; i++)
+            {
+                Identity identity = FormvIDsafe.Main.User.Vault.GetIdentity(i);
 
                 ContentAlignment textAlign = ContentAlignment.MiddleCenter;
                 Font labelFont = new Font("Segoe UI", 9.75f);
@@ -67,10 +75,12 @@ namespace vIDsafe
                     BackColor = CalculateHealthColor(identity.HealthScore)
                 };
 
+                tlpIdentities.Controls.Remove(tlpIdentities.GetControlFromPosition(i, 0));
+
                 identityPanel.Controls.Add(identityName);
                 identityPanel.Controls.Add(identityScore);
 
-                tlpIdentities.Controls.Add(identityPanel, tlpIdentities.ColumnCount-2, 0);
+                tlpIdentities.Controls.Add(identityPanel, i, 0);
             }
 
             foreach (ColumnStyle style in tlpIdentities.ColumnStyles)
@@ -86,17 +96,21 @@ namespace vIDsafe
 
             double colorMultiplier = (double)healthScore / 100;
 
+            //Todo: fix colours
             if (healthScore >= 75)
             {
-                color = Color.FromArgb(Color.MediumSeaGreen.ToArgb() * ((int) (colorMultiplier)));
+                Color good = Color.MediumSeaGreen;
+                color = Color.FromArgb(good.A, good.R, good.G * ((int)(colorMultiplier)), good.B);
             }
             else if (healthScore >= 50)
             {
-                color = Color.FromArgb(Color.Khaki.ToArgb() * ((int)(colorMultiplier)));
+                Color medium = Color.Khaki;
+                color = Color.FromArgb(medium.A, medium.R * ((int)(colorMultiplier)), medium.G * ((int)(colorMultiplier)), medium.B);
             }
             else if (healthScore >= 0)
             {
-                color = Color.FromArgb(Color.DarkSalmon.ToArgb() * ((int)(colorMultiplier)));
+                Color bad = Color.DarkSalmon;
+                color = Color.FromArgb(bad.A, bad.R * ((int)(colorMultiplier)), bad.G, bad.B);
             }
 
             Console.WriteLine(color);
@@ -151,6 +165,17 @@ namespace vIDsafe
             object btnIdentities = FormHome.FormControls.Find("btnIdentities", true)[0];
             FormHome.ChangeSelectedButton(btnIdentities);
             FormHome.OpenChildForm(new FormIdentities());
+        }
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            Refresh();
+        }
+
+        private void Refresh()
+        {
+            FormvIDsafe.Main.User.Vault.CalculateHealthScore();
+            DisplayHealthScores();
+            DisplayCredentialInformation();
         }
     }
 }

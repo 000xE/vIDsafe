@@ -79,6 +79,8 @@ namespace vIDsafe
             {
                 _overallHealthScore = (_totalSafeCredentials) / _totalCredentialCount * 100;
             }
+
+            FormvIDsafe.Main.User.SaveVault();
         }
 
         public void NewIdentity(string name)
@@ -93,7 +95,7 @@ namespace vIDsafe
         {
             if (_identities.Count > 0)
             {
-                _identities[index].CalculateHealthScore();
+                //_identities[index].CalculateHealthScore();
                 return _identities[index];
             }
             else

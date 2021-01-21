@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EnzoicClient;
 
 namespace vIDsafe
 {
@@ -20,6 +21,8 @@ namespace vIDsafe
         private int _conflictCredentials;
         private int _compromisedCredentials;
         private int _safeCredentials;
+
+        private Dictionary<string, string> _breachedDomains = new Dictionary<string, string>();
 
         public Identity(string name)
         {
@@ -40,11 +43,14 @@ namespace vIDsafe
         {
             ResetCredentialCounts();
 
+            GetBreaches();
+            CheckBreaches();
+
             _safeCredentials = _credentials.Count - (_weakCredentials + _conflictCredentials + _compromisedCredentials);
 
             if (_credentials.Count > 0)
             {
-                _healthScore = (_safeCredentials) / _credentials.Count * 100;
+                _healthScore = (int) (((double) _safeCredentials) / _credentials.Count * 100);
             }
         }
 
@@ -108,6 +114,7 @@ namespace vIDsafe
         public int CompromisedCredentials => _compromisedCredentials;
 
         public int SafeCredentials => _safeCredentials;
+        public Dictionary<string, string> BreachedDomains => _breachedDomains;
 
         public void SetDetails(string name, string email, string usage)
         {
@@ -115,7 +122,42 @@ namespace vIDsafe
             this._email = email;
             this._usage = usage;
 
+            GetBreaches();
+
             FormvIDsafe.Main.User.SaveVault();
+        }
+
+        private void GetBreaches()
+        {
+            //TODO: Cleanup
+            if (_email != null)
+            {
+                if (_email.Length > 0)
+                {
+                    List<ExposureDetails> exposureDetails = EnzoicAPI.GetExposureDetails(_email);
+
+                    foreach (ExposureDetails detail in exposureDetails)
+                    {
+                        if (!_breachedDomains.ContainsKey(detail.Title))
+                        {
+                            _breachedDomains.Add(detail.Title, detail.Title);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void CheckBreaches()
+        {
+            //TODO: Cleanup
+            foreach (KeyValuePair<string, Credential> credential in _credentials)
+            {
+                if (_breachedDomains.ContainsKey(credential.Value.GetDomain()))
+                {
+                    credential.Value.SetStatus(Credential.CredentialStatus.Compromised);
+                    _compromisedCredentials++;
+                }
+            }
         }
     }
 }

@@ -15,9 +15,6 @@ namespace vIDsafe
         public FormLogin()
         {
             InitializeComponent();
-
-            txtName.Text = "testacc123";
-            txtPassword.Text = "123";
         }
 
         private void btnLogin_Click(object sender, EventArgs e)

@@ -50,7 +50,6 @@ namespace vIDsafe
         {
             byte[] textBytes = Encoding.ASCII.GetBytes(plainText);
 
-
             //https://stackoverflow.com/q/8041451
 
             using (AesCryptoServiceProvider AES = GetAES(key))
