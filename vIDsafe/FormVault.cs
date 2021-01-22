@@ -43,6 +43,18 @@ namespace vIDsafe
             SetCredentialDetails(cmbIdentity.SelectedIndex, lvCredentials.SelectedItems.Count, txtUsername.Text, txtPassword.Text, txtURL.Text, txtNotes.Text);
         }
 
+        private bool IsValid(string URL, string username, string password)
+        {
+            if (URL.Length > 0 && username.Length > 0 && password.Length > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         private void btnDeleteDiscard_Click(object sender, EventArgs e)
         {
             DeleteCredential(cmbIdentity.SelectedIndex, lvCredentials.SelectedItems.Count);
@@ -77,11 +89,12 @@ namespace vIDsafe
 
         private void NewCredential(int selectedIdentityIndex)
         {
-            string defaultIdentityName = "New credential";
+            string defaultName = "New credential";
+            string defaultPassword = CredentialGeneration.GeneratePassword();
 
             int credentialCount = lvCredentials.Items.Count;
 
-            string credentialID = FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).NewCredential(defaultIdentityName);
+            string credentialID = FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).NewCredential(defaultName, defaultPassword);
 
             Credential credential = FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).GetCredential(credentialID);
 
@@ -91,17 +104,29 @@ namespace vIDsafe
 
         private void SetCredentialDetails(int selectedIdentityIndex, int selectedCredentialCount, string credentialUsername, string credentialPassword, string credentialURL, string credentialNotes)
         {
-            if (selectedCredentialCount > 0)
+            if (IsValid(credentialURL, credentialUsername, credentialPassword))
             {
-                ListViewItem currentItem = lvCredentials.SelectedItems[0];
-                string currentCredentialID = currentItem.SubItems[0].Text;
+                if (selectedCredentialCount > 0)
+                {
+                    ListViewItem currentItem = lvCredentials.SelectedItems[0];
+                    string currentCredentialID = currentItem.SubItems[0].Text;
 
-                FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).GetCredential(currentCredentialID).SetDetails(credentialUsername, credentialPassword, credentialURL, credentialNotes);
+                    FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).GetCredential(currentCredentialID).SetDetails(credentialUsername, credentialPassword, credentialURL, credentialNotes);
 
-                lvCredentials.SelectedItems[0].SubItems[1].Text = credentialUsername;
-                lvCredentials.SelectedItems[0].SubItems[2].Text = credentialURL;
+                    FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).CheckStatus();
 
-                //FixColumnWidths();
+                    Credential.CredentialStatus status = FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).GetCredential(currentCredentialID).Status;
+
+                    lvCredentials.SelectedItems[0].SubItems[1].Text = credentialUsername;
+                    lvCredentials.SelectedItems[0].SubItems[2].Text = credentialURL;
+                    lvCredentials.SelectedItems[0].SubItems[3].Text = status.ToString();
+
+                    //FixColumnWidths();
+                }
+            }
+            else
+            {
+                Console.WriteLine("Please enter all details");
             }
         }
 

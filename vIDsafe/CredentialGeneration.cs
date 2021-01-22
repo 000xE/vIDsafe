@@ -62,24 +62,25 @@ namespace vIDsafe
 
             int nextCharacterChoice = cryptoRandom.Next(0, characters.Count);
 
-            for (int i = 0; i < UsernameLength; i++)
+            if (UsernameLength > characters.Count)
             {
-                int length = characters[nextCharacterChoice].Length;
-
-                char randomChar = characters[nextCharacterChoice][cryptoRandom.Next(0, length)];
-
-                if (nextCharacterChoice + 1 < characters.Count)
+                for (int i = 0; i < UsernameLength; i++)
                 {
-                    nextCharacterChoice++;
-                }
-                else
-                {
-                    nextCharacterChoice = 0;
-                }
+                    int length = characters[nextCharacterChoice].Length;
 
-                username.Append(randomChar);
+                    char randomChar = characters[nextCharacterChoice][cryptoRandom.Next(0, length)];
 
-                //TODO: ensure length is bigger than list count, and maybe add min chars for each
+                    if (nextCharacterChoice + 1 < characters.Count)
+                    {
+                        nextCharacterChoice++;
+                    }
+                    else
+                    {
+                        nextCharacterChoice = 0;
+                    }
+
+                    username.Append(randomChar);
+                }
             }
 
             Encryption.SecurelyRandomizeArray(username);
@@ -151,47 +152,42 @@ namespace vIDsafe
             return password.ToString();
         }
 
-        public static double CheckStrength(string password, bool passPhrase)
+        public static double CheckStrength(string password)
         {
-            int score = password.Length;
+            double score = password.Length;
 
-            int maxScore;
+            double maxScore;
+
+            double regexMultiplier = 10;
 
             string[] regexPatterns = new string[]
             {
-                @"\d+",
-                @"[a-z]",
-                @"[A-Z]",
-                @"[!,@,#,$,%,^,*]",
+                    @"\d+",
+                    @"[a-z]",
+                    @"[A-Z]",
+                    @"[!,@,#,$,%,^,&,*,?,_,~,-,£,(,)]",
             };
 
-            if (!passPhrase)
+            foreach (string pattern in regexPatterns)
             {
-                /*if (password.Length >= 8)
-                    score++;
-                if (password.Length >= 12)
-                    score++;*/
-
-                foreach (string pattern in regexPatterns)
+                if (Regex.Match(password, pattern, RegexOptions.ECMAScript).Success)
                 {
-                    if (Regex.Match(password, pattern).Success)
-                    {
-                        score += (MaxPasswordLength / 10);
-                    }
+                    score += regexMultiplier;
                 }
-
-                maxScore = MaxPasswordLength + ((MaxPasswordLength / 10) * regexPatterns.Length);
             }
-            else
+
+            int bestPasswordLength = MaxPasswordLength;
+
+            maxScore = bestPasswordLength + (regexPatterns.Length * regexMultiplier);
+
+            double percent = (score / maxScore) * 100;
+
+            if (percent > 100)
             {
-                string[] passWordList = password.Split('-');
-
-                score = passWordList.Length + (passWordList.Length - 1);
-
-                maxScore = MaxPassphraseLength + (MaxPassphraseLength - 1);
+                percent = 100;
             }
 
-            return (double) score / maxScore;
+            return percent;
         }
     }
 }

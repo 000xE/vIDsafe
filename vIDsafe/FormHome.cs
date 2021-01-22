@@ -35,7 +35,7 @@ namespace vIDsafe
         }
 
         //https://stackoverflow.com/a/28811266
-        public static void OpenChildForm(Form childForm)
+        public void OpenChildForm(Form childForm)
         {
             while (ChildFormPanel.Controls.Count > 0)
             {
@@ -52,7 +52,7 @@ namespace vIDsafe
             childForm.Show();
         }
 
-        public static void ChangeSelectedButton(object sender)
+        public void ChangeSelectedButton(object sender)
         {
             Button selectedButton = (Button)sender;
             selectedButton.ForeColor = Color.Black;

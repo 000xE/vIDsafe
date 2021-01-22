@@ -63,18 +63,34 @@ namespace vIDsafe
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            SetIdentityDetails(cmbIdentity.SelectedIndex);
+            SetIdentityDetails(cmbIdentity.SelectedIndex, txtIdentityName.Text, txtIdentityEmail.Text, txtIdentityUsage.Text);
         }
 
-        private void SetIdentityDetails(int selectedIdentityIndex)
+        private bool IsValid(string email)
         {
-            string identityName = txtIdentityName.Text;
-            string identityEmail = txtIdentityEmail.Text;
-            string identityUsage = txtIdentityUsage.Text; 
+            if (email.Length > 0)
+            {
+                //Todo: validate address
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
-            FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).SetDetails(identityName, identityEmail, identityUsage);
+        private void SetIdentityDetails(int selectedIdentityIndex, string identityName, string identityEmail, string identityUsage)
+        {
+            if (IsValid(identityEmail))
+            {
+                FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).SetDetails(identityName, identityEmail, identityUsage);
 
-            cmbIdentity.Items[selectedIdentityIndex] = identityName;
+                cmbIdentity.Items[selectedIdentityIndex] = identityName;
+            }
+            else
+            {
+                Console.WriteLine("Please enter all details");
+            }
         }
 
         private void btnDeleteDiscard_Click(object sender, EventArgs e)

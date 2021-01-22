@@ -20,15 +20,22 @@ namespace vIDsafe
         private void LoadFormComponents()
         {
             AddIdentityColumns();
+
+            DisplayHealthScores();
+            DisplayCredentialInformation();
+        }
+
+        private void RecalculateHealthScore()
+        {
+            FormvIDsafe.Main.User.Vault.CalculateTotalHealthScore();
             DisplayHealthScores();
             DisplayCredentialInformation();
         }
 
         private void AddIdentityColumns()
         {
-            //TODO: Cleanup
             tlpIdentities.ColumnStyles.Clear();
-            foreach (Identity identity in FormvIDsafe.Main.User.Vault.Identities)
+            for (int i = 0; i < FormvIDsafe.Main.User.Vault.GetIdentityCount(); i++)
             {
                 tlpIdentities.ColumnCount += 1;
                 tlpIdentities.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
@@ -37,34 +44,11 @@ namespace vIDsafe
 
         private void DisplayHealthScores()
         {
-            //TODO: Cleanup
-            for (int i = 0; i < FormvIDsafe.Main.User.Vault.Identities.Count; i++)
+            tlpIdentities.Controls.Clear();
+
+            for (int i = 0; i < FormvIDsafe.Main.User.Vault.GetIdentityCount(); i++)
             {
                 Identity identity = FormvIDsafe.Main.User.Vault.GetIdentity(i);
-
-                ContentAlignment textAlign = ContentAlignment.MiddleCenter;
-                Font labelFont = new Font("Segoe UI", 9.75f);
-                Color labelColor = Color.FromArgb(64, 64, 64);
-
-                Label identityName = new Label
-                {
-                    AutoSize = false,
-                    Text = identity.Name,
-                    TextAlign = textAlign,
-                    Dock = DockStyle.Top,
-                    Font = labelFont,
-                    ForeColor = labelColor
-                };
-
-                Label identityScore = new Label
-                {
-                    AutoSize = false,
-                    Text = identity.HealthScore.ToString() + "%",
-                    TextAlign = textAlign,
-                    Dock = DockStyle.Bottom,
-                    Font = labelFont,
-                    ForeColor = labelColor
-                };
 
                 int panelPadding = 12;
 
@@ -75,10 +59,8 @@ namespace vIDsafe
                     BackColor = CalculateHealthColor(identity.HealthScore)
                 };
 
-                tlpIdentities.Controls.Remove(tlpIdentities.GetControlFromPosition(i, 0));
-
-                identityPanel.Controls.Add(identityName);
-                identityPanel.Controls.Add(identityScore);
+                identityPanel.Controls.Add(CreateLabel(identity.Name));
+                identityPanel.Controls.Add(CreateLabel(identity.HealthScore.ToString() + "%"));
 
                 tlpIdentities.Controls.Add(identityPanel, i, 0);
             }
@@ -90,27 +72,48 @@ namespace vIDsafe
             }
         }
 
+        private Label CreateLabel(string text)
+        {
+            ContentAlignment textAlign = ContentAlignment.MiddleCenter;
+            Font labelFont = new Font("Segoe UI", 9.75f);
+            Color labelColor = Color.FromArgb(64, 64, 64);
+            DockStyle dock = DockStyle.Bottom;
+
+            Label label = new Label
+            {
+                AutoSize = false,
+                Text = text,
+                TextAlign = textAlign,
+                Dock = dock,
+                Font = labelFont,
+                ForeColor = labelColor
+            };
+
+            return label;
+        }
+
         private Color CalculateHealthColor(int healthScore)
         {
             Color color = new Color();
 
             double colorMultiplier = (double)healthScore / 100;
 
-            //Todo: fix colours
             if (healthScore >= 75)
             {
                 Color good = Color.MediumSeaGreen;
-                color = Color.FromArgb(good.A, good.R, good.G * ((int)(colorMultiplier)), good.B);
+                /*Console.WriteLine(good.G);
+                Console.WriteLine(colorMultiplier);*/
+                color = Color.FromArgb(good.A, good.R, (int) (good.G * colorMultiplier), good.B);
             }
             else if (healthScore >= 50)
             {
                 Color medium = Color.Khaki;
-                color = Color.FromArgb(medium.A, medium.R * ((int)(colorMultiplier)), medium.G * ((int)(colorMultiplier)), medium.B);
+                color = Color.FromArgb(medium.A, medium.R, medium.G, (int) (medium.B * colorMultiplier));
             }
             else if (healthScore >= 0)
             {
                 Color bad = Color.DarkSalmon;
-                color = Color.FromArgb(bad.A, bad.R * ((int)(colorMultiplier)), bad.G, bad.B);
+                color = Color.FromArgb(bad.A, bad.R, bad.G, (int) (bad.B * colorMultiplier));
             }
 
             Console.WriteLine(color);
@@ -125,15 +128,15 @@ namespace vIDsafe
             int conflictCount = FormvIDsafe.Main.User.Vault.TotalConflictCredentials;
             int compromisedCount = FormvIDsafe.Main.User.Vault.TotalCompromisedCredentials;
 
-            chart1.Series["Credentials"].Points[0].SetValueXY("Safe", safeCount);
-            chart1.Series["Credentials"].Points[1].SetValueXY("Weak", weakCount);
-            chart1.Series["Credentials"].Points[2].SetValueXY("Conflicts", conflictCount);
-            chart1.Series["Credentials"].Points[3].SetValueXY("Compromised", compromisedCount);
+            chartCredentials.Series["Credentials"].Points[0].SetValueXY("Safe", safeCount);
+            chartCredentials.Series["Credentials"].Points[1].SetValueXY("Weak", weakCount);
+            chartCredentials.Series["Credentials"].Points[2].SetValueXY("Conflicts", conflictCount);
+            chartCredentials.Series["Credentials"].Points[3].SetValueXY("Compromised", compromisedCount);
 
-            chart1.Series["Credentials"].IsValueShownAsLabel = true;
+            chartCredentials.Series["Credentials"].IsValueShownAsLabel = true;
         }
 
-        private void chart1_PrePaint(object sender, System.Windows.Forms.DataVisualization.Charting.ChartPaintEventArgs e)
+        private void chartCredentials_PrePaint(object sender, System.Windows.Forms.DataVisualization.Charting.ChartPaintEventArgs e)
         {
             if (e.ChartElement is System.Windows.Forms.DataVisualization.Charting.ChartArea)
             {
@@ -149,33 +152,14 @@ namespace vIDsafe
                 };
                 //ta.Alignment = ContentAlignment.MiddleCenter;
 
-                chart1.Annotations.Clear();
-                chart1.Annotations.Add(ta);
+                chartCredentials.Annotations.Clear();
+                chartCredentials.Annotations.Add(ta);
             }
         }
 
-        private void btnViewVault_Click(object sender, EventArgs e)
-        {
-            object btnVault = FormHome.FormControls.Find("btnVault", true)[0];
-            FormHome.ChangeSelectedButton(btnVault);
-            FormHome.OpenChildForm(new FormVault());
-        }
-        private void btnManageIdentities_Click(object sender, EventArgs e)
-        {
-            object btnIdentities = FormHome.FormControls.Find("btnIdentities", true)[0];
-            FormHome.ChangeSelectedButton(btnIdentities);
-            FormHome.OpenChildForm(new FormIdentities());
-        }
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            Refresh();
-        }
-
-        private void Refresh()
-        {
-            FormvIDsafe.Main.User.Vault.CalculateHealthScore();
-            DisplayHealthScores();
-            DisplayCredentialInformation();
+            RecalculateHealthScore();
         }
     }
 }

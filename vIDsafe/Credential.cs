@@ -16,7 +16,6 @@ namespace vIDsafe
 
         private CredentialStatus _status = CredentialStatus.Safe;
 
-        //TODO: make enum for safe/weak/compromised etc credentials and set to a variable here and retrieve for health score calculation
         //Compromised = top prio, conflict 2nd top, etc. upon recalculation the next prio should be set
 
         public enum CredentialStatus
@@ -27,9 +26,10 @@ namespace vIDsafe
             Compromised
         }
 
-        public Credential(string username)
+        public Credential(string username, string password)
         {
-            this._userName = username;
+            _userName = username;
+            _password = password;
         }
 
         public string Username => _userName;
@@ -44,42 +44,37 @@ namespace vIDsafe
 
         public string GetDomain()
         {
-            //TODO: Cleanup
+            //Todo: validation
             if (_url != null)
             {
-                if (_url.Length > 0)
-                {
-                    string host = new Uri(_url).Host;
-                    return host.Substring(host.LastIndexOf('.', host.LastIndexOf('.') - 1) + 1);
-                }
+                string host = new Uri(_url).Host;
+                return host.Substring(host.LastIndexOf('.', host.LastIndexOf('.') - 1) + 1);
             }
-
-            return "";
+            else
+            {
+                return "";
+            }
         }
 
         public void SetDetails(string username, string password, string url, string notes)
         {
-            this._userName = username;
-            this._password = password;
-            this._url = url;
-            this._notes = notes;
+            Vault.DecrementConflictCount(_userName, _password);
+
+            _userName = username;
+            _password = password;
+            _url = url;
+            _notes = notes;
+
+            Vault.IncrementConflictCount(username, password);
 
             FormvIDsafe.Main.User.SaveVault();
         }
 
-        public void SetStatus(CredentialStatus credentialStatus)
+        public void SetStatus(CredentialStatus status)
         {
-            _status = credentialStatus;
-        }
+            _status = status;
 
-        private void CheckBreach()
-        {
-
-        }
-
-        private void CheckStrength()
-        {
-
+            FormvIDsafe.Main.User.SaveVault();
         }
     }
 }

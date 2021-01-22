@@ -67,14 +67,13 @@ namespace vIDsafe
 
         private void CheckStrength(string password)
         {
-            //https://stackoverflow.com/questions/12899876/checking-strings-for-a-strong-enough-password
-            //https://www.ryadel.com/en/passwordcheck-c-sharp-password-class-calculate-password-strength-policy-aspnet/
+            double score = CredentialGeneration.CheckStrength(password);
 
-            double score = CredentialGeneration.CheckStrength(password, rbPassphrase.Checked);
+            double colorMultiplier = score / 100;
 
             Color color = Color.SpringGreen;
 
-            Color newColor = Color.FromArgb((int) (color.R * score), (int) (color.G * score), (int) (color.B * score));
+            Color newColor = Color.FromArgb((int) (color.R * colorMultiplier), (int) (color.G * colorMultiplier), (int) (color.B * colorMultiplier));
 
             panelPasswordStrength.BackColor = newColor;
         }
