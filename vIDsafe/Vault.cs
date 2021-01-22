@@ -20,6 +20,9 @@ namespace vIDsafe
         private int _totalCompromisedCredentials;
         private int _totalSafeCredentials;
 
+        public static Dictionary<string, int> UniqueUsernames = new Dictionary<string, int>();
+        public static Dictionary<string, int> UniquePasswords = new Dictionary<string, int>();
+
         public enum LogType
         {
             Account,
@@ -49,7 +52,7 @@ namespace vIDsafe
 
         }
 
-        private void ResetCredentialCounts()
+        private void ResetTotalCredentialCounts()
         {
             _overallHealthScore = 100;
 
@@ -60,9 +63,9 @@ namespace vIDsafe
             _totalSafeCredentials = 0;
         }
 
-        public void CalculateHealthScore()
+        public void CalculateTotalHealthScore()
         {
-            ResetCredentialCounts();
+            ResetTotalCredentialCounts();
 
             foreach (Identity identity in Identities)
             {
@@ -89,6 +92,16 @@ namespace vIDsafe
             _identities.Add(identity);
 
             FormvIDsafe.Main.User.SaveVault();
+        }
+
+        public int GetIdentityCount()
+        {
+            if (Identities.Count > 0)
+            {
+                return Identities.Count;
+            }
+
+            return 0;
         }
 
         public Identity GetIdentity(int index)
@@ -144,6 +157,46 @@ namespace vIDsafe
             FormvIDsafe.Main.User.SaveVault();
 
             return new KeyValuePair<DateTime, string>(currentTime, log);
+        }
+
+        public static void DecrementConflictCount(string username, string password)
+        {
+            if (UniqueUsernames.ContainsKey(username))
+            {
+                if (UniqueUsernames[username] > 0)
+                {
+                    UniqueUsernames[username]--;
+                }
+            }
+
+            if (UniquePasswords.ContainsKey(password))
+            {
+                if (UniquePasswords[password] > 0)
+                {
+                    UniquePasswords[password]--;
+                }
+            }
+        }
+
+        public static void IncrementConflictCount(string username, string password)
+        {
+            if (UniqueUsernames.ContainsKey(username))
+            {
+                UniqueUsernames[username]++;
+            }
+            else
+            {
+                UniqueUsernames.Add(username, 1);
+            }
+
+            if (UniquePasswords.ContainsKey(password))
+            {
+                UniquePasswords[password]++;
+            }
+            else
+            {
+                UniquePasswords.Add(password, 1);
+            }
         }
     }
 }

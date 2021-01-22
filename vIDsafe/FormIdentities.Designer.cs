@@ -28,13 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint17 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 146D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint18 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 30D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint19 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 7D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint20 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 17D);
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint1 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 146D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint2 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 30D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint3 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 7D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint4 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 17D);
             this.panelTitle = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -186,40 +186,41 @@
             // chartCredentials
             // 
             this.chartCredentials.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(59)))), ((int)(((byte)(66)))));
-            chartArea5.BackColor = System.Drawing.Color.Transparent;
-            chartArea5.Name = "ChartArea1";
-            this.chartCredentials.ChartAreas.Add(chartArea5);
+            chartArea1.BackColor = System.Drawing.Color.Transparent;
+            chartArea1.Name = "ChartArea1";
+            this.chartCredentials.ChartAreas.Add(chartArea1);
             this.chartCredentials.Dock = System.Windows.Forms.DockStyle.Top;
-            legend5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            legend5.Name = "Legend1";
-            this.chartCredentials.Legends.Add(legend5);
+            legend1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            legend1.Name = "Legend1";
+            this.chartCredentials.Legends.Add(legend1);
             this.chartCredentials.Location = new System.Drawing.Point(0, 48);
             this.chartCredentials.Name = "chartCredentials";
-            series5.ChartArea = "ChartArea1";
-            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
-            series5.LabelForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            series5.Legend = "Legend1";
-            series5.Name = "Credentials";
-            dataPoint17.Color = System.Drawing.Color.LightSeaGreen;
-            dataPoint17.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            dataPoint17.Label = "";
-            dataPoint18.Color = System.Drawing.Color.Khaki;
-            dataPoint18.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            dataPoint18.Label = "";
-            dataPoint19.Color = System.Drawing.Color.MediumSlateBlue;
-            dataPoint19.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            dataPoint19.Label = "";
-            dataPoint20.Color = System.Drawing.Color.Salmon;
-            dataPoint20.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataPoint20.Label = "";
-            series5.Points.Add(dataPoint17);
-            series5.Points.Add(dataPoint18);
-            series5.Points.Add(dataPoint19);
-            series5.Points.Add(dataPoint20);
-            this.chartCredentials.Series.Add(series5);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
+            series1.LabelForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            series1.Legend = "Legend1";
+            series1.Name = "Credentials";
+            dataPoint1.Color = System.Drawing.Color.LightSeaGreen;
+            dataPoint1.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            dataPoint1.Label = "";
+            dataPoint2.Color = System.Drawing.Color.Khaki;
+            dataPoint2.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            dataPoint2.Label = "";
+            dataPoint3.Color = System.Drawing.Color.MediumSlateBlue;
+            dataPoint3.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            dataPoint3.Label = "";
+            dataPoint4.Color = System.Drawing.Color.Salmon;
+            dataPoint4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataPoint4.Label = "";
+            series1.Points.Add(dataPoint1);
+            series1.Points.Add(dataPoint2);
+            series1.Points.Add(dataPoint3);
+            series1.Points.Add(dataPoint4);
+            this.chartCredentials.Series.Add(series1);
             this.chartCredentials.Size = new System.Drawing.Size(206, 144);
             this.chartCredentials.TabIndex = 19;
             this.chartCredentials.Text = "chart2";
+            this.chartCredentials.PrePaint += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ChartPaintEventArgs>(this.chartCredentials_PrePaint);
             // 
             // cmbIdentity
             // 
