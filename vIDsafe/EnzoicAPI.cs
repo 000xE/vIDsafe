@@ -11,7 +11,6 @@ namespace vIDsafe
     {
         //https://www.enzoic.com/docs-dotnet-quick-start/
 
-        //Todo: validation (API/SECRET CHECKING, USE TRY CATCH FOR 401 ERROR)
         private static Enzoic _enzoic = new Enzoic("API", "Secret");
 
         public static bool CheckPassword(string password)
@@ -43,16 +42,25 @@ namespace vIDsafe
         public static List<ExposureDetails> GetExposureDetails (string email)
         {
             // get all exposures for a given user
-            ExposuresResponse exposures = _enzoic.GetExposuresForUser(email);
 
-            List<ExposureDetails> exposureDetails = new List<ExposureDetails>();
-
-            foreach (string exposure in exposures.Exposures)
+            try
             {
-                exposureDetails.Add(_enzoic.GetExposureDetails(exposure));
-            }
+                ExposuresResponse exposures = _enzoic.GetExposuresForUser(email);
 
-            return exposureDetails;
+                List<ExposureDetails> exposureDetails = new List<ExposureDetails>();
+
+                foreach (string exposure in exposures.Exposures)
+                {
+                    exposureDetails.Add(_enzoic.GetExposureDetails(exposure));
+                }
+
+                return exposureDetails;
+            }
+            catch (System.Net.WebException e)
+            {
+                Console.WriteLine("API/Secret may be incorrect, error: " + e);
+                return new List<ExposureDetails>();
+            }
         }
     }
 }
