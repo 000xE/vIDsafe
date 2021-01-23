@@ -25,7 +25,7 @@ namespace vIDsafe
 
         private void btnGenerateUsername_Click(object sender, EventArgs e)
         {
-            GenerateUsername();
+            GenerateUsername(cmbIdentity.Text);
         }
 
         private void btnGeneratePassword_Click(object sender, EventArgs e)
@@ -51,6 +51,7 @@ namespace vIDsafe
             }
             else
             {
+                Console.WriteLine("Please enter all details");
                 return false;
             }
         }
@@ -75,10 +76,8 @@ namespace vIDsafe
             SearchCredentials(cmbIdentity.SelectedIndex, txtSearchCredential.Text);
         }
 
-        private void GenerateUsername()
+        private void GenerateUsername(string identityName)
         {
-            string identityName = cmbIdentity.Text;
-
             txtUsername.Text = CredentialGeneration.GenerateUsername(identityName);
         }
 
@@ -89,12 +88,16 @@ namespace vIDsafe
 
         private void NewCredential(int selectedIdentityIndex)
         {
-            string defaultName = "New credential";
+            string identityName = FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).Name;
+
+            string defaultUsername = CredentialGeneration.GenerateUsername(identityName);
             string defaultPassword = CredentialGeneration.GeneratePassword();
 
             int credentialCount = lvCredentials.Items.Count;
 
-            string credentialID = FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).NewCredential(defaultName, defaultPassword);
+            string credentialID = FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).NewCredential(defaultUsername, defaultPassword);
+
+            FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).ManualCheckStatus(credentialID);
 
             Credential credential = FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).GetCredential(credentialID);
 
@@ -112,28 +115,19 @@ namespace vIDsafe
                     string currentCredentialID = currentItem.SubItems[0].Text;
 
                     FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).GetCredential(currentCredentialID).SetDetails(credentialUsername, credentialPassword, credentialURL, credentialNotes);
-
-                    FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).CheckStatus();
+                    FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).ManualCheckStatus(currentCredentialID);
 
                     Credential.CredentialStatus status = FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).GetCredential(currentCredentialID).Status;
 
                     lvCredentials.SelectedItems[0].SubItems[1].Text = credentialUsername;
                     lvCredentials.SelectedItems[0].SubItems[2].Text = credentialURL;
                     lvCredentials.SelectedItems[0].SubItems[3].Text = status.ToString();
-
-                    //FixColumnWidths();
                 }
-            }
-            else
-            {
-                Console.WriteLine("Please enter all details");
             }
         }
 
         private void SearchCredentials(int selectedIdentityIndex, string searchedText)
         {
-            ResetDetails();
-
             if (searchedText.Length > 0)
             {
                 Dictionary<string, Credential> credentials = FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).Credentials;
@@ -146,22 +140,23 @@ namespace vIDsafe
             {
                 GetCredentials(selectedIdentityIndex);
             }
+
+            ResetDetails();
         }
 
         private void GetIdentities()
         {
-            ResetDetails();
-
             foreach (Identity identity in FormvIDsafe.Main.User.Vault.Identities)
             {
                 cmbIdentity.Items.Add(identity.Name);
             }
+
+            ResetDetails();
         }
 
         private void GetCredentials(int selectedIdentityIndex)
         {
-            ResetDetails();
-
+            FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).CalculateHealthScore();
             Dictionary<string, Credential> credentials = FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).Credentials;
 
             DisplayCredentials(credentials);
@@ -174,6 +169,8 @@ namespace vIDsafe
             {
                 DisplayCredential(credential.Key, credential.Value);
             }
+
+            ResetDetails();
         }
 
         private void DisplayCredential(string credentialID, Credential credential)
@@ -188,8 +185,6 @@ namespace vIDsafe
 
         private void GetCredentialDetails(int selectedIdentityIndex, int selectedCredentialCount)
         {
-            ResetDetails();
-
             if (selectedCredentialCount > 0)
             {
                 ListViewItem currentItem = lvCredentials.SelectedItems[0];
@@ -202,6 +197,8 @@ namespace vIDsafe
                 txtPassword.Text = credential.Password;
                 txtNotes.Text = credential.Notes;
             }
+
+            ResetDetails();
         }
 
         private void DeleteCredential(int selectedIdentityIndex, int selectedCredentialCount)
@@ -222,54 +219,53 @@ namespace vIDsafe
 
         private void ResetDetails()
         {
-            ClearInputs();
-
             int selectedIdentityIndex = cmbIdentity.SelectedIndex;
             int selectedCredentialCount = lvCredentials.SelectedItems.Count;
 
             if (selectedIdentityIndex >= 0)
             {
-                btnNewCredential.Enabled = true;
-                txtSearchCredential.Visible = true;
-
-                lvCredentials.Visible = true;
-                lvCredentials.BringToFront();
+                EnableIdentityComponents(true);
 
                 FixColumnWidths();
             }
             else
             {
-                btnNewCredential.Enabled = false;
-                txtSearchCredential.Visible = false;
-                lvCredentials.Visible = false;
+                ClearInputs();
+                EnableIdentityComponents(false);
             }
 
             if (selectedCredentialCount > 0)
             {
-                txtURL.Enabled = true;
-                txtUsername.Enabled = true;
-                txtPassword.Enabled = true;
-                txtNotes.Enabled = true;
-
-                btnSave.Enabled = true;
-                btnDeleteDiscard.Enabled = true;
-
-                btnGenerateUsername.Enabled = true;
-                btnGeneratePassword.Enabled = true;
+                EnableCredentialComponents(true);
             }
             else
             {
-                txtURL.Enabled = false;
-                txtUsername.Enabled = false;
-                txtPassword.Enabled = false;
-                txtNotes.Enabled = false;
-
-                btnSave.Enabled = false;
-                btnDeleteDiscard.Enabled = false;
-
-                btnGenerateUsername.Enabled = false;
-                btnGeneratePassword.Enabled = false;
+                ClearInputs();
+                EnableCredentialComponents(false);
             }
+        }
+
+        private void EnableIdentityComponents(bool enabled)
+        {
+            btnNewCredential.Enabled = enabled;
+            txtSearchCredential.Visible = enabled;
+
+            lvCredentials.Visible = enabled;
+            lvCredentials.BringToFront();
+        }
+
+        private void EnableCredentialComponents(bool enabled)
+        {
+            txtURL.Enabled = enabled;
+            txtUsername.Enabled = enabled;
+            txtPassword.Enabled = enabled;
+            txtNotes.Enabled = enabled;
+
+            btnSave.Enabled = enabled;
+            btnDeleteDiscard.Enabled = enabled;
+
+            btnGenerateUsername.Enabled = enabled;
+            btnGeneratePassword.Enabled = enabled;
         }
 
         private void ClearInputs()
@@ -290,6 +286,11 @@ namespace vIDsafe
             lvCredentials.Columns[1].Width = lvCredentials.Width / (lvCredentials.Columns.Count - 1);
             lvCredentials.Columns[2].Width = lvCredentials.Width / (lvCredentials.Columns.Count - 1);
             lvCredentials.Columns[3].Width = lvCredentials.Width / (lvCredentials.Columns.Count - 1);
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            GetCredentials(cmbIdentity.SelectedIndex);
         }
     }
 }

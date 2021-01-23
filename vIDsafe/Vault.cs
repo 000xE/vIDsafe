@@ -46,7 +46,6 @@ namespace vIDsafe
 
         public int TotalSafeCredentials => _totalSafeCredentials;
 
-
         public Vault()
         {
 
@@ -80,7 +79,11 @@ namespace vIDsafe
 
             if (_totalCredentialCount > 0)
             {
-                _overallHealthScore = (_totalSafeCredentials) / _totalCredentialCount * 100;
+                _overallHealthScore = (int)(((double)_totalSafeCredentials) / _totalCredentialCount * 100);
+            }
+            else
+            {
+                _overallHealthScore = 0;
             }
 
             FormvIDsafe.Main.User.SaveVault();
@@ -166,6 +169,11 @@ namespace vIDsafe
                 if (UniqueUsernames[username] > 0)
                 {
                     UniqueUsernames[username]--;
+
+                    if (UniqueUsernames[username] == 0)
+                    {
+                        UniqueUsernames.Remove(username);
+                    }
                 }
             }
 
@@ -174,8 +182,15 @@ namespace vIDsafe
                 if (UniquePasswords[password] > 0)
                 {
                     UniquePasswords[password]--;
+
+                    if (UniquePasswords[password] == 0)
+                    {
+                        UniquePasswords.Remove(password);
+                    }
                 }
             }
+
+            FormvIDsafe.Main.User.SaveVault();
         }
 
         public static void IncrementConflictCount(string username, string password)
@@ -197,6 +212,8 @@ namespace vIDsafe
             {
                 UniquePasswords.Add(password, 1);
             }
+
+            FormvIDsafe.Main.User.SaveVault();
         }
     }
 }

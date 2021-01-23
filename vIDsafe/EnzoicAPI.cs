@@ -11,7 +11,8 @@ namespace vIDsafe
     {
         //https://www.enzoic.com/docs-dotnet-quick-start/
 
-        private static Enzoic _enzoic = new Enzoic("API", "secret");
+        //Todo: validation (API/SECRET CHECKING, USE TRY CATCH FOR 401 ERROR)
+        private static Enzoic _enzoic = new Enzoic("API", "Secret");
 
         public static bool CheckPassword(string password)
         {

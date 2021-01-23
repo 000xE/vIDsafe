@@ -36,8 +36,6 @@
             System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint3 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 7D);
             System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint4 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 17D);
             this.panelBack = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.btnRefresh = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
             this.panel9 = new System.Windows.Forms.Panel();
@@ -57,7 +55,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panelBack.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel7.SuspendLayout();
             this.panel9.SuspendLayout();
@@ -74,7 +71,6 @@
             // panelBack
             // 
             this.panelBack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(49)))), ((int)(((byte)(56)))));
-            this.panelBack.Controls.Add(this.tableLayoutPanel3);
             this.panelBack.Controls.Add(this.panel3);
             this.panelBack.Controls.Add(this.panel1);
             this.panelBack.Controls.Add(this.panelTitle);
@@ -82,40 +78,8 @@
             this.panelBack.Location = new System.Drawing.Point(0, 0);
             this.panelBack.Name = "panelBack";
             this.panelBack.Padding = new System.Windows.Forms.Padding(25);
-            this.panelBack.Size = new System.Drawing.Size(935, 557);
+            this.panelBack.Size = new System.Drawing.Size(823, 618);
             this.panelBack.TabIndex = 1;
-            // 
-            // tableLayoutPanel3
-            // 
-            this.tableLayoutPanel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
-            this.tableLayoutPanel3.ColumnCount = 1;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Controls.Add(this.btnRefresh, 0, 0);
-            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(25, 492);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 1;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(594, 40);
-            this.tableLayoutPanel3.TabIndex = 19;
-            // 
-            // btnRefresh
-            // 
-            this.btnRefresh.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.btnRefresh.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btnRefresh.FlatAppearance.BorderSize = 0;
-            this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRefresh.ForeColor = System.Drawing.Color.White;
-            this.btnRefresh.Location = new System.Drawing.Point(0, 0);
-            this.btnRefresh.Margin = new System.Windows.Forms.Padding(0);
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(594, 40);
-            this.btnRefresh.TabIndex = 24;
-            this.btnRefresh.Text = "Refresh";
-            this.btnRefresh.UseVisualStyleBackColor = false;
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // panel3
             // 
@@ -126,7 +90,7 @@
             this.panel3.Location = new System.Drawing.Point(25, 92);
             this.panel3.Name = "panel3";
             this.panel3.Padding = new System.Windows.Forms.Padding(25);
-            this.panel3.Size = new System.Drawing.Size(594, 440);
+            this.panel3.Size = new System.Drawing.Size(482, 501);
             this.panel3.TabIndex = 6;
             // 
             // panel7
@@ -137,8 +101,7 @@
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel7.Location = new System.Drawing.Point(25, 172);
             this.panel7.Name = "panel7";
-            this.panel7.Padding = new System.Windows.Forms.Padding(0, 0, 0, 25);
-            this.panel7.Size = new System.Drawing.Size(544, 243);
+            this.panel7.Size = new System.Drawing.Size(432, 304);
             this.panel7.TabIndex = 7;
             // 
             // panel9
@@ -149,7 +112,7 @@
             this.panel9.Location = new System.Drawing.Point(0, 22);
             this.panel9.Name = "panel9";
             this.panel9.Padding = new System.Windows.Forms.Padding(0, 25, 0, 0);
-            this.panel9.Size = new System.Drawing.Size(544, 196);
+            this.panel9.Size = new System.Drawing.Size(432, 282);
             this.panel9.TabIndex = 9;
             // 
             // panel11
@@ -158,7 +121,7 @@
             this.panel11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel11.Location = new System.Drawing.Point(0, 25);
             this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(544, 171);
+            this.panel11.Size = new System.Drawing.Size(432, 257);
             this.panel11.TabIndex = 0;
             // 
             // tableLayoutPanel2
@@ -173,8 +136,8 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 171F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(544, 171);
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 232F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(432, 257);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // chartCredentials
@@ -184,6 +147,8 @@
             chartArea1.Name = "ChartArea1";
             this.chartCredentials.ChartAreas.Add(chartArea1);
             this.chartCredentials.Dock = System.Windows.Forms.DockStyle.Fill;
+            legend1.Alignment = System.Drawing.StringAlignment.Center;
+            legend1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
             legend1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             legend1.Name = "Legend1";
             this.chartCredentials.Legends.Add(legend1);
@@ -211,7 +176,7 @@
             series1.Points.Add(dataPoint3);
             series1.Points.Add(dataPoint4);
             this.chartCredentials.Series.Add(series1);
-            this.chartCredentials.Size = new System.Drawing.Size(538, 165);
+            this.chartCredentials.Size = new System.Drawing.Size(426, 251);
             this.chartCredentials.TabIndex = 0;
             this.chartCredentials.Text = "chart1";
             this.chartCredentials.PrePaint += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ChartPaintEventArgs>(this.chartCredentials_PrePaint);
@@ -224,7 +189,7 @@
             this.label5.ForeColor = System.Drawing.Color.LightGray;
             this.label5.Location = new System.Drawing.Point(0, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(544, 22);
+            this.label5.Size = new System.Drawing.Size(432, 22);
             this.label5.TabIndex = 8;
             this.label5.Text = "Credential summary";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -240,7 +205,7 @@
             this.panel8.Location = new System.Drawing.Point(25, 25);
             this.panel8.Name = "panel8";
             this.panel8.Padding = new System.Windows.Forms.Padding(0, 0, 0, 25);
-            this.panel8.Size = new System.Drawing.Size(544, 147);
+            this.panel8.Size = new System.Drawing.Size(432, 147);
             this.panel8.TabIndex = 6;
             // 
             // panel10
@@ -251,7 +216,7 @@
             this.panel10.Location = new System.Drawing.Point(0, 22);
             this.panel10.Name = "panel10";
             this.panel10.Padding = new System.Windows.Forms.Padding(0, 25, 0, 0);
-            this.panel10.Size = new System.Drawing.Size(544, 100);
+            this.panel10.Size = new System.Drawing.Size(432, 100);
             this.panel10.TabIndex = 8;
             // 
             // tlpIdentities
@@ -272,7 +237,7 @@
             this.tlpIdentities.Name = "tlpIdentities";
             this.tlpIdentities.RowCount = 1;
             this.tlpIdentities.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpIdentities.Size = new System.Drawing.Size(544, 75);
+            this.tlpIdentities.Size = new System.Drawing.Size(432, 75);
             this.tlpIdentities.TabIndex = 0;
             // 
             // label4
@@ -283,7 +248,7 @@
             this.label4.ForeColor = System.Drawing.Color.LightGray;
             this.label4.Location = new System.Drawing.Point(0, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(544, 22);
+            this.label4.Size = new System.Drawing.Size(432, 22);
             this.label4.TabIndex = 7;
             this.label4.Text = "Health scores";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -295,10 +260,10 @@
             this.panel1.Controls.Add(this.panel6);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(619, 92);
+            this.panel1.Location = new System.Drawing.Point(507, 92);
             this.panel1.Name = "panel1";
             this.panel1.Padding = new System.Windows.Forms.Padding(25);
-            this.panel1.Size = new System.Drawing.Size(291, 440);
+            this.panel1.Size = new System.Drawing.Size(291, 501);
             this.panel1.TabIndex = 8;
             // 
             // panel6
@@ -308,7 +273,7 @@
             this.panel6.Location = new System.Drawing.Point(25, 43);
             this.panel6.Name = "panel6";
             this.panel6.Padding = new System.Windows.Forms.Padding(0, 25, 0, 0);
-            this.panel6.Size = new System.Drawing.Size(241, 372);
+            this.panel6.Size = new System.Drawing.Size(241, 433);
             this.panel6.TabIndex = 7;
             // 
             // listBox1
@@ -321,7 +286,7 @@
             this.listBox1.FormattingEnabled = true;
             this.listBox1.Location = new System.Drawing.Point(0, 25);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(241, 347);
+            this.listBox1.Size = new System.Drawing.Size(241, 408);
             this.listBox1.TabIndex = 0;
             // 
             // label3
@@ -345,7 +310,7 @@
             this.panelTitle.Location = new System.Drawing.Point(25, 25);
             this.panelTitle.Name = "panelTitle";
             this.panelTitle.Padding = new System.Windows.Forms.Padding(0, 0, 0, 25);
-            this.panelTitle.Size = new System.Drawing.Size(885, 67);
+            this.panelTitle.Size = new System.Drawing.Size(773, 67);
             this.panelTitle.TabIndex = 7;
             // 
             // label2
@@ -355,7 +320,7 @@
             this.label2.ForeColor = System.Drawing.Color.DarkGray;
             this.label2.Location = new System.Drawing.Point(0, 21);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(885, 21);
+            this.label2.Size = new System.Drawing.Size(773, 21);
             this.label2.TabIndex = 4;
             this.label2.Text = "A summary of your vault";
             // 
@@ -366,7 +331,7 @@
             this.label1.ForeColor = System.Drawing.Color.Gainsboro;
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(885, 21);
+            this.label1.Size = new System.Drawing.Size(773, 21);
             this.label1.TabIndex = 3;
             this.label1.Text = "Overview";
             // 
@@ -375,14 +340,13 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(47)))), ((int)(((byte)(47)))));
-            this.ClientSize = new System.Drawing.Size(935, 557);
+            this.ClientSize = new System.Drawing.Size(823, 618);
             this.Controls.Add(this.panelBack);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.Name = "FormOverview";
             this.Text = "Overview";
             this.panelBack.ResumeLayout(false);
             this.panelBack.PerformLayout();
-            this.tableLayoutPanel3.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel7.ResumeLayout(false);
@@ -419,7 +383,5 @@
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private System.Windows.Forms.Button btnRefresh;
     }
 }

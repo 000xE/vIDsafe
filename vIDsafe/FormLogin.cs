@@ -24,10 +24,10 @@ namespace vIDsafe
 
         private void Login(string name, string password)
         {
-            FormvIDsafe.Main.User = new MasterAccount(name, password);
-
-            if (IsValid())
+            if (IsValid(name))
             {
+                FormvIDsafe.Main.User = new MasterAccount(name, password);
+
                 if (FormvIDsafe.Main.User.TryLogin() == true)
                 {
                     FormHome form = new FormHome();
@@ -42,9 +42,17 @@ namespace vIDsafe
             }
         }
 
-        private bool IsValid()
+        private bool IsValid(string name)
         {
-            return true;
+            if (name.Length >= 8)
+            {
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("Name is lower than 8 characters");
+                return false;
+            }
         }
 
         private void btnRegister_Click(object sender, EventArgs e)

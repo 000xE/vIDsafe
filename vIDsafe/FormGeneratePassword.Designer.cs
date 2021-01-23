@@ -72,7 +72,7 @@
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(935, 557);
+            this.label1.Size = new System.Drawing.Size(823, 618);
             this.label1.TabIndex = 0;
             this.label1.Text = "Overview";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -86,7 +86,7 @@
             this.panelTitle.Location = new System.Drawing.Point(25, 25);
             this.panelTitle.Name = "panelTitle";
             this.panelTitle.Padding = new System.Windows.Forms.Padding(0, 0, 0, 25);
-            this.panelTitle.Size = new System.Drawing.Size(885, 67);
+            this.panelTitle.Size = new System.Drawing.Size(773, 67);
             this.panelTitle.TabIndex = 7;
             // 
             // label2
@@ -96,7 +96,7 @@
             this.label2.ForeColor = System.Drawing.Color.DarkGray;
             this.label2.Location = new System.Drawing.Point(0, 21);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(885, 21);
+            this.label2.Size = new System.Drawing.Size(773, 21);
             this.label2.TabIndex = 4;
             this.label2.Text = "Create a password or a passphrase";
             // 
@@ -107,7 +107,7 @@
             this.label3.ForeColor = System.Drawing.Color.Gainsboro;
             this.label3.Location = new System.Drawing.Point(0, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(885, 21);
+            this.label3.Size = new System.Drawing.Size(773, 21);
             this.label3.TabIndex = 3;
             this.label3.Text = "Generate password";
             // 
@@ -121,7 +121,7 @@
             this.panelBack.Location = new System.Drawing.Point(0, 0);
             this.panelBack.Name = "panelBack";
             this.panelBack.Padding = new System.Windows.Forms.Padding(25);
-            this.panelBack.Size = new System.Drawing.Size(935, 557);
+            this.panelBack.Size = new System.Drawing.Size(823, 618);
             this.panelBack.TabIndex = 3;
             // 
             // panel8
@@ -136,7 +136,7 @@
             this.panel8.Location = new System.Drawing.Point(25, 92);
             this.panel8.Name = "panel8";
             this.panel8.Padding = new System.Windows.Forms.Padding(25);
-            this.panel8.Size = new System.Drawing.Size(594, 440);
+            this.panel8.Size = new System.Drawing.Size(482, 501);
             this.panel8.TabIndex = 11;
             // 
             // panel2
@@ -148,7 +148,7 @@
             this.panel2.Location = new System.Drawing.Point(25, 47);
             this.panel2.Name = "panel2";
             this.panel2.Padding = new System.Windows.Forms.Padding(0, 25, 0, 0);
-            this.panel2.Size = new System.Drawing.Size(544, 168);
+            this.panel2.Size = new System.Drawing.Size(432, 229);
             this.panel2.TabIndex = 9;
             // 
             // lblGeneratedPassword
@@ -159,7 +159,7 @@
             this.lblGeneratedPassword.ForeColor = System.Drawing.Color.White;
             this.lblGeneratedPassword.Location = new System.Drawing.Point(0, 25);
             this.lblGeneratedPassword.Name = "lblGeneratedPassword";
-            this.lblGeneratedPassword.Size = new System.Drawing.Size(544, 128);
+            this.lblGeneratedPassword.Size = new System.Drawing.Size(432, 189);
             this.lblGeneratedPassword.TabIndex = 8;
             this.lblGeneratedPassword.Text = "abcdef0123";
             this.lblGeneratedPassword.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -168,9 +168,9 @@
             // 
             this.panelPasswordStrength.BackColor = System.Drawing.Color.SpringGreen;
             this.panelPasswordStrength.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelPasswordStrength.Location = new System.Drawing.Point(0, 153);
+            this.panelPasswordStrength.Location = new System.Drawing.Point(0, 214);
             this.panelPasswordStrength.Name = "panelPasswordStrength";
-            this.panelPasswordStrength.Size = new System.Drawing.Size(544, 15);
+            this.panelPasswordStrength.Size = new System.Drawing.Size(432, 15);
             this.panelPasswordStrength.TabIndex = 9;
             // 
             // label6
@@ -181,7 +181,7 @@
             this.label6.ForeColor = System.Drawing.Color.LightGray;
             this.label6.Location = new System.Drawing.Point(25, 25);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(544, 22);
+            this.label6.Size = new System.Drawing.Size(432, 22);
             this.label6.TabIndex = 7;
             this.label6.Text = "Generate a password";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -193,9 +193,9 @@
             this.panel4.Controls.Add(this.btnCopy);
             this.panel4.Controls.Add(this.btnRegenerate);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel4.Location = new System.Drawing.Point(25, 215);
+            this.panel4.Location = new System.Drawing.Point(25, 276);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(544, 100);
+            this.panel4.Size = new System.Drawing.Size(432, 100);
             this.panel4.TabIndex = 10;
             // 
             // btnCopy
@@ -206,7 +206,7 @@
             this.btnCopy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCopy.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCopy.ForeColor = System.Drawing.Color.White;
-            this.btnCopy.Location = new System.Drawing.Point(297, 35);
+            this.btnCopy.Location = new System.Drawing.Point(241, 35);
             this.btnCopy.Name = "btnCopy";
             this.btnCopy.Size = new System.Drawing.Size(100, 30);
             this.btnCopy.TabIndex = 1;
@@ -222,7 +222,7 @@
             this.btnRegenerate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRegenerate.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRegenerate.ForeColor = System.Drawing.Color.White;
-            this.btnRegenerate.Location = new System.Drawing.Point(148, 35);
+            this.btnRegenerate.Location = new System.Drawing.Point(92, 35);
             this.btnRegenerate.Name = "btnRegenerate";
             this.btnRegenerate.Size = new System.Drawing.Size(100, 30);
             this.btnRegenerate.TabIndex = 0;
@@ -239,16 +239,16 @@
             this.panel5.Controls.Add(this.tbPasswordLength);
             this.panel5.Controls.Add(this.clbSettings);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel5.Location = new System.Drawing.Point(25, 315);
+            this.panel5.Location = new System.Drawing.Point(25, 376);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(544, 100);
+            this.panel5.Size = new System.Drawing.Size(432, 100);
             this.panel5.TabIndex = 11;
             // 
             // lblLength
             // 
             this.lblLength.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.lblLength.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lblLength.Location = new System.Drawing.Point(251, 59);
+            this.lblLength.Location = new System.Drawing.Point(195, 59);
             this.lblLength.Name = "lblLength";
             this.lblLength.Size = new System.Drawing.Size(43, 13);
             this.lblLength.TabIndex = 4;
@@ -289,7 +289,7 @@
             // 
             this.tbPasswordLength.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.tbPasswordLength.AutoSize = false;
-            this.tbPasswordLength.Location = new System.Drawing.Point(220, 41);
+            this.tbPasswordLength.Location = new System.Drawing.Point(164, 41);
             this.tbPasswordLength.Maximum = 128;
             this.tbPasswordLength.Minimum = 5;
             this.tbPasswordLength.Name = "tbPasswordLength";
@@ -313,7 +313,7 @@
             "0-9",
             "a-z",
             "!$@^%#*"});
-            this.clbSettings.Location = new System.Drawing.Point(439, 14);
+            this.clbSettings.Location = new System.Drawing.Point(327, 14);
             this.clbSettings.Name = "clbSettings";
             this.clbSettings.Size = new System.Drawing.Size(85, 68);
             this.clbSettings.TabIndex = 0;
@@ -326,10 +326,10 @@
             this.panel1.Controls.Add(this.panel7);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(619, 92);
+            this.panel1.Location = new System.Drawing.Point(507, 92);
             this.panel1.Name = "panel1";
             this.panel1.Padding = new System.Windows.Forms.Padding(25);
-            this.panel1.Size = new System.Drawing.Size(291, 440);
+            this.panel1.Size = new System.Drawing.Size(291, 501);
             this.panel1.TabIndex = 10;
             // 
             // panel7
@@ -339,7 +339,7 @@
             this.panel7.Location = new System.Drawing.Point(25, 43);
             this.panel7.Name = "panel7";
             this.panel7.Padding = new System.Windows.Forms.Padding(0, 25, 0, 0);
-            this.panel7.Size = new System.Drawing.Size(241, 372);
+            this.panel7.Size = new System.Drawing.Size(241, 433);
             this.panel7.TabIndex = 6;
             // 
             // lvPasswordHistory
@@ -356,7 +356,7 @@
             this.lvPasswordHistory.HideSelection = false;
             this.lvPasswordHistory.Location = new System.Drawing.Point(0, 25);
             this.lvPasswordHistory.Name = "lvPasswordHistory";
-            this.lvPasswordHistory.Size = new System.Drawing.Size(241, 347);
+            this.lvPasswordHistory.Size = new System.Drawing.Size(241, 408);
             this.lvPasswordHistory.Sorting = System.Windows.Forms.SortOrder.Descending;
             this.lvPasswordHistory.TabIndex = 3;
             this.lvPasswordHistory.UseCompatibleStateImageBehavior = false;
@@ -394,7 +394,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(935, 557);
+            this.ClientSize = new System.Drawing.Size(823, 618);
             this.Controls.Add(this.panelBack);
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F);

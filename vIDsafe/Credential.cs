@@ -58,14 +58,14 @@ namespace vIDsafe
 
         public void SetDetails(string username, string password, string url, string notes)
         {
-            Vault.DecrementConflictCount(_userName, _password);
+            Vault.DecrementConflictCount(_userName, _password); //decrement conflict count from the old username
 
             _userName = username;
             _password = password;
             _url = url;
             _notes = notes;
 
-            Vault.IncrementConflictCount(username, password);
+            Vault.IncrementConflictCount(username, password); //increment conflict count for the new username
 
             FormvIDsafe.Main.User.SaveVault();
         }
