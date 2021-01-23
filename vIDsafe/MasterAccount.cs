@@ -19,8 +19,8 @@ namespace vIDsafe
         private readonly string _vaultFolder = "Vaults/";
         public MasterAccount(string name, string password)
         {
-            this._name = name;
-            this._password = password;
+            _name = name;
+            _password = password;
         }
 
         public string Name => _name;
@@ -41,9 +41,9 @@ namespace vIDsafe
             {
                 _password = HashPassword(_password);
 
-                this.Vault = GetVault();
+                Vault = GetVault();
 
-                if (this.Vault == null)
+                if (Vault == null)
                 {
                     return false;
                 }
@@ -76,7 +76,7 @@ namespace vIDsafe
 
         private bool VerifyPassword(string oldPassword)
         {
-            if (HashPassword(oldPassword) == this._password)
+            if (HashPassword(oldPassword) == _password)
             {
                 return true;
             }
@@ -90,7 +90,7 @@ namespace vIDsafe
         {
             if (VerifyPassword(oldPassword) == true)
             {
-                this._password = HashPassword(password);
+                _password = HashPassword(password);
                 SaveVault();
 
                 return true;
@@ -105,10 +105,10 @@ namespace vIDsafe
         {
             if (VerifyPassword(oldPassword) == true)
             {
-                File.Move(_vaultFolder + this._name, _vaultFolder + name);
+                File.Move(_vaultFolder + _name, _vaultFolder + name);
 
-                this._name = name;
-                this._password = HashPassword(oldPassword);
+                _name = name;
+                _password = HashPassword(oldPassword);
                 SaveVault();
 
                 return true;
@@ -137,19 +137,19 @@ namespace vIDsafe
 
         public void Logout()
         {
-            this._name = "";
-            this._password = "";
+            _name = "";
+            _password = "";
             Vault = new Vault();
         }
 
         private string HashPassword(string password)
         {
-            return Convert.ToBase64String(Encryption.DeriveKey(password, _name, Encryption.KeyDerivationFunction.PBKDF2));
+            return Convert.ToBase64String(Encryption.DeriveKey(Encryption.KeyDerivationFunction.PBKDF2, password, _name));
         }
 
         private string EncryptVault()
         {
-            string serialisedVault = ObjectToString(this.Vault);
+            string serialisedVault = ObjectToString(Vault);
 
             return Encryption.AesEncrypt(serialisedVault, Convert.FromBase64String(_password));
         }

@@ -55,6 +55,9 @@ namespace vIDsafe
         {
             FormvIDsafe.Main.User.Vault.DeleteAllCredentials();
 
+            Vault.UniqueUsernames.Clear();
+            Vault.UniquePasswords.Clear();
+
             KeyValuePair<DateTime, string> log = FormvIDsafe.Main.User.Vault.Log(Vault.LogType.Account, "All credentials deleted");
             DisplayLog(log.Key, log.Value);
         }
@@ -87,42 +90,74 @@ namespace vIDsafe
 
         private void btnChangeDetails_Click(object sender, EventArgs e)
         {
-            ChangeName();
+            ChangeName(txtCurrentPassword.Text, txtName.Text);
             GetLogs();
         }
-        private void ChangeName()
+        private void ChangeName(string currentPassword, string newName)
         {
-            if (FormvIDsafe.Main.User.TryChangeName(txtCurrentPassword.Text, txtName.Text) == true)
+            if (IsValidUsername(newName))
             {
-                Console.WriteLine("Name changed");
+                if (FormvIDsafe.Main.User.TryChangeName(currentPassword, newName) == true)
+                {
+                    Console.WriteLine("Name changed");
 
-                KeyValuePair<DateTime, string> log = FormvIDsafe.Main.User.Vault.Log(Vault.LogType.Account, "Name changed");
-                DisplayLog(log.Key, log.Value);
-            }
-            else
-            {
-                Console.WriteLine("Wrong old password");
+                    KeyValuePair<DateTime, string> log = FormvIDsafe.Main.User.Vault.Log(Vault.LogType.Account, "Name changed");
+                    DisplayLog(log.Key, log.Value);
+                }
+                else
+                {
+                    Console.WriteLine("Wrong old password");
+                }
             }
         }
 
         private void btnChangePassword_Click(object sender, EventArgs e)
         {
-            ChangePassword();
+            ChangePassword(txtCurrentPassword2.Text, txtNewPassword.Text);
             GetLogs();
         }
 
-        private void ChangePassword()
+        private void ChangePassword(string currentPassword, string newPassword)
         {
-            if (FormvIDsafe.Main.User.TryChangePassword(txtCurrentPassword2.Text, txtNewPassword.Text) == true)
+            if (IsValidPassword(newPassword))
             {
-                Console.WriteLine("Pass changed");
+                if (FormvIDsafe.Main.User.TryChangePassword(currentPassword, newPassword) == true)
+                {
+                    Console.WriteLine("Pass changed");
 
-                KeyValuePair<DateTime, string> log = FormvIDsafe.Main.User.Vault.Log(Vault.LogType.Account, "Password changed");
-                DisplayLog(log.Key, log.Value);
+                    KeyValuePair<DateTime, string> log = FormvIDsafe.Main.User.Vault.Log(Vault.LogType.Account, "Password changed");
+                    DisplayLog(log.Key, log.Value);
+                }
+                else
+                {
+                    Console.WriteLine("Wrong old password");
+                }
+            }
+        }
+
+        private bool IsValidUsername(string name)
+        {
+            if (name.Length >= 8)
+            {
+                return true;
             }
             else
             {
-                Console.WriteLine("Wrong old password");
+                Console.WriteLine("Name is lower than 8 characters");
+                return false;
+            }
+        }
+
+        private bool IsValidPassword(string password)
+        {
+            if (password == txtConfirmPassword.Text)
+            {
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("Passwords are not the same");
+                return false;
             }
         }
 

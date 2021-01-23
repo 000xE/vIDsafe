@@ -22,7 +22,7 @@ namespace vIDsafe
             PBKDF2
         }
 
-        public static byte[] DeriveKey(string secret, string salt, KeyDerivationFunction keyDerivationFunction)
+        public static byte[] DeriveKey(KeyDerivationFunction keyDerivationFunction, string secret, string salt)
         {
             //a new password hash is generated from a generated salt with the passed settings
             //https://shawnmclean.com/simplecrypto-net-a-pbkdf2-hashing-wrapper-for-net-framework/

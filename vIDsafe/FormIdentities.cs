@@ -75,6 +75,7 @@ namespace vIDsafe
             }
             else
             {
+                Console.WriteLine("Please check your email address");
                 return false;
             }
         }
@@ -86,10 +87,28 @@ namespace vIDsafe
                 FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).SetDetails(identityName, identityEmail, identityUsage);
 
                 cmbIdentity.Items[selectedIdentityIndex] = identityName;
+
+                GetBreachedData(selectedIdentityIndex, true);
             }
-            else
+        }
+        
+        private void GetBreachedData(int selectedIdentityIndex, bool useAPI)
+        {
+            Dictionary<string, string> breachedDomains = FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).GetBreaches(useAPI);
+
+            DisplayBreaches(breachedDomains);
+        }
+
+        private void DisplayBreaches(Dictionary<string, string> domains)
+        {
+            lvBreachedData.Items.Clear();
+            foreach (KeyValuePair<string, string> domain in domains)
             {
-                Console.WriteLine("Please enter all details");
+                ListViewItem lvi = new ListViewItem("");
+                lvi.SubItems.Add(domain.Key);
+                lvi.SubItems.Add(domain.Value);
+
+                lvBreachedData.Items.Add(lvi);
             }
         }
 
@@ -122,6 +141,8 @@ namespace vIDsafe
             {
                 Identity currentIdentity = FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex);
 
+                currentIdentity.CalculateHealthScore();
+
                 txtIdentityName.Text = currentIdentity.Name;
                 txtIdentityEmail.Text = currentIdentity.Email;
                 txtIdentityUsage.Text = currentIdentity.Usage;
@@ -136,6 +157,8 @@ namespace vIDsafe
                 chartCredentials.Series["Credentials"].Points[2].SetValueXY("Conflicts", conflictCount);
                 chartCredentials.Series["Credentials"].Points[3].SetValueXY("Compromised", compromisedCount);
                 chartCredentials.Series["Credentials"].IsValueShownAsLabel = true;
+
+                GetBreachedData(selectedIdentityIndex, false);
             }  
         }
 
@@ -159,30 +182,29 @@ namespace vIDsafe
 
             if (selectedIdentityIndex >= 0)
             {
-                txtIdentityName.Enabled = true;
-                txtIdentityEmail.Enabled = true;
-                txtIdentityUsage.Enabled = true;
-
-                btnSave.Enabled = true;
-                btnDeleteDiscard.Enabled = true;
-
-                lvPublicInformation.Visible = true;
-                chartCredentials.Visible = true;
+                EnableIdentityComponents(true);
 
                 FixColumnWidths();
             }
             else
             {
-                txtIdentityName.Enabled = false;
-                txtIdentityEmail.Enabled = false;
-                txtIdentityUsage.Enabled = false;
-
-                btnSave.Enabled = false;
-                btnDeleteDiscard.Enabled = false;
-
-                lvPublicInformation.Visible = false;
-                chartCredentials.Visible = false;
+                EnableIdentityComponents(false);
             }
+        }
+
+        private void EnableIdentityComponents(bool enabled)
+        {
+            txtIdentityName.Enabled = enabled;
+            txtIdentityEmail.Enabled = enabled;
+            txtIdentityUsage.Enabled = enabled;
+
+            btnSave.Enabled = enabled;
+            btnDeleteDiscard.Enabled = enabled;
+
+            panel5.Visible = enabled;
+
+            panel7.Visible = enabled;
+            panel7.BringToFront();
         }
 
         private void ClearInputs()
@@ -198,8 +220,13 @@ namespace vIDsafe
         }
         private void FixColumnWidths()
         {
-            lvPublicInformation.Columns[1].Width = lvPublicInformation.Width / (lvPublicInformation.Columns.Count - 1);
-            lvPublicInformation.Columns[2].Width = lvPublicInformation.Width / (lvPublicInformation.Columns.Count - 1);
+            lvBreachedData.Columns[1].Width = lvBreachedData.Width / (lvBreachedData.Columns.Count - 1);
+            lvBreachedData.Columns[2].Width = lvBreachedData.Width / (lvBreachedData.Columns.Count - 1);
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            GetBreachedData(cmbIdentity.SelectedIndex, true);
         }
     }
 }

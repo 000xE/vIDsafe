@@ -31,7 +31,11 @@ namespace vIDsafe
         private void LoadFormComponents()
         {
             OpenChildForm(new FormOverview());
-            lblMAName.Text = FormvIDsafe.Main.User.Name;
+        }
+
+        public static void SetName()
+        {
+            ((Label) FormControls.Find("lblMAName", true)[0]).Text = FormvIDsafe.Main.User.Name;
         }
 
         //https://stackoverflow.com/a/28811266

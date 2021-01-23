@@ -21,8 +21,7 @@ namespace vIDsafe
         {
             AddIdentityColumns();
 
-            DisplayHealthScores();
-            DisplayCredentialInformation();
+            RecalculateHealthScore();
         }
 
         private void RecalculateHealthScore()
@@ -155,11 +154,6 @@ namespace vIDsafe
                 chartCredentials.Annotations.Clear();
                 chartCredentials.Annotations.Add(ta);
             }
-        }
-
-        private void btnRefresh_Click(object sender, EventArgs e)
-        {
-            RecalculateHealthScore();
         }
     }
 }

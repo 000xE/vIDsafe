@@ -31,8 +31,6 @@ namespace vIDsafe
 
         public void CalculateHealthScore()
         {
-            CheckStatus();
-
             _weakCredentials = CountWeakCredentials();
             _conflictCredentials = CountConflictsCredentials();
             _compromisedCredentials = CountCompromisedCredentials();
@@ -43,6 +41,12 @@ namespace vIDsafe
             {
                 _healthScore = (int)(((double)_safeCredentials) / _credentials.Count * 100);
             }
+            else
+            {
+                _healthScore = 0;
+            }
+
+            FormvIDsafe.Main.User.SaveVault();
         }
 
         public int GetCredentialCount()
@@ -75,9 +79,9 @@ namespace vIDsafe
 
             string uniqueID = Guid.NewGuid().ToString();
 
-            _credentials.Add(uniqueID, credential);
-
             Vault.IncrementConflictCount(username, password);
+
+            _credentials.Add(uniqueID, credential);
 
             FormvIDsafe.Main.User.SaveVault();
 
@@ -117,97 +121,58 @@ namespace vIDsafe
 
         public void SetDetails(string name, string email, string usage)
         {
-            this._name = name;
-            this._email = email;
-            this._usage = usage;
-
-            GetBreaches();
+            _name = name;
+            _email = email;
+            _usage = usage;
 
             FormvIDsafe.Main.User.SaveVault();
         }
 
-        private void GetBreaches()
+        public Dictionary<string, string> GetBreaches(bool useAPI)
         {
-            List<ExposureDetails> exposureDetails = EnzoicAPI.GetExposureDetails(_email);
-
-            foreach (ExposureDetails detail in exposureDetails)
+            if (useAPI)
             {
-                if (!_breachedDomains.ContainsKey(detail.Title))
+                List<ExposureDetails> exposureDetails = EnzoicAPI.GetExposureDetails(_email);
+
+                _breachedDomains.Clear();
+
+                foreach (ExposureDetails detail in exposureDetails)
                 {
-                    _breachedDomains.Add(detail.Title, detail.Title);
+                    if (!_breachedDomains.ContainsKey(detail.Title))
+                    {
+                        _breachedDomains.Add(detail.Title, detail.Date.ToString());
+                    }
                 }
+
+                FormvIDsafe.Main.User.SaveVault();
+            }
+
+            return _breachedDomains;
+        }
+
+        public void ManualCheckStatus(string credentialID)
+        {
+            Credential credential = _credentials[credentialID];
+
+            if (CheckBreached(credential))
+            {
+                credential.SetStatus(Credential.CredentialStatus.Compromised);
+            }
+            else if (CheckConflict(credential))
+            {
+                credential.SetStatus(Credential.CredentialStatus.Conflicted);
+            }
+            else if (CheckWeak(credential))
+            {
+                credential.SetStatus(Credential.CredentialStatus.Weak);
+            }
+            else
+            {
+                credential.SetStatus(Credential.CredentialStatus.Safe);
             }
         }
 
-        private int CountCompromisedCredentials()
-        {
-            int compromisedCount = 0;
-
-            foreach (KeyValuePair<string, Credential> credential in _credentials)
-            {
-                if (credential.Value.Status == Credential.CredentialStatus.Compromised)
-                {
-                    compromisedCount++;
-                }
-            }
-
-            return compromisedCount;
-        }
-
-        private int CountWeakCredentials()
-        {
-            int weakCount = 0;
-
-            foreach (KeyValuePair<string, Credential> credential in _credentials)
-            {
-                if (credential.Value.Status == Credential.CredentialStatus.Weak)
-                {
-                    weakCount++;
-                }
-            }
-
-            return weakCount;
-        }
-
-        private int CountConflictsCredentials()
-        {
-            int conflictCount = 0;
-
-            foreach (KeyValuePair<string, Credential> credential in _credentials)
-            {
-                if (credential.Value.Status == Credential.CredentialStatus.Conflicted)
-                {
-                    conflictCount++;
-                }
-            }
-
-            return conflictCount;
-        }
-
-        public void CheckStatus()
-        {
-            foreach (KeyValuePair<string, Credential> credential in _credentials)
-            {
-                if (CheckBreached(credential.Value))
-                {
-                    credential.Value.SetStatus(Credential.CredentialStatus.Compromised);
-                }
-                else if (CheckConflict(credential.Value))
-                {
-                    credential.Value.SetStatus(Credential.CredentialStatus.Conflicted);
-                }
-                else if (CheckWeak(credential.Value))
-                {
-                    credential.Value.SetStatus(Credential.CredentialStatus.Weak);
-                }
-                else
-                {
-                    credential.Value.SetStatus(Credential.CredentialStatus.Safe);
-                }
-            }
-        }
-
-        public bool CheckBreached(Credential credential)
+        private bool CheckBreached(Credential credential)
         {
             if (_breachedDomains.ContainsKey(credential.GetDomain()))
             {
@@ -247,10 +212,6 @@ namespace vIDsafe
                     return true;
                 }
             }
-            else
-            {
-                Vault.UniqueUsernames.Add(username, 1);
-            }
 
             if (Vault.UniquePasswords.ContainsKey(password))
             {
@@ -259,12 +220,59 @@ namespace vIDsafe
                     return true;
                 }
             }
-            else
-            {
-                Vault.UniquePasswords.Add(password, 1);
-            }
 
             return false;
+        }
+
+        private int CountCompromisedCredentials()
+        {
+            int compromisedCount = 0;
+
+            foreach (KeyValuePair<string, Credential> credential in _credentials)
+            {
+                if (CheckBreached(credential.Value))
+                {
+                    credential.Value.SetStatus(Credential.CredentialStatus.Compromised);
+                    compromisedCount++;
+                }
+            }
+
+            return compromisedCount;
+        }
+
+        private int CountWeakCredentials()
+        {
+            int weakCount = 0;
+
+            foreach (KeyValuePair<string, Credential> credential in _credentials)
+            {
+                //Checking for weak credentials take slightly longer, and it isn't a change-in-time thing like compromisation or conflicts
+                //So it's only done upon creating/modifying one instead, this simply counts existing ones
+                if (credential.Value.Status == Credential.CredentialStatus.Weak)
+                {
+                    weakCount++;
+                }
+
+            }
+
+            return weakCount;
+        }
+
+        private int CountConflictsCredentials()
+        {
+            int conflictCount = 0;
+
+            foreach (KeyValuePair<string, Credential> credential in _credentials)
+            {
+                if (CheckConflict(credential.Value))
+                {
+                    credential.Value.SetStatus(Credential.CredentialStatus.Conflicted);
+                    conflictCount++;
+                }
+
+            }
+
+            return conflictCount;
         }
     }
 }

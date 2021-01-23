@@ -19,15 +19,15 @@ namespace vIDsafe
 
         private void btnRegister_Click(object sender, EventArgs e)
         {
-            Register();
+            Register(txtName.Text, txtPassword.Text);
         }
 
-        private void Register()
+        private void Register(string name, string password)
         {
-            FormvIDsafe.Main.User = new MasterAccount(txtName.Text, txtPassword.Text);
-
-            if (IsValid())
+            if (IsValid(name, password))
             {
+                FormvIDsafe.Main.User = new MasterAccount(name, password);
+
                 if (FormvIDsafe.Main.User.TryRegister() == true)
                 {
                     FormHome form = new FormHome();
@@ -42,9 +42,25 @@ namespace vIDsafe
             }
         }
 
-        private bool IsValid()
+        private bool IsValid(string name, string password)
         {
-            return true;
+            if (name.Length >= 8)
+            {
+                if (password == txtConfirmPassword.Text)
+                {
+                    return true;
+                }
+                else
+                {
+                    Console.WriteLine("Passwords are not the same");
+                    return false;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Name is lower than 8 characters");
+                return false;
+            }
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
