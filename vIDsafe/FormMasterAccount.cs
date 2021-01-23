@@ -101,6 +101,8 @@ namespace vIDsafe
                 {
                     Console.WriteLine("Name changed");
 
+                    FormHome.SetName();
+
                     KeyValuePair<DateTime, string> log = FormvIDsafe.Main.User.Vault.Log(Vault.LogType.Account, "Name changed");
                     DisplayLog(log.Key, log.Value);
                 }

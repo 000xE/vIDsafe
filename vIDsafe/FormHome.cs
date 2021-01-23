@@ -31,6 +31,7 @@ namespace vIDsafe
         private void LoadFormComponents()
         {
             OpenChildForm(new FormOverview());
+            SetName();
         }
 
         public static void SetName()

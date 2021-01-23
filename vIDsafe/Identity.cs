@@ -134,8 +134,6 @@ namespace vIDsafe
             {
                 List<ExposureDetails> exposureDetails = EnzoicAPI.GetExposureDetails(_email);
 
-                _breachedDomains.Clear();
-
                 foreach (ExposureDetails detail in exposureDetails)
                 {
                     if (!_breachedDomains.ContainsKey(detail.Title))
