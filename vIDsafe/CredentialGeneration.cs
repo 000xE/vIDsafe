@@ -142,7 +142,7 @@ namespace vIDsafe
                 {
                     string randomWord = WordList.EEFLongWordList[cryptoRandom.Next(0, wordListLength)];
 
-                    if (password.Length == 0)
+                    if (password.Length.Equals(0))
                     {
                         password.Append(randomWord);
                     }

@@ -118,7 +118,8 @@ namespace vIDsafe
         {
             foreach (Identity identity in FormvIDsafe.Main.User.Vault.Identities)
             {
-                if (identity.Credentials.Any(c => (c.Value.CredentialID != _credentialID) && (c.Value.Username == _userName || c.Value.Password == _password)))
+                if (identity.Credentials.Any(c => (c.Value.CredentialID != _credentialID) 
+                && (c.Value.Username.Equals(_userName, StringComparison.OrdinalIgnoreCase) || c.Value.Password.Equals(_password))))
                 {
                     return true;
                 }

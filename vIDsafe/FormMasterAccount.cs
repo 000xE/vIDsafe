@@ -94,7 +94,7 @@ namespace vIDsafe
         {
             if (IsValidUsername(newName))
             {
-                if (FormvIDsafe.Main.User.TryChangeName(currentPassword, newName) == true)
+                if (FormvIDsafe.Main.User.TryChangeName(currentPassword, newName).Equals(true))
                 {
                     Console.WriteLine("Name changed");
 
@@ -118,9 +118,10 @@ namespace vIDsafe
 
         private void ChangePassword(string currentPassword, string newPassword)
         {
+            //Todo: cleanup (put isvalid in btnlogin and maybe pass in confirm pass as parameter)
             if (IsValidPassword(newPassword))
             {
-                if (FormvIDsafe.Main.User.TryChangePassword(currentPassword, newPassword) == true)
+                if (FormvIDsafe.Main.User.TryChangePassword(currentPassword, newPassword).Equals(true))
                 {
                     Console.WriteLine("Pass changed");
 
@@ -149,7 +150,7 @@ namespace vIDsafe
 
         private bool IsValidPassword(string password)
         {
-            if (password == txtConfirmPassword.Text)
+            if (password.Equals(txtConfirmPassword.Text))
             {
                 return true;
             }

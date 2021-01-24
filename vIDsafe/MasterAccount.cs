@@ -43,7 +43,7 @@ namespace vIDsafe
 
                 Vault = GetVault();
 
-                if (Vault == null)
+                if (Vault.Equals(null))
                 {
                     return false;
                 }
@@ -76,7 +76,7 @@ namespace vIDsafe
 
         private bool VerifyPassword(string oldPassword)
         {
-            if (HashPassword(oldPassword) == _password)
+            if (HashPassword(oldPassword).Equals(_password))
             {
                 return true;
             }
@@ -88,7 +88,7 @@ namespace vIDsafe
 
         public bool TryChangePassword(string oldPassword, string password)
         {
-            if (VerifyPassword(oldPassword) == true)
+            if (VerifyPassword(oldPassword).Equals(true))
             {
                 _password = HashPassword(password);
                 SaveVault();
@@ -103,7 +103,7 @@ namespace vIDsafe
 
         public bool TryChangeName(string oldPassword, string name)
         {
-            if (VerifyPassword(oldPassword) == true)
+            if (VerifyPassword(oldPassword).Equals(true))
             {
                 File.Move(_vaultFolder + _name, _vaultFolder + name);
 
