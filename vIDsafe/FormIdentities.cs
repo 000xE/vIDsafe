@@ -216,7 +216,7 @@ namespace vIDsafe
             btnSave.Enabled = enabled;
             btnDeleteDiscard.Enabled = enabled;
 
-            panel5.Visible = enabled;
+            pnlIdentityComponents.Visible = enabled;
         }
 
         private void ClearInputs()

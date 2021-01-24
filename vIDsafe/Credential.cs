@@ -47,7 +47,7 @@ namespace vIDsafe
 
             _credentialID = Guid.NewGuid().ToString();
 
-            CheckStatus();
+            _status = CheckStatus();
         }
 
         public string GetDomain()
@@ -71,7 +71,7 @@ namespace vIDsafe
             _url = url;
             _notes = notes;
 
-            CheckStatus();
+            _status = CheckStatus();
 
             FormvIDsafe.Main.User.SaveVault();
         }
@@ -81,23 +81,23 @@ namespace vIDsafe
             _status = status;
         }
 
-        public void CheckStatus()
+        public CredentialStatus CheckStatus()
         {
             if (CheckBreached())
             {
-                _status = CredentialStatus.Compromised;
+                return CredentialStatus.Compromised;
             }
             else if (CheckConflict())
             {
-                _status = CredentialStatus.Conflicted;
+                return CredentialStatus.Conflicted;
             }
             else if (CheckWeak())
             {
-                _status = CredentialStatus.Weak;
+                return CredentialStatus.Weak;
             }
             else
             {
-                _status = CredentialStatus.Safe;
+                return CredentialStatus.Safe;
             }
         }
 
