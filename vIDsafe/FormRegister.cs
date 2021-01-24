@@ -24,11 +24,12 @@ namespace vIDsafe
 
         private void Register(string name, string password)
         {
+            //Todo: cleanup (put isvalid in btnregister and maybe pass in confirm pass as parameter)
             if (IsValid(name, password))
             {
                 FormvIDsafe.Main.User = new MasterAccount(name, password);
 
-                if (FormvIDsafe.Main.User.TryRegister() == true)
+                if (FormvIDsafe.Main.User.TryRegister().Equals(true))
                 {
                     FormHome form = new FormHome();
                     form.Show();
@@ -46,7 +47,7 @@ namespace vIDsafe
         {
             if (name.Length >= 8)
             {
-                if (password == txtConfirmPassword.Text)
+                if (password.Equals(txtConfirmPassword.Text))
                 {
                     return true;
                 }

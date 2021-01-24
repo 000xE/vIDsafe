@@ -28,7 +28,7 @@ namespace vIDsafe
             {
                 FormvIDsafe.Main.User = new MasterAccount(name, password);
 
-                if (FormvIDsafe.Main.User.TryLogin() == true)
+                if (FormvIDsafe.Main.User.TryLogin().Equals(true))
                 {
                     FormHome form = new FormHome();
                     form.Show();

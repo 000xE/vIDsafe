@@ -141,9 +141,9 @@ namespace vIDsafe
 
         private void clbSettings_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            if (e.NewValue == CheckState.Unchecked)
+            if (e.NewValue.Equals(CheckState.Unchecked))
             {
-                if (clbSettings.CheckedItems.Count == 1)
+                if (clbSettings.CheckedItems.Count.Equals(1))
                 {
                     e.NewValue = e.CurrentValue;
                 }

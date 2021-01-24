@@ -10,13 +10,13 @@ namespace vIDsafe
     [Serializable]
     public class Identity
     {
-        private Dictionary<string, Credential> _credentials = new Dictionary<string, Credential>();
-
         private string _name;
         private string _email;
         private string _usage;
 
         private int _healthScore;
+
+        private Dictionary<string, Credential> _credentials = new Dictionary<string, Credential>();
 
         private Dictionary<Credential.CredentialStatus, int> _credentialCounts = new Dictionary<Credential.CredentialStatus, int>()
         {
@@ -47,6 +47,8 @@ namespace vIDsafe
         public int ConflictCredentials => _credentialCounts[Credential.CredentialStatus.Conflicted];
 
         public Dictionary<string, string> BreachedDomains => _breachedDomains;
+
+        public Dictionary<string, Credential> Credentials => _credentials;
 
         public Identity(string name)
         {
@@ -87,8 +89,6 @@ namespace vIDsafe
                 _credentialCounts[credential.Value.Status]++;
             }
         }
-
-        public Dictionary<string, Credential> Credentials => _credentials;
 
         public string NewCredential(int identityIndex, string username, string password)
         {

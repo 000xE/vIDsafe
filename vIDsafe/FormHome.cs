@@ -82,22 +82,24 @@ namespace vIDsafe
             //selectedButton.BackColor = Color.FromArgb(47, 47, 47);
             selectedButton.BackColor = Color.Gainsboro;
 
-            Panel panelNav = (Panel) ctrlsFormControls.Find("pnlNavigation", true)[0];
+            //Todo: cleanup
 
-            foreach (Control mainControls in panelNav.Controls)
+            Panel pnlNav = (Panel) ctrlsFormControls.Find("pnlNavigation", true)[0];
+
+            foreach (Control ctrlsMain in pnlNav.Controls)
             {
-                foreach (Control navigationControls in mainControls.Controls)
+                foreach (Control ctrlsNav in ctrlsMain.Controls)
                 {
-                    if (navigationControls.Tag != null)
+                    if (ctrlsNav.Tag != null)
                     {
-                        if (navigationControls.Tag.ToString() == "navButton")
+                        if (ctrlsNav.Tag.ToString().Equals("navButton"))
                         {
-                            if (navigationControls != selectedButton)
+                            if (ctrlsNav != selectedButton)
                             {
-                                navigationControls.ForeColor = Color.FromArgb(204, 204, 204);
+                                ctrlsNav.ForeColor = Color.FromArgb(204, 204, 204);
                                 //navigationControls.BackColor = Color.FromArgb(26, 26, 26);
                                 //navigationControls.BackColor = Color.FromArgb(32, 32, 32);
-                                navigationControls.BackColor = Color.FromArgb(29, 32, 36);                        
+                                ctrlsNav.BackColor = Color.FromArgb(29, 32, 36);                        
                             }
                         }
                     }

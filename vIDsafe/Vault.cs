@@ -10,19 +10,11 @@ namespace vIDsafe
     [Serializable]
     public class Vault
     {
-        private List<Identity> _identities = new List<Identity>();
-
         private int _overallHealthScore;
 
-        private int _totalCredentialCount;
+        private List<Identity> _identities = new List<Identity>();
 
-        private Dictionary<Credential.CredentialStatus, int> _totalCredentialCounts = new Dictionary<Credential.CredentialStatus, int>()
-        {
-            [Credential.CredentialStatus.Safe] = 0,
-            [Credential.CredentialStatus.Compromised] = 0,
-            [Credential.CredentialStatus.Conflicted] = 0,
-            [Credential.CredentialStatus.Weak] = 0
-        };
+        private int _totalCredentialCount;
 
         public enum LogType
         {
@@ -34,6 +26,14 @@ namespace vIDsafe
         {
             [LogType.Account] = new Dictionary<DateTime, string>(),
             [LogType.Passwords] = new Dictionary<DateTime, string>()
+        };
+
+        private Dictionary<Credential.CredentialStatus, int> _totalCredentialCounts = new Dictionary<Credential.CredentialStatus, int>()
+        {
+            [Credential.CredentialStatus.Safe] = 0,
+            [Credential.CredentialStatus.Compromised] = 0,
+            [Credential.CredentialStatus.Conflicted] = 0,
+            [Credential.CredentialStatus.Weak] = 0
         };
 
         public int OverallHealthScore => _overallHealthScore;
