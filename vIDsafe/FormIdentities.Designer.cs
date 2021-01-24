@@ -66,7 +66,7 @@
             this.btnNewIdentity = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.btnSave = new System.Windows.Forms.Button();
-            this.btnDeleteDiscard = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
             this.panelTitle.SuspendLayout();
             this.panelBack.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -469,7 +469,7 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Controls.Add(this.btnSave, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.btnDeleteDiscard, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.btnDelete, 1, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Right;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(256, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -496,22 +496,22 @@
             this.btnSave.UseVisualStyleBackColor = false;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // btnDeleteDiscard
+            // btnDelete
             // 
-            this.btnDeleteDiscard.BackColor = System.Drawing.Color.LightSlateGray;
-            this.btnDeleteDiscard.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnDeleteDiscard.FlatAppearance.BorderSize = 0;
-            this.btnDeleteDiscard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDeleteDiscard.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeleteDiscard.ForeColor = System.Drawing.Color.Gainsboro;
-            this.btnDeleteDiscard.Location = new System.Drawing.Point(258, 0);
-            this.btnDeleteDiscard.Margin = new System.Windows.Forms.Padding(0);
-            this.btnDeleteDiscard.Name = "btnDeleteDiscard";
-            this.btnDeleteDiscard.Size = new System.Drawing.Size(259, 40);
-            this.btnDeleteDiscard.TabIndex = 1;
-            this.btnDeleteDiscard.Text = "Delete/Discard";
-            this.btnDeleteDiscard.UseVisualStyleBackColor = false;
-            this.btnDeleteDiscard.Click += new System.EventHandler(this.btnDeleteDiscard_Click);
+            this.btnDelete.BackColor = System.Drawing.Color.LightSlateGray;
+            this.btnDelete.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnDelete.FlatAppearance.BorderSize = 0;
+            this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDelete.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDelete.ForeColor = System.Drawing.Color.Gainsboro;
+            this.btnDelete.Location = new System.Drawing.Point(258, 0);
+            this.btnDelete.Margin = new System.Windows.Forms.Padding(0);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(259, 40);
+            this.btnDelete.TabIndex = 1;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.UseVisualStyleBackColor = false;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // FormIdentities
             // 
@@ -560,7 +560,7 @@
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Button btnDeleteDiscard;
+        private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button btnNewIdentity;
         private System.Windows.Forms.TextBox txtIdentityUsage;

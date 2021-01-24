@@ -55,6 +55,7 @@ namespace vIDsafe
 
         public void CalculateHealthScore()
         {
+            RefreshCredentials();
             CountCrentials();
 
             if (_credentials.Count > 0)
@@ -139,16 +140,19 @@ namespace vIDsafe
                         }
                     }
 
-                    foreach (KeyValuePair<string, Credential> credential in _credentials)
-                    {
-                        credential.Value.CheckBreached();
-                    }
-
                     FormvIDsafe.Main.User.SaveVault();
                 }
             }
 
             return _breachedDomains;
+        }
+
+        private void RefreshCredentials()
+        {
+            foreach (KeyValuePair<string, Credential> credential in _credentials)
+            {
+                credential.Value.SetStatus(credential.Value.GetStatus());
+            }
         }
     }
 }

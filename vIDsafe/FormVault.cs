@@ -57,7 +57,7 @@ namespace vIDsafe
             }
         }
 
-        private void btnDeleteDiscard_Click(object sender, EventArgs e)
+        private void btnDelete_Click(object sender, EventArgs e)
         {
             DeleteCredential(cmbIdentity.SelectedIndex, lvCredentials.SelectedItems.Count);
         }
@@ -139,6 +139,9 @@ namespace vIDsafe
 
                 credentials = credentials.Where(pair => pair.Value.Username.ToLower().Contains(searchedText.ToLower().Trim())).ToDictionary(pair => pair.Key, pair => pair.Value);
 
+                credentials = credentials.Where(pair => pair.Value.Username.IndexOf(searchedText, StringComparison.OrdinalIgnoreCase) >= 0).ToDictionary(pair => pair.Key, pair => pair.Value);
+
+
                 DisplayCredentials(credentials);
             }
             else
@@ -153,7 +156,7 @@ namespace vIDsafe
         {
             foreach (Identity identity in FormvIDsafe.Main.User.Vault.Identities)
             {
-                cmbIdentity.Items.Add(identity.Name);
+                cmbIdentity.Items.Add(identity.Name + " - " + identity.Email);
             }
 
             ResetDetails();
@@ -162,6 +165,8 @@ namespace vIDsafe
         private void GetCredentials(int selectedIdentityIndex)
         {
             Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedIdentityIndex];
+
+            identity.CalculateHealthScore();
 
             Dictionary<string, Credential> credentials = identity.Credentials;
 
@@ -270,7 +275,7 @@ namespace vIDsafe
             txtNotes.Enabled = enabled;
 
             btnSave.Enabled = enabled;
-            btnDeleteDiscard.Enabled = enabled;
+            btnDelete.Enabled = enabled;
 
             btnGenerateUsername.Enabled = enabled;
             btnGeneratePassword.Enabled = enabled;
@@ -300,5 +305,23 @@ namespace vIDsafe
         {
             GetCredentials(cmbIdentity.SelectedIndex);
         }
+
+        private void btnDeleteAll_Click(object sender, EventArgs e)
+        {
+            DeleteCredential(cmbIdentity.SelectedIndex);
+        }
+
+        private void DeleteCredential(int selectedIdentityIndex)
+        {
+            if (selectedIdentityIndex >= 0)
+            {
+                Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedIdentityIndex];
+
+                identity.Credentials.Clear();
+
+                GetCredentials(selectedIdentityIndex);
+            }
+        }
+
     }
 }
