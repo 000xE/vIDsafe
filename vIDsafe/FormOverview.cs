@@ -104,41 +104,58 @@ namespace vIDsafe
 
         private Color CalculateHealthColor(int healthScore)
         {
-            Color color = new Color();
-
             int maxGoodScore = 100;
             int maxMediumScore = 75;
             int maxBadScore = 50;
 
-            if (healthScore <= maxBadScore)
+            double colourAmplifier = 50;
+
+            Color scoreColor = new Color();
+
+            if (healthScore < maxBadScore)
             {
-                Color bad = Color.DarkSalmon;
-                //Color bad = Color.FromArgb(255, 233, 150, 61);
-
-                double colorMultiplier = ((100 - maxBadScore) + (double)healthScore) / 100;
-
-                color = Color.FromArgb(bad.A, bad.R, bad.G, (int)(bad.B * colorMultiplier));
+                scoreColor = Color.DarkSalmon;
             }
-            else if (healthScore <= maxMediumScore)
+            else if (healthScore < maxMediumScore)
             {
-                Color medium = Color.Khaki;
-
-                double colorMultiplier = ((100 - maxMediumScore) + (double)healthScore) / 100;
-
-                color = Color.FromArgb(medium.A, medium.R, medium.G, (int)(medium.B * colorMultiplier));
+                scoreColor = Color.Khaki;
             }
             else if (healthScore <= maxGoodScore)
             {
-                Color good = Color.MediumSeaGreen;
-
-                double colorMultiplier = ((100 - maxGoodScore) + (double)healthScore) / 100;
-
-                color = Color.FromArgb(good.A, good.R, (int)(good.G * colorMultiplier), good.B);
+                scoreColor = Color.LimeGreen;
             }
+
+            double colorMultiplier = (healthScore / (100 / colourAmplifier)) / 100;
+
+            scoreColor = ChangeColorBrightness(scoreColor, (float)colorMultiplier);
 
             //Console.WriteLine(color);
 
-            return color;
+            return scoreColor;
+        }
+
+        //https://gist.github.com/zihotki/09fc41d52981fb6f93a81ebf20b35cd5
+        public static Color ChangeColorBrightness(Color color, float correctionFactor)
+        {
+            float red = color.R;
+            float green = color.G;
+            float blue = color.B;
+
+            if (correctionFactor < 0)
+            {
+                correctionFactor = 1 + correctionFactor;
+                red *= correctionFactor;
+                green *= correctionFactor;
+                blue *= correctionFactor;
+            }
+            else
+            {
+                red = (255 - red) * correctionFactor + red;
+                green = (255 - green) * correctionFactor + green;
+                blue = (255 - blue) * correctionFactor + blue;
+            }
+
+            return Color.FromArgb(color.A, (int)red, (int)green, (int)blue);
         }
 
         private void DisplayCredentialInformation()
