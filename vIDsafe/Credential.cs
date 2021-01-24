@@ -118,24 +118,10 @@ namespace vIDsafe
         {
             foreach (Identity identity in FormvIDsafe.Main.User.Vault.Identities)
             {
-                foreach (KeyValuePair<string, Credential> credentialPair in identity.Credentials)
-                {
-                    Credential credential = credentialPair.Value;
-
-                    if (credential.CredentialID != _credentialID)
-                    {
-                        if (credential.Username.Equals(_userName, StringComparison.OrdinalIgnoreCase) || credential.Password == _password)
-                        {
-                            credential.SetStatus(CredentialStatus.Conflicted);
-
-                            return true;
-                        }
-                    }
-                }
-                /*if (identity.Credentials.Any(c => (c.Value.GUID != _guid) && (c.Value.Username == _userName || c.Value.Password == _password)))
+                if (identity.Credentials.Any(c => (c.Value.CredentialID != _credentialID) && (c.Value.Username == _userName || c.Value.Password == _password)))
                 {
                     return true;
-                }*/
+                }
             }
 
             return false;

@@ -200,7 +200,7 @@
             // 
             // btnDeleteAll
             // 
-            this.btnDeleteAll.BackColor = System.Drawing.Color.LightCoral;
+            this.btnDeleteAll.BackColor = System.Drawing.Color.LightSlateGray;
             this.btnDeleteAll.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btnDeleteAll.FlatAppearance.BorderSize = 0;
             this.btnDeleteAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
