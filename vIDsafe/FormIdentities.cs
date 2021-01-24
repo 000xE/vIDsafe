@@ -99,7 +99,7 @@ namespace vIDsafe
 
                 identity.SetDetails(identityName, identityEmail, identityUsage);
 
-                cmbIdentity.Items[selectedIdentityIndex] = identityName;
+                cmbIdentity.Items[selectedIdentityIndex] = identity.Name + " - " + identity.Email;
 
                 GetBreachedData(selectedIdentityIndex, true);
             }
@@ -127,7 +127,7 @@ namespace vIDsafe
             }
         }
 
-        private void btnDeleteDiscard_Click(object sender, EventArgs e)
+        private void btnDelete_Click(object sender, EventArgs e)
         {
             DeleteIdentity(cmbIdentity.SelectedIndex);
         }
@@ -144,7 +144,7 @@ namespace vIDsafe
 
             foreach (Identity identity in FormvIDsafe.Main.User.Vault.Identities)
             {
-                cmbIdentity.Items.Add(identity.Name);
+                cmbIdentity.Items.Add(identity.Name + " - " + identity.Email);
             }
         }
 
@@ -214,7 +214,7 @@ namespace vIDsafe
             txtIdentityUsage.Enabled = enabled;
 
             btnSave.Enabled = enabled;
-            btnDeleteDiscard.Enabled = enabled;
+            btnDelete.Enabled = enabled;
 
             pnlIdentityComponents.Visible = enabled;
         }

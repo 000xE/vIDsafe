@@ -50,7 +50,7 @@ namespace vIDsafe
 
             _credentialID = Guid.NewGuid().ToString();
 
-            _status = CheckStatus();
+            _status = GetStatus();
         }
 
         public string GetDomain()
@@ -74,7 +74,7 @@ namespace vIDsafe
             _url = url;
             _notes = notes;
 
-            _status = CheckStatus();
+            _status = GetStatus();
 
             FormvIDsafe.Main.User.SaveVault();
         }
@@ -84,7 +84,7 @@ namespace vIDsafe
             _status = status;
         }
 
-        private CredentialStatus CheckStatus()
+        public CredentialStatus GetStatus()
         {
             if (CheckBreached())
             {
@@ -104,31 +104,14 @@ namespace vIDsafe
             }
         }
 
-        //Made public to be checked for each credential upon re-getting the compromised accounts
-        public bool CheckBreached()
+        private bool CheckBreached()
         {
             if (FormvIDsafe.Main.User.Vault.Identities[_identityIndex].BreachedDomains.ContainsKey(GetDomain()))
             {
                 return true;
             }
-            else
-            {
-                return false;
-            }
-        }
 
-        private bool CheckWeak()
-        {
-            double strengthThreshold = 30.0;
-
-            if (CredentialGeneration.CheckStrength(_password) < strengthThreshold)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         private bool CheckConflict()
@@ -141,9 +124,10 @@ namespace vIDsafe
 
                     if (credential.CredentialID != _credentialID)
                     {
-                        if (credential.Username == _userName || credential.Password == _password)
+                        if (credential.Username.Equals(_userName, StringComparison.OrdinalIgnoreCase) || credential.Password == _password)
                         {
                             credential.SetStatus(CredentialStatus.Conflicted);
+
                             return true;
                         }
                     }
@@ -152,6 +136,18 @@ namespace vIDsafe
                 {
                     return true;
                 }*/
+            }
+
+            return false;
+        }
+
+        private bool CheckWeak()
+        {
+            double strengthThreshold = 30.0;
+
+            if (CredentialGeneration.CheckStrength(_password) < strengthThreshold)
+            {
+                return true;
             }
 
             return false;
