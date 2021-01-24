@@ -156,8 +156,6 @@ namespace vIDsafe
             {
                 Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedIdentityIndex];
 
-                identity.CalculateHealthScore();
-
                 txtIdentityName.Text = identity.Name;
                 txtIdentityEmail.Text = identity.Email;
                 txtIdentityUsage.Text = identity.Usage;

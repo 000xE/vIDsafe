@@ -76,7 +76,7 @@ namespace vIDsafe
 
             _status = GetStatus();
 
-            FormvIDsafe.Main.User.SaveVault();
+            FormvIDsafe.Main.User.Vault.Identities[_identityIndex].RefreshCredentialStatus();
         }
 
         public void SetStatus(CredentialStatus status)
