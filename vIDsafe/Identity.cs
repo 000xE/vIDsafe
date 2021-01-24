@@ -54,42 +54,6 @@ namespace vIDsafe
         {
             _name = name;
         }
-
-        public void CalculateHealthScore()
-        {
-            RefreshCredentials();
-            CountCrentials();
-
-            if (_credentials.Count > 0)
-            {
-                _healthScore = (int)((double)_credentialCounts[Credential.CredentialStatus.Safe] / _credentials.Count * 100);
-            }
-            else
-            {
-                _healthScore = 0;
-            }
-
-            FormvIDsafe.Main.User.SaveVault();
-        }
-
-        private void ResetCredentialCounts()
-        {
-            foreach (Credential.CredentialStatus status in Enum.GetValues(typeof(Credential.CredentialStatus)))
-            {
-                _credentialCounts[status] = 0;
-            }
-        }
-
-        private void CountCrentials()
-        {
-            ResetCredentialCounts();
-
-            foreach (KeyValuePair<string, Credential> credential in _credentials)
-            {
-                _credentialCounts[credential.Value.Status]++;
-            }
-        }
-
         public string NewCredential(int identityIndex, string username, string password)
         {
             Credential credential = new Credential(identityIndex, username, password);
@@ -98,9 +62,16 @@ namespace vIDsafe
 
             _credentials.Add(GUID, credential);
 
-            FormvIDsafe.Main.User.SaveVault();
+            RefreshCredentialStatus();
 
             return GUID;
+        }
+
+        public void DeleteAllCredentials()
+        {
+            Credentials.Clear();
+
+            RefreshCredentialStatus();
         }
 
         public void DeleteCredential(string key)
@@ -109,7 +80,7 @@ namespace vIDsafe
             {
                 _credentials.Remove(key);
 
-                FormvIDsafe.Main.User.SaveVault();
+                RefreshCredentialStatus();
             }
         }
 
@@ -128,10 +99,10 @@ namespace vIDsafe
             {
                 List<ExposureDetails> exposureDetails = EnzoicAPI.GetExposureDetails(_email);
 
+                _breachedDomains.Clear();
+
                 if (exposureDetails.Count > 0)
                 {
-                    _breachedDomains.Clear();
-
                     foreach (ExposureDetails detail in exposureDetails)
                     {
                         if (!_breachedDomains.ContainsKey(detail.Title))
@@ -140,19 +111,53 @@ namespace vIDsafe
                         }
                     }
 
-                    FormvIDsafe.Main.User.SaveVault();
+                    RefreshCredentialStatus();
                 }
             }
 
             return _breachedDomains;
         }
 
-        private void RefreshCredentials()
+        public void CalculateHealthScore()
+        {
+            if (_credentials.Count > 0)
+            {
+                _healthScore = (int)((double)_credentialCounts[Credential.CredentialStatus.Safe] / _credentials.Count * 100);
+            }
+            else
+            {
+                _healthScore = 0;
+            }
+        }
+
+        private void ResetCredentialCounts()
+        {
+            foreach (Credential.CredentialStatus status in Enum.GetValues(typeof(Credential.CredentialStatus)))
+            {
+                _credentialCounts[status] = 0;
+            }
+        }
+
+        private void CountCredentialStatus()
+        {
+            ResetCredentialCounts();
+
+            foreach (KeyValuePair<string, Credential> credential in _credentials)
+            {
+                _credentialCounts[credential.Value.Status]++;
+            }
+        }
+
+        public void RefreshCredentialStatus()
         {
             foreach (KeyValuePair<string, Credential> credential in _credentials)
             {
                 credential.Value.SetStatus(credential.Value.GetStatus());
             }
+
+            CountCredentialStatus();
+
+            FormvIDsafe.Main.User.SaveVault();
         }
     }
 }

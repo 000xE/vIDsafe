@@ -166,8 +166,6 @@ namespace vIDsafe
         {
             Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedIdentityIndex];
 
-            identity.CalculateHealthScore();
-
             Dictionary<string, Credential> credentials = identity.Credentials;
 
             DisplayCredentials(credentials);
@@ -317,7 +315,7 @@ namespace vIDsafe
             {
                 Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedIdentityIndex];
 
-                identity.Credentials.Clear();
+                identity.DeleteAllCredentials();
 
                 GetCredentials(selectedIdentityIndex);
             }

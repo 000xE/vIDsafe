@@ -48,52 +48,12 @@ namespace vIDsafe
 
         public int TotalWeakCredentials => _totalCredentialCounts[Credential.CredentialStatus.Weak];
 
+        public List<Identity> Identities => _identities;
+
+
         public Vault()
         {
 
-        }
-
-        private void ResetTotalCredentialCounts()
-        {
-            _totalCredentialCount = 0;
-
-            foreach (Credential.CredentialStatus status in Enum.GetValues(typeof(Credential.CredentialStatus)))
-            {
-                _totalCredentialCounts[status] = 0;
-            }
-        }
-
-        public void CalculateOverallHealthScore()
-        {
-            CountCrentials();
-
-            if (_totalCredentialCount > 0)
-            {
-                _overallHealthScore = (int)((double)_totalCredentialCounts[Credential.CredentialStatus.Safe] / _totalCredentialCount * 100);
-            }
-            else
-            {
-                _overallHealthScore = 0;
-            }
-
-            FormvIDsafe.Main.User.SaveVault();
-        }
-
-        private void CountCrentials()
-        {
-            ResetTotalCredentialCounts();
-
-            foreach (Identity identity in Identities)
-            {
-                identity.CalculateHealthScore();
-
-                foreach (KeyValuePair<Credential.CredentialStatus, int> status in identity.CredentialCounts)
-                {
-                    _totalCredentialCounts[status.Key] += status.Value;
-                }
-
-                _totalCredentialCount += identity.Credentials.Count;
-            }
         }
 
         public void NewIdentity(string name)
@@ -103,8 +63,6 @@ namespace vIDsafe
 
             FormvIDsafe.Main.User.SaveVault();
         }
-
-        public List<Identity> Identities => _identities;
 
         public void DeleteIdentity(int index)
         {
@@ -144,6 +102,49 @@ namespace vIDsafe
             FormvIDsafe.Main.User.SaveVault();
 
             return new KeyValuePair<DateTime, string>(currentTime, log);
+        }
+
+        private void ResetTotalCredentialCounts()
+        {
+            _totalCredentialCount = 0;
+
+            foreach (Credential.CredentialStatus status in Enum.GetValues(typeof(Credential.CredentialStatus)))
+            {
+                _totalCredentialCounts[status] = 0;
+            }
+        }
+
+        private void CountTotalCredentialStatus()
+        {
+            ResetTotalCredentialCounts();
+
+            foreach (Identity identity in Identities)
+            {
+                identity.CalculateHealthScore();
+
+                foreach (KeyValuePair<Credential.CredentialStatus, int> status in identity.CredentialCounts)
+                {
+                    _totalCredentialCounts[status.Key] += status.Value;
+                }
+
+                _totalCredentialCount += identity.Credentials.Count;
+            }
+        }
+
+        public void CalculateOverallHealthScore()
+        {
+            CountTotalCredentialStatus();
+
+            if (_totalCredentialCount > 0)
+            {
+                _overallHealthScore = (int)((double)_totalCredentialCounts[Credential.CredentialStatus.Safe] / _totalCredentialCount * 100);
+            }
+            else
+            {
+                _overallHealthScore = 0;
+            }
+
+            FormvIDsafe.Main.User.SaveVault();
         }
     }
 }
