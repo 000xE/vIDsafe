@@ -42,6 +42,7 @@
             this.btnIdentities = new System.Windows.Forms.Button();
             this.btnOverview = new System.Windows.Forms.Button();
             this.panelProgressBack = new System.Windows.Forms.Panel();
+            this.lblHealthScore = new System.Windows.Forms.Label();
             this.panelProgressBar = new System.Windows.Forms.Panel();
             this.panelMasterName = new System.Windows.Forms.Panel();
             this.lblMAName = new System.Windows.Forms.Label();
@@ -109,9 +110,9 @@
             this.panelNavigation.Controls.Add(this.panelPMSubMenu);
             this.panelNavigation.Controls.Add(this.btnPasswordManager);
             this.panelNavigation.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelNavigation.Location = new System.Drawing.Point(0, 135);
+            this.panelNavigation.Location = new System.Drawing.Point(0, 129);
             this.panelNavigation.Name = "panelNavigation";
-            this.panelNavigation.Size = new System.Drawing.Size(225, 522);
+            this.panelNavigation.Size = new System.Drawing.Size(225, 528);
             this.panelNavigation.TabIndex = 2;
             // 
             // btnLogOut
@@ -122,7 +123,7 @@
             this.btnLogOut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLogOut.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLogOut.ForeColor = System.Drawing.Color.White;
-            this.btnLogOut.Location = new System.Drawing.Point(0, 482);
+            this.btnLogOut.Location = new System.Drawing.Point(0, 488);
             this.btnLogOut.Name = "btnLogOut";
             this.btnLogOut.Size = new System.Drawing.Size(225, 40);
             this.btnLogOut.TabIndex = 10;
@@ -273,20 +274,33 @@
             // panelProgressBack
             // 
             this.panelProgressBack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
+            this.panelProgressBack.Controls.Add(this.lblHealthScore);
             this.panelProgressBack.Controls.Add(this.panelProgressBar);
             this.panelProgressBack.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelProgressBack.Location = new System.Drawing.Point(0, 100);
             this.panelProgressBack.Name = "panelProgressBack";
-            this.panelProgressBack.Size = new System.Drawing.Size(225, 35);
+            this.panelProgressBack.Size = new System.Drawing.Size(225, 29);
             this.panelProgressBack.TabIndex = 1;
+            // 
+            // lblHealthScore
+            // 
+            this.lblHealthScore.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblHealthScore.ForeColor = System.Drawing.Color.Gainsboro;
+            this.lblHealthScore.Location = new System.Drawing.Point(225, 0);
+            this.lblHealthScore.Name = "lblHealthScore";
+            this.lblHealthScore.Size = new System.Drawing.Size(0, 29);
+            this.lblHealthScore.TabIndex = 3;
+            this.lblHealthScore.Text = "100%";
+            this.lblHealthScore.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panelProgressBar
             // 
             this.panelProgressBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(200)))), ((int)(((byte)(0)))));
             this.panelProgressBar.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelProgressBar.Location = new System.Drawing.Point(0, 0);
+            this.panelProgressBar.MaximumSize = new System.Drawing.Size(225, 35);
             this.panelProgressBar.Name = "panelProgressBar";
-            this.panelProgressBar.Size = new System.Drawing.Size(154, 35);
+            this.panelProgressBar.Size = new System.Drawing.Size(225, 29);
             this.panelProgressBar.TabIndex = 2;
             // 
             // panelMasterName
@@ -335,7 +349,7 @@
             this.lockToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.lockToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
             this.lockToolStripMenuItem.Name = "lockToolStripMenuItem";
-            this.lockToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.lockToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
             this.lockToolStripMenuItem.Text = "Lock";
             // 
             // menuStrip1
@@ -370,7 +384,7 @@
             this.onStartToolStripMenuItem});
             this.hideToTrayToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
             this.hideToTrayToolStripMenuItem.Name = "hideToTrayToolStripMenuItem";
-            this.hideToTrayToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.hideToTrayToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.hideToTrayToolStripMenuItem.Text = "Hide to tray";
             // 
             // onCloseToolStripMenuItem
@@ -379,7 +393,7 @@
             this.onCloseToolStripMenuItem.CheckOnClick = true;
             this.onCloseToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
             this.onCloseToolStripMenuItem.Name = "onCloseToolStripMenuItem";
-            this.onCloseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.onCloseToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.onCloseToolStripMenuItem.Text = "On close";
             // 
             // onMinimiseToolStripMenuItem
@@ -388,7 +402,7 @@
             this.onMinimiseToolStripMenuItem.CheckOnClick = true;
             this.onMinimiseToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
             this.onMinimiseToolStripMenuItem.Name = "onMinimiseToolStripMenuItem";
-            this.onMinimiseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.onMinimiseToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.onMinimiseToolStripMenuItem.Text = "On minimise";
             // 
             // onStartToolStripMenuItem
@@ -396,7 +410,7 @@
             this.onStartToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.onStartToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
             this.onStartToolStripMenuItem.Name = "onStartToolStripMenuItem";
-            this.onStartToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.onStartToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.onStartToolStripMenuItem.Text = "On start";
             // 
             // alwaysOnTopToolStripMenuItem
@@ -405,7 +419,7 @@
             this.alwaysOnTopToolStripMenuItem.CheckOnClick = true;
             this.alwaysOnTopToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
             this.alwaysOnTopToolStripMenuItem.Name = "alwaysOnTopToolStripMenuItem";
-            this.alwaysOnTopToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.alwaysOnTopToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.alwaysOnTopToolStripMenuItem.Text = "Always on top";
             // 
             // settingsToolStripMenuItem
@@ -425,7 +439,7 @@
             this.toolStripComboBox1});
             this.themeToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
             this.themeToolStripMenuItem.Name = "themeToolStripMenuItem";
-            this.themeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.themeToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.themeToolStripMenuItem.Text = "Theme";
             // 
             // toolStripComboBox1
@@ -444,7 +458,7 @@
             this.vaultTimeoutToolStripMenuItem});
             this.timeoutsToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
             this.timeoutsToolStripMenuItem.Name = "timeoutsToolStripMenuItem";
-            this.timeoutsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.timeoutsToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.timeoutsToolStripMenuItem.Text = "Timeouts";
             // 
             // clipboardTimeoutToolStripMenuItem
@@ -454,7 +468,7 @@
             this.toolStripTextBox1});
             this.clipboardTimeoutToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
             this.clipboardTimeoutToolStripMenuItem.Name = "clipboardTimeoutToolStripMenuItem";
-            this.clipboardTimeoutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.clipboardTimeoutToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.clipboardTimeoutToolStripMenuItem.Text = "Clipboard timeout";
             // 
             // toolStripTextBox1
@@ -470,7 +484,7 @@
             this.toolStripTextBox2});
             this.vaultTimeoutToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
             this.vaultTimeoutToolStripMenuItem.Name = "vaultTimeoutToolStripMenuItem";
-            this.vaultTimeoutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.vaultTimeoutToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.vaultTimeoutToolStripMenuItem.Text = "Vault timeout";
             // 
             // toolStripTextBox2
@@ -545,6 +559,7 @@
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox2;
         private System.Windows.Forms.ToolStripMenuItem lockToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem onStartToolStripMenuItem;
+        private System.Windows.Forms.Label lblHealthScore;
     }
 }
 

@@ -31,15 +31,8 @@
             this.panelBack = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel10 = new System.Windows.Forms.Panel();
-            this.lvCredentials = new System.Windows.Forms.ListView();
-            this.columnID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnUserName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnURL = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnStatus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.txtSearchCredential = new System.Windows.Forms.TextBox();
             this.cmbIdentity = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.btnRefresh = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnGeneratePassword = new System.Windows.Forms.Button();
@@ -58,6 +51,14 @@
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnDeleteDiscard = new System.Windows.Forms.Button();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.btnRefresh = new System.Windows.Forms.Button();
+            this.lvCredentials = new System.Windows.Forms.ListView();
+            this.columnID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnUserName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnURL = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnStatus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.txtSearchCredential = new System.Windows.Forms.TextBox();
             this.panelBack.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel10.SuspendLayout();
@@ -67,6 +68,7 @@
             this.panel4.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            this.panel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelBack
@@ -88,7 +90,6 @@
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(59)))), ((int)(((byte)(66)))));
             this.panel3.Controls.Add(this.panel10);
             this.panel3.Controls.Add(this.label4);
-            this.panel3.Controls.Add(this.btnRefresh);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(25, 92);
             this.panel3.Name = "panel3";
@@ -99,74 +100,14 @@
             // panel10
             // 
             this.panel10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(59)))), ((int)(((byte)(66)))));
-            this.panel10.Controls.Add(this.lvCredentials);
-            this.panel10.Controls.Add(this.txtSearchCredential);
+            this.panel10.Controls.Add(this.panel5);
             this.panel10.Controls.Add(this.cmbIdentity);
             this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel10.Location = new System.Drawing.Point(25, 47);
             this.panel10.Name = "panel10";
             this.panel10.Padding = new System.Windows.Forms.Padding(0, 25, 0, 0);
-            this.panel10.Size = new System.Drawing.Size(206, 349);
+            this.panel10.Size = new System.Drawing.Size(206, 389);
             this.panel10.TabIndex = 8;
-            // 
-            // lvCredentials
-            // 
-            this.lvCredentials.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
-            this.lvCredentials.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.lvCredentials.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnID,
-            this.columnUserName,
-            this.columnURL,
-            this.columnStatus});
-            this.lvCredentials.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvCredentials.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lvCredentials.FullRowSelect = true;
-            this.lvCredentials.HideSelection = false;
-            this.lvCredentials.Location = new System.Drawing.Point(0, 71);
-            this.lvCredentials.MultiSelect = false;
-            this.lvCredentials.Name = "lvCredentials";
-            this.lvCredentials.Size = new System.Drawing.Size(206, 278);
-            this.lvCredentials.TabIndex = 3;
-            this.lvCredentials.UseCompatibleStateImageBehavior = false;
-            this.lvCredentials.View = System.Windows.Forms.View.Details;
-            this.lvCredentials.SelectedIndexChanged += new System.EventHandler(this.lvCredentials_SelectedIndexChanged);
-            this.lvCredentials.Resize += new System.EventHandler(this.lvCredentials_Resize);
-            // 
-            // columnID
-            // 
-            this.columnID.Text = "#";
-            this.columnID.Width = 0;
-            // 
-            // columnUserName
-            // 
-            this.columnUserName.Text = "Username";
-            this.columnUserName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnUserName.Width = 106;
-            // 
-            // columnURL
-            // 
-            this.columnURL.Text = "URL";
-            this.columnURL.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnURL.Width = 106;
-            // 
-            // columnStatus
-            // 
-            this.columnStatus.Text = "Status";
-            this.columnStatus.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnStatus.Width = 106;
-            // 
-            // txtSearchCredential
-            // 
-            this.txtSearchCredential.BackColor = System.Drawing.Color.DimGray;
-            this.txtSearchCredential.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtSearchCredential.Dock = System.Windows.Forms.DockStyle.Top;
-            this.txtSearchCredential.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSearchCredential.ForeColor = System.Drawing.Color.Gainsboro;
-            this.txtSearchCredential.Location = new System.Drawing.Point(0, 48);
-            this.txtSearchCredential.Name = "txtSearchCredential";
-            this.txtSearchCredential.Size = new System.Drawing.Size(206, 23);
-            this.txtSearchCredential.TabIndex = 1;
-            this.txtSearchCredential.TextChanged += new System.EventHandler(this.txtSearchCredential_TextChanged);
             // 
             // cmbIdentity
             // 
@@ -197,23 +138,6 @@
             this.label4.Text = "Credentials";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label4.UseMnemonic = false;
-            // 
-            // btnRefresh
-            // 
-            this.btnRefresh.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.btnRefresh.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btnRefresh.FlatAppearance.BorderSize = 0;
-            this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRefresh.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRefresh.ForeColor = System.Drawing.Color.Gainsboro;
-            this.btnRefresh.Location = new System.Drawing.Point(25, 396);
-            this.btnRefresh.Margin = new System.Windows.Forms.Padding(0);
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(206, 40);
-            this.btnRefresh.TabIndex = 28;
-            this.btnRefresh.Text = "Refresh";
-            this.btnRefresh.UseVisualStyleBackColor = false;
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // panel1
             // 
@@ -309,7 +233,6 @@
             this.txtPassword.ForeColor = System.Drawing.Color.Gainsboro;
             this.txtPassword.Location = new System.Drawing.Point(48, 88);
             this.txtPassword.Name = "txtPassword";
-            this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(252, 23);
             this.txtPassword.TabIndex = 11;
             // 
@@ -432,7 +355,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.BackColor = System.Drawing.Color.OliveDrab;
+            this.btnSave.BackColor = System.Drawing.Color.SeaGreen;
             this.btnSave.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnSave.FlatAppearance.BorderSize = 0;
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -449,7 +372,7 @@
             // 
             // btnDeleteDiscard
             // 
-            this.btnDeleteDiscard.BackColor = System.Drawing.Color.IndianRed;
+            this.btnDeleteDiscard.BackColor = System.Drawing.Color.LightSlateGray;
             this.btnDeleteDiscard.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnDeleteDiscard.FlatAppearance.BorderSize = 0;
             this.btnDeleteDiscard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -464,6 +387,93 @@
             this.btnDeleteDiscard.UseVisualStyleBackColor = false;
             this.btnDeleteDiscard.Click += new System.EventHandler(this.btnDeleteDiscard_Click);
             // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.lvCredentials);
+            this.panel5.Controls.Add(this.txtSearchCredential);
+            this.panel5.Controls.Add(this.btnRefresh);
+            this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel5.Location = new System.Drawing.Point(0, 48);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(206, 341);
+            this.panel5.TabIndex = 1;
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.btnRefresh.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnRefresh.FlatAppearance.BorderSize = 0;
+            this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRefresh.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRefresh.ForeColor = System.Drawing.Color.Gainsboro;
+            this.btnRefresh.Location = new System.Drawing.Point(0, 301);
+            this.btnRefresh.Margin = new System.Windows.Forms.Padding(0);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(206, 40);
+            this.btnRefresh.TabIndex = 31;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.UseVisualStyleBackColor = false;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
+            // lvCredentials
+            // 
+            this.lvCredentials.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
+            this.lvCredentials.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lvCredentials.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnID,
+            this.columnUserName,
+            this.columnURL,
+            this.columnStatus});
+            this.lvCredentials.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvCredentials.ForeColor = System.Drawing.Color.Gainsboro;
+            this.lvCredentials.FullRowSelect = true;
+            this.lvCredentials.HideSelection = false;
+            this.lvCredentials.Location = new System.Drawing.Point(0, 23);
+            this.lvCredentials.MultiSelect = false;
+            this.lvCredentials.Name = "lvCredentials";
+            this.lvCredentials.Size = new System.Drawing.Size(206, 278);
+            this.lvCredentials.TabIndex = 30;
+            this.lvCredentials.UseCompatibleStateImageBehavior = false;
+            this.lvCredentials.View = System.Windows.Forms.View.Details;
+            this.lvCredentials.SelectedIndexChanged += new System.EventHandler(this.lvCredentials_SelectedIndexChanged);
+            this.lvCredentials.Resize += new System.EventHandler(this.lvCredentials_Resize);
+            // 
+            // columnID
+            // 
+            this.columnID.Text = "#";
+            this.columnID.Width = 0;
+            // 
+            // columnUserName
+            // 
+            this.columnUserName.Text = "Username";
+            this.columnUserName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnUserName.Width = 106;
+            // 
+            // columnURL
+            // 
+            this.columnURL.Text = "URL";
+            this.columnURL.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnURL.Width = 106;
+            // 
+            // columnStatus
+            // 
+            this.columnStatus.Text = "Status";
+            this.columnStatus.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnStatus.Width = 106;
+            // 
+            // txtSearchCredential
+            // 
+            this.txtSearchCredential.BackColor = System.Drawing.Color.DimGray;
+            this.txtSearchCredential.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtSearchCredential.Dock = System.Windows.Forms.DockStyle.Top;
+            this.txtSearchCredential.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSearchCredential.ForeColor = System.Drawing.Color.Gainsboro;
+            this.txtSearchCredential.Location = new System.Drawing.Point(0, 0);
+            this.txtSearchCredential.Name = "txtSearchCredential";
+            this.txtSearchCredential.Size = new System.Drawing.Size(206, 23);
+            this.txtSearchCredential.TabIndex = 29;
+            this.txtSearchCredential.TextChanged += new System.EventHandler(this.txtSearchCredential_TextChanged);
+            // 
             // FormVault
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -477,7 +487,6 @@
             this.panelBack.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel10.ResumeLayout(false);
-            this.panel10.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
@@ -485,6 +494,8 @@
             this.panel4.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -500,7 +511,6 @@
         private System.Windows.Forms.Panel panel10;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.TextBox txtSearchCredential;
         private System.Windows.Forms.ComboBox cmbIdentity;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TextBox txtNotes;
@@ -513,13 +523,15 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnDeleteDiscard;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Button btnNewCredential;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.ListView lvCredentials;
         private System.Windows.Forms.ColumnHeader columnID;
         private System.Windows.Forms.ColumnHeader columnUserName;
         private System.Windows.Forms.ColumnHeader columnURL;
         private System.Windows.Forms.ColumnHeader columnStatus;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Button btnNewCredential;
-        private System.Windows.Forms.Button btnRefresh;
+        private System.Windows.Forms.TextBox txtSearchCredential;
     }
 }

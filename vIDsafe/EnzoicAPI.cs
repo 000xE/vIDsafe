@@ -11,7 +11,7 @@ namespace vIDsafe
     {
         //https://www.enzoic.com/docs-dotnet-quick-start/
 
-        private static Enzoic _enzoic = new Enzoic("API", "Secret");
+        private static readonly Enzoic _enzoic = new Enzoic("API", "Secret");
 
         public static bool CheckPassword(string password)
         {
@@ -43,24 +43,24 @@ namespace vIDsafe
         {
             // get all exposures for a given user
 
+            List<ExposureDetails> exposureDetails = new List<ExposureDetails>();
+
             try
             {
                 ExposuresResponse exposures = _enzoic.GetExposuresForUser(email);
 
-                List<ExposureDetails> exposureDetails = new List<ExposureDetails>();
 
                 foreach (string exposure in exposures.Exposures)
                 {
                     exposureDetails.Add(_enzoic.GetExposureDetails(exposure));
                 }
-
-                return exposureDetails;
             }
             catch (System.Net.WebException e)
             {
                 Console.WriteLine("API/Secret may be incorrect, error: " + e);
-                return new List<ExposureDetails>();
             }
+
+            return exposureDetails;
         }
     }
 }

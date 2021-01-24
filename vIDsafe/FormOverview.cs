@@ -26,7 +26,7 @@ namespace vIDsafe
 
         private void RecalculateHealthScore()
         {
-            FormvIDsafe.Main.User.Vault.CalculateTotalHealthScore();
+            FormvIDsafe.Main.User.Vault.CalculateOverallHealthScore();
             DisplayHealthScores();
             DisplayCredentialInformation();
         }
@@ -34,7 +34,7 @@ namespace vIDsafe
         private void AddIdentityColumns()
         {
             tlpIdentities.ColumnStyles.Clear();
-            for (int i = 0; i < FormvIDsafe.Main.User.Vault.GetIdentityCount(); i++)
+            for (int i = 0; i < FormvIDsafe.Main.User.Vault.Identities.Count; i++)
             {
                 tlpIdentities.ColumnCount += 1;
                 tlpIdentities.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
@@ -45,18 +45,11 @@ namespace vIDsafe
         {
             tlpIdentities.Controls.Clear();
 
-            for (int i = 0; i < FormvIDsafe.Main.User.Vault.GetIdentityCount(); i++)
+            for (int i = 0; i < FormvIDsafe.Main.User.Vault.Identities.Count; i++)
             {
-                Identity identity = FormvIDsafe.Main.User.Vault.GetIdentity(i);
+                Identity identity = FormvIDsafe.Main.User.Vault.Identities[i];
 
-                int panelPadding = 12;
-
-                Panel identityPanel = new Panel
-                {
-                    Dock = DockStyle.Fill,
-                    Padding = new Padding(panelPadding),
-                    BackColor = CalculateHealthColor(identity.HealthScore)
-                };
+                Panel identityPanel = CreatePanel(CalculateHealthColor(identity.HealthScore));
 
                 identityPanel.Controls.Add(CreateLabel(identity.Name));
                 identityPanel.Controls.Add(CreateLabel(identity.HealthScore.ToString() + "%"));
@@ -69,6 +62,24 @@ namespace vIDsafe
                 style.SizeType = SizeType.Percent;
                 style.Width = 50F;
             }
+
+            int totalHealthScore = FormvIDsafe.Main.User.Vault.OverallHealthScore;
+
+            FormHome.SetHealthScore(totalHealthScore, CalculateHealthColor(totalHealthScore));
+        }
+
+        private Panel CreatePanel(Color backColor)
+        {
+            int panelPadding = 12;
+
+            Panel panel = new Panel
+            {
+                Dock = DockStyle.Fill,
+                Padding = new Padding(panelPadding),
+                BackColor = backColor
+            };
+
+            return panel;
         }
 
         private Label CreateLabel(string text)
@@ -95,27 +106,37 @@ namespace vIDsafe
         {
             Color color = new Color();
 
-            double colorMultiplier = (double)healthScore / 100;
+            int maxGoodScore = 100;
+            int maxMediumScore = 75;
+            int maxBadScore = 50;
 
-            if (healthScore >= 75)
-            {
-                Color good = Color.MediumSeaGreen;
-                /*Console.WriteLine(good.G);
-                Console.WriteLine(colorMultiplier);*/
-                color = Color.FromArgb(good.A, good.R, (int) (good.G * colorMultiplier), good.B);
-            }
-            else if (healthScore >= 50)
-            {
-                Color medium = Color.Khaki;
-                color = Color.FromArgb(medium.A, medium.R, medium.G, (int) (medium.B * colorMultiplier));
-            }
-            else if (healthScore >= 0)
+            if (healthScore <= maxBadScore)
             {
                 Color bad = Color.DarkSalmon;
-                color = Color.FromArgb(bad.A, bad.R, bad.G, (int) (bad.B * colorMultiplier));
+                //Color bad = Color.FromArgb(255, 233, 150, 61);
+
+                double colorMultiplier = ((100 - maxBadScore) + (double)healthScore) / 100;
+
+                color = Color.FromArgb(bad.A, bad.R, bad.G, (int)(bad.B * colorMultiplier));
+            }
+            else if (healthScore <= maxMediumScore)
+            {
+                Color medium = Color.Khaki;
+
+                double colorMultiplier = ((100 - maxMediumScore) + (double)healthScore) / 100;
+
+                color = Color.FromArgb(medium.A, medium.R, medium.G, (int)(medium.B * colorMultiplier));
+            }
+            else if (healthScore <= maxGoodScore)
+            {
+                Color good = Color.MediumSeaGreen;
+
+                double colorMultiplier = ((100 - maxGoodScore) + (double)healthScore) / 100;
+
+                color = Color.FromArgb(good.A, good.R, (int)(good.G * colorMultiplier), good.B);
             }
 
-            Console.WriteLine(color);
+            //Console.WriteLine(color);
 
             return color;
         }
@@ -137,8 +158,14 @@ namespace vIDsafe
 
         private void chartCredentials_PrePaint(object sender, System.Windows.Forms.DataVisualization.Charting.ChartPaintEventArgs e)
         {
+            DisplayCredentialCount(e);
+        }
+
+        private void DisplayCredentialCount(System.Windows.Forms.DataVisualization.Charting.ChartPaintEventArgs e)
+        {
             if (e.ChartElement is System.Windows.Forms.DataVisualization.Charting.ChartArea)
             {
+                //Todo: cleanup, maybe separate method called createtextannotation? or maybe use label
                 var ta = new System.Windows.Forms.DataVisualization.Charting.TextAnnotation
                 {
                     Text = Convert.ToString(FormvIDsafe.Main.User.Vault.TotalCredentialCount),

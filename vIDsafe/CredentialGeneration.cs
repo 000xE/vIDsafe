@@ -15,9 +15,13 @@ namespace vIDsafe
         public const int MinPassphraseLength = 3;
         public const int MaxPassphraseLength = 20;
 
-        public static int UsernameLength = 10;
-        public static int PasswordLength = MinPasswordLength;
-        public static int PassphraseLength = MinPassphraseLength;
+        private const int _defaultUsernameLength = 12;
+        private const int _defaultPasswordLength = 12;
+        private const int _defaultPassphraseLength = 3;
+
+        public static int CurrentUsernameLength = _defaultUsernameLength;
+        public static int CurrentPasswordLength = _defaultPasswordLength;
+        public static int CurrentPassphraseLength = _defaultPassphraseLength;
 
         public static bool Passphrase = false;
 
@@ -62,9 +66,9 @@ namespace vIDsafe
 
             int nextCharacterChoice = cryptoRandom.Next(0, characters.Count);
 
-            if (UsernameLength > characters.Count)
+            if (CurrentUsernameLength > characters.Count)
             {
-                for (int i = 0; i < UsernameLength; i++)
+                for (int i = 0; i < CurrentUsernameLength; i++)
                 {
                     int length = characters[nextCharacterChoice].Length;
 
@@ -108,7 +112,7 @@ namespace vIDsafe
 
                 int nextCharacterChoice = cryptoRandom.Next(0, characters.Count);
 
-                for (int i = 0; i < PasswordLength; i++)
+                for (int i = 0; i < CurrentPasswordLength; i++)
                 {
                     int length = characters[nextCharacterChoice].Length;
 
@@ -134,7 +138,7 @@ namespace vIDsafe
 
                 string wordSeparator = "-";
 
-                for (int i = 0; i < PassphraseLength; i++)
+                for (int i = 0; i < CurrentPassphraseLength; i++)
                 {
                     string randomWord = WordList.EEFLongWordList[cryptoRandom.Next(0, wordListLength)];
 
