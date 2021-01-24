@@ -14,11 +14,11 @@ namespace vIDsafe
         private string _url;
         private string _notes;
 
+        private int _identityIndex;
+        private readonly string _credentialID;
+
         private CredentialStatus _status = CredentialStatus.Safe;
 
-        private int _identityIndex;
-
-        private readonly string _credentialID;
         public string Username => _userName;
 
         public string Password => _password;
@@ -27,8 +27,11 @@ namespace vIDsafe
 
         public string Notes => _notes;
 
-        public CredentialStatus Status => _status;
+        public int IdentityIndex => _identityIndex;
+
         public string CredentialID => _credentialID;
+
+        public CredentialStatus Status => _status;
 
         public enum CredentialStatus
         {
@@ -81,7 +84,7 @@ namespace vIDsafe
             _status = status;
         }
 
-        public CredentialStatus CheckStatus()
+        private CredentialStatus CheckStatus()
         {
             if (CheckBreached())
             {
@@ -101,7 +104,8 @@ namespace vIDsafe
             }
         }
 
-        private bool CheckBreached()
+        //Made public to be checked for each credential upon re-getting the compromised accounts
+        public bool CheckBreached()
         {
             if (FormvIDsafe.Main.User.Vault.Identities[_identityIndex].BreachedDomains.ContainsKey(GetDomain()))
             {

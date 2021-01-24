@@ -139,6 +139,11 @@ namespace vIDsafe
                         }
                     }
 
+                    foreach (KeyValuePair<string, Credential> credential in _credentials)
+                    {
+                        credential.Value.CheckBreached();
+                    }
+
                     FormvIDsafe.Main.User.SaveVault();
                 }
             }
