@@ -29,22 +29,22 @@
         private void InitializeComponent()
         {
             this.btnPasswordManager = new System.Windows.Forms.Button();
-            this.panelMain = new System.Windows.Forms.Panel();
-            this.panelNavigation = new System.Windows.Forms.Panel();
+            this.pnlMain = new System.Windows.Forms.Panel();
+            this.pnlNavigation = new System.Windows.Forms.Panel();
             this.btnLogOut = new System.Windows.Forms.Button();
-            this.panelDataSubMenu = new System.Windows.Forms.Panel();
+            this.pnlDataSubMenu = new System.Windows.Forms.Panel();
             this.btnMasterAccount = new System.Windows.Forms.Button();
             this.btnImportExport = new System.Windows.Forms.Button();
             this.btnData = new System.Windows.Forms.Button();
-            this.panelPMSubMenu = new System.Windows.Forms.Panel();
+            this.pnlPMSubMenu = new System.Windows.Forms.Panel();
             this.btnGeneratePassword = new System.Windows.Forms.Button();
             this.btnVault = new System.Windows.Forms.Button();
             this.btnIdentities = new System.Windows.Forms.Button();
             this.btnOverview = new System.Windows.Forms.Button();
-            this.panelProgressBack = new System.Windows.Forms.Panel();
+            this.pnlProgressBack = new System.Windows.Forms.Panel();
             this.lblHealthScore = new System.Windows.Forms.Label();
-            this.panelProgressBar = new System.Windows.Forms.Panel();
-            this.panelMasterName = new System.Windows.Forms.Panel();
+            this.pnlProgressBar = new System.Windows.Forms.Panel();
+            this.pnlMasterName = new System.Windows.Forms.Panel();
             this.lblMAName = new System.Windows.Forms.Label();
             this.panelForm = new System.Windows.Forms.Panel();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -64,12 +64,12 @@
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.vaultTimeoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripTextBox2 = new System.Windows.Forms.ToolStripTextBox();
-            this.panelMain.SuspendLayout();
-            this.panelNavigation.SuspendLayout();
-            this.panelDataSubMenu.SuspendLayout();
-            this.panelPMSubMenu.SuspendLayout();
-            this.panelProgressBack.SuspendLayout();
-            this.panelMasterName.SuspendLayout();
+            this.pnlMain.SuspendLayout();
+            this.pnlNavigation.SuspendLayout();
+            this.pnlDataSubMenu.SuspendLayout();
+            this.pnlPMSubMenu.SuspendLayout();
+            this.pnlProgressBack.SuspendLayout();
+            this.pnlMasterName.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -89,31 +89,31 @@
             this.btnPasswordManager.UseVisualStyleBackColor = false;
             this.btnPasswordManager.Click += new System.EventHandler(this.btnPasswordManager_Click);
             // 
-            // panelMain
+            // pnlMain
             // 
-            this.panelMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
-            this.panelMain.Controls.Add(this.panelNavigation);
-            this.panelMain.Controls.Add(this.panelProgressBack);
-            this.panelMain.Controls.Add(this.panelMasterName);
-            this.panelMain.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelMain.Location = new System.Drawing.Point(0, 24);
-            this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new System.Drawing.Size(225, 657);
-            this.panelMain.TabIndex = 0;
+            this.pnlMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
+            this.pnlMain.Controls.Add(this.pnlNavigation);
+            this.pnlMain.Controls.Add(this.pnlProgressBack);
+            this.pnlMain.Controls.Add(this.pnlMasterName);
+            this.pnlMain.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pnlMain.Location = new System.Drawing.Point(0, 24);
+            this.pnlMain.Name = "pnlMain";
+            this.pnlMain.Size = new System.Drawing.Size(225, 657);
+            this.pnlMain.TabIndex = 0;
             // 
-            // panelNavigation
+            // pnlNavigation
             // 
-            this.panelNavigation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
-            this.panelNavigation.Controls.Add(this.btnLogOut);
-            this.panelNavigation.Controls.Add(this.panelDataSubMenu);
-            this.panelNavigation.Controls.Add(this.btnData);
-            this.panelNavigation.Controls.Add(this.panelPMSubMenu);
-            this.panelNavigation.Controls.Add(this.btnPasswordManager);
-            this.panelNavigation.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelNavigation.Location = new System.Drawing.Point(0, 129);
-            this.panelNavigation.Name = "panelNavigation";
-            this.panelNavigation.Size = new System.Drawing.Size(225, 528);
-            this.panelNavigation.TabIndex = 2;
+            this.pnlNavigation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
+            this.pnlNavigation.Controls.Add(this.btnLogOut);
+            this.pnlNavigation.Controls.Add(this.pnlDataSubMenu);
+            this.pnlNavigation.Controls.Add(this.btnData);
+            this.pnlNavigation.Controls.Add(this.pnlPMSubMenu);
+            this.pnlNavigation.Controls.Add(this.btnPasswordManager);
+            this.pnlNavigation.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlNavigation.Location = new System.Drawing.Point(0, 129);
+            this.pnlNavigation.Name = "pnlNavigation";
+            this.pnlNavigation.Size = new System.Drawing.Size(225, 528);
+            this.pnlNavigation.TabIndex = 2;
             // 
             // btnLogOut
             // 
@@ -131,15 +131,15 @@
             this.btnLogOut.UseVisualStyleBackColor = false;
             this.btnLogOut.Click += new System.EventHandler(this.btnLogOut_Click);
             // 
-            // panelDataSubMenu
+            // pnlDataSubMenu
             // 
-            this.panelDataSubMenu.Controls.Add(this.btnMasterAccount);
-            this.panelDataSubMenu.Controls.Add(this.btnImportExport);
-            this.panelDataSubMenu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelDataSubMenu.Location = new System.Drawing.Point(0, 250);
-            this.panelDataSubMenu.Name = "panelDataSubMenu";
-            this.panelDataSubMenu.Size = new System.Drawing.Size(225, 80);
-            this.panelDataSubMenu.TabIndex = 2;
+            this.pnlDataSubMenu.Controls.Add(this.btnMasterAccount);
+            this.pnlDataSubMenu.Controls.Add(this.btnImportExport);
+            this.pnlDataSubMenu.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlDataSubMenu.Location = new System.Drawing.Point(0, 250);
+            this.pnlDataSubMenu.Name = "pnlDataSubMenu";
+            this.pnlDataSubMenu.Size = new System.Drawing.Size(225, 80);
+            this.pnlDataSubMenu.TabIndex = 2;
             // 
             // btnMasterAccount
             // 
@@ -191,17 +191,17 @@
             this.btnData.UseVisualStyleBackColor = false;
             this.btnData.Click += new System.EventHandler(this.btnData_Click);
             // 
-            // panelPMSubMenu
+            // pnlPMSubMenu
             // 
-            this.panelPMSubMenu.Controls.Add(this.btnGeneratePassword);
-            this.panelPMSubMenu.Controls.Add(this.btnVault);
-            this.panelPMSubMenu.Controls.Add(this.btnIdentities);
-            this.panelPMSubMenu.Controls.Add(this.btnOverview);
-            this.panelPMSubMenu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelPMSubMenu.Location = new System.Drawing.Point(0, 45);
-            this.panelPMSubMenu.Name = "panelPMSubMenu";
-            this.panelPMSubMenu.Size = new System.Drawing.Size(225, 160);
-            this.panelPMSubMenu.TabIndex = 1;
+            this.pnlPMSubMenu.Controls.Add(this.btnGeneratePassword);
+            this.pnlPMSubMenu.Controls.Add(this.btnVault);
+            this.pnlPMSubMenu.Controls.Add(this.btnIdentities);
+            this.pnlPMSubMenu.Controls.Add(this.btnOverview);
+            this.pnlPMSubMenu.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlPMSubMenu.Location = new System.Drawing.Point(0, 45);
+            this.pnlPMSubMenu.Name = "pnlPMSubMenu";
+            this.pnlPMSubMenu.Size = new System.Drawing.Size(225, 160);
+            this.pnlPMSubMenu.TabIndex = 1;
             // 
             // btnGeneratePassword
             // 
@@ -271,16 +271,16 @@
             this.btnOverview.UseVisualStyleBackColor = false;
             this.btnOverview.Click += new System.EventHandler(this.btnOverview_Click);
             // 
-            // panelProgressBack
+            // pnlProgressBack
             // 
-            this.panelProgressBack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
-            this.panelProgressBack.Controls.Add(this.lblHealthScore);
-            this.panelProgressBack.Controls.Add(this.panelProgressBar);
-            this.panelProgressBack.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelProgressBack.Location = new System.Drawing.Point(0, 100);
-            this.panelProgressBack.Name = "panelProgressBack";
-            this.panelProgressBack.Size = new System.Drawing.Size(225, 29);
-            this.panelProgressBack.TabIndex = 1;
+            this.pnlProgressBack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
+            this.pnlProgressBack.Controls.Add(this.lblHealthScore);
+            this.pnlProgressBack.Controls.Add(this.pnlProgressBar);
+            this.pnlProgressBack.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlProgressBack.Location = new System.Drawing.Point(0, 100);
+            this.pnlProgressBack.Name = "pnlProgressBack";
+            this.pnlProgressBack.Size = new System.Drawing.Size(225, 29);
+            this.pnlProgressBack.TabIndex = 1;
             // 
             // lblHealthScore
             // 
@@ -293,25 +293,25 @@
             this.lblHealthScore.Text = "100%";
             this.lblHealthScore.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // panelProgressBar
+            // pnlProgressBar
             // 
-            this.panelProgressBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(200)))), ((int)(((byte)(0)))));
-            this.panelProgressBar.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelProgressBar.Location = new System.Drawing.Point(0, 0);
-            this.panelProgressBar.MaximumSize = new System.Drawing.Size(225, 35);
-            this.panelProgressBar.Name = "panelProgressBar";
-            this.panelProgressBar.Size = new System.Drawing.Size(225, 29);
-            this.panelProgressBar.TabIndex = 2;
+            this.pnlProgressBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(200)))), ((int)(((byte)(0)))));
+            this.pnlProgressBar.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pnlProgressBar.Location = new System.Drawing.Point(0, 0);
+            this.pnlProgressBar.MaximumSize = new System.Drawing.Size(225, 35);
+            this.pnlProgressBar.Name = "pnlProgressBar";
+            this.pnlProgressBar.Size = new System.Drawing.Size(225, 29);
+            this.pnlProgressBar.TabIndex = 2;
             // 
-            // panelMasterName
+            // pnlMasterName
             // 
-            this.panelMasterName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(50)))));
-            this.panelMasterName.Controls.Add(this.lblMAName);
-            this.panelMasterName.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelMasterName.Location = new System.Drawing.Point(0, 0);
-            this.panelMasterName.Name = "panelMasterName";
-            this.panelMasterName.Size = new System.Drawing.Size(225, 100);
-            this.panelMasterName.TabIndex = 0;
+            this.pnlMasterName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(50)))));
+            this.pnlMasterName.Controls.Add(this.lblMAName);
+            this.pnlMasterName.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlMasterName.Location = new System.Drawing.Point(0, 0);
+            this.pnlMasterName.Name = "pnlMasterName";
+            this.pnlMasterName.Size = new System.Drawing.Size(225, 100);
+            this.pnlMasterName.TabIndex = 0;
             // 
             // lblMAName
             // 
@@ -499,7 +499,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1064, 681);
             this.Controls.Add(this.panelForm);
-            this.Controls.Add(this.panelMain);
+            this.Controls.Add(this.pnlMain);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.MainMenuStrip = this.menuStrip1;
@@ -509,12 +509,12 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "vIDsafe";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
-            this.panelMain.ResumeLayout(false);
-            this.panelNavigation.ResumeLayout(false);
-            this.panelDataSubMenu.ResumeLayout(false);
-            this.panelPMSubMenu.ResumeLayout(false);
-            this.panelProgressBack.ResumeLayout(false);
-            this.panelMasterName.ResumeLayout(false);
+            this.pnlMain.ResumeLayout(false);
+            this.pnlNavigation.ResumeLayout(false);
+            this.pnlDataSubMenu.ResumeLayout(false);
+            this.pnlPMSubMenu.ResumeLayout(false);
+            this.pnlProgressBack.ResumeLayout(false);
+            this.pnlMasterName.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -524,18 +524,18 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel panelMain;
-        private System.Windows.Forms.Panel panelNavigation;
-        private System.Windows.Forms.Panel panelProgressBack;
-        private System.Windows.Forms.Panel panelProgressBar;
-        private System.Windows.Forms.Panel panelMasterName;
+        private System.Windows.Forms.Panel pnlMain;
+        private System.Windows.Forms.Panel pnlNavigation;
+        private System.Windows.Forms.Panel pnlProgressBack;
+        private System.Windows.Forms.Panel pnlProgressBar;
+        private System.Windows.Forms.Panel pnlMasterName;
         private System.Windows.Forms.Button btnPasswordManager;
-        private System.Windows.Forms.Panel panelPMSubMenu;
+        private System.Windows.Forms.Panel pnlPMSubMenu;
         private System.Windows.Forms.Button btnOverview;
         private System.Windows.Forms.Button btnIdentities;
         private System.Windows.Forms.Button btnGeneratePassword;
         private System.Windows.Forms.Button btnVault;
-        private System.Windows.Forms.Panel panelDataSubMenu;
+        private System.Windows.Forms.Panel pnlDataSubMenu;
         private System.Windows.Forms.Button btnData;
         private System.Windows.Forms.Button btnMasterAccount;
         private System.Windows.Forms.Button btnImportExport;

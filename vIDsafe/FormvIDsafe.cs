@@ -12,11 +12,10 @@ namespace vIDsafe
 {
     public partial class FormvIDsafe : Form
     {
-        public static Panel ChildFormPanel;
-
         public MasterAccount User;
-
         public static FormvIDsafe Main;
+
+        private static Panel _pnlChildForm;
 
         public FormvIDsafe()
         {
@@ -27,7 +26,7 @@ namespace vIDsafe
 
         private void GetFormComponents()
         {
-            ChildFormPanel = panelForm;
+            _pnlChildForm = panelForm;
 
             Main = this;
         }
@@ -38,21 +37,21 @@ namespace vIDsafe
         }
 
         //https://stackoverflow.com/a/28811266
-        public static void OpenChildForm(Form childForm)
+        public static void OpenChildForm(Form frmChildForm)
         {
-            while (ChildFormPanel.Controls.Count > 0)
+            while (_pnlChildForm.Controls.Count > 0)
             {
-                ChildFormPanel.Controls[0].Dispose();
+                _pnlChildForm.Controls[0].Dispose();
             }
 
-            childForm.TopLevel = false;
-            childForm.FormBorderStyle = FormBorderStyle.None;
-            childForm.Dock = DockStyle.Fill;
-            ChildFormPanel.Enabled = true;
-            ChildFormPanel.Controls.Add(childForm);
-            ChildFormPanel.Tag = childForm;
-            childForm.BringToFront();
-            childForm.Show();
+            frmChildForm.TopLevel = false;
+            frmChildForm.FormBorderStyle = FormBorderStyle.None;
+            frmChildForm.Dock = DockStyle.Fill;
+            _pnlChildForm.Enabled = true;
+            _pnlChildForm.Controls.Add(frmChildForm);
+            _pnlChildForm.Tag = frmChildForm;
+            frmChildForm.BringToFront();
+            frmChildForm.Show();
         }
     }
 }

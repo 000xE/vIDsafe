@@ -41,7 +41,7 @@
             this.panelBack = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel10 = new System.Windows.Forms.Panel();
-            this.panel5 = new System.Windows.Forms.Panel();
+            this.pnlIdentityComponents = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
             this.panel8 = new System.Windows.Forms.Panel();
             this.lvBreachedData = new System.Windows.Forms.ListView();
@@ -71,7 +71,7 @@
             this.panelBack.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel10.SuspendLayout();
-            this.panel5.SuspendLayout();
+            this.pnlIdentityComponents.SuspendLayout();
             this.panel7.SuspendLayout();
             this.panel8.SuspendLayout();
             this.panel6.SuspendLayout();
@@ -147,7 +147,7 @@
             // panel10
             // 
             this.panel10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(59)))), ((int)(((byte)(66)))));
-            this.panel10.Controls.Add(this.panel5);
+            this.panel10.Controls.Add(this.pnlIdentityComponents);
             this.panel10.Controls.Add(this.cmbIdentity);
             this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel10.Location = new System.Drawing.Point(25, 47);
@@ -156,15 +156,15 @@
             this.panel10.Size = new System.Drawing.Size(206, 389);
             this.panel10.TabIndex = 8;
             // 
-            // panel5
+            // pnlIdentityComponents
             // 
-            this.panel5.Controls.Add(this.panel7);
-            this.panel5.Controls.Add(this.panel6);
-            this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel5.Location = new System.Drawing.Point(0, 48);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(206, 341);
-            this.panel5.TabIndex = 1;
+            this.pnlIdentityComponents.Controls.Add(this.panel7);
+            this.pnlIdentityComponents.Controls.Add(this.panel6);
+            this.pnlIdentityComponents.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlIdentityComponents.Location = new System.Drawing.Point(0, 48);
+            this.pnlIdentityComponents.Name = "pnlIdentityComponents";
+            this.pnlIdentityComponents.Size = new System.Drawing.Size(206, 341);
+            this.pnlIdentityComponents.TabIndex = 1;
             // 
             // panel7
             // 
@@ -528,7 +528,7 @@
             this.panelBack.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel10.ResumeLayout(false);
-            this.panel5.ResumeLayout(false);
+            this.pnlIdentityComponents.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
             this.panel8.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
@@ -566,7 +566,7 @@
         private System.Windows.Forms.TextBox txtIdentityUsage;
         private System.Windows.Forms.TextBox txtIdentityName;
         private System.Windows.Forms.TextBox txtIdentityEmail;
-        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Panel pnlIdentityComponents;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.ListView lvBreachedData;

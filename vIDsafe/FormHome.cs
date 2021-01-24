@@ -12,8 +12,8 @@ namespace vIDsafe
 {
     public partial class FormHome : Form
     {
-        public static Panel ChildFormPanel;
-        public static Control.ControlCollection FormControls = null;
+        private static Panel _pnlChildForm;
+        private static Control.ControlCollection ctrlsFormControls = null;
 
         public FormHome()
         {
@@ -24,8 +24,8 @@ namespace vIDsafe
 
         private void GetFormComponents()
         {
-            ChildFormPanel = panelForm;
-            FormControls = this.Controls;
+            _pnlChildForm = panelForm;
+            ctrlsFormControls = Controls;
         }
 
         private void LoadFormComponents()
@@ -36,43 +36,43 @@ namespace vIDsafe
 
         public static void SetName(string name)
         {
-            Label lblMasterAccountName = (Label)FormControls.Find("lblMAName", true)[0];
+            Label lblMasterAccountName = (Label)ctrlsFormControls.Find("lblMAName", true)[0];
             lblMasterAccountName.Text = name;
         }
 
         public static void SetHealthScore(int healthScore, Color healthColor)
         {
-            Panel panelProgressBar = (Panel)FormControls.Find("panelProgressBar", true)[0];
-            panelProgressBar.BackColor = healthColor;
+            Panel pnlProgressBar = (Panel)ctrlsFormControls.Find("pnlProgressBar", true)[0];
+            pnlProgressBar.BackColor = healthColor;
 
-            int panelWidth = (int)((double)panelProgressBar.MaximumSize.Width / 100 * healthScore);
+            int panelWidth = (int)((double)pnlProgressBar.MaximumSize.Width / 100 * healthScore);
 
-            panelProgressBar.Size = new Size(panelWidth, panelProgressBar.Height);
+            pnlProgressBar.Size = new Size(panelWidth, pnlProgressBar.Height);
 
-            Panel panelProgressBack = (Panel)FormControls.Find("panelProgressBack", true)[0];
+            Panel pnlProgressBack = (Panel)ctrlsFormControls.Find("pnlProgressBack", true)[0];
 
-            Label lblHealthScore = (Label) panelProgressBack.Controls.Find("lblHealthScore", true)[0];
+            Label lblHealthScore = (Label)pnlProgressBack.Controls.Find("lblHealthScore", true)[0];
 
             lblHealthScore.Text = healthScore.ToString() + "%";
 
         }
 
         //https://stackoverflow.com/a/28811266
-        public void OpenChildForm(Form childForm)
+        public void OpenChildForm(Form frmChildForm)
         {
-            while (ChildFormPanel.Controls.Count > 0)
+            while (_pnlChildForm.Controls.Count > 0)
             {
-                ChildFormPanel.Controls[0].Dispose();
+                _pnlChildForm.Controls[0].Dispose();
             }
 
-            childForm.TopLevel = false;
-            childForm.FormBorderStyle = FormBorderStyle.None;
-            childForm.Dock = DockStyle.Fill;
-            ChildFormPanel.Enabled = true;
-            ChildFormPanel.Controls.Add(childForm);
-            ChildFormPanel.Tag = childForm;
-            childForm.BringToFront();
-            childForm.Show();
+            frmChildForm.TopLevel = false;
+            frmChildForm.FormBorderStyle = FormBorderStyle.None;
+            frmChildForm.Dock = DockStyle.Fill;
+            _pnlChildForm.Enabled = true;
+            _pnlChildForm.Controls.Add(frmChildForm);
+            _pnlChildForm.Tag = frmChildForm;
+            frmChildForm.BringToFront();
+            frmChildForm.Show();
         }
 
         public void ChangeSelectedButton(object sender)
@@ -82,9 +82,9 @@ namespace vIDsafe
             //selectedButton.BackColor = Color.FromArgb(47, 47, 47);
             selectedButton.BackColor = Color.Gainsboro;
 
-            Control navPanel = FormControls.Find("panelNavigation", true)[0];
+            Panel panelNav = (Panel) ctrlsFormControls.Find("pnlNavigation", true)[0];
 
-            foreach (Control mainControls in navPanel.Controls)
+            foreach (Control mainControls in panelNav.Controls)
             {
                 foreach (Control navigationControls in mainControls.Controls)
                 {
@@ -143,12 +143,12 @@ namespace vIDsafe
 
         private void btnPasswordManager_Click(object sender, EventArgs e)
         {
-            panelPMSubMenu.Visible = !panelPMSubMenu.Visible;
+            pnlPMSubMenu.Visible = !pnlPMSubMenu.Visible;
         }
 
         private void btnData_Click(object sender, EventArgs e)
         {
-            panelDataSubMenu.Visible = !panelDataSubMenu.Visible;
+            pnlDataSubMenu.Visible = !pnlDataSubMenu.Visible;
         }
 
         private void btnLogOut_Click(object sender, EventArgs e)

@@ -259,7 +259,7 @@ namespace vIDsafe
         {
             btnNewCredential.Enabled = enabled;
 
-            panel5.Visible = enabled;
+            pnlVaultComponents.Visible = enabled;
         }
 
         private void EnableCredentialComponents(bool enabled)
