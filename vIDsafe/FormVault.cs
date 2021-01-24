@@ -47,6 +47,7 @@ namespace vIDsafe
         {
             if (URL.Length > 0 && username.Length > 0 && password.Length > 0)
             {
+                //Todo: validate URL
                 return true;
             }
             else
@@ -88,18 +89,16 @@ namespace vIDsafe
 
         private void NewCredential(int selectedIdentityIndex)
         {
-            string identityName = FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).Name;
+            Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedIdentityIndex];
 
-            string defaultUsername = CredentialGeneration.GenerateUsername(identityName);
+            string defaultUsername = CredentialGeneration.GenerateUsername(identity.Name);
             string defaultPassword = CredentialGeneration.GeneratePassword();
 
             int credentialCount = lvCredentials.Items.Count;
 
-            string credentialID = FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).NewCredential(defaultUsername, defaultPassword);
+            string credentialID = identity.NewCredential(selectedIdentityIndex, defaultUsername, defaultPassword);
 
-            FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).ManualCheckStatus(credentialID);
-
-            Credential credential = FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).GetCredential(credentialID);
+            Credential credential = identity.Credentials[credentialID];
 
             DisplayCredential(credentialID, credential);
             lvCredentials.Items[credentialCount].Selected = true;
@@ -111,14 +110,18 @@ namespace vIDsafe
             {
                 if (selectedCredentialCount > 0)
                 {
-                    ListViewItem currentItem = lvCredentials.SelectedItems[0];
-                    string currentCredentialID = currentItem.SubItems[0].Text;
+                    ListViewItem selectedCredential = lvCredentials.SelectedItems[0];
+                    string credentialID = selectedCredential.SubItems[0].Text;
 
-                    FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).GetCredential(currentCredentialID).SetDetails(credentialUsername, credentialPassword, credentialURL, credentialNotes);
-                    FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).ManualCheckStatus(currentCredentialID);
+                    Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedIdentityIndex];
 
-                    Credential.CredentialStatus status = FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).GetCredential(currentCredentialID).Status;
+                    Credential credential = identity.Credentials[credentialID];
 
+                    credential.SetDetails(credentialUsername, credentialPassword, credentialURL, credentialNotes);
+
+                    Credential.CredentialStatus status = credential.Status;
+
+                    //Todo: maybe move this to display credential and add a boolean parameter for adding or setting
                     lvCredentials.SelectedItems[0].SubItems[1].Text = credentialUsername;
                     lvCredentials.SelectedItems[0].SubItems[2].Text = credentialURL;
                     lvCredentials.SelectedItems[0].SubItems[3].Text = status.ToString();
@@ -130,7 +133,9 @@ namespace vIDsafe
         {
             if (searchedText.Length > 0)
             {
-                Dictionary<string, Credential> credentials = FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).Credentials;
+                Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedIdentityIndex];
+
+                Dictionary<string, Credential> credentials = identity.Credentials;
 
                 credentials = credentials.Where(pair => pair.Value.Username.ToLower().Contains(searchedText.ToLower().Trim())).ToDictionary(pair => pair.Key, pair => pair.Value);
 
@@ -156,8 +161,9 @@ namespace vIDsafe
 
         private void GetCredentials(int selectedIdentityIndex)
         {
-            FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).CalculateHealthScore();
-            Dictionary<string, Credential> credentials = FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).Credentials;
+            Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedIdentityIndex];
+
+            Dictionary<string, Credential> credentials = identity.Credentials;
 
             DisplayCredentials(credentials);
         }
@@ -187,10 +193,12 @@ namespace vIDsafe
         {
             if (selectedCredentialCount > 0)
             {
-                ListViewItem currentItem = lvCredentials.SelectedItems[0];
-                string currentCredentialID = currentItem.SubItems[0].Text;
+                ListViewItem selectedCredential = lvCredentials.SelectedItems[0];
+                string credentialID = selectedCredential.SubItems[0].Text;
 
-                Credential credential = FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).GetCredential(currentCredentialID);
+                Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedIdentityIndex];
+
+                Credential credential = identity.Credentials[credentialID];
 
                 txtURL.Text = credential.URL;
                 txtUsername.Text = credential.Username;
@@ -210,7 +218,9 @@ namespace vIDsafe
                     ListViewItem currentItem = lvCredentials.SelectedItems[0];
                     string currentCredentialID = currentItem.SubItems[0].Text;
 
-                    FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).DeleteCredential(currentCredentialID);
+                    Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedIdentityIndex];
+
+                    identity.DeleteCredential(currentCredentialID);
 
                     lvCredentials.Items.RemoveAt(currentItem.Index);
                 }
@@ -248,10 +258,8 @@ namespace vIDsafe
         private void EnableIdentityComponents(bool enabled)
         {
             btnNewCredential.Enabled = enabled;
-            txtSearchCredential.Visible = enabled;
 
-            lvCredentials.Visible = enabled;
-            lvCredentials.BringToFront();
+            panel5.Visible = enabled;
         }
 
         private void EnableCredentialComponents(bool enabled)

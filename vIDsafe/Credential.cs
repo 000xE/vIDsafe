@@ -16,22 +16,9 @@ namespace vIDsafe
 
         private CredentialStatus _status = CredentialStatus.Safe;
 
-        //Compromised = top prio, conflict 2nd top, etc. upon recalculation the next prio should be set
+        private int _identityIndex;
 
-        public enum CredentialStatus
-        {
-            Safe,
-            Weak,
-            Conflicted,
-            Compromised
-        }
-
-        public Credential(string username, string password)
-        {
-            _userName = username;
-            _password = password;
-        }
-
+        private readonly string _credentialID;
         public string Username => _userName;
 
         public string Password => _password;
@@ -41,6 +28,27 @@ namespace vIDsafe
         public string Notes => _notes;
 
         public CredentialStatus Status => _status;
+        public string CredentialID => _credentialID;
+
+        public enum CredentialStatus
+        {
+            Safe,
+            Compromised,
+            Conflicted,
+            Weak
+        }
+
+        public Credential(int identityIndex, string username, string password)
+        {
+            _identityIndex = identityIndex;
+
+            _userName = username;
+            _password = password;
+
+            _credentialID = Guid.NewGuid().ToString();
+
+            CheckStatus();
+        }
 
         public string GetDomain()
         {
@@ -58,14 +66,12 @@ namespace vIDsafe
 
         public void SetDetails(string username, string password, string url, string notes)
         {
-            Vault.DecrementConflictCount(_userName, _password); //decrement conflict count from the old username
-
             _userName = username;
             _password = password;
             _url = url;
             _notes = notes;
 
-            Vault.IncrementConflictCount(username, password); //increment conflict count for the new username
+            CheckStatus();
 
             FormvIDsafe.Main.User.SaveVault();
         }
@@ -73,8 +79,78 @@ namespace vIDsafe
         public void SetStatus(CredentialStatus status)
         {
             _status = status;
+        }
 
-            FormvIDsafe.Main.User.SaveVault();
+        public void CheckStatus()
+        {
+            if (CheckBreached())
+            {
+                _status = CredentialStatus.Compromised;
+            }
+            else if (CheckConflict())
+            {
+                _status = CredentialStatus.Conflicted;
+            }
+            else if (CheckWeak())
+            {
+                _status = CredentialStatus.Weak;
+            }
+            else
+            {
+                _status = CredentialStatus.Safe;
+            }
+        }
+
+        private bool CheckBreached()
+        {
+            if (FormvIDsafe.Main.User.Vault.Identities[_identityIndex].BreachedDomains.ContainsKey(GetDomain()))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private bool CheckWeak()
+        {
+            double strengthThreshold = 30.0;
+
+            if (CredentialGeneration.CheckStrength(_password) < strengthThreshold)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private bool CheckConflict()
+        {
+            foreach (Identity identity in FormvIDsafe.Main.User.Vault.Identities)
+            {
+                foreach (KeyValuePair<string, Credential> credentialPair in identity.Credentials)
+                {
+                    Credential credential = credentialPair.Value;
+
+                    if (credential.CredentialID != _credentialID)
+                    {
+                        if (credential.Username == _userName || credential.Password == _password)
+                        {
+                            credential.SetStatus(CredentialStatus.Conflicted);
+                            return true;
+                        }
+                    }
+                }
+                /*if (identity.Credentials.Any(c => (c.Value.GUID != _guid) && (c.Value.Username == _userName || c.Value.Password == _password)))
+                {
+                    return true;
+                }*/
+            }
+
+            return false;
         }
     }
 }

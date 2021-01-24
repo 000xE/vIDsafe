@@ -15,13 +15,14 @@ namespace vIDsafe
         private int _overallHealthScore;
 
         private int _totalCredentialCount;
-        private int _totalWeakCredentials;
-        private int _totalConflictCredentials;
-        private int _totalCompromisedCredentials;
-        private int _totalSafeCredentials;
 
-        public static Dictionary<string, int> UniqueUsernames = new Dictionary<string, int>();
-        public static Dictionary<string, int> UniquePasswords = new Dictionary<string, int>();
+        private Dictionary<Credential.CredentialStatus, int> _totalCredentialCounts = new Dictionary<Credential.CredentialStatus, int>()
+        {
+            [Credential.CredentialStatus.Safe] = 0,
+            [Credential.CredentialStatus.Compromised] = 0,
+            [Credential.CredentialStatus.Conflicted] = 0,
+            [Credential.CredentialStatus.Weak] = 0
+        };
 
         public enum LogType
         {
@@ -38,13 +39,14 @@ namespace vIDsafe
         public int OverallHealthScore => _overallHealthScore;
 
         public int TotalCredentialCount => _totalCredentialCount;
-        public int TotalWeakCredentials => _totalWeakCredentials;
 
-        public int TotalConflictCredentials => _totalConflictCredentials;
+        public int TotalSafeCredentials => _totalCredentialCounts[Credential.CredentialStatus.Safe];
 
-        public int TotalCompromisedCredentials => _totalCompromisedCredentials;
+        public int TotalCompromisedCredentials => _totalCredentialCounts[Credential.CredentialStatus.Compromised];
 
-        public int TotalSafeCredentials => _totalSafeCredentials;
+        public int TotalConflictCredentials => _totalCredentialCounts[Credential.CredentialStatus.Conflicted];
+
+        public int TotalWeakCredentials => _totalCredentialCounts[Credential.CredentialStatus.Weak];
 
         public Vault()
         {
@@ -53,33 +55,21 @@ namespace vIDsafe
 
         private void ResetTotalCredentialCounts()
         {
-            _overallHealthScore = 100;
-
             _totalCredentialCount = 0;
-            _totalWeakCredentials = 0;
-            _totalConflictCredentials = 0;
-            _totalCompromisedCredentials = 0;
-            _totalSafeCredentials = 0;
+
+            foreach (Credential.CredentialStatus status in Enum.GetValues(typeof(Credential.CredentialStatus)))
+            {
+                _totalCredentialCounts[status] = 0;
+            }
         }
 
-        public void CalculateTotalHealthScore()
+        public void CalculateOverallHealthScore()
         {
-            ResetTotalCredentialCounts();
-
-            foreach (Identity identity in Identities)
-            {
-                identity.CalculateHealthScore();
-
-                _totalCredentialCount += identity.GetCredentialCount();
-                _totalWeakCredentials += identity.WeakCredentials;
-                _totalConflictCredentials += identity.ConflictCredentials;
-                _totalCompromisedCredentials += identity.CompromisedCredentials;
-                _totalSafeCredentials += identity.SafeCredentials;
-            }
+            CountCrentials();
 
             if (_totalCredentialCount > 0)
             {
-                _overallHealthScore = (int)(((double)_totalSafeCredentials) / _totalCredentialCount * 100);
+                _overallHealthScore = (int)((double)_totalCredentialCounts[Credential.CredentialStatus.Safe] / _totalCredentialCount * 100);
             }
             else
             {
@@ -89,35 +79,29 @@ namespace vIDsafe
             FormvIDsafe.Main.User.SaveVault();
         }
 
+        private void CountCrentials()
+        {
+            ResetTotalCredentialCounts();
+
+            foreach (Identity identity in Identities)
+            {
+                identity.CalculateHealthScore();
+
+                foreach (KeyValuePair<Credential.CredentialStatus, int> status in identity.CredentialCounts)
+                {
+                    _totalCredentialCounts[status.Key] += status.Value;
+                }
+
+                _totalCredentialCount += identity.Credentials.Count;
+            }
+        }
+
         public void NewIdentity(string name)
         {
             Identity identity = new Identity(name);
             _identities.Add(identity);
 
             FormvIDsafe.Main.User.SaveVault();
-        }
-
-        public int GetIdentityCount()
-        {
-            if (Identities.Count > 0)
-            {
-                return Identities.Count;
-            }
-
-            return 0;
-        }
-
-        public Identity GetIdentity(int index)
-        {
-            if (_identities.Count > 0)
-            {
-                //_identities[index].CalculateHealthScore();
-                return _identities[index];
-            }
-            else
-            {
-                return new Identity("");
-            }
         }
 
         public List<Identity> Identities => _identities;
@@ -142,9 +126,9 @@ namespace vIDsafe
             foreach (Identity identity in _identities)
             {
                 identity.Credentials.Clear();
-
-                FormvIDsafe.Main.User.SaveVault(); 
             }
+
+            FormvIDsafe.Main.User.SaveVault();
         }
 
         public Dictionary<DateTime, string> GetLogs(LogType key)
@@ -160,60 +144,6 @@ namespace vIDsafe
             FormvIDsafe.Main.User.SaveVault();
 
             return new KeyValuePair<DateTime, string>(currentTime, log);
-        }
-
-        public static void DecrementConflictCount(string username, string password)
-        {
-            if (UniqueUsernames.ContainsKey(username))
-            {
-                if (UniqueUsernames[username] > 0)
-                {
-                    UniqueUsernames[username]--;
-
-                    if (UniqueUsernames[username] == 0)
-                    {
-                        UniqueUsernames.Remove(username);
-                    }
-                }
-            }
-
-            if (UniquePasswords.ContainsKey(password))
-            {
-                if (UniquePasswords[password] > 0)
-                {
-                    UniquePasswords[password]--;
-
-                    if (UniquePasswords[password] == 0)
-                    {
-                        UniquePasswords.Remove(password);
-                    }
-                }
-            }
-
-            FormvIDsafe.Main.User.SaveVault();
-        }
-
-        public static void IncrementConflictCount(string username, string password)
-        {
-            if (UniqueUsernames.ContainsKey(username))
-            {
-                UniqueUsernames[username]++;
-            }
-            else
-            {
-                UniqueUsernames.Add(username, 1);
-            }
-
-            if (UniquePasswords.ContainsKey(password))
-            {
-                UniquePasswords[password]++;
-            }
-            else
-            {
-                UniquePasswords.Add(password, 1);
-            }
-
-            FormvIDsafe.Main.User.SaveVault();
         }
     }
 }

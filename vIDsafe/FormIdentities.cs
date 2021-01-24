@@ -24,13 +24,23 @@ namespace vIDsafe
 
         private void chartCredentials_PrePaint(object sender, System.Windows.Forms.DataVisualization.Charting.ChartPaintEventArgs e)
         {
-            if (cmbIdentity.SelectedIndex >= 0)
+            DisplayCredentialCount(e);
+        }
+
+        private void DisplayCredentialCount(System.Windows.Forms.DataVisualization.Charting.ChartPaintEventArgs e)
+        {
+            int selectedIdentityIndex = cmbIdentity.SelectedIndex;
+
+            if (selectedIdentityIndex >= 0)
             {
+                Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedIdentityIndex];
+
                 if (e.ChartElement is System.Windows.Forms.DataVisualization.Charting.ChartArea)
                 {
+                    //Todo: cleanup, maybe separate method called createtextannotation? or maybe use label
                     var ta = new System.Windows.Forms.DataVisualization.Charting.TextAnnotation
                     {
-                        Text = Convert.ToString(FormvIDsafe.Main.User.Vault.GetIdentity(cmbIdentity.SelectedIndex).GetCredentialCount()),
+                        Text = Convert.ToString(identity.Credentials.Count),
                         Width = e.Position.Width,
                         Height = e.Position.Height,
                         X = e.Position.X - (e.Position.Width / 100),
@@ -44,6 +54,7 @@ namespace vIDsafe
                     chartCredentials.Annotations.Add(ta);
                 }
             }
+
         }
 
         private void btnNewIdentity_Click(object sender, EventArgs e)
@@ -84,7 +95,9 @@ namespace vIDsafe
         {
             if (IsValid(identityEmail))
             {
-                FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).SetDetails(identityName, identityEmail, identityUsage);
+                Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedIdentityIndex];
+
+                identity.SetDetails(identityName, identityEmail, identityUsage);
 
                 cmbIdentity.Items[selectedIdentityIndex] = identityName;
 
@@ -94,7 +107,9 @@ namespace vIDsafe
         
         private void GetBreachedData(int selectedIdentityIndex, bool useAPI)
         {
-            Dictionary<string, string> breachedDomains = FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex).GetBreaches(useAPI);
+            Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedIdentityIndex];
+
+            Dictionary<string, string> breachedDomains = identity.GetBreaches(useAPI);
 
             DisplayBreaches(breachedDomains);
         }
@@ -139,18 +154,18 @@ namespace vIDsafe
 
             if (selectedIdentityIndex >= 0)
             {
-                Identity currentIdentity = FormvIDsafe.Main.User.Vault.GetIdentity(selectedIdentityIndex);
+                Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedIdentityIndex];
 
-                currentIdentity.CalculateHealthScore();
+                identity.CalculateHealthScore();
 
-                txtIdentityName.Text = currentIdentity.Name;
-                txtIdentityEmail.Text = currentIdentity.Email;
-                txtIdentityUsage.Text = currentIdentity.Usage;
+                txtIdentityName.Text = identity.Name;
+                txtIdentityEmail.Text = identity.Email;
+                txtIdentityUsage.Text = identity.Usage;
 
-                int safeCount = currentIdentity.SafeCredentials;
-                int weakCount = currentIdentity.WeakCredentials;
-                int conflictCount = currentIdentity.ConflictCredentials;
-                int compromisedCount = currentIdentity.CompromisedCredentials;
+                int safeCount = identity.SafeCredentials;
+                int weakCount = identity.WeakCredentials;
+                int conflictCount = identity.ConflictCredentials;
+                int compromisedCount = identity.CompromisedCredentials;
 
                 chartCredentials.Series["Credentials"].Points[0].SetValueXY("Safe", safeCount);
                 chartCredentials.Series["Credentials"].Points[1].SetValueXY("Weak", weakCount);
@@ -202,9 +217,6 @@ namespace vIDsafe
             btnDeleteDiscard.Enabled = enabled;
 
             panel5.Visible = enabled;
-
-            panel7.Visible = enabled;
-            panel7.BringToFront();
         }
 
         private void ClearInputs()

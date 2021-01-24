@@ -17,12 +17,36 @@ namespace vIDsafe
         private string _usage;
 
         private int _healthScore;
-        private int _weakCredentials;
-        private int _conflictCredentials;
-        private int _compromisedCredentials;
-        private int _safeCredentials;
+
+        private Dictionary<Credential.CredentialStatus, int> _credentialCounts = new Dictionary<Credential.CredentialStatus, int>()
+        {
+            [Credential.CredentialStatus.Safe] = 0,
+            [Credential.CredentialStatus.Compromised] = 0,
+            [Credential.CredentialStatus.Conflicted] = 0,
+            [Credential.CredentialStatus.Weak] = 0
+        };
 
         private Dictionary<string, string> _breachedDomains = new Dictionary<string, string>();
+
+        public string Name => _name;
+
+        public string Email => _email;
+
+        public string Usage => _usage;
+
+        public int HealthScore => _healthScore;
+
+        public Dictionary<Credential.CredentialStatus, int> CredentialCounts => _credentialCounts;
+
+        public int SafeCredentials => _credentialCounts[Credential.CredentialStatus.Safe];
+
+        public int CompromisedCredentials => _credentialCounts[Credential.CredentialStatus.Compromised];
+
+        public int WeakCredentials => _credentialCounts[Credential.CredentialStatus.Weak];
+
+        public int ConflictCredentials => _credentialCounts[Credential.CredentialStatus.Conflicted];
+
+        public Dictionary<string, string> BreachedDomains => _breachedDomains;
 
         public Identity(string name)
         {
@@ -31,15 +55,11 @@ namespace vIDsafe
 
         public void CalculateHealthScore()
         {
-            _weakCredentials = CountWeakCredentials();
-            _conflictCredentials = CountConflictsCredentials();
-            _compromisedCredentials = CountCompromisedCredentials();
-
-            _safeCredentials = _credentials.Count - (_weakCredentials + _conflictCredentials + _compromisedCredentials);
+            CountCrentials();
 
             if (_credentials.Count > 0)
             {
-                _healthScore = (int)(((double)_safeCredentials) / _credentials.Count * 100);
+                _healthScore = (int)((double)_credentialCounts[Credential.CredentialStatus.Safe] / _credentials.Count * 100);
             }
             else
             {
@@ -49,75 +69,48 @@ namespace vIDsafe
             FormvIDsafe.Main.User.SaveVault();
         }
 
-        public int GetCredentialCount()
+        private void ResetCredentialCounts()
         {
-            if (_credentials.Count > 0)
+            foreach (Credential.CredentialStatus status in Enum.GetValues(typeof(Credential.CredentialStatus)))
             {
-                return _credentials.Count;
+                _credentialCounts[status] = 0;
             }
-
-            return 0;
         }
 
-        public Credential GetCredential(string key)
+        private void CountCrentials()
         {
-            if (_credentials.ContainsKey(key))
+            ResetCredentialCounts();
+
+            foreach (KeyValuePair<string, Credential> credential in _credentials)
             {
-                return _credentials[key];
-            }
-            else
-            {
-                return new Credential("", "");
+                _credentialCounts[credential.Value.Status]++;
             }
         }
 
         public Dictionary<string, Credential> Credentials => _credentials;
 
-        public string NewCredential(string username, string password)
+        public string NewCredential(int identityIndex, string username, string password)
         {
-            Credential credential = new Credential(username, password);
+            Credential credential = new Credential(identityIndex, username, password);
 
-            string uniqueID = Guid.NewGuid().ToString();
+            string GUID = credential.CredentialID;
 
-            Vault.IncrementConflictCount(username, password);
-
-            _credentials.Add(uniqueID, credential);
+            _credentials.Add(GUID, credential);
 
             FormvIDsafe.Main.User.SaveVault();
 
-            return uniqueID;
+            return GUID;
         }
 
         public void DeleteCredential(string key)
         {
             if (_credentials.ContainsKey(key))
             {
-                string username = _credentials[key].Username;
-                string password = _credentials[key].Password;
-
-                Vault.DecrementConflictCount(username, password);
-
                 _credentials.Remove(key);
 
                 FormvIDsafe.Main.User.SaveVault();
             }
         }
-
-        public string Name =>_name;
-
-        public string Email => _email;
-
-        public string Usage => _usage;
-
-        public int HealthScore => _healthScore;
-        public int WeakCredentials => _weakCredentials;
-
-        public int ConflictCredentials => _conflictCredentials;
-
-        public int CompromisedCredentials => _compromisedCredentials;
-
-        public int SafeCredentials => _safeCredentials;
-        public Dictionary<string, string> BreachedDomains => _breachedDomains;
 
         public void SetDetails(string name, string email, string usage)
         {
@@ -134,143 +127,23 @@ namespace vIDsafe
             {
                 List<ExposureDetails> exposureDetails = EnzoicAPI.GetExposureDetails(_email);
 
-                foreach (ExposureDetails detail in exposureDetails)
+                if (exposureDetails.Count > 0)
                 {
-                    if (!_breachedDomains.ContainsKey(detail.Title))
-                    {
-                        _breachedDomains.Add(detail.Title, detail.Date.ToString());
-                    }
-                }
+                    _breachedDomains.Clear();
 
-                FormvIDsafe.Main.User.SaveVault();
+                    foreach (ExposureDetails detail in exposureDetails)
+                    {
+                        if (!_breachedDomains.ContainsKey(detail.Title))
+                        {
+                            _breachedDomains.Add(detail.Title, detail.Date.ToString());
+                        }
+                    }
+
+                    FormvIDsafe.Main.User.SaveVault();
+                }
             }
 
             return _breachedDomains;
-        }
-
-        public void ManualCheckStatus(string credentialID)
-        {
-            Credential credential = _credentials[credentialID];
-
-            if (CheckBreached(credential))
-            {
-                credential.SetStatus(Credential.CredentialStatus.Compromised);
-            }
-            else if (CheckConflict(credential))
-            {
-                credential.SetStatus(Credential.CredentialStatus.Conflicted);
-            }
-            else if (CheckWeak(credential))
-            {
-                credential.SetStatus(Credential.CredentialStatus.Weak);
-            }
-            else
-            {
-                credential.SetStatus(Credential.CredentialStatus.Safe);
-            }
-        }
-
-        private bool CheckBreached(Credential credential)
-        {
-            if (_breachedDomains.ContainsKey(credential.GetDomain()))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        private bool CheckWeak(Credential credential)
-        {
-            string password = credential.Password;
-
-            double strengthThreshold = 30.0;
-
-            if (CredentialGeneration.CheckStrength(password) < strengthThreshold)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        private bool CheckConflict(Credential credential)
-        {
-            string username = credential.Username;
-            string password = credential.Password;
-
-            if (Vault.UniqueUsernames.ContainsKey(username))
-            {
-                if (Vault.UniqueUsernames[username] > 1)
-                {
-                    return true;
-                }
-            }
-
-            if (Vault.UniquePasswords.ContainsKey(password))
-            {
-                if (Vault.UniquePasswords[password] > 1)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        private int CountCompromisedCredentials()
-        {
-            int compromisedCount = 0;
-
-            foreach (KeyValuePair<string, Credential> credential in _credentials)
-            {
-                if (CheckBreached(credential.Value))
-                {
-                    credential.Value.SetStatus(Credential.CredentialStatus.Compromised);
-                    compromisedCount++;
-                }
-            }
-
-            return compromisedCount;
-        }
-
-        private int CountWeakCredentials()
-        {
-            int weakCount = 0;
-
-            foreach (KeyValuePair<string, Credential> credential in _credentials)
-            {
-                //Checking for weak credentials take slightly longer, and it isn't a change-in-time thing like compromisation or conflicts
-                //So it's only done upon creating/modifying one instead, this simply counts existing ones
-                if (credential.Value.Status == Credential.CredentialStatus.Weak)
-                {
-                    weakCount++;
-                }
-
-            }
-
-            return weakCount;
-        }
-
-        private int CountConflictsCredentials()
-        {
-            int conflictCount = 0;
-
-            foreach (KeyValuePair<string, Credential> credential in _credentials)
-            {
-                if (CheckConflict(credential.Value))
-                {
-                    credential.Value.SetStatus(Credential.CredentialStatus.Conflicted);
-                    conflictCount++;
-                }
-
-            }
-
-            return conflictCount;
         }
     }
 }

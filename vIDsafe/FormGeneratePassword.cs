@@ -92,11 +92,11 @@ namespace vIDsafe
         {
             if (rbPassphrase.Checked)
             {
-                CredentialGeneration.PassphraseLength = tbPasswordLength.Value;
+                CredentialGeneration.CurrentPassphraseLength = tbPasswordLength.Value;
             }
             else
             {
-                CredentialGeneration.PasswordLength = tbPasswordLength.Value;
+                CredentialGeneration.CurrentPasswordLength = tbPasswordLength.Value;
             }
 
             lblLength.Text = tbPasswordLength.Value.ToString();
@@ -121,14 +121,14 @@ namespace vIDsafe
                 tbPasswordLength.Minimum = CredentialGeneration.MinPassphraseLength;
                 tbPasswordLength.Maximum = CredentialGeneration.MaxPassphraseLength;
 
-                tbPasswordLength.Value = CredentialGeneration.PassphraseLength;
+                tbPasswordLength.Value = CredentialGeneration.CurrentPassphraseLength;
             }
             else
             {
                 tbPasswordLength.Minimum = CredentialGeneration.MinPasswordLength;
                 tbPasswordLength.Maximum = CredentialGeneration.MaxPasswordLength;
 
-                tbPasswordLength.Value = CredentialGeneration.PasswordLength;
+                tbPasswordLength.Value = CredentialGeneration.CurrentPasswordLength;
             }
 
             lblLength.Text = tbPasswordLength.Value.ToString();

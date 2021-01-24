@@ -31,12 +31,30 @@ namespace vIDsafe
         private void LoadFormComponents()
         {
             OpenChildForm(new FormOverview());
-            SetName();
+            SetName(FormvIDsafe.Main.User.Name);
         }
 
-        public static void SetName()
+        public static void SetName(string name)
         {
-            ((Label) FormControls.Find("lblMAName", true)[0]).Text = FormvIDsafe.Main.User.Name;
+            Label lblMasterAccountName = (Label)FormControls.Find("lblMAName", true)[0];
+            lblMasterAccountName.Text = name;
+        }
+
+        public static void SetHealthScore(int healthScore, Color healthColor)
+        {
+            Panel panelProgressBar = (Panel)FormControls.Find("panelProgressBar", true)[0];
+            panelProgressBar.BackColor = healthColor;
+
+            int panelWidth = (int)((double)panelProgressBar.MaximumSize.Width / 100 * healthScore);
+
+            panelProgressBar.Size = new Size(panelWidth, panelProgressBar.Height);
+
+            Panel panelProgressBack = (Panel)FormControls.Find("panelProgressBack", true)[0];
+
+            Label lblHealthScore = (Label) panelProgressBack.Controls.Find("lblHealthScore", true)[0];
+
+            lblHealthScore.Text = healthScore.ToString() + "%";
+
         }
 
         //https://stackoverflow.com/a/28811266

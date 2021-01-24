@@ -55,9 +55,6 @@ namespace vIDsafe
         {
             FormvIDsafe.Main.User.Vault.DeleteAllCredentials();
 
-            Vault.UniqueUsernames.Clear();
-            Vault.UniquePasswords.Clear();
-
             KeyValuePair<DateTime, string> log = FormvIDsafe.Main.User.Vault.Log(Vault.LogType.Account, "All credentials deleted");
             DisplayLog(log.Key, log.Value);
         }
@@ -101,7 +98,7 @@ namespace vIDsafe
                 {
                     Console.WriteLine("Name changed");
 
-                    FormHome.SetName();
+                    FormHome.SetName(newName);
 
                     KeyValuePair<DateTime, string> log = FormvIDsafe.Main.User.Vault.Log(Vault.LogType.Account, "Name changed");
                     DisplayLog(log.Key, log.Value);
