@@ -24,7 +24,7 @@ vIDsafe - A password manager focused on the idea of compartmentalisation.
 			- [x] Name
 			- [x] Email
 			- [x] Usage/Needs
-		- [ ] Allow the user to search for public information of their identities
+		~~- [ ] Allow the user to search for public information of their identities~~
 	- [x] Credentials:
 		- [x] Allow the user to generate or store and manage credentials and assign them to the identities
 			- [x] Identity

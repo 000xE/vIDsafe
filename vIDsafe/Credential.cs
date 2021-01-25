@@ -75,8 +75,6 @@ namespace vIDsafe
             _notes = notes;
 
             _status = GetStatus();
-
-            FormvIDsafe.Main.User.Vault.Identities[_identityIndex].RefreshCredentialStatus();
         }
 
         public void SetStatus(CredentialStatus status)
@@ -118,11 +116,26 @@ namespace vIDsafe
         {
             foreach (Identity identity in FormvIDsafe.Main.User.Vault.Identities)
             {
-                if (identity.Credentials.Any(c => (c.Value.CredentialID != _credentialID) 
+                foreach (KeyValuePair<string, Credential> credentialPair in identity.Credentials)
+                {
+                    Credential credential = credentialPair.Value;
+
+                    if (credential.CredentialID != _credentialID)
+                    {
+                        if (credential.Username.Equals(_userName, StringComparison.OrdinalIgnoreCase) || credential.Password == _password)
+                        {
+                            credential.SetStatus(CredentialStatus.Conflicted);
+
+                            return true;
+                        }
+                    }
+                }
+
+                /*if (identity.Credentials.Any(c => (c.Value.CredentialID != _credentialID) 
                 && (c.Value.Username.Equals(_userName, StringComparison.OrdinalIgnoreCase) || c.Value.Password.Equals(_password))))
                 {
                     return true;
-                }
+                }*/
             }
 
             return false;

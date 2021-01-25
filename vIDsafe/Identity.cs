@@ -62,16 +62,12 @@ namespace vIDsafe
 
             _credentials.Add(GUID, credential);
 
-            RefreshCredentialStatus();
-
             return GUID;
         }
 
         public void DeleteAllCredentials()
         {
             Credentials.Clear();
-
-            RefreshCredentialStatus();
         }
 
         public void DeleteCredential(string key)
@@ -79,8 +75,6 @@ namespace vIDsafe
             if (_credentials.ContainsKey(key))
             {
                 _credentials.Remove(key);
-
-                RefreshCredentialStatus();
             }
         }
 
@@ -111,23 +105,11 @@ namespace vIDsafe
                         }
                     }
 
-                    RefreshCredentialStatus();
+                    CalculateHealthScore(true);
                 }
             }
 
             return _breachedDomains;
-        }
-
-        public void CalculateHealthScore()
-        {
-            if (_credentials.Count > 0)
-            {
-                _healthScore = (int)((double)_credentialCounts[Credential.CredentialStatus.Safe] / _credentials.Count * 100);
-            }
-            else
-            {
-                _healthScore = 0;
-            }
         }
 
         private void ResetCredentialCounts()
@@ -148,14 +130,31 @@ namespace vIDsafe
             }
         }
 
-        public void RefreshCredentialStatus()
+        private void SetCredentialStatuses()
         {
             foreach (KeyValuePair<string, Credential> credential in _credentials)
             {
                 credential.Value.SetStatus(credential.Value.GetStatus());
             }
+        }
+
+        public void CalculateHealthScore(bool CalculateStatuses)
+        {
+            if (CalculateStatuses)
+            {
+                SetCredentialStatuses();
+            }
 
             CountCredentialStatus();
+
+            if (_credentials.Count > 0)
+            {
+                _healthScore = (int)((double)_credentialCounts[Credential.CredentialStatus.Safe] / _credentials.Count * 100);
+            }
+            else
+            {
+                _healthScore = 0;
+            }
 
             FormvIDsafe.Main.User.SaveVault();
         }
