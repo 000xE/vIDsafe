@@ -120,7 +120,7 @@ namespace vIDsafe
 
             foreach (Identity identity in Identities)
             {
-                identity.CalculateHealthScore(false);
+                identity.CalculateHealthScore();
 
                 foreach (KeyValuePair<Credential.CredentialStatus, int> status in identity.CredentialCounts)
                 {

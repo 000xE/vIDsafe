@@ -75,6 +75,8 @@ namespace vIDsafe
             _notes = notes;
 
             _status = GetStatus();
+
+            FormvIDsafe.Main.User.SaveVault();
         }
 
         public void SetStatus(CredentialStatus status)
@@ -116,7 +118,7 @@ namespace vIDsafe
         {
             foreach (Identity identity in FormvIDsafe.Main.User.Vault.Identities)
             {
-                foreach (KeyValuePair<string, Credential> credentialPair in identity.Credentials)
+                /*foreach (KeyValuePair<string, Credential> credentialPair in identity.Credentials)
                 {
                     Credential credential = credentialPair.Value;
 
@@ -129,13 +131,13 @@ namespace vIDsafe
                             return true;
                         }
                     }
-                }
+                }*/
 
-                /*if (identity.Credentials.Any(c => (c.Value.CredentialID != _credentialID) 
+                if (identity.Credentials.Any(c => (c.Value.CredentialID != _credentialID) 
                 && (c.Value.Username.Equals(_userName, StringComparison.OrdinalIgnoreCase) || c.Value.Password.Equals(_password))))
                 {
                     return true;
-                }*/
+                }
             }
 
             return false;

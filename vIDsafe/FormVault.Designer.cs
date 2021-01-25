@@ -183,7 +183,7 @@
             // 
             // btnRefresh
             // 
-            this.btnRefresh.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.btnRefresh.BackColor = System.Drawing.Color.SeaGreen;
             this.btnRefresh.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btnRefresh.FlatAppearance.BorderSize = 0;
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -200,7 +200,7 @@
             // 
             // btnDeleteAll
             // 
-            this.btnDeleteAll.BackColor = System.Drawing.Color.LightSlateGray;
+            this.btnDeleteAll.BackColor = System.Drawing.Color.SlateGray;
             this.btnDeleteAll.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btnDeleteAll.FlatAppearance.BorderSize = 0;
             this.btnDeleteAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -217,12 +217,10 @@
             // 
             // cmbIdentity
             // 
-            this.cmbIdentity.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cmbIdentity.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cmbIdentity.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cmbIdentity.BackColor = System.Drawing.Color.White;
             this.cmbIdentity.Dock = System.Windows.Forms.DockStyle.Top;
-            this.cmbIdentity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbIdentity.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cmbIdentity.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbIdentity.FormattingEnabled = true;
             this.cmbIdentity.Location = new System.Drawing.Point(0, 25);
@@ -461,7 +459,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.BackColor = System.Drawing.Color.SeaGreen;
+            this.btnSave.BackColor = System.Drawing.Color.MediumSeaGreen;
             this.btnSave.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnSave.FlatAppearance.BorderSize = 0;
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
