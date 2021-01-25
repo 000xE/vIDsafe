@@ -108,8 +108,9 @@ namespace vIDsafe
         private void GetBreachedData(int selectedIdentityIndex, bool useAPI)
         {
             Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedIdentityIndex];
+            identity.GetBreaches(useAPI);
 
-            Dictionary<string, string> breachedDomains = identity.GetBreaches(useAPI);
+            Dictionary<string, string> breachedDomains = identity.BreachedDomains;
 
             DisplayBreaches(breachedDomains);
         }
@@ -162,18 +163,26 @@ namespace vIDsafe
                 txtIdentityEmail.Text = identity.Email;
                 txtIdentityUsage.Text = identity.Usage;
 
-                int safeCount = identity.SafeCredentials;
-                int weakCount = identity.WeakCredentials;
-                int conflictCount = identity.ConflictCredentials;
-                int compromisedCount = identity.CompromisedCredentials;
-
-                chartCredentials.Series["Credentials"].Points[0].SetValueXY("Safe", safeCount);
-                chartCredentials.Series["Credentials"].Points[1].SetValueXY("Weak", weakCount);
-                chartCredentials.Series["Credentials"].Points[2].SetValueXY("Conflicts", conflictCount);
-                chartCredentials.Series["Credentials"].Points[3].SetValueXY("Compromised", compromisedCount);
-                chartCredentials.Series["Credentials"].IsValueShownAsLabel = true;
-            }  
+                DisplayCredentialInformation(identity);
+            }
         }
+
+        private void DisplayCredentialInformation(Identity identity)
+        {
+            identity.CalculateHealthScore();
+
+            int safeCount = identity.SafeCredentials;
+            int weakCount = identity.WeakCredentials;
+            int conflictCount = identity.ConflictCredentials;
+            int compromisedCount = identity.CompromisedCredentials;
+
+            chartCredentials.Series["Credentials"].Points[0].SetValueXY("Safe", safeCount);
+            chartCredentials.Series["Credentials"].Points[1].SetValueXY("Weak", weakCount);
+            chartCredentials.Series["Credentials"].Points[2].SetValueXY("Conflicts", conflictCount);
+            chartCredentials.Series["Credentials"].Points[3].SetValueXY("Compromised", compromisedCount);
+            chartCredentials.Series["Credentials"].IsValueShownAsLabel = true;
+        }
+
 
         private void DeleteIdentity(int selectedIdentityIndex)
         {

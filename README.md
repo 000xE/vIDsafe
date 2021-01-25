@@ -19,7 +19,7 @@ vIDsafe - A password manager focused on the idea of compartmentalisation.
 		- [x] Wipe identities
 		- [x] Purge credentials
 - [ ] Vault:
-	- [ ] Identities:	
+	- [x] Identities:	
 		- [x] Allow the user to create/manage identities/profiles based on their needs
 			- [x] Name
 			- [x] Email

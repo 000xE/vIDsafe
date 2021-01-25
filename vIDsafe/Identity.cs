@@ -62,12 +62,16 @@ namespace vIDsafe
 
             _credentials.Add(GUID, credential);
 
+            FormvIDsafe.Main.User.SaveVault();
+
             return GUID;
         }
 
         public void DeleteAllCredentials()
         {
             Credentials.Clear();
+
+            FormvIDsafe.Main.User.SaveVault();
         }
 
         public void DeleteCredential(string key)
@@ -75,6 +79,8 @@ namespace vIDsafe
             if (_credentials.ContainsKey(key))
             {
                 _credentials.Remove(key);
+
+                FormvIDsafe.Main.User.SaveVault();
             }
         }
 
@@ -104,8 +110,6 @@ namespace vIDsafe
                             _breachedDomains.Add(detail.Title, detail.Date.ToString());
                         }
                     }
-
-                    CalculateHealthScore(true);
                 }
             }
 
@@ -138,12 +142,9 @@ namespace vIDsafe
             }
         }
 
-        public void CalculateHealthScore(bool CalculateStatuses)
+        public void CalculateHealthScore()
         {
-            if (CalculateStatuses)
-            {
-                SetCredentialStatuses();
-            }
+            SetCredentialStatuses();
 
             CountCredentialStatus();
 
