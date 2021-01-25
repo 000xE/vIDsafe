@@ -509,7 +509,7 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "vIDsafe";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormHome_FormClosed);
             this.pnlMain.ResumeLayout(false);
             this.pnlNavigation.ResumeLayout(false);
             this.pnlDataSubMenu.ResumeLayout(false);

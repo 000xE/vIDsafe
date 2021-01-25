@@ -156,6 +156,8 @@ namespace vIDsafe
             {
                 Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedIdentityIndex];
 
+                GetBreachedData(selectedIdentityIndex, false);
+
                 txtIdentityName.Text = identity.Name;
                 txtIdentityEmail.Text = identity.Email;
                 txtIdentityUsage.Text = identity.Usage;
@@ -170,8 +172,6 @@ namespace vIDsafe
                 chartCredentials.Series["Credentials"].Points[2].SetValueXY("Conflicts", conflictCount);
                 chartCredentials.Series["Credentials"].Points[3].SetValueXY("Compromised", compromisedCount);
                 chartCredentials.Series["Credentials"].IsValueShownAsLabel = true;
-
-                GetBreachedData(selectedIdentityIndex, false);
             }  
         }
 

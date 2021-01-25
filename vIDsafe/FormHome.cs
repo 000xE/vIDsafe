@@ -165,7 +165,7 @@ namespace vIDsafe
             Close();
         }
 
-        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        private void FormHome_FormClosed(object sender, FormClosedEventArgs e)
         {
             FormvIDsafe.Main.Show();
         }
