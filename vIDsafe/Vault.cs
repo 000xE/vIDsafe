@@ -18,13 +18,15 @@ namespace vIDsafe
         public enum LogType
         {
             Account,
-            Passwords
+            Passwords,
+            Porting
         }
 
         private Dictionary<LogType, Dictionary<DateTime, string>> _logs = new Dictionary<LogType, Dictionary<DateTime, string>>
         {
             [LogType.Account] = new Dictionary<DateTime, string>(),
-            [LogType.Passwords] = new Dictionary<DateTime, string>()
+            [LogType.Passwords] = new Dictionary<DateTime, string>(),
+            [LogType.Porting] = new Dictionary<DateTime, string>()
         };
 
         private Dictionary<Credential.CredentialStatus, int> _totalCredentialCounts = new Dictionary<Credential.CredentialStatus, int>()

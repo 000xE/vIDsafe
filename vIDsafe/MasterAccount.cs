@@ -178,148 +178,168 @@ namespace vIDsafe
         }
 
         //Todo: Refactor
-        public void ImportVault(VaultFormat format, string fileName, bool replace)
+        public bool ImportVault(VaultFormat format, string fileName, bool replace)
         {
-            Vault vault = new Vault();
-
-            switch (format)
+            try
             {
-                case VaultFormat.CSV:
-                    using (var csv = new CsvReader(new StreamReader(fileName), CultureInfo.InvariantCulture))
-                    {
-                        csv.Read();
-                        csv.ReadHeader();
+                Vault vault = new Vault();
 
-                        while (csv.Read())
-                        {
-                            string identityName = csv.GetField(0);
-                            string identityEmail = csv.GetField(1);
-                            string identityUsage = csv.GetField(2);
-
-                            Identity identity;
-
-                            if (vault.Identities.Any(c => (c.Email.Equals(identityEmail, StringComparison.OrdinalIgnoreCase))))
-                            {
-                                identity = vault.Identities.FirstOrDefault(i => i.Email.Equals(identityEmail));
-                            }
-                            else
-                            {
-                                identity = new Identity(identityName, identityEmail, identityUsage);
-                                vault.Identities.Add(identity);
-                            }
-
-                            string credentialID = csv.GetField(3);
-                            string credentialURL = csv.GetField(4);
-                            string credentialUsername = csv.GetField(5);
-                            string credentialPassword = csv.GetField(6);
-                            string credentialNotes = csv.GetField(7);
-
-                            Credential credential = new Credential(identity, credentialID, credentialUsername, credentialPassword, credentialURL, credentialNotes);
-                            // Do something with the record.
-
-                            identity.Credentials.Add(credentialID, credential);
-                        }
-                    }
-                    break;
-                case VaultFormat.JSON:
-                    string json = File.ReadAllText(fileName); 
-                    vault = JsonConvert.DeserializeObject<Vault>(json);
-                    break;
-                case VaultFormat.Encrypted:
-                    string encryptedVault = File.ReadAllText(fileName);
-                    vault = DecryptVault(encryptedVault, _password);
-                    break;
-            }
-
-            if (replace)
-            {
-                Vault = vault;
-            }
-            else
-            {
-                foreach (Identity identity in vault.Identities)
+                switch (format)
                 {
-                    if (FormvIDsafe.Main.User.Vault.Identities.Any(c => (c.Email.Equals(identity.Email, StringComparison.OrdinalIgnoreCase))))
-                    {
-                        Identity existingIdentity = Vault.Identities.FirstOrDefault(i => i.Email.Equals(identity.Email));
-
-                        foreach (KeyValuePair<string, Credential> credential in identity.Credentials)
+                    case VaultFormat.CSV:
+                        using (var csv = new CsvReader(new StreamReader(fileName), CultureInfo.InvariantCulture))
                         {
-                            if (!existingIdentity.Credentials.ContainsKey(credential.Key))
+                            csv.Read();
+                            csv.ReadHeader();
+
+                            while (csv.Read())
                             {
-                                existingIdentity.Credentials.Add(credential.Key, credential.Value);
+                                string identityName = csv.GetField(0);
+                                string identityEmail = csv.GetField(1);
+                                string identityUsage = csv.GetField(2);
+
+                                Identity identity;
+
+                                if (vault.Identities.Any(c => (c.Email.Equals(identityEmail, StringComparison.OrdinalIgnoreCase))))
+                                {
+                                    identity = vault.Identities.FirstOrDefault(i => i.Email.Equals(identityEmail));
+                                }
+                                else
+                                {
+                                    identity = new Identity(identityName, identityEmail, identityUsage);
+                                    vault.Identities.Add(identity);
+                                }
+
+                                string credentialID = csv.GetField(3);
+                                string credentialURL = csv.GetField(4);
+                                string credentialUsername = csv.GetField(5);
+                                string credentialPassword = csv.GetField(6);
+                                string credentialNotes = csv.GetField(7);
+
+                                Credential credential = new Credential(identity, credentialID, credentialUsername, credentialPassword, credentialURL, credentialNotes);
+                                // Do something with the record.
+
+                                identity.Credentials.Add(credentialID, credential);
                             }
                         }
-                    }
-                    else
+                        break;
+                    case VaultFormat.JSON:
+                        string json = File.ReadAllText(fileName);
+                        vault = JsonConvert.DeserializeObject<Vault>(json);
+                        break;
+                    case VaultFormat.Encrypted:
+                        string encryptedVault = File.ReadAllText(fileName);
+                        vault = DecryptVault(encryptedVault, _password);
+                        break;
+                }
+
+                if (replace)
+                {
+                    Vault = vault;
+                }
+                else
+                {
+                    foreach (Identity identity in vault.Identities)
                     {
-                        Vault.Identities.Add(identity);
+                        if (FormvIDsafe.Main.User.Vault.Identities.Any(c => (c.Email.Equals(identity.Email, StringComparison.OrdinalIgnoreCase))))
+                        {
+                            Identity existingIdentity = Vault.Identities.FirstOrDefault(i => i.Email.Equals(identity.Email));
+
+                            foreach (KeyValuePair<string, Credential> credential in identity.Credentials)
+                            {
+                                if (!existingIdentity.Credentials.ContainsKey(credential.Key))
+                                {
+                                    existingIdentity.Credentials.Add(credential.Key, credential.Value);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            Vault.Identities.Add(identity);
+                        }
                     }
                 }
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
             }
         }
 
         //Todo: Refactor
-        public void ExportVault(VaultFormat format, int identityIndex, string fileName)
+        public bool ExportVault(VaultFormat format, int identityIndex, string fileName)
         {
-            Vault vault = new Vault();
-
-            if (identityIndex > -1)
+            try
             {
-                vault.Identities.Add(Vault.Identities[identityIndex]);
-            }
-            else
-            {
-                vault = Vault;
-            }
+                Vault vault = new Vault();
 
-            switch (format)
-            {
-                case VaultFormat.CSV:
-                    string[] headers = new string[] { "Identity Name", "Identity Email", "Usage", "ID", "URL", "Username", "Password", "Notes" };
+                if (identityIndex > -1)
+                {
+                    vault.Identities.Add(Vault.Identities[identityIndex]);
+                }
+                else
+                {
+                    vault = Vault;
+                }
 
-                    using (CsvWriter csv = new CsvWriter(new StreamWriter(fileName), CultureInfo.InvariantCulture))
-                    {
-                        foreach (string header in headers)
+                switch (format)
+                {
+                    case VaultFormat.CSV:
+                        string[] headers = new string[] { "Identity Name", "Identity Email", "Usage", "ID", "URL", "Username", "Password", "Notes" };
+
+                        using (CsvWriter csv = new CsvWriter(new StreamWriter(fileName), CultureInfo.InvariantCulture))
                         {
-                            csv.WriteField(header);
-                        }
-
-                        csv.NextRecord();
-
-                        foreach (Identity identity in vault.Identities)
-                        {
-                            foreach (KeyValuePair<string, Credential> credential in identity.Credentials)
+                            foreach (string header in headers)
                             {
-                                csv.WriteField(identity.Name);
-                                csv.WriteField(identity.Email);
-                                csv.WriteField(identity.Usage);
-                                csv.WriteField(credential.Value.CredentialID);
-                                csv.WriteField(credential.Value.URL);
-                                csv.WriteField(credential.Value.Username);
-                                csv.WriteField(credential.Value.Password);
-                                csv.WriteField(credential.Value.Notes);
+                                csv.WriteField(header);
+                            }
 
-                                csv.NextRecord();
+                            csv.NextRecord();
+
+                            foreach (Identity identity in vault.Identities)
+                            {
+                                foreach (KeyValuePair<string, Credential> credential in identity.Credentials)
+                                {
+                                    csv.WriteField(identity.Name);
+                                    csv.WriteField(identity.Email);
+                                    csv.WriteField(identity.Usage);
+                                    csv.WriteField(credential.Value.CredentialID);
+                                    csv.WriteField(credential.Value.URL);
+                                    csv.WriteField(credential.Value.Username);
+                                    csv.WriteField(credential.Value.Password);
+                                    csv.WriteField(credential.Value.Notes);
+
+                                    csv.NextRecord();
+                                }
                             }
                         }
-                    }
 
-                    break;
-                case VaultFormat.JSON:
-                    string json = JsonConvert.SerializeObject(vault, Formatting.Indented);
+                        break;
+                    case VaultFormat.JSON:
+                        string json = JsonConvert.SerializeObject(vault, Formatting.Indented);
 
-                    FileInfo jsonfile = new FileInfo(fileName);
-                    jsonfile.Directory.Create(); // If the directory already exists, this method does nothing.
-                    File.WriteAllText(jsonfile.FullName, json);
-                    break;
-                case VaultFormat.Encrypted:
-                    string encryptedVault = EncryptVault(vault, _password);
+                        FileInfo jsonfile = new FileInfo(fileName);
+                        jsonfile.Directory.Create(); // If the directory already exists, this method does nothing.
+                        File.WriteAllText(jsonfile.FullName, json);
+                        break;
+                    case VaultFormat.Encrypted:
+                        string encryptedVault = EncryptVault(vault, _password);
 
-                    FileInfo file = new FileInfo(fileName);
-                    file.Directory.Create(); // If the directory already exists, this method does nothing.
-                    File.WriteAllText(file.FullName, encryptedVault.ToString());
-                    break;
+                        FileInfo file = new FileInfo(fileName);
+                        file.Directory.Create(); // If the directory already exists, this method does nothing.
+                        File.WriteAllText(file.FullName, encryptedVault.ToString());
+                        break;
+                }
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
             }
         }
 
