@@ -30,7 +30,7 @@
 		- [x] Delete account
 		- [x] Wipe identities
 		- [x] Purge credentials
-- [ ] Vault:
+- [x] Vault:
 	- [x] Identities:	
 		- [x] Allow the user to create/manage identities/profiles based on their needs
 			- [x] Name
