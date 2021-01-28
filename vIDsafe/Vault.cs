@@ -15,7 +15,6 @@ namespace vIDsafe
         private List<Identity> _identities = new List<Identity>();
 
         private int _totalCredentialCount;
-
         public enum LogType
         {
             Account,
@@ -49,7 +48,6 @@ namespace vIDsafe
         public int TotalWeakCredentials => _totalCredentialCounts[Credential.CredentialStatus.Weak];
 
         public List<Identity> Identities => _identities;
-
 
         public Vault()
         {

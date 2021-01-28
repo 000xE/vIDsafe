@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using vIDsafe.Properties;
 
 namespace vIDsafe
 {
@@ -32,6 +33,14 @@ namespace vIDsafe
         {
             OpenChildForm(new FormOverview());
             SetName(FormvIDsafe.Main.User.Name);
+            GetSettings();
+        }
+        private void GetSettings()
+        {
+            onCloseToolStripMenuItem.Checked = Settings.Default.HideToTrayClose;
+            onMinimizeToolStripMenuItem.Checked = Settings.Default.HideToTrayMinimize;
+            onStartToolStripMenuItem.Checked = Settings.Default.HideToTrayStart;
+            alwaysOnTopToolStripMenuItem.Checked = Settings.Default.AlwaysOnTop;
         }
 
         public static void SetName(string name)
@@ -54,7 +63,6 @@ namespace vIDsafe
             Label lblHealthScore = (Label)pnlProgressBack.Controls.Find("lblHealthScore", true)[0];
 
             lblHealthScore.Text = healthScore.ToString() + "%";
-
         }
 
         //https://stackoverflow.com/a/28811266
@@ -156,18 +164,116 @@ namespace vIDsafe
         private void btnLogOut_Click(object sender, EventArgs e)
         {
             Logout();
+            Close();
         }
         
         private void Logout()
         {
             FormvIDsafe.Main.User.Logout();
-
-            Close();
+            FormvIDsafe.Main.Show();
         }
 
-        private void FormHome_FormClosed(object sender, FormClosedEventArgs e)
+        private bool LoggedIn()
         {
-            FormvIDsafe.Main.Show();
+            if (FormvIDsafe.Main.User.Name == "")
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        private void FormHome_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (LoggedIn())
+            {
+                if (Settings.Default.HideToTrayClose)
+                {
+                    e.Cancel = true;
+                    HideToTray(true);
+                }
+                else
+                {
+                    Logout();
+                }
+            }
+        }
+
+        private void FormHome_Resize(object sender, EventArgs e)
+        {
+            if (WindowState == FormWindowState.Minimized)
+            {
+                if (Settings.Default.HideToTrayMinimize)
+                {
+                    HideToTray(true);
+                }
+            }
+        }
+
+        private void HideToTray(bool hide)
+        {
+            notifyIcon.Visible = hide;
+            notifyIcon.Icon = SystemIcons.Application;
+
+            if (hide)
+            {
+                Hide();
+            }
+            else
+            {
+                Show();
+            }
+        }
+
+        private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            HideToTray(false);
+        }
+
+        private void quitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void generateAPasswordToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GenerateAndCopyPassword();
+        }
+
+        private void GenerateAndCopyPassword()
+        {
+            string password = CredentialGeneration.GeneratePassword();
+            Clipboard.SetText(password);
+
+            FormvIDsafe.Main.User.Vault.Log(Vault.LogType.Passwords, password.ToString());
+        }
+
+        private void alwaysOnTopToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.Default.AlwaysOnTop = alwaysOnTopToolStripMenuItem.Checked;
+            Settings.Default.Save();
+
+            TopMost = alwaysOnTopToolStripMenuItem.Checked;
+        }
+
+        private void onCloseToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.Default.HideToTrayClose = onCloseToolStripMenuItem.Checked;
+            Settings.Default.Save();
+        }
+
+        private void onMinimizeToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.Default.HideToTrayMinimize = onMinimizeToolStripMenuItem.Checked;
+            Settings.Default.Save();
+        }
+
+        private void onStartToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.Default.HideToTrayStart = onStartToolStripMenuItem.Checked;
+            Settings.Default.Save();
         }
     }
 }

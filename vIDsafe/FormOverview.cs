@@ -17,10 +17,9 @@ namespace vIDsafe
             LoadFormComponents();
         }
 
+        //Todo: cleanup all "Load/GetFormComponents" methods by renaming?
         private void LoadFormComponents()
         {
-            AddIdentityColumns();
-
             RecalculateHealthScore();
         }
 
@@ -29,24 +28,19 @@ namespace vIDsafe
             FormvIDsafe.Main.User.Vault.CalculateOverallHealthScore();
             DisplayHealthScores();
             DisplayCredentialInformation();
-        }
-
-        private void AddIdentityColumns()
-        {
-            tlpIdentities.ColumnStyles.Clear();
-            for (int i = 0; i < FormvIDsafe.Main.User.Vault.Identities.Count; i++)
-            {
-                tlpIdentities.ColumnCount += 1;
-                tlpIdentities.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            }
+            DisplaySecurityAlerts();
         }
 
         private void DisplayHealthScores()
         {
+            tlpIdentities.ColumnStyles.Clear();
             tlpIdentities.Controls.Clear();
 
             for (int i = 0; i < FormvIDsafe.Main.User.Vault.Identities.Count; i++)
             {
+                tlpIdentities.ColumnCount += 1;
+                tlpIdentities.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+
                 Identity identity = FormvIDsafe.Main.User.Vault.Identities[i];
 
                 Panel identityPanel = CreatePanel(CalculateHealthColor(identity.HealthScore));
@@ -55,12 +49,6 @@ namespace vIDsafe
                 identityPanel.Controls.Add(CreateLabel(identity.HealthScore.ToString() + "%"));
 
                 tlpIdentities.Controls.Add(identityPanel, i, 0);
-            }
-
-            foreach (ColumnStyle style in tlpIdentities.ColumnStyles)
-            {
-                style.SizeType = SizeType.Percent;
-                style.Width = 50F;
             }
 
             int totalHealthScore = FormvIDsafe.Main.User.Vault.OverallHealthScore;
@@ -150,9 +138,9 @@ namespace vIDsafe
             }
             else
             {
-                red = (255 - red) * correctionFactor + red;
-                green = (255 - green) * correctionFactor + green;
-                blue = (255 - blue) * correctionFactor + blue;
+                red = ((255 - red) * correctionFactor) + red;
+                green = ((255 - green) * correctionFactor) + green;
+                blue = ((255 - blue) * correctionFactor) + blue;
             }
 
             return Color.FromArgb(color.A, (int)red, (int)green, (int)blue);
@@ -171,6 +159,47 @@ namespace vIDsafe
             chartCredentials.Series["Credentials"].Points[3].SetValueXY("Compromised", compromisedCount);
 
             chartCredentials.Series["Credentials"].IsValueShownAsLabel = true;
+        }
+
+        private void DisplaySecurityAlerts()
+        {
+            foreach (Identity identity in FormvIDsafe.Main.User.Vault.Identities)
+            {
+                int breachCount = identity.CompromisedCredentials;
+
+                if (breachCount > 0)
+                {
+                    string alert = breachCount + " exposed credential(s)";
+
+                    DisplayAlert(identity.Name, alert);
+                }
+
+                int conflictCount = identity.ConflictCredentials;
+
+                if (conflictCount > 0)
+                {
+                    string alert = conflictCount + " conflicted credential(s)";
+
+                    DisplayAlert(identity.Name, alert);
+                }
+
+                int weakCount = identity.WeakCredentials;
+
+                if (weakCount > 0)
+                {
+                    string alert = weakCount + " weak credential(s)";
+
+                    DisplayAlert(identity.Name, alert);
+                }
+            }
+        }
+        private void DisplayAlert(string identityName, string alert)
+        {
+            ListViewItem lvi = new ListViewItem("");
+            lvi.SubItems.Add(identityName);
+            lvi.SubItems.Add(alert);
+
+            lvSecurityAlerts.Items.Add(lvi);
         }
 
         private void chartCredentials_PrePaint(object sender, System.Windows.Forms.DataVisualization.Charting.ChartPaintEventArgs e)

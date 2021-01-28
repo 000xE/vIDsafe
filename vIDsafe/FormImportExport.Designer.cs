@@ -41,25 +41,27 @@
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.cmbIdentity = new System.Windows.Forms.ComboBox();
+            this.cmbExportFormat = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.panel11 = new System.Windows.Forms.Panel();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.radioButton4 = new System.Windows.Forms.RadioButton();
+            this.rdbAllData = new System.Windows.Forms.RadioButton();
+            this.rdbIdentity = new System.Windows.Forms.RadioButton();
             this.panel12 = new System.Windows.Forms.Panel();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnExport = new System.Windows.Forms.Button();
+            this.btnSelectFolder = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cmbImportFormat = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.rdbDoNotReplace = new System.Windows.Forms.RadioButton();
+            this.rdbReplace = new System.Windows.Forms.RadioButton();
             this.panel9 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.btnImport = new System.Windows.Forms.Button();
+            this.btnOpenFile = new System.Windows.Forms.Button();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.panelTitle.SuspendLayout();
             this.panelBack.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -228,8 +230,8 @@
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
-            this.panel4.Controls.Add(this.comboBox3);
-            this.panel4.Controls.Add(this.comboBox2);
+            this.panel4.Controls.Add(this.cmbIdentity);
+            this.panel4.Controls.Add(this.cmbExportFormat);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(25, 47);
             this.panel4.Name = "panel4";
@@ -237,27 +239,31 @@
             this.panel4.Size = new System.Drawing.Size(304, 90);
             this.panel4.TabIndex = 9;
             // 
-            // comboBox3
+            // cmbIdentity
             // 
-            this.comboBox3.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(92, 47);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(121, 21);
-            this.comboBox3.TabIndex = 2;
+            this.cmbIdentity.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.cmbIdentity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbIdentity.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbIdentity.FormattingEnabled = true;
+            this.cmbIdentity.Location = new System.Drawing.Point(92, 47);
+            this.cmbIdentity.Name = "cmbIdentity";
+            this.cmbIdentity.Size = new System.Drawing.Size(121, 21);
+            this.cmbIdentity.TabIndex = 2;
             // 
-            // comboBox2
+            // cmbExportFormat
             // 
-            this.comboBox2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(92, 20);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 21);
-            this.comboBox2.TabIndex = 1;
+            this.cmbExportFormat.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.cmbExportFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbExportFormat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbExportFormat.FormattingEnabled = true;
+            this.cmbExportFormat.Items.AddRange(new object[] {
+            "CSV",
+            "JSON",
+            "Encrypted (vIDsafe)"});
+            this.cmbExportFormat.Location = new System.Drawing.Point(92, 20);
+            this.cmbExportFormat.Name = "cmbExportFormat";
+            this.cmbExportFormat.Size = new System.Drawing.Size(121, 21);
+            this.cmbExportFormat.TabIndex = 1;
             // 
             // label4
             // 
@@ -276,83 +282,86 @@
             // panel11
             // 
             this.panel11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(49)))), ((int)(((byte)(56)))));
-            this.panel11.Controls.Add(this.radioButton3);
-            this.panel11.Controls.Add(this.radioButton4);
+            this.panel11.Controls.Add(this.rdbAllData);
+            this.panel11.Controls.Add(this.rdbIdentity);
             this.panel11.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel11.Location = new System.Drawing.Point(25, 137);
             this.panel11.Name = "panel11";
             this.panel11.Size = new System.Drawing.Size(304, 50);
             this.panel11.TabIndex = 10;
             // 
-            // radioButton3
+            // rdbAllData
             // 
-            this.radioButton3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButton3.ForeColor = System.Drawing.Color.Gainsboro;
-            this.radioButton3.Location = new System.Drawing.Point(164, 17);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(64, 17);
-            this.radioButton3.TabIndex = 3;
-            this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "All data";
-            this.radioButton3.UseVisualStyleBackColor = true;
+            this.rdbAllData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.rdbAllData.AutoSize = true;
+            this.rdbAllData.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rdbAllData.ForeColor = System.Drawing.Color.Gainsboro;
+            this.rdbAllData.Location = new System.Drawing.Point(164, 17);
+            this.rdbAllData.Name = "rdbAllData";
+            this.rdbAllData.Size = new System.Drawing.Size(64, 17);
+            this.rdbAllData.TabIndex = 3;
+            this.rdbAllData.Text = "All data";
+            this.rdbAllData.UseVisualStyleBackColor = true;
             // 
-            // radioButton4
+            // rdbIdentity
             // 
-            this.radioButton4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.radioButton4.AutoSize = true;
-            this.radioButton4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButton4.ForeColor = System.Drawing.Color.Gainsboro;
-            this.radioButton4.Location = new System.Drawing.Point(77, 17);
-            this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(81, 17);
-            this.radioButton4.TabIndex = 2;
-            this.radioButton4.TabStop = true;
-            this.radioButton4.Text = "An identity";
-            this.radioButton4.UseVisualStyleBackColor = true;
+            this.rdbIdentity.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.rdbIdentity.AutoSize = true;
+            this.rdbIdentity.Checked = true;
+            this.rdbIdentity.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rdbIdentity.ForeColor = System.Drawing.Color.Gainsboro;
+            this.rdbIdentity.Location = new System.Drawing.Point(77, 17);
+            this.rdbIdentity.Name = "rdbIdentity";
+            this.rdbIdentity.Size = new System.Drawing.Size(81, 17);
+            this.rdbIdentity.TabIndex = 2;
+            this.rdbIdentity.TabStop = true;
+            this.rdbIdentity.Text = "An identity";
+            this.rdbIdentity.UseVisualStyleBackColor = true;
+            this.rdbIdentity.CheckedChanged += new System.EventHandler(this.rdbIdentity_CheckedChanged);
             // 
             // panel12
             // 
             this.panel12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(59)))), ((int)(((byte)(66)))));
-            this.panel12.Controls.Add(this.button3);
-            this.panel12.Controls.Add(this.button2);
+            this.panel12.Controls.Add(this.btnExport);
+            this.panel12.Controls.Add(this.btnSelectFolder);
             this.panel12.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel12.Location = new System.Drawing.Point(25, 187);
             this.panel12.Name = "panel12";
             this.panel12.Size = new System.Drawing.Size(304, 100);
             this.panel12.TabIndex = 11;
             // 
-            // button3
+            // btnExport
             // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.button3.BackColor = System.Drawing.Color.RoyalBlue;
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.ForeColor = System.Drawing.Color.White;
-            this.button3.Location = new System.Drawing.Point(155, 35);
-            this.button3.MaximumSize = new System.Drawing.Size(100, 30);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(100, 30);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "Open";
-            this.button3.UseVisualStyleBackColor = false;
+            this.btnExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.btnExport.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnExport.FlatAppearance.BorderSize = 0;
+            this.btnExport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExport.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExport.ForeColor = System.Drawing.Color.White;
+            this.btnExport.Location = new System.Drawing.Point(155, 35);
+            this.btnExport.MaximumSize = new System.Drawing.Size(100, 30);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(100, 30);
+            this.btnExport.TabIndex = 3;
+            this.btnExport.Text = "Export";
+            this.btnExport.UseVisualStyleBackColor = false;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
-            // button2
+            // btnSelectFolder
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.button2.BackColor = System.Drawing.Color.RoyalBlue;
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(49, 35);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(100, 30);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Export";
-            this.button2.UseVisualStyleBackColor = false;
+            this.btnSelectFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.btnSelectFolder.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnSelectFolder.FlatAppearance.BorderSize = 0;
+            this.btnSelectFolder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSelectFolder.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSelectFolder.ForeColor = System.Drawing.Color.White;
+            this.btnSelectFolder.Location = new System.Drawing.Point(49, 35);
+            this.btnSelectFolder.Name = "btnSelectFolder";
+            this.btnSelectFolder.Size = new System.Drawing.Size(100, 30);
+            this.btnSelectFolder.TabIndex = 2;
+            this.btnSelectFolder.Text = "Select folder";
+            this.btnSelectFolder.UseVisualStyleBackColor = false;
+            this.btnSelectFolder.Click += new System.EventHandler(this.btnSelectFolder_Click);
             // 
             // panel2
             // 
@@ -372,7 +381,7 @@
             // panel5
             // 
             this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
-            this.panel5.Controls.Add(this.comboBox1);
+            this.panel5.Controls.Add(this.cmbImportFormat);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(25, 47);
             this.panel5.Name = "panel5";
@@ -380,16 +389,20 @@
             this.panel5.Size = new System.Drawing.Size(304, 90);
             this.panel5.TabIndex = 9;
             // 
-            // comboBox1
+            // cmbImportFormat
             // 
-            this.comboBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(92, 35);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 0;
+            this.cmbImportFormat.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.cmbImportFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbImportFormat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbImportFormat.FormattingEnabled = true;
+            this.cmbImportFormat.Items.AddRange(new object[] {
+            "CSV",
+            "JSON",
+            "Encrypted (vIDsafe)"});
+            this.cmbImportFormat.Location = new System.Drawing.Point(92, 35);
+            this.cmbImportFormat.Name = "cmbImportFormat";
+            this.cmbImportFormat.Size = new System.Drawing.Size(121, 21);
+            this.cmbImportFormat.TabIndex = 0;
             // 
             // label6
             // 
@@ -408,83 +421,95 @@
             // panel7
             // 
             this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(49)))), ((int)(((byte)(56)))));
-            this.panel7.Controls.Add(this.radioButton2);
-            this.panel7.Controls.Add(this.radioButton1);
+            this.panel7.Controls.Add(this.rdbDoNotReplace);
+            this.panel7.Controls.Add(this.rdbReplace);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel7.Location = new System.Drawing.Point(25, 137);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(304, 50);
             this.panel7.TabIndex = 10;
             // 
-            // radioButton2
+            // rdbDoNotReplace
             // 
-            this.radioButton2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButton2.ForeColor = System.Drawing.Color.Gainsboro;
-            this.radioButton2.Location = new System.Drawing.Point(150, 17);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(101, 17);
-            this.radioButton2.TabIndex = 3;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Do not replace";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.rdbDoNotReplace.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.rdbDoNotReplace.AutoSize = true;
+            this.rdbDoNotReplace.Checked = true;
+            this.rdbDoNotReplace.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rdbDoNotReplace.ForeColor = System.Drawing.Color.Gainsboro;
+            this.rdbDoNotReplace.Location = new System.Drawing.Point(150, 17);
+            this.rdbDoNotReplace.Name = "rdbDoNotReplace";
+            this.rdbDoNotReplace.Size = new System.Drawing.Size(101, 17);
+            this.rdbDoNotReplace.TabIndex = 3;
+            this.rdbDoNotReplace.TabStop = true;
+            this.rdbDoNotReplace.Text = "Do not replace";
+            this.rdbDoNotReplace.UseVisualStyleBackColor = true;
             // 
-            // radioButton1
+            // rdbReplace
             // 
-            this.radioButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButton1.ForeColor = System.Drawing.Color.Gainsboro;
-            this.radioButton1.Location = new System.Drawing.Point(53, 17);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(91, 17);
-            this.radioButton1.TabIndex = 2;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Replace data";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.rdbReplace.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.rdbReplace.AutoSize = true;
+            this.rdbReplace.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rdbReplace.ForeColor = System.Drawing.Color.Gainsboro;
+            this.rdbReplace.Location = new System.Drawing.Point(53, 17);
+            this.rdbReplace.Name = "rdbReplace";
+            this.rdbReplace.Size = new System.Drawing.Size(93, 17);
+            this.rdbReplace.TabIndex = 2;
+            this.rdbReplace.Text = "Replace vault";
+            this.rdbReplace.UseVisualStyleBackColor = true;
             // 
             // panel9
             // 
             this.panel9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(59)))), ((int)(((byte)(66)))));
-            this.panel9.Controls.Add(this.button1);
-            this.panel9.Controls.Add(this.button4);
+            this.panel9.Controls.Add(this.btnImport);
+            this.panel9.Controls.Add(this.btnOpenFile);
             this.panel9.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel9.Location = new System.Drawing.Point(25, 187);
             this.panel9.Name = "panel9";
             this.panel9.Size = new System.Drawing.Size(304, 100);
             this.panel9.TabIndex = 11;
             // 
-            // button1
+            // btnImport
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.button1.BackColor = System.Drawing.Color.RoyalBlue;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(155, 35);
-            this.button1.MaximumSize = new System.Drawing.Size(100, 30);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 30);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Open";
-            this.button1.UseVisualStyleBackColor = false;
+            this.btnImport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.btnImport.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnImport.FlatAppearance.BorderSize = 0;
+            this.btnImport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnImport.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnImport.ForeColor = System.Drawing.Color.White;
+            this.btnImport.Location = new System.Drawing.Point(155, 35);
+            this.btnImport.MaximumSize = new System.Drawing.Size(100, 30);
+            this.btnImport.Name = "btnImport";
+            this.btnImport.Size = new System.Drawing.Size(100, 30);
+            this.btnImport.TabIndex = 3;
+            this.btnImport.Text = "Import";
+            this.btnImport.UseVisualStyleBackColor = false;
+            this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
             // 
-            // button4
+            // btnOpenFile
             // 
-            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.button4.BackColor = System.Drawing.Color.RoyalBlue;
-            this.button4.FlatAppearance.BorderSize = 0;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.ForeColor = System.Drawing.Color.White;
-            this.button4.Location = new System.Drawing.Point(49, 35);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(100, 30);
-            this.button4.TabIndex = 2;
-            this.button4.Text = "Export";
-            this.button4.UseVisualStyleBackColor = false;
+            this.btnOpenFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.btnOpenFile.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnOpenFile.FlatAppearance.BorderSize = 0;
+            this.btnOpenFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOpenFile.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOpenFile.ForeColor = System.Drawing.Color.White;
+            this.btnOpenFile.Location = new System.Drawing.Point(49, 35);
+            this.btnOpenFile.Name = "btnOpenFile";
+            this.btnOpenFile.Size = new System.Drawing.Size(100, 30);
+            this.btnOpenFile.TabIndex = 2;
+            this.btnOpenFile.Text = "Open file";
+            this.btnOpenFile.UseVisualStyleBackColor = false;
+            this.btnOpenFile.Click += new System.EventHandler(this.btnOpenFile_Click);
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.DefaultExt = "csv";
+            this.openFileDialog.FileName = "FileToImport";
+            this.openFileDialog.Filter = "\"CSV files (*.csv)|*.csv|JSON files (*.json)|*.json|All files (*.*)|*.*\"";
+            // 
+            // saveFileDialog
+            // 
+            this.saveFileDialog.FileName = "FileToExport";
             // 
             // FormImportExport
             // 
@@ -533,25 +558,27 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panel11;
         private System.Windows.Forms.Panel panel12;
-        private System.Windows.Forms.RadioButton radioButton3;
-        private System.Windows.Forms.RadioButton radioButton4;
+        private System.Windows.Forms.RadioButton rdbAllData;
+        private System.Windows.Forms.RadioButton rdbIdentity;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Panel panel9;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton rdbDoNotReplace;
+        private System.Windows.Forms.RadioButton rdbReplace;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Panel panel10;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.ComboBox comboBox3;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnImport;
+        private System.Windows.Forms.Button btnOpenFile;
+        private System.Windows.Forms.ComboBox cmbIdentity;
+        private System.Windows.Forms.ComboBox cmbExportFormat;
+        private System.Windows.Forms.ComboBox cmbImportFormat;
+        private System.Windows.Forms.Button btnExport;
+        private System.Windows.Forms.Button btnSelectFolder;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
     }
 }

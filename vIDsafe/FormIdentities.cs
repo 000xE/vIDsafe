@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Net.Mail;
 using System.Text;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace vIDsafe
 {
@@ -54,7 +56,6 @@ namespace vIDsafe
                     chartCredentials.Annotations.Add(ta);
                 }
             }
-
         }
 
         private void btnNewIdentity_Click(object sender, EventArgs e)
@@ -64,7 +65,9 @@ namespace vIDsafe
 
         private void NewIdentity()
         {
-            string defaultIdentityName = "New identity";
+            string nameToRandomise = "Random Identity";
+
+            string defaultIdentityName = CredentialGeneration.GenerateUsername(nameToRandomise);
 
             FormvIDsafe.Main.User.Vault.NewIdentity(defaultIdentityName);
 
@@ -81,8 +84,25 @@ namespace vIDsafe
         {
             if (email.Length > 0)
             {
-                //Todo: validate address
-                return true;
+                try
+                {
+                    MailAddress m = new MailAddress(email);
+
+                    if (FormvIDsafe.Main.User.Vault.Identities.Any(c => (c.Email.Equals(email, StringComparison.OrdinalIgnoreCase))))
+                    {
+                        Console.WriteLine("Email already exists");
+                        return false;
+                    }
+
+                    return true;
+                }
+                catch (FormatException e)
+                {
+                    Console.WriteLine(e);
+                    return false;
+                }
+
+                //Todo: check if email already in identities to eliminate duplicates
             }
             else
             {
@@ -182,7 +202,6 @@ namespace vIDsafe
             chartCredentials.Series["Credentials"].Points[3].SetValueXY("Compromised", compromisedCount);
             chartCredentials.Series["Credentials"].IsValueShownAsLabel = true;
         }
-
 
         private void DeleteIdentity(int selectedIdentityIndex)
         {

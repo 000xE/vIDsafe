@@ -50,12 +50,12 @@ namespace vIDsafe.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool HideToTrayMinimise {
+        public bool HideToTrayMinimize {
             get {
-                return ((bool)(this["HideToTrayMinimise"]));
+                return ((bool)(this["HideToTrayMinimize"]));
             }
             set {
-                this["HideToTrayMinimise"] = value;
+                this["HideToTrayMinimize"] = value;
             }
         }
         
@@ -74,12 +74,12 @@ namespace vIDsafe.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Setting {
+        public string Theme {
             get {
-                return ((string)(this["Setting"]));
+                return ((string)(this["Theme"]));
             }
             set {
-                this["Setting"] = value;
+                this["Theme"] = value;
             }
         }
     }

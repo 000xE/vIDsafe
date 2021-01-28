@@ -49,7 +49,6 @@ namespace vIDsafe
             {
                 ExposuresResponse exposures = _enzoic.GetExposuresForUser(email);
 
-
                 foreach (string exposure in exposures.Exposures)
                 {
                     exposureDetails.Add(_enzoic.GetExposureDetails(exposure));

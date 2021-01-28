@@ -28,13 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint1 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 146D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint2 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 30D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint3 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 7D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint4 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 17D);
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint13 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 146D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint14 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 30D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint15 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 7D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint16 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 17D);
             this.panelBack = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
@@ -49,11 +49,14 @@
             this.label4 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.listBox1 = new System.Windows.Forms.ListBox();
             this.label3 = new System.Windows.Forms.Label();
             this.panelTitle = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.lvSecurityAlerts = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnIdentityName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnAlert = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panelBack.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel7.SuspendLayout();
@@ -136,46 +139,46 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 232F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 257F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(432, 257);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // chartCredentials
             // 
             this.chartCredentials.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(59)))), ((int)(((byte)(66)))));
-            chartArea1.BackColor = System.Drawing.Color.Transparent;
-            chartArea1.Name = "ChartArea1";
-            this.chartCredentials.ChartAreas.Add(chartArea1);
+            chartArea4.BackColor = System.Drawing.Color.Transparent;
+            chartArea4.Name = "ChartArea1";
+            this.chartCredentials.ChartAreas.Add(chartArea4);
             this.chartCredentials.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend1.Alignment = System.Drawing.StringAlignment.Center;
-            legend1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
-            legend1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            legend1.Name = "Legend1";
-            this.chartCredentials.Legends.Add(legend1);
+            legend4.Alignment = System.Drawing.StringAlignment.Center;
+            legend4.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
+            legend4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            legend4.Name = "Legend1";
+            this.chartCredentials.Legends.Add(legend4);
             this.chartCredentials.Location = new System.Drawing.Point(3, 3);
             this.chartCredentials.Name = "chartCredentials";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
-            series1.LabelForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            series1.Legend = "Legend1";
-            series1.Name = "Credentials";
-            dataPoint1.Color = System.Drawing.Color.LightSeaGreen;
-            dataPoint1.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            dataPoint1.Label = "";
-            dataPoint2.Color = System.Drawing.Color.Khaki;
-            dataPoint2.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            dataPoint2.Label = "";
-            dataPoint3.Color = System.Drawing.Color.MediumSlateBlue;
-            dataPoint3.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            dataPoint3.Label = "";
-            dataPoint4.Color = System.Drawing.Color.Salmon;
-            dataPoint4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataPoint4.Label = "";
-            series1.Points.Add(dataPoint1);
-            series1.Points.Add(dataPoint2);
-            series1.Points.Add(dataPoint3);
-            series1.Points.Add(dataPoint4);
-            this.chartCredentials.Series.Add(series1);
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
+            series4.LabelForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            series4.Legend = "Legend1";
+            series4.Name = "Credentials";
+            dataPoint13.Color = System.Drawing.Color.LightSeaGreen;
+            dataPoint13.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            dataPoint13.Label = "";
+            dataPoint14.Color = System.Drawing.Color.Khaki;
+            dataPoint14.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            dataPoint14.Label = "";
+            dataPoint15.Color = System.Drawing.Color.MediumSlateBlue;
+            dataPoint15.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            dataPoint15.Label = "";
+            dataPoint16.Color = System.Drawing.Color.Salmon;
+            dataPoint16.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataPoint16.Label = "";
+            series4.Points.Add(dataPoint13);
+            series4.Points.Add(dataPoint14);
+            series4.Points.Add(dataPoint15);
+            series4.Points.Add(dataPoint16);
+            this.chartCredentials.Series.Add(series4);
             this.chartCredentials.Size = new System.Drawing.Size(426, 251);
             this.chartCredentials.TabIndex = 0;
             this.chartCredentials.Text = "chart1";
@@ -268,26 +271,13 @@
             // 
             // panel6
             // 
-            this.panel6.Controls.Add(this.listBox1);
+            this.panel6.Controls.Add(this.lvSecurityAlerts);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel6.Location = new System.Drawing.Point(25, 43);
             this.panel6.Name = "panel6";
             this.panel6.Padding = new System.Windows.Forms.Padding(0, 25, 0, 0);
             this.panel6.Size = new System.Drawing.Size(241, 433);
             this.panel6.TabIndex = 7;
-            // 
-            // listBox1
-            // 
-            this.listBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
-            this.listBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBox1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listBox1.ForeColor = System.Drawing.Color.Gainsboro;
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(0, 25);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(241, 408);
-            this.listBox1.TabIndex = 0;
             // 
             // label3
             // 
@@ -335,6 +325,42 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "Overview";
             // 
+            // lvSecurityAlerts
+            // 
+            this.lvSecurityAlerts.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(59)))), ((int)(((byte)(66)))));
+            this.lvSecurityAlerts.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lvSecurityAlerts.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnIdentityName,
+            this.columnAlert});
+            this.lvSecurityAlerts.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvSecurityAlerts.ForeColor = System.Drawing.Color.Gainsboro;
+            this.lvSecurityAlerts.FullRowSelect = true;
+            this.lvSecurityAlerts.HideSelection = false;
+            this.lvSecurityAlerts.Location = new System.Drawing.Point(0, 25);
+            this.lvSecurityAlerts.Name = "lvSecurityAlerts";
+            this.lvSecurityAlerts.Size = new System.Drawing.Size(241, 408);
+            this.lvSecurityAlerts.Sorting = System.Windows.Forms.SortOrder.Descending;
+            this.lvSecurityAlerts.TabIndex = 5;
+            this.lvSecurityAlerts.UseCompatibleStateImageBehavior = false;
+            this.lvSecurityAlerts.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Width = 0;
+            // 
+            // columnIdentityName
+            // 
+            this.columnIdentityName.Text = "Identity";
+            this.columnIdentityName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnIdentityName.Width = 120;
+            // 
+            // columnAlert
+            // 
+            this.columnAlert.Text = "Alert";
+            this.columnAlert.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnAlert.Width = 121;
+            // 
             // FormOverview
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -381,7 +407,10 @@
         private System.Windows.Forms.DataVisualization.Charting.Chart chartCredentials;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel6;
-        private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ListView lvSecurityAlerts;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnIdentityName;
+        private System.Windows.Forms.ColumnHeader columnAlert;
     }
 }

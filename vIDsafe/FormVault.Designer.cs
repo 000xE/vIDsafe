@@ -221,6 +221,7 @@
             this.cmbIdentity.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cmbIdentity.BackColor = System.Drawing.Color.White;
             this.cmbIdentity.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmbIdentity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbIdentity.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbIdentity.FormattingEnabled = true;
             this.cmbIdentity.Location = new System.Drawing.Point(0, 25);

@@ -370,7 +370,7 @@
             // 
             this.columnDateTime.Text = "Date/Time";
             this.columnDateTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnDateTime.Width = 121;
+            this.columnDateTime.Width = 120;
             // 
             // columnPassword
             // 

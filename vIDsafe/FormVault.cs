@@ -47,8 +47,19 @@ namespace vIDsafe
         {
             if (URL.Length > 0 && username.Length > 0 && password.Length > 0)
             {
-                //Todo: validate URL
-                return true;
+                Uri uriResult;
+                bool result = Uri.TryCreate(URL, UriKind.Absolute, out uriResult) 
+                    && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
+
+                if (result)
+                {
+                    return true;
+                }
+                else
+                {
+                    Console.WriteLine("Please check your URL");
+                    return false;
+                }
             }
             else
             {
@@ -96,7 +107,7 @@ namespace vIDsafe
 
             int credentialCount = lvCredentials.Items.Count;
 
-            string credentialID = identity.NewCredential(selectedIdentityIndex, defaultUsername, defaultPassword);
+            string credentialID = identity.NewCredential(defaultUsername, defaultPassword);
 
             Credential credential = identity.Credentials[credentialID];
 
@@ -121,7 +132,7 @@ namespace vIDsafe
 
                     Credential.CredentialStatus status = credential.Status;
 
-                    //Todo: maybe move this to display credential and add a boolean parameter for adding or setting
+
                     lvCredentials.SelectedItems[0].SubItems[1].Text = credentialUsername;
                     lvCredentials.SelectedItems[0].SubItems[2].Text = credentialURL;
                     lvCredentials.SelectedItems[0].SubItems[3].Text = status.ToString();
@@ -140,7 +151,6 @@ namespace vIDsafe
                 credentials = credentials.Where(pair => pair.Value.Username.ToLower().Contains(searchedText.ToLower().Trim())).ToDictionary(pair => pair.Key, pair => pair.Value);
 
                 credentials = credentials.Where(pair => pair.Value.Username.IndexOf(searchedText, StringComparison.OrdinalIgnoreCase) >= 0).ToDictionary(pair => pair.Key, pair => pair.Value);
-
 
                 DisplayCredentials(credentials);
             }
@@ -165,7 +175,6 @@ namespace vIDsafe
         private void GetCredentials(int selectedIdentityIndex)
         {
             Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedIdentityIndex];
-
             identity.CalculateHealthScore();
 
             Dictionary<string, Credential> credentials = identity.Credentials;
@@ -322,6 +331,5 @@ namespace vIDsafe
                 GetCredentials(selectedIdentityIndex);
             }
         }
-
     }
 }
