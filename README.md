@@ -1,8 +1,20 @@
-# 1808827-FYP
+<h1 align="center">
+  vIDsafe
+</h1>
 
-vIDsafe - A password manager focused on the idea of compartmentalisation.
+<p align="center">
+  A password manager focused on the idea of compartmentalisation.
+</p>
 
-[![CodeFactor](https://www.codefactor.io/repository/github/outerme/1808827-fyp/badge)](https://www.codefactor.io/repository/github/outerme/1808827-fyp)
+<p align="center">
+  <a style="text-decoration:none" href="https://www.codefactor.io/repository/github/outerme/1808827-fyp/badge">
+    <img src="https://www.codefactor.io/repository/github/outerme/1808827-fyp/badge" alt="CodeFactor" />
+  </a>
+  <a style="text-decoration:none" href="https://github.com/outerme/1808827-FYP/releases">
+    <img src="https://img.shields.io/github/v/release/outerme/1808827-FYP?include_prereleases" alt="Releases" />
+  </a>
+</p>
+
 
 # Specification
 
