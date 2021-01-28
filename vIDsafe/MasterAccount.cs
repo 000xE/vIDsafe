@@ -7,6 +7,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using CsvHelper;
 using System.Globalization;
+using Newtonsoft.Json;
 
 namespace vIDsafe
 {
@@ -221,6 +222,8 @@ namespace vIDsafe
                     }
                     break;
                 case VaultFormat.JSON:
+                    string json = File.ReadAllText(fileName); 
+                    vault = JsonConvert.DeserializeObject<Vault>(json);
                     break;
                 case VaultFormat.Encrypted:
                     string encryptedVault = File.ReadAllText(fileName);
@@ -304,7 +307,11 @@ namespace vIDsafe
 
                     break;
                 case VaultFormat.JSON:
+                    string json = JsonConvert.SerializeObject(vault, Formatting.Indented);
 
+                    FileInfo jsonfile = new FileInfo(fileName);
+                    jsonfile.Directory.Create(); // If the directory already exists, this method does nothing.
+                    File.WriteAllText(jsonfile.FullName, json);
                     break;
                 case VaultFormat.Encrypted:
                     string encryptedVault = EncryptVault(vault, _password);
