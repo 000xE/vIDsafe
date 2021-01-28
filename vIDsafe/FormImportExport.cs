@@ -22,6 +22,8 @@ namespace vIDsafe
             GetIdentities();
         }
 
+        //Todo: Refactor the whole code
+
         private void GetIdentities()
         {
             cmbIdentity.Items.Clear();

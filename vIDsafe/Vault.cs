@@ -56,7 +56,10 @@ namespace vIDsafe
 
         public void NewIdentity(string name)
         {
-            Identity identity = new Identity(name);
+            string email = "";
+            string usage = "";
+
+            Identity identity = new Identity(name, email, usage);
             _identities.Add(identity);
 
             FormvIDsafe.Main.User.SaveVault();

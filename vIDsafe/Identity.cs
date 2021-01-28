@@ -50,17 +50,20 @@ namespace vIDsafe
 
         public Dictionary<string, Credential> Credentials => _credentials;
 
-        public Identity(string name)
+        public Identity(string name, string email, string usage)
         {
             _name = name;
-            _email = "";
-            _usage = "";
+            _email = email;
+            _usage = usage;
         }
         public string NewCredential(string username, string password)
         {
-            Credential credential = new Credential(this, username, password);
+            string GUID = Guid.NewGuid().ToString();
 
-            string GUID = credential.CredentialID;
+            string url = "";
+            string notes = "";
+
+            Credential credential = new Credential(this, GUID, username, password, url, notes;
 
             _credentials.Add(GUID, credential);
 

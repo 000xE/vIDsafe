@@ -176,6 +176,7 @@ namespace vIDsafe
             }                   
         }
 
+        //Todo: Refactor
         public void ImportVault(VaultFormat format, string fileName, bool replace)
         {
             Vault vault = new Vault();
@@ -183,10 +184,41 @@ namespace vIDsafe
             switch (format)
             {
                 case VaultFormat.CSV:
+                    using (var csv = new CsvReader(new StreamReader(fileName), CultureInfo.InvariantCulture))
+                    {
+                        csv.Read();
+                        csv.ReadHeader();
 
+                        while (csv.Read())
+                        {
+                            string identityName = csv.GetField(0);
+                            string identityEmail = csv.GetField(1);
+                            string identityUsage = csv.GetField(2);
 
+                            Identity identity;
 
+                            if (vault.Identities.Any(c => (c.Email.Equals(identityEmail, StringComparison.OrdinalIgnoreCase))))
+                            {
+                                identity = vault.Identities.FirstOrDefault(i => i.Email.Equals(identityEmail));
+                            }
+                            else
+                            {
+                                identity = new Identity(identityName, identityEmail, identityUsage);
+                                vault.Identities.Add(identity);
+                            }
 
+                            string credentialID = csv.GetField(3);
+                            string credentialURL = csv.GetField(4);
+                            string credentialUsername = csv.GetField(5);
+                            string credentialPassword = csv.GetField(6);
+                            string credentialNotes = csv.GetField(7);
+
+                            Credential credential = new Credential(identity, credentialID, credentialUsername, credentialPassword, credentialURL, credentialNotes);
+                            // Do something with the record.
+
+                            identity.Credentials.Add(credentialID, credential);
+                        }
+                    }
                     break;
                 case VaultFormat.JSON:
                     break;
@@ -224,6 +256,7 @@ namespace vIDsafe
             }
         }
 
+        //Todo: Refactor
         public void ExportVault(VaultFormat format, int identityIndex, string fileName)
         {
             Vault vault = new Vault();
@@ -240,7 +273,7 @@ namespace vIDsafe
             switch (format)
             {
                 case VaultFormat.CSV:
-                    string[] headers = new string[] { "Identity Name", "Identity Email", "Usage", "URL", "Username", "Password", "Notes" };
+                    string[] headers = new string[] { "Identity Name", "Identity Email", "Usage", "ID", "URL", "Username", "Password", "Notes" };
 
                     using (CsvWriter csv = new CsvWriter(new StreamWriter(fileName), CultureInfo.InvariantCulture))
                     {
@@ -258,6 +291,7 @@ namespace vIDsafe
                                 csv.WriteField(identity.Name);
                                 csv.WriteField(identity.Email);
                                 csv.WriteField(identity.Usage);
+                                csv.WriteField(credential.Value.CredentialID);
                                 csv.WriteField(credential.Value.URL);
                                 csv.WriteField(credential.Value.Username);
                                 csv.WriteField(credential.Value.Password);
