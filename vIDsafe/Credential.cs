@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CsvHelper.Configuration.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,25 +10,24 @@ namespace vIDsafe
     [Serializable]
     public class Credential
     {
-        private string _userName;
+        private string _username;
         private string _password;
         private string _url;
         private string _notes;
 
-        private int _identityIndex;
+        private Identity _identity;
+
         private readonly string _credentialID;
 
         private CredentialStatus _status = CredentialStatus.Safe;
 
-        public string Username => _userName;
+        public string Username => _username;
 
         public string Password => _password;
 
         public string URL => _url;
 
         public string Notes => _notes;
-
-        public int IdentityIndex => _identityIndex;
 
         public string CredentialID => _credentialID;
 
@@ -41,35 +41,22 @@ namespace vIDsafe
             Weak
         }
 
-        public Credential(int identityIndex, string username, string password)
+        public Credential(Identity identity, string username, string password)
         {
-            _identityIndex = identityIndex;
-
-            _userName = username;
-            _password = password;
-
             _credentialID = Guid.NewGuid().ToString();
+            _identity = identity;
+
+            _username = username;
+            _password = password;
+            _url = "";
+            _notes = "";
 
             _status = GetStatus();
         }
 
-        public string GetDomain()
-        {
-            //Todo: validation
-            if (_url != null)
-            {
-                string host = new Uri(_url).Host;
-                return host.Substring(host.LastIndexOf('.', host.LastIndexOf('.') - 1) + 1);
-            }
-            else
-            {
-                return "";
-            }
-        }
-
         public void SetDetails(string username, string password, string url, string notes)
         {
-            _userName = username;
+            _username = username;
             _password = password;
             _url = url;
             _notes = notes;
@@ -86,15 +73,15 @@ namespace vIDsafe
 
         public CredentialStatus GetStatus()
         {
-            if (CheckBreached())
+            if (CheckBreached(_url))
             {
                 return CredentialStatus.Compromised;
             }
-            else if (CheckConflict())
+            else if (CheckConflict(_username, _password))
             {
                 return CredentialStatus.Conflicted;
             }
-            else if (CheckWeak())
+            else if (CheckWeak(_password))
             {
                 return CredentialStatus.Weak;
             }
@@ -104,37 +91,18 @@ namespace vIDsafe
             }
         }
 
-        private bool CheckBreached()
+        private string GetDomain(string url)
         {
-            if (FormvIDsafe.Main.User.Vault.Identities[_identityIndex].BreachedDomains.ContainsKey(GetDomain()))
-            {
-                return true;
-            }
+            string host = new Uri(url).Host;
+            string domain = host.Substring(host.LastIndexOf('.', host.LastIndexOf('.') - 1) + 1);
 
-            return false;
+            return domain;
         }
-
-        private bool CheckConflict()
+        private bool CheckBreached(string url)
         {
-            foreach (Identity identity in FormvIDsafe.Main.User.Vault.Identities)
+            if (url.Length > 0)
             {
-                /*foreach (KeyValuePair<string, Credential> credentialPair in identity.Credentials)
-                {
-                    Credential credential = credentialPair.Value;
-
-                    if (credential.CredentialID != _credentialID)
-                    {
-                        if (credential.Username.Equals(_userName, StringComparison.OrdinalIgnoreCase) || credential.Password == _password)
-                        {
-                            credential.SetStatus(CredentialStatus.Conflicted);
-
-                            return true;
-                        }
-                    }
-                }*/
-
-                if (identity.Credentials.Any(c => (c.Value.CredentialID != _credentialID) 
-                && (c.Value.Username.Equals(_userName, StringComparison.OrdinalIgnoreCase) || c.Value.Password.Equals(_password))))
+                if (_identity.BreachedDomains.ContainsKey(GetDomain(url)))
                 {
                     return true;
                 }
@@ -143,13 +111,33 @@ namespace vIDsafe
             return false;
         }
 
-        private bool CheckWeak()
+        private bool CheckConflict(string username, string password)
         {
-            double strengthThreshold = 30.0;
-
-            if (CredentialGeneration.CheckStrength(_password) < strengthThreshold)
+            if (username.Length > 0 || password.Length > 0)
             {
-                return true;
+                foreach (Identity identity in FormvIDsafe.Main.User.Vault.Identities)
+                {
+                    if (identity.Credentials.Any(c => (c.Value.CredentialID != _credentialID)
+                    && (c.Value.Username.Equals(username, StringComparison.OrdinalIgnoreCase) || c.Value.Password.Equals(password))))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        private bool CheckWeak(string password)
+        {
+            if (password.Length > 0)
+            {
+                double strengthThreshold = 30.0;
+
+                if (CredentialGeneration.CheckStrength(password) < strengthThreshold)
+                {
+                    return true;
+                }
             }
 
             return false;

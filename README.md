@@ -38,12 +38,13 @@ vIDsafe - A password manager focused on the idea of compartmentalisation.
 		- [x] Display an overview of the user's vault
 			- [x] Identity health scores
 			- [x] Weak credentials
-			- [ ] Security alerts
+			- [x] Security alerts
 		- [x] Encrypt the vault using the methods bcrypt and AES
 		- [ ] Allow the user to import and export their vault in JSON/csv format
 - [ ] Application:
 	- [ ] Allow the user to change the application's settings
-	- [ ] Include validation for inputs
+	- [x] Include validation for inputs
+	- [ ] Display error messages
 
 ## Non-functional requirements
 
@@ -65,6 +66,7 @@ vIDsafe - A password manager focused on the idea of compartmentalisation.
 - 10/12/2020: 30 minutes - Discussed ethical approval and presented some progress with the projects.
 - 17/12/2020: 1 hour 30 minutes - Demonstrated some implementations and designs of the projects.
 - 14/01/2021: 1 hour - Demonstrated some implementations of the projects
+- 21/04/2021: 1 hour - Demonstrated some implementations of the projects
 
 ## 1-to-1 meetings
 

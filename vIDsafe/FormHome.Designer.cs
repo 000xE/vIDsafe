@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnPasswordManager = new System.Windows.Forms.Button();
             this.pnlMain = new System.Windows.Forms.Panel();
             this.pnlNavigation = new System.Windows.Forms.Panel();
@@ -48,29 +49,25 @@
             this.lblMAName = new System.Windows.Forms.Label();
             this.panelForm = new System.Windows.Forms.Panel();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.lockToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.generateAPasswordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.windowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hideToTrayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.onCloseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.onMinimiseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.onMinimizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.onStartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.alwaysOnTopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.themeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
-            this.timeoutsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.clipboardTimeoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
-            this.vaultTimeoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripTextBox2 = new System.Windows.Forms.ToolStripTextBox();
+            this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.cmbTheme = new System.Windows.Forms.ToolStripComboBox();
             this.pnlMain.SuspendLayout();
             this.pnlNavigation.SuspendLayout();
             this.pnlDataSubMenu.SuspendLayout();
             this.pnlPMSubMenu.SuspendLayout();
             this.pnlProgressBack.SuspendLayout();
             this.pnlMasterName.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
+            this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnPasswordManager
@@ -338,32 +335,43 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.lockToolStripMenuItem});
+            this.generateAPasswordToolStripMenuItem,
+            this.quitToolStripMenuItem});
             this.fileToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
-            // lockToolStripMenuItem
+            // generateAPasswordToolStripMenuItem
             // 
-            this.lockToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.lockToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lockToolStripMenuItem.Name = "lockToolStripMenuItem";
-            this.lockToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.lockToolStripMenuItem.Text = "Lock";
+            this.generateAPasswordToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
+            this.generateAPasswordToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.generateAPasswordToolStripMenuItem.Name = "generateAPasswordToolStripMenuItem";
+            this.generateAPasswordToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.generateAPasswordToolStripMenuItem.Text = "Generate a password";
+            this.generateAPasswordToolStripMenuItem.Click += new System.EventHandler(this.generateAPasswordToolStripMenuItem_Click);
             // 
-            // menuStrip1
+            // quitToolStripMenuItem
             // 
-            this.menuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.quitToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
+            this.quitToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
+            this.quitToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.quitToolStripMenuItem.Text = "Exit";
+            this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
+            // 
+            // menuStrip
+            // 
+            this.menuStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.windowToolStripMenuItem,
-            this.settingsToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1064, 24);
-            this.menuStrip1.TabIndex = 2;
-            this.menuStrip1.Text = "menuStrip1";
+            this.themeToolStripMenuItem});
+            this.menuStrip.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip.Name = "menuStrip";
+            this.menuStrip.Size = new System.Drawing.Size(1064, 24);
+            this.menuStrip.TabIndex = 2;
+            this.menuStrip.Text = "menuStrip1";
             // 
             // windowToolStripMenuItem
             // 
@@ -377,122 +385,78 @@
             // 
             // hideToTrayToolStripMenuItem
             // 
-            this.hideToTrayToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.hideToTrayToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.hideToTrayToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.onCloseToolStripMenuItem,
-            this.onMinimiseToolStripMenuItem,
+            this.onMinimizeToolStripMenuItem,
             this.onStartToolStripMenuItem});
-            this.hideToTrayToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
+            this.hideToTrayToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
             this.hideToTrayToolStripMenuItem.Name = "hideToTrayToolStripMenuItem";
             this.hideToTrayToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.hideToTrayToolStripMenuItem.Text = "Hide to tray";
             // 
             // onCloseToolStripMenuItem
             // 
-            this.onCloseToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.onCloseToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.onCloseToolStripMenuItem.CheckOnClick = true;
-            this.onCloseToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
+            this.onCloseToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
             this.onCloseToolStripMenuItem.Name = "onCloseToolStripMenuItem";
             this.onCloseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.onCloseToolStripMenuItem.Text = "On close";
+            this.onCloseToolStripMenuItem.CheckedChanged += new System.EventHandler(this.onCloseToolStripMenuItem_CheckedChanged);
             // 
-            // onMinimiseToolStripMenuItem
+            // onMinimizeToolStripMenuItem
             // 
-            this.onMinimiseToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.onMinimiseToolStripMenuItem.CheckOnClick = true;
-            this.onMinimiseToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
-            this.onMinimiseToolStripMenuItem.Name = "onMinimiseToolStripMenuItem";
-            this.onMinimiseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.onMinimiseToolStripMenuItem.Text = "On minimise";
+            this.onMinimizeToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
+            this.onMinimizeToolStripMenuItem.CheckOnClick = true;
+            this.onMinimizeToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.onMinimizeToolStripMenuItem.Name = "onMinimizeToolStripMenuItem";
+            this.onMinimizeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.onMinimizeToolStripMenuItem.Text = "On minimize";
+            this.onMinimizeToolStripMenuItem.CheckedChanged += new System.EventHandler(this.onMinimizeToolStripMenuItem_CheckedChanged);
             // 
             // onStartToolStripMenuItem
             // 
-            this.onStartToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.onStartToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.onStartToolStripMenuItem.CheckOnClick = true;
-            this.onStartToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
+            this.onStartToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
             this.onStartToolStripMenuItem.Name = "onStartToolStripMenuItem";
             this.onStartToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.onStartToolStripMenuItem.Text = "On start";
+            this.onStartToolStripMenuItem.CheckedChanged += new System.EventHandler(this.onStartToolStripMenuItem_CheckedChanged);
             // 
             // alwaysOnTopToolStripMenuItem
             // 
-            this.alwaysOnTopToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.alwaysOnTopToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.alwaysOnTopToolStripMenuItem.CheckOnClick = true;
-            this.alwaysOnTopToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
+            this.alwaysOnTopToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
             this.alwaysOnTopToolStripMenuItem.Name = "alwaysOnTopToolStripMenuItem";
             this.alwaysOnTopToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.alwaysOnTopToolStripMenuItem.Text = "Always on top";
-            // 
-            // settingsToolStripMenuItem
-            // 
-            this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.themeToolStripMenuItem,
-            this.timeoutsToolStripMenuItem});
-            this.settingsToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
-            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
-            this.settingsToolStripMenuItem.Text = "Settings";
+            this.alwaysOnTopToolStripMenuItem.CheckedChanged += new System.EventHandler(this.alwaysOnTopToolStripMenuItem_CheckedChanged);
             // 
             // themeToolStripMenuItem
             // 
-            this.themeToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.themeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripComboBox1});
+            this.cmbTheme});
             this.themeToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
             this.themeToolStripMenuItem.Name = "themeToolStripMenuItem";
-            this.themeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.themeToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
             this.themeToolStripMenuItem.Text = "Theme";
             // 
-            // toolStripComboBox1
+            // notifyIcon
             // 
-            this.toolStripComboBox1.Items.AddRange(new object[] {
+            this.notifyIcon.Text = "notifyIcon1";
+            this.notifyIcon.Visible = true;
+            this.notifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseDoubleClick);
+            // 
+            // cmbTheme
+            // 
+            this.cmbTheme.Items.AddRange(new object[] {
             "Dark",
             "Light"});
-            this.toolStripComboBox1.Name = "toolStripComboBox1";
-            this.toolStripComboBox1.Size = new System.Drawing.Size(121, 23);
-            // 
-            // timeoutsToolStripMenuItem
-            // 
-            this.timeoutsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.timeoutsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.clipboardTimeoutToolStripMenuItem,
-            this.vaultTimeoutToolStripMenuItem});
-            this.timeoutsToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
-            this.timeoutsToolStripMenuItem.Name = "timeoutsToolStripMenuItem";
-            this.timeoutsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.timeoutsToolStripMenuItem.Text = "Timeouts";
-            // 
-            // clipboardTimeoutToolStripMenuItem
-            // 
-            this.clipboardTimeoutToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.clipboardTimeoutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripTextBox1});
-            this.clipboardTimeoutToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
-            this.clipboardTimeoutToolStripMenuItem.Name = "clipboardTimeoutToolStripMenuItem";
-            this.clipboardTimeoutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.clipboardTimeoutToolStripMenuItem.Text = "Clipboard timeout";
-            // 
-            // toolStripTextBox1
-            // 
-            this.toolStripTextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.toolStripTextBox1.Name = "toolStripTextBox1";
-            this.toolStripTextBox1.Size = new System.Drawing.Size(100, 23);
-            // 
-            // vaultTimeoutToolStripMenuItem
-            // 
-            this.vaultTimeoutToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.vaultTimeoutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripTextBox2});
-            this.vaultTimeoutToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
-            this.vaultTimeoutToolStripMenuItem.Name = "vaultTimeoutToolStripMenuItem";
-            this.vaultTimeoutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.vaultTimeoutToolStripMenuItem.Text = "Vault timeout";
-            // 
-            // toolStripTextBox2
-            // 
-            this.toolStripTextBox2.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.toolStripTextBox2.Name = "toolStripTextBox2";
-            this.toolStripTextBox2.Size = new System.Drawing.Size(100, 23);
+            this.cmbTheme.Name = "cmbTheme";
+            this.cmbTheme.Size = new System.Drawing.Size(121, 23);
             // 
             // FormHome
             // 
@@ -501,23 +465,24 @@
             this.ClientSize = new System.Drawing.Size(1064, 681);
             this.Controls.Add(this.panelForm);
             this.Controls.Add(this.pnlMain);
-            this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.menuStrip);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            this.MainMenuStrip = this.menuStrip1;
+            this.MainMenuStrip = this.menuStrip;
             this.MinimumSize = new System.Drawing.Size(1080, 720);
             this.Name = "FormHome";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "vIDsafe";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormHome_FormClosed);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormHome_FormClosing);
+            this.Resize += new System.EventHandler(this.FormHome_Resize);
             this.pnlMain.ResumeLayout(false);
             this.pnlNavigation.ResumeLayout(false);
             this.pnlDataSubMenu.ResumeLayout(false);
             this.pnlPMSubMenu.ResumeLayout(false);
             this.pnlProgressBack.ResumeLayout(false);
             this.pnlMasterName.ResumeLayout(false);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.menuStrip.ResumeLayout(false);
+            this.menuStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -544,23 +509,19 @@
         private System.Windows.Forms.Panel panelForm;
         private System.Windows.Forms.Label lblMAName;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem windowToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hideToTrayToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem onCloseToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem onMinimiseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem onMinimizeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem alwaysOnTopToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem themeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
-        private System.Windows.Forms.ToolStripMenuItem timeoutsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem clipboardTimeoutToolStripMenuItem;
-        private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
-        private System.Windows.Forms.ToolStripMenuItem vaultTimeoutToolStripMenuItem;
-        private System.Windows.Forms.ToolStripTextBox toolStripTextBox2;
-        private System.Windows.Forms.ToolStripMenuItem lockToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem quitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem onStartToolStripMenuItem;
         private System.Windows.Forms.Label lblHealthScore;
+        private System.Windows.Forms.NotifyIcon notifyIcon;
+        private System.Windows.Forms.ToolStripMenuItem generateAPasswordToolStripMenuItem;
+        private System.Windows.Forms.ToolStripComboBox cmbTheme;
     }
 }
 

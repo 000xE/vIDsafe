@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using CsvHelper;
+using System.Globalization;
 
 namespace vIDsafe
 {
-    [Serializable]
     public class MasterAccount
     {
         private string _name;
@@ -17,6 +18,12 @@ namespace vIDsafe
         public Vault Vault = new Vault();
 
         private readonly string _vaultFolder = "Vaults/";
+        public enum VaultFormat
+        {
+            CSV,
+            JSON,
+            Encrypted
+        }
         public MasterAccount(string name, string password)
         {
             _name = name;
@@ -39,7 +46,7 @@ namespace vIDsafe
         {
             if (AccountExists())
             {
-                _password = HashPassword(_password);
+                _password = HashPassword(_password, _name);
 
                 Vault = GetVault();
 
@@ -62,7 +69,7 @@ namespace vIDsafe
         {
             if (!AccountExists())
             {
-                _password = HashPassword(_password);
+                _password = HashPassword(_password, _name);
 
                 SaveVault();
 
@@ -76,7 +83,7 @@ namespace vIDsafe
 
         private bool VerifyPassword(string oldPassword)
         {
-            if (HashPassword(oldPassword).Equals(_password))
+            if (HashPassword(oldPassword, _name).Equals(_password))
             {
                 return true;
             }
@@ -90,7 +97,7 @@ namespace vIDsafe
         {
             if (VerifyPassword(oldPassword).Equals(true))
             {
-                _password = HashPassword(password);
+                _password = HashPassword(password, _name);
                 SaveVault();
 
                 return true;
@@ -108,7 +115,7 @@ namespace vIDsafe
                 File.Move(_vaultFolder + _name, _vaultFolder + name);
 
                 _name = name;
-                _password = HashPassword(oldPassword);
+                _password = HashPassword(oldPassword, name);
                 SaveVault();
 
                 return true;
@@ -121,16 +128,18 @@ namespace vIDsafe
 
         private Vault GetVault()
         {
-            string encryptedVault = File.ReadAllText(_vaultFolder + _name);
+            string fileName = _vaultFolder + _name;
+            string encryptedVault = File.ReadAllText(fileName);
 
-            return (DecryptVault(encryptedVault));           
+            return (DecryptVault(encryptedVault, _password));           
         }
 
         public void SaveVault()
         {
-            string encryptedVault = EncryptVault();
+            string encryptedVault = EncryptVault(Vault, _password);
+            string fileName = _vaultFolder + _name;
 
-            FileInfo file = new FileInfo(_vaultFolder + _name);
+            FileInfo file = new FileInfo(fileName);
             file.Directory.Create(); // If the directory already exists, this method does nothing.
             File.WriteAllText(file.FullName, encryptedVault);
         }
@@ -142,29 +151,135 @@ namespace vIDsafe
             Vault = new Vault();
         }
 
-        private string HashPassword(string password)
+        private string HashPassword(string password, string salt)
         {
-            return Convert.ToBase64String(Encryption.DeriveKey(Encryption.KeyDerivationFunction.PBKDF2, password, _name));
+            return Convert.ToBase64String(Encryption.DeriveKey(Encryption.KeyDerivationFunction.PBKDF2, password, salt));
         }
 
-        private string EncryptVault()
+        private string EncryptVault(Vault vault, string key)
         {
-            string serialisedVault = ObjectToString(Vault);
+            string serialisedVault = VaultToString(vault);
 
-            return Encryption.AesEncrypt(serialisedVault, Convert.FromBase64String(_password));
+            return Encryption.AesEncrypt(serialisedVault, Convert.FromBase64String(key));
         }
-        private Vault DecryptVault(string encryptedVault)
+        private Vault DecryptVault(string encryptedVault, string key)
         {
-            string decryptedVault = Encryption.AesDecrypt(encryptedVault, Convert.FromBase64String(_password));
+            string decryptedVault = Encryption.AesDecrypt(encryptedVault, Convert.FromBase64String(key));
 
             if (decryptedVault != null)
             {
-                return (Vault)StringToObject(decryptedVault);
+                return StringToVault(decryptedVault);
             }
             else
             {
                 return null;
             }                   
+        }
+
+        public void ImportVault(VaultFormat format, string fileName, bool replace)
+        {
+            Vault vault = new Vault();
+
+            switch (format)
+            {
+                case VaultFormat.CSV:
+
+
+
+
+                    break;
+                case VaultFormat.JSON:
+                    break;
+                case VaultFormat.Encrypted:
+                    string encryptedVault = File.ReadAllText(fileName);
+                    vault = DecryptVault(encryptedVault, _password);
+                    break;
+            }
+
+            if (replace)
+            {
+                Vault = vault;
+            }
+            else
+            {
+                foreach (Identity identity in vault.Identities)
+                {
+                    if (FormvIDsafe.Main.User.Vault.Identities.Any(c => (c.Email.Equals(identity.Email, StringComparison.OrdinalIgnoreCase))))
+                    {
+                        Identity existingIdentity = Vault.Identities.FirstOrDefault(i => i.Email.Equals(identity.Email));
+
+                        foreach (KeyValuePair<string, Credential> credential in identity.Credentials)
+                        {
+                            if (!existingIdentity.Credentials.ContainsKey(credential.Key))
+                            {
+                                existingIdentity.Credentials.Add(credential.Key, credential.Value);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Vault.Identities.Add(identity);
+                    }
+                }
+            }
+        }
+
+        public void ExportVault(VaultFormat format, int identityIndex, string fileName)
+        {
+            Vault vault = new Vault();
+
+            if (identityIndex > -1)
+            {
+                vault.Identities.Add(Vault.Identities[identityIndex]);
+            }
+            else
+            {
+                vault = Vault;
+            }
+
+            switch (format)
+            {
+                case VaultFormat.CSV:
+                    string[] headers = new string[] { "Identity Name", "Identity Email", "Usage", "URL", "Username", "Password", "Notes" };
+
+                    using (CsvWriter csv = new CsvWriter(new StreamWriter(fileName), CultureInfo.InvariantCulture))
+                    {
+                        foreach (string header in headers)
+                        {
+                            csv.WriteField(header);
+                        }
+
+                        csv.NextRecord();
+
+                        foreach (Identity identity in vault.Identities)
+                        {
+                            foreach (KeyValuePair<string, Credential> credential in identity.Credentials)
+                            {
+                                csv.WriteField(identity.Name);
+                                csv.WriteField(identity.Email);
+                                csv.WriteField(identity.Usage);
+                                csv.WriteField(credential.Value.URL);
+                                csv.WriteField(credential.Value.Username);
+                                csv.WriteField(credential.Value.Password);
+                                csv.WriteField(credential.Value.Notes);
+
+                                csv.NextRecord();
+                            }
+                        }
+                    }
+
+                    break;
+                case VaultFormat.JSON:
+
+                    break;
+                case VaultFormat.Encrypted:
+                    string encryptedVault = EncryptVault(vault, _password);
+
+                    FileInfo file = new FileInfo(fileName);
+                    file.Directory.Create(); // If the directory already exists, this method does nothing.
+                    File.WriteAllText(file.FullName, encryptedVault.ToString());
+                    break;
+            }
         }
 
         public void DeleteAccount()
@@ -177,20 +292,20 @@ namespace vIDsafe
         }
 
         //https://stackoverflow.com/questions/6979718/c-sharp-object-to-string-and-back/6979843#6979843
-        public string ObjectToString(object obj)
+        public string VaultToString(Vault vault)
         {
             using (MemoryStream ms = new MemoryStream())
             {
-                new BinaryFormatter().Serialize(ms, obj);
+                new BinaryFormatter().Serialize(ms, vault);
                 return Convert.ToBase64String(ms.ToArray());
             }
         }
 
         //https://stackoverflow.com/questions/6979718/c-sharp-object-to-string-and-back/6979843#6979843
-        public object StringToObject(string base64String)
+        public Vault StringToVault(string base64String)
         {
             byte[] bytes = Convert.FromBase64String(base64String);
-            using (MemoryStream ms = new MemoryStream(bytes, 0, bytes.Length))
+            using (MemoryStream ms = new MemoryStream())
             {
                 ms.Write(bytes, 0, bytes.Length);
                 ms.Position = 0;

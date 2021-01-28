@@ -53,10 +53,12 @@ namespace vIDsafe
         public Identity(string name)
         {
             _name = name;
+            _email = "";
+            _usage = "";
         }
-        public string NewCredential(int identityIndex, string username, string password)
+        public string NewCredential(string username, string password)
         {
-            Credential credential = new Credential(identityIndex, username, password);
+            Credential credential = new Credential(this, username, password);
 
             string GUID = credential.CredentialID;
 
