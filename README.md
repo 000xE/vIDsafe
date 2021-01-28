@@ -46,13 +46,13 @@
 		- [x] Allow the user to generate passwords and passphrases
 		- [x] Allow the user to see a history of previously generated passwords
 		- [x] Allow the user to check for compromised credentials
-	- [ ] General:
+	- [x] General:
 		- [x] Display an overview of the user's vault
 			- [x] Identity health scores
 			- [x] Weak credentials
 			- [x] Security alerts
 		- [x] Encrypt the vault using the methods bcrypt and AES
-		- [ ] Allow the user to import and export their vault in JSON/csv format
+		- [x] Allow the user to import and export their vault in JSON/csv format
 - [ ] Application:
 	- [ ] Allow the user to change the application's settings
 	- [x] Include validation for inputs

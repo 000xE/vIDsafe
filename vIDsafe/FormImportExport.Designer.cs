@@ -36,7 +36,10 @@
             this.panel8 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
             this.panel10 = new System.Windows.Forms.Panel();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.lvLogs = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnDateTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnLog = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label3 = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -163,7 +166,7 @@
             // 
             // panel10
             // 
-            this.panel10.Controls.Add(this.listBox1);
+            this.panel10.Controls.Add(this.lvLogs);
             this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel10.Location = new System.Drawing.Point(25, 43);
             this.panel10.Name = "panel10";
@@ -171,18 +174,41 @@
             this.panel10.Size = new System.Drawing.Size(673, 63);
             this.panel10.TabIndex = 6;
             // 
-            // listBox1
+            // lvLogs
             // 
-            this.listBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(59)))), ((int)(((byte)(66)))));
-            this.listBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBox1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listBox1.ForeColor = System.Drawing.Color.Gainsboro;
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(0, 25);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(673, 38);
-            this.listBox1.TabIndex = 0;
+            this.lvLogs.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(59)))), ((int)(((byte)(66)))));
+            this.lvLogs.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lvLogs.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnDateTime,
+            this.columnLog});
+            this.lvLogs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvLogs.ForeColor = System.Drawing.Color.Gainsboro;
+            this.lvLogs.FullRowSelect = true;
+            this.lvLogs.HideSelection = false;
+            this.lvLogs.Location = new System.Drawing.Point(0, 25);
+            this.lvLogs.Name = "lvLogs";
+            this.lvLogs.Size = new System.Drawing.Size(673, 38);
+            this.lvLogs.Sorting = System.Windows.Forms.SortOrder.Descending;
+            this.lvLogs.TabIndex = 2;
+            this.lvLogs.UseCompatibleStateImageBehavior = false;
+            this.lvLogs.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Width = 0;
+            // 
+            // columnDateTime
+            // 
+            this.columnDateTime.Text = "Date/Time";
+            this.columnDateTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnDateTime.Width = 466;
+            // 
+            // columnLog
+            // 
+            this.columnLog.Text = "Log";
+            this.columnLog.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnLog.Width = 466;
             // 
             // label3
             // 
@@ -520,6 +546,7 @@
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "FormImportExport";
             this.Text = "ImportExport";
+            this.Resize += new System.EventHandler(this.FormImportExport_Resize);
             this.panelTitle.ResumeLayout(false);
             this.panelBack.ResumeLayout(false);
             this.panelBack.PerformLayout();
@@ -569,7 +596,6 @@
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Panel panel10;
-        private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnImport;
         private System.Windows.Forms.Button btnOpenFile;
@@ -580,5 +606,9 @@
         private System.Windows.Forms.Button btnSelectFolder;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        private System.Windows.Forms.ListView lvLogs;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnDateTime;
+        private System.Windows.Forms.ColumnHeader columnLog;
     }
 }
