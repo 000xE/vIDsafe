@@ -46,8 +46,6 @@ namespace vIDsafe
             lvLogs.Columns[2].Width = lvLogs.Width / (lvLogs.Columns.Count - 1);
         }
 
-        //Todo: Refactor the whole code
-
         private void GetIdentities()
         {
             cmbIdentity.Items.Clear();
@@ -60,34 +58,31 @@ namespace vIDsafe
 
         private void btnOpenFile_Click(object sender, EventArgs e)
         {
-            string extension = "All files (*.*)|*.*";
-
-            int formatIndex = cmbImportFormat.SelectedIndex;
-
-            switch (formatIndex)
-            {
-                case 0:
-                    extension = "CSV files (*.csv)|*.csv";
-                    break;
-                case 1:
-                    extension = "JSON files (*.json)|*.json";
-                    break;
-                case 2:
-                    extension = "All files (*.*)|*.*";
-                    break;
-            }
-
-
-            openFileDialog.Filter = extension;
-
-            openFileDialog.ShowDialog();
+            OpenFile(cmbExportFormat.SelectedIndex);
         }
 
         private void btnSelectFolder_Click(object sender, EventArgs e)
         {
-            string extension = "All files (*.*)|*.*";
+            SelectFolder(cmbExportFormat.SelectedIndex);
+        }
 
-            int formatIndex = cmbExportFormat.SelectedIndex;
+        private void OpenFile(int formatIndex)
+        {
+            openFileDialog.Filter = GetExtension(formatIndex);
+
+            openFileDialog.ShowDialog();
+        }
+
+        private void SelectFolder(int formatIndex)
+        {
+            saveFileDialog.Filter = GetExtension(formatIndex);
+
+            saveFileDialog.ShowDialog();
+        }
+
+        private string GetExtension(int formatIndex)
+        {
+            string extension = "All files (*.*)|*.*";
 
             switch (formatIndex)
             {
@@ -102,33 +97,17 @@ namespace vIDsafe
                     break;
             }
 
-            saveFileDialog.Filter = extension;
-
-            saveFileDialog.ShowDialog();
+            return extension;
         }
 
         private void btnImport_Click(object sender, EventArgs e)
         {
-            MasterAccount.VaultFormat format = MasterAccount.VaultFormat.Encrypted;
+            Import(cmbImportFormat.SelectedIndex, openFileDialog.FileName, rdbReplace.Checked);
+        }
 
-            int formatIndex = cmbImportFormat.SelectedIndex;
-
-            switch (formatIndex)
-            {
-                case 0:
-                    format = MasterAccount.VaultFormat.CSV;
-                    break;
-                case 1:
-                    format = MasterAccount.VaultFormat.JSON;
-                    break;
-                case 2:
-                    format = MasterAccount.VaultFormat.Encrypted;
-                    break;
-            }
-
-            string selectedFile = openFileDialog.FileName;
-
-            bool replace = rdbReplace.Checked;
+        private void Import(int formatIndex, string selectedFile, bool replace)
+        {
+            MasterAccount.VaultFormat format = GetFormat(formatIndex);
 
             if (FormvIDsafe.Main.User.ImportVault(format, selectedFile, replace))
             {
@@ -143,9 +122,27 @@ namespace vIDsafe
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-            MasterAccount.VaultFormat format = MasterAccount.VaultFormat.Encrypted;
+            Export(cmbExportFormat.SelectedIndex, saveFileDialog.FileName, cmbIdentity.SelectedIndex);
+        }
 
-            int formatIndex = cmbExportFormat.SelectedIndex;
+        private void Export(int formatIndex, string selectedPath, int identityIndex)
+        {
+            MasterAccount.VaultFormat format = GetFormat(formatIndex);
+
+            if (FormvIDsafe.Main.User.ExportVault(format, identityIndex, selectedPath))
+            {
+                KeyValuePair<DateTime, string> log = FormvIDsafe.Main.User.Vault.Log(Vault.LogType.Porting, "Exported data");
+                DisplayLog(log.Key, log.Value);
+            }
+            else
+            {
+                Console.WriteLine("Cannot export");
+            }
+        }
+
+        private MasterAccount.VaultFormat GetFormat(int formatIndex)
+        {
+            MasterAccount.VaultFormat format = MasterAccount.VaultFormat.Encrypted;
 
             switch (formatIndex)
             {
@@ -160,19 +157,7 @@ namespace vIDsafe
                     break;
             }
 
-            string selectedPath = saveFileDialog.FileName;
-
-            int identityIndex = cmbIdentity.SelectedIndex;
-
-            if (FormvIDsafe.Main.User.ExportVault(format, identityIndex, selectedPath))
-            {
-                KeyValuePair<DateTime, string> log = FormvIDsafe.Main.User.Vault.Log(Vault.LogType.Porting, "Exported data");
-                DisplayLog(log.Key, log.Value);
-            }
-            else
-            {
-                Console.WriteLine("Cannot export");
-            }
+            return format;
         }
 
         private void rdbIdentity_CheckedChanged(object sender, EventArgs e)

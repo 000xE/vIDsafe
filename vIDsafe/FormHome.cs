@@ -175,7 +175,7 @@ namespace vIDsafe
 
         private bool LoggedIn()
         {
-            if (FormvIDsafe.Main.User.Name == "")
+            if (FormvIDsafe.Main.User.Name.Equals(""))
             {
                 return false;
             }
@@ -203,7 +203,7 @@ namespace vIDsafe
 
         private void FormHome_Resize(object sender, EventArgs e)
         {
-            if (WindowState == FormWindowState.Minimized)
+            if (WindowState.Equals(FormWindowState.Minimized))
             {
                 if (Settings.Default.HideToTrayMinimize)
                 {

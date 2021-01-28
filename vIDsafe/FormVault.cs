@@ -49,7 +49,7 @@ namespace vIDsafe
             {
                 Uri uriResult;
                 bool result = Uri.TryCreate(URL, UriKind.Absolute, out uriResult) 
-                    && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
+                    && (uriResult.Scheme.Equals(Uri.UriSchemeHttp) || uriResult.Scheme.Equals(Uri.UriSchemeHttps));
 
                 if (result)
                 {
