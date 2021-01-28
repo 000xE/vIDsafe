@@ -78,7 +78,7 @@
 - 10/12/2020: 30 minutes - Discussed ethical approval and presented some progress with the projects.
 - 17/12/2020: 1 hour 30 minutes - Demonstrated some implementations and designs of the projects.
 - 14/01/2021: 1 hour - Demonstrated some implementations of the projects
-- 21/04/2021: 1 hour - Demonstrated some implementations of the projects
+- 21/01/2021: 1 hour - Demonstrated some implementations of the projects
 
 ## 1-to-1 meetings
 
