@@ -16,9 +16,9 @@
 </p>
 
 
-# Specification
+## Specification
 
-## Functional requirements
+### Functional requirements
 
 - [x] Master account:
 	- [x] Allow the user to create a master account
@@ -58,15 +58,15 @@
 	- [x] Include validation for inputs
 	- [ ] Display error messages
 
-## Non-functional requirements
+### Non-functional requirements
 
 - [ ] Ensure the encryption/decryption of the vault is optimally fast and secure.
 - [ ] Ensure the user interface is clear, concise, and pleasant to use
 - [ ] Ensure the application is easy to use
 
-# The minutes of meetings
+## The minutes of meetings
 
-## Tutor meetings
+### Tutor meetings
 
 - 14/10/2020: 30 minutes - Discussed the synopsis brief.
 - 22/10/2020: 1 hour - Presented and discussed project ideas and their strengths and weaknesses.
@@ -80,6 +80,6 @@
 - 14/01/2021: 1 hour - Demonstrated some implementations of the projects
 - 21/01/2021: 1 hour - Demonstrated some implementations of the projects
 
-## 1-to-1 meetings
+### 1-to-1 meetings
 
 - 12/11/2020: 15 minutes - Reviewed personal synopsis for the project and obtained feedback for the feedback form.
