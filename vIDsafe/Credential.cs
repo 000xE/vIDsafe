@@ -1,5 +1,4 @@
-﻿using CsvHelper.Configuration.Attributes;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -41,15 +40,15 @@ namespace vIDsafe
             Weak
         }
 
-        public Credential(Identity identity, string username, string password)
+        public Credential(Identity identity, string credentialID, string username, string password, string url, string notes)
         {
-            _credentialID = Guid.NewGuid().ToString();
+            _credentialID = credentialID;
             _identity = identity;
 
             _username = username;
             _password = password;
-            _url = "";
-            _notes = "";
+            _url = url;
+            _notes = notes;
 
             _status = GetStatus();
         }
