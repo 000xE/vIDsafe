@@ -80,40 +80,48 @@ namespace vIDsafe
             SetIdentityDetails(cmbIdentity.SelectedIndex, txtIdentityName.Text, txtIdentityEmail.Text, txtIdentityUsage.Text);
         }
 
-        private bool IsValid(string email)
+        //Todo: cleanup parameter names everywhere (consistency)
+        private bool IsValid(int selectedIdentityIndex, string name, string email)
         {
-            if (email.Length > 0)
+            if (email.Length > 0 && name.Length > 0)
             {
-                try
-                {
-                    MailAddress m = new MailAddress(email);
+                List<Identity> identities = FormvIDsafe.Main.User.Vault.Identities;
 
-                    if (FormvIDsafe.Main.User.Vault.Identities.Any(c => (c.Email.Equals(email, StringComparison.OrdinalIgnoreCase))))
-                    {
-                        Console.WriteLine("Email already exists");
-                        return false;
-                    }
-
-                    return true;
-                }
-                catch (FormatException e)
+                if (identities.Any(c => (identities.IndexOf(c) != selectedIdentityIndex && c.Email.Equals(email, StringComparison.OrdinalIgnoreCase))))
                 {
-                    Console.WriteLine(e);
+                    Console.WriteLine("Email already exists");
                     return false;
                 }
+                else if (identities.Any(c => (identities.IndexOf(c) != selectedIdentityIndex && c.Name.Equals(name, StringComparison.OrdinalIgnoreCase))))
+                {
+                    Console.WriteLine("Name already exists");
+                    return false;
+                }
+                else
+                {
+                    try
+                    {
+                        MailAddress m = new MailAddress(email);
 
-                //Todo: check if email already in identities to eliminate duplicates
+                        return true;
+                    }
+                    catch (FormatException e)
+                    {
+                        Console.WriteLine(e);
+                        return false;
+                    }
+                }
             }
             else
             {
-                Console.WriteLine("Please check your email address");
+                Console.WriteLine("Please enter all details");
                 return false;
             }
         }
 
         private void SetIdentityDetails(int selectedIdentityIndex, string identityName, string identityEmail, string identityUsage)
         {
-            if (IsValid(identityEmail))
+            if (IsValid(selectedIdentityIndex, identityName, identityEmail))
             {
                 Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedIdentityIndex];
 

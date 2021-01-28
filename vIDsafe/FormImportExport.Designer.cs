@@ -536,6 +536,7 @@
             // saveFileDialog
             // 
             this.saveFileDialog.FileName = "FileToExport";
+            this.saveFileDialog.Filter = "\"CSV files (*.csv)|*.csv|JSON files (*.json)|*.json|All files (*.*)|*.*\"";
             // 
             // FormImportExport
             // 

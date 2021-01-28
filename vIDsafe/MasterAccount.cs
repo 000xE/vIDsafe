@@ -51,7 +51,7 @@ namespace vIDsafe
 
                 Vault = GetVault();
 
-                if (Vault.Equals(null))
+                if (Vault == null)
                 {
                     return false;
                 }
@@ -180,14 +180,15 @@ namespace vIDsafe
         //Todo: Refactor
         public bool ImportVault(VaultFormat format, string fileName, bool replace)
         {
+            Vault vault = new Vault();
+
             try
             {
-                Vault vault = new Vault();
-
                 switch (format)
                 {
                     case VaultFormat.CSV:
-                        using (var csv = new CsvReader(new StreamReader(fileName), CultureInfo.InvariantCulture))
+                        using (StreamReader streamReader = new StreamReader(fileName))
+                        using (var csv = new CsvReader(streamReader, CultureInfo.InvariantCulture))
                         {
                             csv.Read();
                             csv.ReadHeader();
@@ -198,13 +199,9 @@ namespace vIDsafe
                                 string identityEmail = csv.GetField(1);
                                 string identityUsage = csv.GetField(2);
 
-                                Identity identity;
-
-                                if (vault.Identities.Any(c => (c.Email.Equals(identityEmail, StringComparison.OrdinalIgnoreCase))))
-                                {
-                                    identity = vault.Identities.FirstOrDefault(i => i.Email.Equals(identityEmail));
-                                }
-                                else
+                                Identity identity = vault.Identities.FirstOrDefault(i => i.Name.Equals(identityName));
+                                
+                                if (identity == null)
                                 {
                                     identity = new Identity(identityName, identityEmail, identityUsage);
                                     vault.Identities.Add(identity);
@@ -217,7 +214,6 @@ namespace vIDsafe
                                 string credentialNotes = csv.GetField(7);
 
                                 Credential credential = new Credential(identity, credentialID, credentialUsername, credentialPassword, credentialURL, credentialNotes);
-                                // Do something with the record.
 
                                 identity.Credentials.Add(credentialID, credential);
                             }
@@ -241,10 +237,14 @@ namespace vIDsafe
                 {
                     foreach (Identity identity in vault.Identities)
                     {
-                        if (FormvIDsafe.Main.User.Vault.Identities.Any(c => (c.Email.Equals(identity.Email, StringComparison.OrdinalIgnoreCase))))
-                        {
-                            Identity existingIdentity = Vault.Identities.FirstOrDefault(i => i.Email.Equals(identity.Email));
+                        Identity existingIdentity = Vault.Identities.FirstOrDefault(i => i.Name.Equals(identity.Name));
 
+                        if (existingIdentity == null)
+                        {
+                            Vault.Identities.Add(identity);
+                        }
+                        else
+                        { 
                             foreach (KeyValuePair<string, Credential> credential in identity.Credentials)
                             {
                                 if (!existingIdentity.Credentials.ContainsKey(credential.Key))
@@ -252,10 +252,6 @@ namespace vIDsafe
                                     existingIdentity.Credentials.Add(credential.Key, credential.Value);
                                 }
                             }
-                        }
-                        else
-                        {
-                            Vault.Identities.Add(identity);
                         }
                     }
                 }
@@ -272,25 +268,27 @@ namespace vIDsafe
         //Todo: Refactor
         public bool ExportVault(VaultFormat format, int identityIndex, string fileName)
         {
+            Vault vault = new Vault();
+            string writeContent = "";
+
+            if (identityIndex > -1)
+            {
+                vault.Identities.Add(Vault.Identities[identityIndex]);
+            }
+            else
+            {
+                vault = Vault;
+            }
+
             try
             {
-                Vault vault = new Vault();
-
-                if (identityIndex > -1)
-                {
-                    vault.Identities.Add(Vault.Identities[identityIndex]);
-                }
-                else
-                {
-                    vault = Vault;
-                }
-
                 switch (format)
                 {
                     case VaultFormat.CSV:
                         string[] headers = new string[] { "Identity Name", "Identity Email", "Usage", "ID", "URL", "Username", "Password", "Notes" };
 
-                        using (CsvWriter csv = new CsvWriter(new StreamWriter(fileName), CultureInfo.InvariantCulture))
+                        using (StringWriter stringWriter = new StringWriter())
+                        using (CsvWriter csv = new CsvWriter(stringWriter, CultureInfo.InvariantCulture))
                         {
                             foreach (string header in headers)
                             {
@@ -315,24 +313,24 @@ namespace vIDsafe
                                     csv.NextRecord();
                                 }
                             }
+
+                            writeContent = stringWriter.ToString();
                         }
 
                         break;
                     case VaultFormat.JSON:
                         string json = JsonConvert.SerializeObject(vault, Formatting.Indented);
-
-                        FileInfo jsonfile = new FileInfo(fileName);
-                        jsonfile.Directory.Create(); // If the directory already exists, this method does nothing.
-                        File.WriteAllText(jsonfile.FullName, json);
+                        writeContent = json;
                         break;
                     case VaultFormat.Encrypted:
                         string encryptedVault = EncryptVault(vault, _password);
-
-                        FileInfo file = new FileInfo(fileName);
-                        file.Directory.Create(); // If the directory already exists, this method does nothing.
-                        File.WriteAllText(file.FullName, encryptedVault.ToString());
+                        writeContent = encryptedVault;
                         break;
                 }
+
+                FileInfo file = new FileInfo(fileName);
+                file.Directory.Create(); // If the directory already exists, this method does nothing.
+                File.WriteAllText(file.FullName, writeContent);
 
                 return true;
             }
