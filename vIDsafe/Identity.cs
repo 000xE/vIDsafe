@@ -56,20 +56,39 @@ namespace vIDsafe
             _email = email;
             _usage = usage;
         }
-        public string NewCredential(string username, string password)
+
+        public string NewCredential(string identityName)
         {
             string GUID = Guid.NewGuid().ToString();
 
             string url = "";
             string notes = "";
 
-            Credential credential = new Credential(this, GUID, username, password, url, notes);
+            string username = CredentialGeneration.GenerateUsername(identityName);
+            string password = CredentialGeneration.GeneratePassword();
 
-            _credentials.Add(GUID, credential);
+            CreateCredential(GUID, username, password, url, notes);
 
             FormvIDsafe.Main.User.SaveVault();
 
             return GUID;
+        }
+
+        public Credential CreateCredential(string GUID, string username, string password, string url, string notes)
+        {
+            Credential credential;
+
+            if (Credentials.ContainsKey(GUID))
+            {
+                credential = Credentials[GUID];
+            }
+            else
+            {
+                 credential = new Credential(this, username, password, url, notes);
+                _credentials.Add(GUID, credential);
+            }
+
+            return credential;
         }
 
         public void DeleteAllCredentials()

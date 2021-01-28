@@ -36,19 +36,19 @@ namespace vIDsafe
             tlpIdentities.ColumnStyles.Clear();
             tlpIdentities.Controls.Clear();
 
-            for (int i = 0; i < FormvIDsafe.Main.User.Vault.Identities.Count; i++)
+            foreach (KeyValuePair<string,Identity> identityPair in FormvIDsafe.Main.User.Vault.Identities)
             {
-                tlpIdentities.ColumnCount += 1;
+                tlpIdentities.ColumnCount++;
                 tlpIdentities.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
 
-                Identity identity = FormvIDsafe.Main.User.Vault.Identities[i];
+                Identity identity = FormvIDsafe.Main.User.Vault.Identities[identityPair.Key];
 
                 Panel identityPanel = CreatePanel(CalculateHealthColor(identity.HealthScore));
 
                 identityPanel.Controls.Add(CreateLabel(identity.Name));
                 identityPanel.Controls.Add(CreateLabel(identity.HealthScore.ToString() + "%"));
 
-                tlpIdentities.Controls.Add(identityPanel, i, 0);
+                tlpIdentities.Controls.Add(identityPanel, tlpIdentities.ColumnCount-2, 0);
             }
 
             int totalHealthScore = FormvIDsafe.Main.User.Vault.OverallHealthScore;
@@ -163,8 +163,10 @@ namespace vIDsafe
 
         private void DisplaySecurityAlerts()
         {
-            foreach (Identity identity in FormvIDsafe.Main.User.Vault.Identities)
+            foreach (KeyValuePair<string, Identity> identityPair in FormvIDsafe.Main.User.Vault.Identities)
             {
+                Identity identity = identityPair.Value;
+
                 int breachCount = identity.CompromisedCredentials;
 
                 if (breachCount > 0)

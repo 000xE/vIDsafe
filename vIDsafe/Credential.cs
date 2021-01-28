@@ -16,8 +16,6 @@ namespace vIDsafe
 
         private Identity _identity;
 
-        private readonly string _credentialID;
-
         private CredentialStatus _status = CredentialStatus.Safe;
 
         public string Username => _username;
@@ -27,8 +25,6 @@ namespace vIDsafe
         public string URL => _url;
 
         public string Notes => _notes;
-
-        public string CredentialID => _credentialID;
 
         public CredentialStatus Status => _status;
 
@@ -40,9 +36,8 @@ namespace vIDsafe
             Weak
         }
 
-        public Credential(Identity identity, string credentialID, string username, string password, string url, string notes)
+        public Credential(Identity identity, string username, string password, string url, string notes)
         {
-            _credentialID = credentialID;
             _identity = identity;
 
             _username = username;
@@ -114,9 +109,9 @@ namespace vIDsafe
         {
             if (username.Length > 0 || password.Length > 0)
             {
-                foreach (Identity identity in FormvIDsafe.Main.User.Vault.Identities)
+                foreach (KeyValuePair<string, Identity> identityPair in FormvIDsafe.Main.User.Vault.Identities)
                 {
-                    if (identity.Credentials.Any(c => (c.Value.CredentialID != _credentialID)
+                    if (identityPair.Value.Credentials.Any(c => (c.Value != this)
                     && (c.Value.Username.Equals(username, StringComparison.OrdinalIgnoreCase) || c.Value.Password.Equals(password))))
                     {
                         return true;

@@ -25,7 +25,7 @@ namespace vIDsafe
 
         private void btnGenerateUsername_Click(object sender, EventArgs e)
         {
-            GenerateUsername(cmbIdentity.Text);
+            GenerateUsername(cmbIdentity.SelectedItem.ToString());
         }
 
         private void btnGeneratePassword_Click(object sender, EventArgs e)
@@ -35,12 +35,12 @@ namespace vIDsafe
 
         private void btnNewCredential_Click(object sender, EventArgs e)
         {
-            NewCredential(cmbIdentity.SelectedIndex);
+            NewCredential(cmbIdentity.SelectedItem.ToString());
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            SetCredentialDetails(cmbIdentity.SelectedIndex, lvCredentials.SelectedItems.Count, txtUsername.Text, txtPassword.Text, txtURL.Text, txtNotes.Text);
+            SetCredentialDetails(cmbIdentity.SelectedItem.ToString(), lvCredentials.SelectedItems.Count, txtUsername.Text, txtPassword.Text, txtURL.Text, txtNotes.Text);
         }
 
         private bool IsValid(string URL, string username, string password)
@@ -70,27 +70,29 @@ namespace vIDsafe
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            DeleteCredential(cmbIdentity.SelectedIndex, lvCredentials.SelectedItems.Count);
+            DeleteCredential(cmbIdentity.SelectedItem.ToString(), lvCredentials.SelectedItems.Count);
         }
 
         private void cmbIdentity_SelectedIndexChanged(object sender, EventArgs e)
         {
-            GetCredentials(cmbIdentity.SelectedIndex);
+            GetCredentials(cmbIdentity.SelectedItem.ToString());
         }
 
         private void lvCredentials_SelectedIndexChanged(object sender, EventArgs e)
         {
-            GetCredentialDetails(cmbIdentity.SelectedIndex, lvCredentials.SelectedItems.Count);
+            GetCredentialDetails(cmbIdentity.SelectedItem.ToString(), lvCredentials.SelectedItems.Count);
         }
 
         private void txtSearchCredential_TextChanged(object sender, EventArgs e)
         {
-            SearchCredentials(cmbIdentity.SelectedIndex, txtSearchCredential.Text);
+            SearchCredentials(cmbIdentity.SelectedItem.ToString(), txtSearchCredential.Text);
         }
 
-        private void GenerateUsername(string identityName)
+        private void GenerateUsername(string selectedEmail)
         {
-            txtUsername.Text = CredentialGeneration.GenerateUsername(identityName);
+            Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedEmail];
+
+            txtUsername.Text = CredentialGeneration.GenerateUsername(identity.Name);
         }
 
         private void GeneratePassword()
@@ -98,16 +100,13 @@ namespace vIDsafe
             txtPassword.Text = CredentialGeneration.GeneratePassword();
         }
 
-        private void NewCredential(int selectedIdentityIndex)
+        private void NewCredential(string selectedEmail)
         {
-            Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedIdentityIndex];
-
-            string defaultUsername = CredentialGeneration.GenerateUsername(identity.Name);
-            string defaultPassword = CredentialGeneration.GeneratePassword();
+            Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedEmail];
 
             int credentialCount = lvCredentials.Items.Count;
 
-            string credentialID = identity.NewCredential(defaultUsername, defaultPassword);
+            string credentialID = identity.NewCredential(identity.Name);
 
             Credential credential = identity.Credentials[credentialID];
 
@@ -115,7 +114,7 @@ namespace vIDsafe
             lvCredentials.Items[credentialCount].Selected = true;
         }
 
-        private void SetCredentialDetails(int selectedIdentityIndex, int selectedCredentialCount, string credentialUsername, string credentialPassword, string credentialURL, string credentialNotes)
+        private void SetCredentialDetails(string selectedEmail, int selectedCredentialCount, string credentialUsername, string credentialPassword, string credentialURL, string credentialNotes)
         {
             if (IsValid(credentialURL, credentialUsername, credentialPassword))
             {
@@ -124,7 +123,7 @@ namespace vIDsafe
                     ListViewItem selectedCredential = lvCredentials.SelectedItems[0];
                     string credentialID = selectedCredential.SubItems[0].Text;
 
-                    Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedIdentityIndex];
+                    Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedEmail];
 
                     Credential credential = identity.Credentials[credentialID];
 
@@ -140,11 +139,11 @@ namespace vIDsafe
             }
         }
 
-        private void SearchCredentials(int selectedIdentityIndex, string searchedText)
+        private void SearchCredentials(string selectedEmail, string searchedText)
         {
             if (searchedText.Length > 0)
             {
-                Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedIdentityIndex];
+                Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedEmail];
 
                 Dictionary<string, Credential> credentials = identity.Credentials;
 
@@ -156,7 +155,7 @@ namespace vIDsafe
             }
             else
             {
-                GetCredentials(selectedIdentityIndex);
+                GetCredentials(selectedEmail);
             }
 
             ResetDetails();
@@ -164,17 +163,17 @@ namespace vIDsafe
 
         private void GetIdentities()
         {
-            foreach (Identity identity in FormvIDsafe.Main.User.Vault.Identities)
+            foreach (KeyValuePair<string, Identity> identityPair in FormvIDsafe.Main.User.Vault.Identities)
             {
-                cmbIdentity.Items.Add(identity.Name + " - " + identity.Email);
+                cmbIdentity.Items.Add(identityPair.Key);
             }
 
             ResetDetails();
         }
 
-        private void GetCredentials(int selectedIdentityIndex)
+        private void GetCredentials(string selectedEmail)
         {
-            Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedIdentityIndex];
+            Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedEmail];
             identity.CalculateHealthScore();
 
             Dictionary<string, Credential> credentials = identity.Credentials;
@@ -203,14 +202,14 @@ namespace vIDsafe
             lvCredentials.Items.Add(lvi);
         }
 
-        private void GetCredentialDetails(int selectedIdentityIndex, int selectedCredentialCount)
+        private void GetCredentialDetails(string selectedEmail, int selectedCredentialCount)
         {
             if (selectedCredentialCount > 0)
             {
                 ListViewItem selectedCredential = lvCredentials.SelectedItems[0];
                 string credentialID = selectedCredential.SubItems[0].Text;
 
-                Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedIdentityIndex];
+                Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedEmail];
 
                 Credential credential = identity.Credentials[credentialID];
 
@@ -223,16 +222,16 @@ namespace vIDsafe
             ResetDetails();
         }
 
-        private void DeleteCredential(int selectedIdentityIndex, int selectedCredentialCount)
+        private void DeleteCredential(string selectedEmail, int selectedCredentialCount)
         {
-            if (selectedIdentityIndex >= 0)
+            if (selectedEmail.Length > 0)
             {
                 if (selectedCredentialCount > 0)
                 {
                     ListViewItem currentItem = lvCredentials.SelectedItems[0];
                     string currentCredentialID = currentItem.SubItems[0].Text;
 
-                    Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedIdentityIndex];
+                    Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedEmail];
 
                     identity.DeleteCredential(currentCredentialID);
 
@@ -312,23 +311,23 @@ namespace vIDsafe
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            GetCredentials(cmbIdentity.SelectedIndex);
+            GetCredentials(cmbIdentity.SelectedItem.ToString());
         }
 
         private void btnDeleteAll_Click(object sender, EventArgs e)
         {
-            DeleteCredential(cmbIdentity.SelectedIndex);
+            DeleteCredential(cmbIdentity.SelectedItem.ToString());
         }
 
-        private void DeleteCredential(int selectedIdentityIndex)
+        private void DeleteCredential(string selectedEmail)
         {
-            if (selectedIdentityIndex >= 0)
+            if (selectedEmail.Length > 0)
             {
-                Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedIdentityIndex];
+                Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedEmail];
 
                 identity.DeleteAllCredentials();
 
-                GetCredentials(selectedIdentityIndex);
+                GetCredentials(selectedEmail);
             }
         }
     }
