@@ -50,34 +50,19 @@ namespace vIDsafe
         {
             cmbIdentity.Items.Clear();
 
-            foreach (Identity identity in FormvIDsafe.Main.User.Vault.Identities)
+            foreach (KeyValuePair<string, Identity> identityPair in FormvIDsafe.Main.User.Vault.Identities)
             {
-                cmbIdentity.Items.Add(identity.Name + " - " + identity.Email);
+                cmbIdentity.Items.Add(identityPair.Key);
             }
         }
 
-        private void btnOpenFile_Click(object sender, EventArgs e)
-        {
-            OpenFile(cmbExportFormat.SelectedIndex);
-        }
-
-        private void btnSelectFolder_Click(object sender, EventArgs e)
-        {
-            SelectFolder(cmbExportFormat.SelectedIndex);
-        }
-
-        private void OpenFile(int formatIndex)
+        private string OpenFile(int formatIndex)
         {
             openFileDialog.Filter = GetExtension(formatIndex);
 
             openFileDialog.ShowDialog();
-        }
 
-        private void SelectFolder(int formatIndex)
-        {
-            saveFileDialog.Filter = GetExtension(formatIndex);
-
-            saveFileDialog.ShowDialog();
+            return openFileDialog.FileName;
         }
 
         private string GetExtension(int formatIndex)
@@ -102,11 +87,13 @@ namespace vIDsafe
 
         private void btnImport_Click(object sender, EventArgs e)
         {
-            Import(cmbImportFormat.SelectedIndex, openFileDialog.FileName, rdbReplace.Checked);
+            Import(cmbImportFormat.SelectedIndex, rdbReplace.Checked);
         }
 
-        private void Import(int formatIndex, string selectedFile, bool replace)
+        private void Import(int formatIndex, bool replace)
         {
+            string selectedFile = OpenFile(formatIndex);
+
             MasterAccount.VaultFormat format = GetFormat(formatIndex);
 
             if (FormvIDsafe.Main.User.ImportVault(format, selectedFile, replace))
@@ -122,14 +109,19 @@ namespace vIDsafe
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-            Export(cmbExportFormat.SelectedIndex, saveFileDialog.FileName, cmbIdentity.SelectedIndex);
+            if (cmbIdentity.SelectedIndex >= 0)
+            {
+                Export(cmbExportFormat.SelectedIndex, cmbIdentity.SelectedItem.ToString());
+            }
         }
 
-        private void Export(int formatIndex, string selectedPath, int identityIndex)
+        private void Export(int formatIndex, string selectedEmail)
         {
+            string selectedPath = SelectFolder(formatIndex);
+
             MasterAccount.VaultFormat format = GetFormat(formatIndex);
 
-            if (FormvIDsafe.Main.User.ExportVault(format, identityIndex, selectedPath))
+            if (FormvIDsafe.Main.User.ExportVault(format, selectedEmail, selectedPath))
             {
                 KeyValuePair<DateTime, string> log = FormvIDsafe.Main.User.Vault.Log(Vault.LogType.Porting, "Exported data");
                 DisplayLog(log.Key, log.Value);
@@ -138,6 +130,19 @@ namespace vIDsafe
             {
                 Console.WriteLine("Cannot export");
             }
+        }
+
+        private string SelectFolder(int formatIndex)
+        {
+            saveFileDialog.Filter = GetExtension(formatIndex);
+
+            string fileName = FormvIDsafe.Main.User.Name + "_export_" + DateTime.Now.ToString("yyyyMMddHHmms");
+
+            saveFileDialog.FileName = fileName;
+
+            saveFileDialog.ShowDialog();
+
+            return saveFileDialog.FileName;
         }
 
         private MasterAccount.VaultFormat GetFormat(int formatIndex)
@@ -164,15 +169,44 @@ namespace vIDsafe
         {
             cmbIdentity.Enabled = rdbIdentity.Checked;
 
-            if (!rdbIdentity.Checked)
+            if (rdbIdentity.Checked)
+            {
+                btnExport.Enabled = cmbIdentity.SelectedIndex >= 0;
+            }
+            else
             {
                 cmbIdentity.SelectedIndex = -1;
             }
         }
 
+        private void rdbAllData_CheckedChanged(object sender, EventArgs e)
+        {
+            btnExport.Enabled = rdbAllData.Checked;
+        }
+
         private void FormImportExport_Resize(object sender, EventArgs e)
         {
             FixColumnWidths();
+        }
+
+        private void cmbImportFormat_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnImport.Enabled = cmbImportFormat.SelectedIndex >= 0;
+        }
+
+        private void cmbExportFormat_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnExport.Enabled = cmbExportFormat.SelectedIndex >= 0;
+        }
+
+        private void rdbReplace_CheckedChanged(object sender, EventArgs e)
+        {
+            Console.WriteLine("Warning: This will erase your current vault details!");
+        }
+
+        private void cmbIdentity_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnExport.Enabled = cmbIdentity.SelectedIndex >= 0;
         }
     }
 }

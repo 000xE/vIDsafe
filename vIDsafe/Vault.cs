@@ -12,7 +12,7 @@ namespace vIDsafe
     {
         private int _overallHealthScore;
 
-        private List<Identity> _identities = new List<Identity>();
+        private Dictionary<string, Identity> _identities = new Dictionary<string, Identity>();
 
         private int _totalCredentialCount;
         public enum LogType
@@ -49,29 +49,50 @@ namespace vIDsafe
 
         public int TotalWeakCredentials => _totalCredentialCounts[Credential.CredentialStatus.Weak];
 
-        public List<Identity> Identities => _identities;
+        public Dictionary<string, Identity> Identities => _identities;
 
         public Vault()
         {
 
         }
 
-        public void NewIdentity(string name)
+        public string NewIdentity()
         {
-            string email = "";
+            string nameToRandomise = "IdentityEmail";
+
+            string email = CredentialGeneration.GenerateUsername(nameToRandomise) + "@test.com";
+            string name = CredentialGeneration.GenerateUsername(nameToRandomise);
             string usage = "";
 
-            Identity identity = new Identity(name, email, usage);
-            _identities.Add(identity);
+            CreateIdentity(name, email, usage);
 
             FormvIDsafe.Main.User.SaveVault();
+
+            return email;
         }
 
-        public void DeleteIdentity(int index)
+        public Identity CreateIdentity(string name, string email, string usage)
         {
-            if (_identities.Count > index)
+            Identity identity;
+
+            if (Identities.ContainsKey(email))
             {
-                _identities.RemoveAt(index);
+                identity = _identities[email];
+            }
+            else
+            {
+                identity = new Identity(name, email, usage);
+                _identities.Add(email, identity);
+            }
+
+            return identity;
+        }
+
+        public void DeleteIdentity(string email)
+        {
+            if (_identities.ContainsKey(email))
+            {
+                _identities.Remove(email);
                 FormvIDsafe.Main.User.SaveVault();
             }
         }
@@ -84,9 +105,9 @@ namespace vIDsafe
 
         public void DeleteAllCredentials()
         {
-            foreach (Identity identity in _identities)
+            foreach (KeyValuePair<string, Identity> identity in _identities)
             {
-                identity.Credentials.Clear();
+                identity.Value.Credentials.Clear();
             }
 
             FormvIDsafe.Main.User.SaveVault();
@@ -121,8 +142,10 @@ namespace vIDsafe
         {
             ResetTotalCredentialCounts();
 
-            foreach (Identity identity in Identities)
+            foreach (KeyValuePair<string, Identity> identityPair in Identities)
             {
+                Identity identity = identityPair.Value;
+
                 identity.CalculateHealthScore();
 
                 foreach (KeyValuePair<Credential.CredentialStatus, int> status in identity.CredentialCounts)

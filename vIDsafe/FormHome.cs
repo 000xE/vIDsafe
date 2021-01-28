@@ -29,11 +29,32 @@ namespace vIDsafe
             ctrlsFormControls = Controls;
         }
 
+        private void GetTheme()
+        {
+            foreach (Control ctrlsMain in ctrlsFormControls)
+            {
+                UpdateColorControls(ctrlsMain);
+            }
+        }
+
+        //https://stackoverflow.com/questions/22935285/change-color-of-all-controls-inside-the-form-in-c-sharp/22935406#22935406
+        public void UpdateColorControls(Control control)
+        {
+            //Todo: themes
+            control.BackColor = Color.Black;
+            control.ForeColor = Color.White;
+            foreach (Control ctrlSub in control.Controls)
+            {
+                UpdateColorControls(ctrlSub);
+            }
+        }
+
         private void LoadFormComponents()
         {
             OpenChildForm(new FormOverview());
             SetName(FormvIDsafe.Main.User.Name);
             GetSettings();
+            //GetTheme();
         }
         private void GetSettings()
         {
@@ -94,20 +115,20 @@ namespace vIDsafe
 
             Panel pnlNav = (Panel) ctrlsFormControls.Find("pnlNavigation", true)[0];
 
-            foreach (Control ctrlsMain in pnlNav.Controls)
+            foreach (Control ctrlMain in pnlNav.Controls)
             {
-                foreach (Control ctrlsNav in ctrlsMain.Controls)
+                foreach (Control ctrlNav in ctrlMain.Controls)
                 {
-                    if (ctrlsNav.Tag != null)
+                    if (ctrlNav.Tag != null)
                     {
-                        if (ctrlsNav.Tag.ToString().Equals("navButton"))
+                        if (ctrlNav.Tag.ToString().Equals("navButton"))
                         {
-                            if (ctrlsNav != selectedButton)
+                            if (ctrlNav != selectedButton)
                             {
-                                ctrlsNav.ForeColor = Color.FromArgb(204, 204, 204);
+                                ctrlNav.ForeColor = Color.FromArgb(204, 204, 204);
                                 //navigationControls.BackColor = Color.FromArgb(26, 26, 26);
                                 //navigationControls.BackColor = Color.FromArgb(32, 32, 32);
-                                ctrlsNav.BackColor = Color.FromArgb(29, 32, 36);                        
+                                ctrlNav.BackColor = Color.FromArgb(29, 32, 36);                        
                             }
                         }
                     }

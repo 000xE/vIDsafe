@@ -199,13 +199,7 @@ namespace vIDsafe
                                 string identityEmail = csv.GetField(1);
                                 string identityUsage = csv.GetField(2);
 
-                                Identity identity = vault.Identities.FirstOrDefault(i => i.Name.Equals(identityName));
-                                
-                                if (identity == null)
-                                {
-                                    identity = new Identity(identityName, identityEmail, identityUsage);
-                                    vault.Identities.Add(identity);
-                                }
+                                Identity identity = vault.CreateIdentity(identityName, identityEmail, identityUsage);
 
                                 string credentialID = csv.GetField(3);
                                 string credentialURL = csv.GetField(4);
@@ -213,9 +207,7 @@ namespace vIDsafe
                                 string credentialPassword = csv.GetField(6);
                                 string credentialNotes = csv.GetField(7);
 
-                                Credential credential = new Credential(identity, credentialID, credentialUsername, credentialPassword, credentialURL, credentialNotes);
-
-                                identity.Credentials.Add(credentialID, credential);
+                                identity.CreateCredential(credentialID, credentialUsername, credentialPassword, credentialURL, credentialNotes);
                             }
                         }
                         break;
@@ -235,23 +227,19 @@ namespace vIDsafe
                 }
                 else
                 {
-                    foreach (Identity identity in vault.Identities)
+                    foreach (KeyValuePair<string, Identity> identityPair in vault.Identities)
                     {
-                        Identity existingIdentity = Vault.Identities.FirstOrDefault(i => i.Name.Equals(identity.Name));
+                        string identityEmail = identityPair.Key;
+                        Identity importedIdentity = identityPair.Value;
 
-                        if (existingIdentity == null)
+                        Identity identity = Vault.CreateIdentity(importedIdentity.Name, identityEmail, importedIdentity.Usage);
+
+                        foreach (KeyValuePair<string, Credential> credentialPair in importedIdentity.Credentials)
                         {
-                            Vault.Identities.Add(identity);
-                        }
-                        else
-                        { 
-                            foreach (KeyValuePair<string, Credential> credential in identity.Credentials)
-                            {
-                                if (!existingIdentity.Credentials.ContainsKey(credential.Key))
-                                {
-                                    existingIdentity.Credentials.Add(credential.Key, credential.Value);
-                                }
-                            }
+                            string credentialID = credentialPair.Key;
+                            Credential importedCredential = credentialPair.Value;
+
+                            identity.CreateCredential(credentialID, importedCredential.Username, importedCredential.Password, importedCredential.URL, importedCredential.Notes);
                         }
                     }
                 }
@@ -266,14 +254,14 @@ namespace vIDsafe
         }
 
         //Todo: Refactor
-        public bool ExportVault(VaultFormat format, int identityIndex, string fileName)
+        public bool ExportVault(VaultFormat format, string selectedEmail, string fileName)
         {
             Vault vault = new Vault();
             string writeContent = "";
 
-            if (identityIndex > -1)
+            if (selectedEmail.Length > 0)
             {
-                vault.Identities.Add(Vault.Identities[identityIndex]);
+                vault.Identities.Add(selectedEmail, Vault.Identities[selectedEmail]);
             }
             else
             {
@@ -297,26 +285,28 @@ namespace vIDsafe
 
                             csv.NextRecord();
 
-                            foreach (Identity identity in vault.Identities)
+                            foreach (KeyValuePair<string, Identity> identityPair in vault.Identities)
                             {
-                                foreach (KeyValuePair<string, Credential> credential in identity.Credentials)
+                                Identity identity = identityPair.Value;
+
+                                foreach (KeyValuePair<string, Credential> credentialPair in identity.Credentials)
                                 {
+                                    Credential credential = credentialPair.Value;
+
                                     csv.WriteField(identity.Name);
                                     csv.WriteField(identity.Email);
                                     csv.WriteField(identity.Usage);
-                                    csv.WriteField(credential.Value.CredentialID);
-                                    csv.WriteField(credential.Value.URL);
-                                    csv.WriteField(credential.Value.Username);
-                                    csv.WriteField(credential.Value.Password);
-                                    csv.WriteField(credential.Value.Notes);
+                                    csv.WriteField(credentialPair.Key);
+                                    csv.WriteField(credential.URL);
+                                    csv.WriteField(credential.Username);
+                                    csv.WriteField(credential.Password);
+                                    csv.WriteField(credential.Notes);
 
                                     csv.NextRecord();
                                 }
                             }
-
                             writeContent = stringWriter.ToString();
                         }
-
                         break;
                     case VaultFormat.JSON:
                         string json = JsonConvert.SerializeObject(vault, Formatting.Indented);

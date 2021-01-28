@@ -52,7 +52,6 @@
             this.rdbIdentity = new System.Windows.Forms.RadioButton();
             this.panel12 = new System.Windows.Forms.Panel();
             this.btnExport = new System.Windows.Forms.Button();
-            this.btnSelectFolder = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.cmbImportFormat = new System.Windows.Forms.ComboBox();
@@ -62,7 +61,6 @@
             this.rdbReplace = new System.Windows.Forms.RadioButton();
             this.panel9 = new System.Windows.Forms.Panel();
             this.btnImport = new System.Windows.Forms.Button();
-            this.btnOpenFile = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.panelTitle.SuspendLayout();
@@ -269,12 +267,14 @@
             // 
             this.cmbIdentity.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.cmbIdentity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbIdentity.Enabled = false;
             this.cmbIdentity.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbIdentity.FormattingEnabled = true;
             this.cmbIdentity.Location = new System.Drawing.Point(92, 47);
             this.cmbIdentity.Name = "cmbIdentity";
             this.cmbIdentity.Size = new System.Drawing.Size(121, 21);
             this.cmbIdentity.TabIndex = 2;
+            this.cmbIdentity.SelectedIndexChanged += new System.EventHandler(this.cmbIdentity_SelectedIndexChanged);
             // 
             // cmbExportFormat
             // 
@@ -285,11 +285,12 @@
             this.cmbExportFormat.Items.AddRange(new object[] {
             "CSV",
             "JSON",
-            "Encrypted (vIDsafe)"});
+            "Encrypted (Backup)"});
             this.cmbExportFormat.Location = new System.Drawing.Point(92, 20);
             this.cmbExportFormat.Name = "cmbExportFormat";
             this.cmbExportFormat.Size = new System.Drawing.Size(121, 21);
             this.cmbExportFormat.TabIndex = 1;
+            this.cmbExportFormat.SelectedIndexChanged += new System.EventHandler(this.cmbExportFormat_SelectedIndexChanged);
             // 
             // label4
             // 
@@ -320,27 +321,28 @@
             // 
             this.rdbAllData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.rdbAllData.AutoSize = true;
+            this.rdbAllData.Checked = true;
             this.rdbAllData.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rdbAllData.ForeColor = System.Drawing.Color.Gainsboro;
             this.rdbAllData.Location = new System.Drawing.Point(164, 17);
             this.rdbAllData.Name = "rdbAllData";
             this.rdbAllData.Size = new System.Drawing.Size(64, 17);
             this.rdbAllData.TabIndex = 3;
+            this.rdbAllData.TabStop = true;
             this.rdbAllData.Text = "All data";
             this.rdbAllData.UseVisualStyleBackColor = true;
+            this.rdbAllData.CheckedChanged += new System.EventHandler(this.rdbAllData_CheckedChanged);
             // 
             // rdbIdentity
             // 
             this.rdbIdentity.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.rdbIdentity.AutoSize = true;
-            this.rdbIdentity.Checked = true;
             this.rdbIdentity.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rdbIdentity.ForeColor = System.Drawing.Color.Gainsboro;
             this.rdbIdentity.Location = new System.Drawing.Point(77, 17);
             this.rdbIdentity.Name = "rdbIdentity";
             this.rdbIdentity.Size = new System.Drawing.Size(81, 17);
             this.rdbIdentity.TabIndex = 2;
-            this.rdbIdentity.TabStop = true;
             this.rdbIdentity.Text = "An identity";
             this.rdbIdentity.UseVisualStyleBackColor = true;
             this.rdbIdentity.CheckedChanged += new System.EventHandler(this.rdbIdentity_CheckedChanged);
@@ -349,7 +351,6 @@
             // 
             this.panel12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(59)))), ((int)(((byte)(66)))));
             this.panel12.Controls.Add(this.btnExport);
-            this.panel12.Controls.Add(this.btnSelectFolder);
             this.panel12.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel12.Location = new System.Drawing.Point(25, 187);
             this.panel12.Name = "panel12";
@@ -360,11 +361,12 @@
             // 
             this.btnExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.btnExport.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnExport.Enabled = false;
             this.btnExport.FlatAppearance.BorderSize = 0;
             this.btnExport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExport.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExport.ForeColor = System.Drawing.Color.White;
-            this.btnExport.Location = new System.Drawing.Point(155, 35);
+            this.btnExport.Location = new System.Drawing.Point(102, 35);
             this.btnExport.MaximumSize = new System.Drawing.Size(100, 30);
             this.btnExport.Name = "btnExport";
             this.btnExport.Size = new System.Drawing.Size(100, 30);
@@ -372,22 +374,6 @@
             this.btnExport.Text = "Export";
             this.btnExport.UseVisualStyleBackColor = false;
             this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
-            // 
-            // btnSelectFolder
-            // 
-            this.btnSelectFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.btnSelectFolder.BackColor = System.Drawing.Color.RoyalBlue;
-            this.btnSelectFolder.FlatAppearance.BorderSize = 0;
-            this.btnSelectFolder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSelectFolder.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSelectFolder.ForeColor = System.Drawing.Color.White;
-            this.btnSelectFolder.Location = new System.Drawing.Point(49, 35);
-            this.btnSelectFolder.Name = "btnSelectFolder";
-            this.btnSelectFolder.Size = new System.Drawing.Size(100, 30);
-            this.btnSelectFolder.TabIndex = 2;
-            this.btnSelectFolder.Text = "Select folder";
-            this.btnSelectFolder.UseVisualStyleBackColor = false;
-            this.btnSelectFolder.Click += new System.EventHandler(this.btnSelectFolder_Click);
             // 
             // panel2
             // 
@@ -424,11 +410,12 @@
             this.cmbImportFormat.Items.AddRange(new object[] {
             "CSV",
             "JSON",
-            "Encrypted (vIDsafe)"});
+            "Encrypted (Backup)"});
             this.cmbImportFormat.Location = new System.Drawing.Point(92, 35);
             this.cmbImportFormat.Name = "cmbImportFormat";
             this.cmbImportFormat.Size = new System.Drawing.Size(121, 21);
             this.cmbImportFormat.TabIndex = 0;
+            this.cmbImportFormat.SelectedIndexChanged += new System.EventHandler(this.cmbImportFormat_SelectedIndexChanged);
             // 
             // label6
             // 
@@ -482,12 +469,12 @@
             this.rdbReplace.TabIndex = 2;
             this.rdbReplace.Text = "Replace vault";
             this.rdbReplace.UseVisualStyleBackColor = true;
+            this.rdbReplace.CheckedChanged += new System.EventHandler(this.rdbReplace_CheckedChanged);
             // 
             // panel9
             // 
             this.panel9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(59)))), ((int)(((byte)(66)))));
             this.panel9.Controls.Add(this.btnImport);
-            this.panel9.Controls.Add(this.btnOpenFile);
             this.panel9.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel9.Location = new System.Drawing.Point(25, 187);
             this.panel9.Name = "panel9";
@@ -498,11 +485,12 @@
             // 
             this.btnImport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.btnImport.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnImport.Enabled = false;
             this.btnImport.FlatAppearance.BorderSize = 0;
             this.btnImport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnImport.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnImport.ForeColor = System.Drawing.Color.White;
-            this.btnImport.Location = new System.Drawing.Point(155, 35);
+            this.btnImport.Location = new System.Drawing.Point(102, 35);
             this.btnImport.MaximumSize = new System.Drawing.Size(100, 30);
             this.btnImport.Name = "btnImport";
             this.btnImport.Size = new System.Drawing.Size(100, 30);
@@ -510,33 +498,6 @@
             this.btnImport.Text = "Import";
             this.btnImport.UseVisualStyleBackColor = false;
             this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
-            // 
-            // btnOpenFile
-            // 
-            this.btnOpenFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.btnOpenFile.BackColor = System.Drawing.Color.RoyalBlue;
-            this.btnOpenFile.FlatAppearance.BorderSize = 0;
-            this.btnOpenFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOpenFile.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOpenFile.ForeColor = System.Drawing.Color.White;
-            this.btnOpenFile.Location = new System.Drawing.Point(49, 35);
-            this.btnOpenFile.Name = "btnOpenFile";
-            this.btnOpenFile.Size = new System.Drawing.Size(100, 30);
-            this.btnOpenFile.TabIndex = 2;
-            this.btnOpenFile.Text = "Open file";
-            this.btnOpenFile.UseVisualStyleBackColor = false;
-            this.btnOpenFile.Click += new System.EventHandler(this.btnOpenFile_Click);
-            // 
-            // openFileDialog
-            // 
-            this.openFileDialog.DefaultExt = "csv";
-            this.openFileDialog.FileName = "FileToImport";
-            this.openFileDialog.Filter = "\"CSV files (*.csv)|*.csv|JSON files (*.json)|*.json|All files (*.*)|*.*\"";
-            // 
-            // saveFileDialog
-            // 
-            this.saveFileDialog.FileName = "FileToExport";
-            this.saveFileDialog.Filter = "\"CSV files (*.csv)|*.csv|JSON files (*.json)|*.json|All files (*.*)|*.*\"";
             // 
             // FormImportExport
             // 
@@ -599,12 +560,10 @@
         private System.Windows.Forms.Panel panel10;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnImport;
-        private System.Windows.Forms.Button btnOpenFile;
         private System.Windows.Forms.ComboBox cmbIdentity;
         private System.Windows.Forms.ComboBox cmbExportFormat;
         private System.Windows.Forms.ComboBox cmbImportFormat;
         private System.Windows.Forms.Button btnExport;
-        private System.Windows.Forms.Button btnSelectFolder;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.ListView lvLogs;

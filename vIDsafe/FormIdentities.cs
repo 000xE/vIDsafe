@@ -31,11 +31,11 @@ namespace vIDsafe
 
         private void DisplayCredentialCount(System.Windows.Forms.DataVisualization.Charting.ChartPaintEventArgs e)
         {
-            int selectedIdentityIndex = cmbIdentity.SelectedIndex;
+            string selectedEmail = cmbIdentity.SelectedItem.ToString();
 
-            if (selectedIdentityIndex >= 0)
+            if (selectedEmail.Length > 0)
             {
-                Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedIdentityIndex];
+                Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedEmail];
 
                 if (e.ChartElement is System.Windows.Forms.DataVisualization.Charting.ChartArea)
                 {
@@ -65,36 +65,27 @@ namespace vIDsafe
 
         private void NewIdentity()
         {
-            string nameToRandomise = "Random Identity";
+            string email = FormvIDsafe.Main.User.Vault.NewIdentity();
 
-            string defaultIdentityName = CredentialGeneration.GenerateUsername(nameToRandomise);
-
-            FormvIDsafe.Main.User.Vault.NewIdentity(defaultIdentityName);
-
-            int lastIndex = cmbIdentity.Items.Add(defaultIdentityName);
+            int lastIndex = cmbIdentity.Items.Add(email);
             cmbIdentity.SelectedIndex = lastIndex;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            SetIdentityDetails(cmbIdentity.SelectedIndex, txtIdentityName.Text, txtIdentityEmail.Text, txtIdentityUsage.Text);
+            SetIdentityDetails(cmbIdentity.SelectedIndex, cmbIdentity.SelectedItem.ToString(), txtIdentityName.Text, txtIdentityEmail.Text, txtIdentityUsage.Text);
         }
 
         //Todo: cleanup parameter names everywhere (consistency)
-        private bool IsValid(int selectedIdentityIndex, string name, string email)
+        private bool IsValid(string name, string email)
         {
             if (email.Length > 0 && name.Length > 0)
             {
-                List<Identity> identities = FormvIDsafe.Main.User.Vault.Identities;
+                Dictionary<string, Identity> identities = FormvIDsafe.Main.User.Vault.Identities;
 
-                if (identities.Any(c => (identities.IndexOf(c) != selectedIdentityIndex && c.Email.Equals(email, StringComparison.OrdinalIgnoreCase))))
+                if (identities.ContainsKey(email))
                 {
                     Console.WriteLine("Email already exists");
-                    return false;
-                }
-                else if (identities.Any(c => (identities.IndexOf(c) != selectedIdentityIndex && c.Name.Equals(name, StringComparison.OrdinalIgnoreCase))))
-                {
-                    Console.WriteLine("Name already exists");
                     return false;
                 }
                 else
@@ -119,23 +110,23 @@ namespace vIDsafe
             }
         }
 
-        private void SetIdentityDetails(int selectedIdentityIndex, string identityName, string identityEmail, string identityUsage)
+        private void SetIdentityDetails(int selectedIdentityIndex, string selectedEmail, string identityName, string identityEmail, string identityUsage)
         {
-            if (IsValid(selectedIdentityIndex, identityName, identityEmail))
+            if (IsValid(identityName, identityEmail))
             {
-                Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedIdentityIndex];
+                Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedEmail];
 
                 identity.SetDetails(identityName, identityEmail, identityUsage);
 
                 cmbIdentity.Items[selectedIdentityIndex] = identity.Name + " - " + identity.Email;
 
-                GetBreachedData(selectedIdentityIndex, true);
+                GetBreachedData(identityEmail, true);
             }
         }
         
-        private void GetBreachedData(int selectedIdentityIndex, bool useAPI)
+        private void GetBreachedData(string selectedEmail, bool useAPI)
         {
-            Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedIdentityIndex];
+            Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedEmail];
             identity.GetBreaches(useAPI);
 
             Dictionary<string, string> breachedDomains = identity.BreachedDomains;
@@ -158,12 +149,12 @@ namespace vIDsafe
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            DeleteIdentity(cmbIdentity.SelectedIndex);
+            DeleteIdentity(cmbIdentity.SelectedItem.ToString());
         }
 
         private void cmbIdentity_SelectedIndexChanged(object sender, EventArgs e)
         {
-            GetIdentityDetails(cmbIdentity.SelectedIndex);
+            GetIdentityDetails(cmbIdentity.SelectedItem.ToString());
         }
 
         private void GetIdentities()
@@ -171,28 +162,25 @@ namespace vIDsafe
             ResetDetails();
             cmbIdentity.Items.Clear();
 
-            foreach (Identity identity in FormvIDsafe.Main.User.Vault.Identities)
+            foreach (KeyValuePair<string, Identity> identityPair in FormvIDsafe.Main.User.Vault.Identities)
             {
-                cmbIdentity.Items.Add(identity.Name + " - " + identity.Email);
+                cmbIdentity.Items.Add(identityPair.Key);
             }
         }
 
-        private void GetIdentityDetails(int selectedIdentityIndex)
+        private void GetIdentityDetails(string selectedEmail)
         {
             ResetDetails();
 
-            if (selectedIdentityIndex >= 0)
-            {
-                Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedIdentityIndex];
+            Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedEmail];
 
-                GetBreachedData(selectedIdentityIndex, false);
+            GetBreachedData(selectedEmail, false);
 
-                txtIdentityName.Text = identity.Name;
-                txtIdentityEmail.Text = identity.Email;
-                txtIdentityUsage.Text = identity.Usage;
+            txtIdentityName.Text = identity.Name;
+            txtIdentityEmail.Text = identity.Email;
+            txtIdentityUsage.Text = identity.Usage;
 
-                DisplayCredentialInformation(identity);
-            }
+            DisplayCredentialInformation(identity);
         }
 
         private void DisplayCredentialInformation(Identity identity)
@@ -211,16 +199,13 @@ namespace vIDsafe
             chartCredentials.Series["Credentials"].IsValueShownAsLabel = true;
         }
 
-        private void DeleteIdentity(int selectedIdentityIndex)
+        private void DeleteIdentity(string selectedEmail)
         {
-            if (selectedIdentityIndex >= 0)
-            {
-                FormvIDsafe.Main.User.Vault.DeleteIdentity(selectedIdentityIndex);
+            FormvIDsafe.Main.User.Vault.DeleteIdentity(selectedEmail);
 
-                cmbIdentity.Items.RemoveAt(selectedIdentityIndex);
+            cmbIdentity.Items.Remove(selectedEmail);
 
-                ResetDetails();
-            }
+            ResetDetails();
         }
 
         private void ResetDetails()
@@ -272,7 +257,7 @@ namespace vIDsafe
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            GetBreachedData(cmbIdentity.SelectedIndex, true);
+            GetBreachedData(cmbIdentity.SelectedItem.ToString(), true);
         }
     }
 }
