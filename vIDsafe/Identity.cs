@@ -63,7 +63,7 @@ namespace vIDsafe
             string url = "";
             string notes = "";
 
-            Credential credential = new Credential(this, GUID, username, password, url, notes;
+            Credential credential = new Credential(this, GUID, username, password, url, notes);
 
             _credentials.Add(GUID, credential);
 
