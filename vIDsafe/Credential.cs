@@ -11,9 +11,9 @@ namespace vIDsafe
     [Serializable]
     public class Credential
     {
-        private Identity _identity;
+        private readonly Identity _identity;
 
-        private string _credentialID;
+        private readonly string _credentialID;
 
         private string _username;
         private string _password;

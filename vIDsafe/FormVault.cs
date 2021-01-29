@@ -47,8 +47,7 @@ namespace vIDsafe
         {
             if (URL.Length > 0 && username.Length > 0 && password.Length > 0)
             {
-                Uri uriResult;
-                bool result = Uri.TryCreate(URL, UriKind.Absolute, out uriResult) 
+                bool result = Uri.TryCreate(URL, UriKind.Absolute, out Uri uriResult)
                     && (uriResult.Scheme.Equals(Uri.UriSchemeHttp) || uriResult.Scheme.Equals(Uri.UriSchemeHttps));
 
                 if (result)

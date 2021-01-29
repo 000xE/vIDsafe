@@ -13,7 +13,7 @@ namespace vIDsafe
     {
         private int _overallHealthScore;
 
-        private Dictionary<string, Identity> _identities = new Dictionary<string, Identity>();
+        private readonly Dictionary<string, Identity> _identities = new Dictionary<string, Identity>();
 
         private int _totalCredentialCount;
         public enum LogType
@@ -23,14 +23,14 @@ namespace vIDsafe
             Porting
         }
 
-        private Dictionary<LogType, Dictionary<DateTime, string>> _logs = new Dictionary<LogType, Dictionary<DateTime, string>>
+        private readonly Dictionary<LogType, Dictionary<DateTime, string>> _logs = new Dictionary<LogType, Dictionary<DateTime, string>>
         {
             [LogType.Account] = new Dictionary<DateTime, string>(),
             [LogType.Passwords] = new Dictionary<DateTime, string>(),
             [LogType.Porting] = new Dictionary<DateTime, string>()
         };
 
-        private Dictionary<Credential.CredentialStatus, int> _totalCredentialCounts = new Dictionary<Credential.CredentialStatus, int>()
+        private readonly Dictionary<Credential.CredentialStatus, int> _totalCredentialCounts = new Dictionary<Credential.CredentialStatus, int>()
         {
             [Credential.CredentialStatus.Safe] = 0,
             [Credential.CredentialStatus.Compromised] = 0,
