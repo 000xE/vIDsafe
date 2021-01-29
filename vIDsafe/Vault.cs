@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -37,16 +38,22 @@ namespace vIDsafe
             [Credential.CredentialStatus.Weak] = 0
         };
 
+        [JsonIgnore]
         public int OverallHealthScore => _overallHealthScore;
 
+        [JsonIgnore]
         public int TotalCredentialCount => _totalCredentialCount;
 
+        [JsonIgnore]
         public int TotalSafeCredentials => _totalCredentialCounts[Credential.CredentialStatus.Safe];
 
+        [JsonIgnore]
         public int TotalCompromisedCredentials => _totalCredentialCounts[Credential.CredentialStatus.Compromised];
 
+        [JsonIgnore]
         public int TotalConflictCredentials => _totalCredentialCounts[Credential.CredentialStatus.Conflicted];
 
+        [JsonIgnore]
         public int TotalWeakCredentials => _totalCredentialCounts[Credential.CredentialStatus.Weak];
 
         public Dictionary<string, Identity> Identities => _identities;
@@ -60,7 +67,7 @@ namespace vIDsafe
         {
             string nameToRandomise = "IdentityEmail";
 
-            string email = CredentialGeneration.GenerateUsername(nameToRandomise) + "@test.com";
+            string email = CredentialGeneration.GenerateUsername(nameToRandomise).ToLower() + "@test.com";
             string name = CredentialGeneration.GenerateUsername(nameToRandomise);
             string usage = "";
 
@@ -81,11 +88,28 @@ namespace vIDsafe
             }
             else
             {
-                identity = new Identity(name, email, usage);
+                identity = new Identity(name, usage);
                 _identities.Add(email, identity);
             }
 
             return identity;
+        }
+
+        public bool TryReassignIdentity(string oldEmail, string newEmail)
+        {
+            Identity identity = _identities[oldEmail];
+
+            if (_identities.ContainsKey(newEmail))
+            {
+                return false;
+            }
+            else
+            {
+                DeleteIdentity(oldEmail);
+                Identities.Add(newEmail, identity);
+
+                return true;
+            }
         }
 
         public void DeleteIdentity(string email)

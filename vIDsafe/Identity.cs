@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EnzoicClient;
+using Newtonsoft.Json;
 
 namespace vIDsafe
 {
@@ -11,7 +12,6 @@ namespace vIDsafe
     public class Identity
     {
         private string _name;
-        private string _email;
         private string _usage;
 
         private int _healthScore;
@@ -30,30 +30,33 @@ namespace vIDsafe
 
         public string Name => _name;
 
-        public string Email => _email;
-
         public string Usage => _usage;
 
+        [JsonIgnore]
         public int HealthScore => _healthScore;
 
+        [JsonIgnore]
         public Dictionary<Credential.CredentialStatus, int> CredentialCounts => _credentialCounts;
 
+        [JsonIgnore]
         public int SafeCredentials => _credentialCounts[Credential.CredentialStatus.Safe];
 
+        [JsonIgnore]
         public int CompromisedCredentials => _credentialCounts[Credential.CredentialStatus.Compromised];
 
+        [JsonIgnore]
         public int WeakCredentials => _credentialCounts[Credential.CredentialStatus.Weak];
 
+        [JsonIgnore]
         public int ConflictCredentials => _credentialCounts[Credential.CredentialStatus.Conflicted];
 
         public Dictionary<string, string> BreachedDomains => _breachedDomains;
 
         public Dictionary<string, Credential> Credentials => _credentials;
 
-        public Identity(string name, string email, string usage)
+        public Identity(string name, string usage)
         {
             _name = name;
-            _email = email;
             _usage = usage;
         }
 
@@ -108,20 +111,19 @@ namespace vIDsafe
             }
         }
 
-        public void SetDetails(string name, string email, string usage)
+        public void SetDetails(string name, string usage)
         {
             _name = name;
-            _email = email;
             _usage = usage;
 
             FormvIDsafe.Main.User.SaveVault();
         }
 
-        public Dictionary<string, string> GetBreaches(bool useAPI)
+        public Dictionary<string, string> GetBreaches(string email, bool useAPI)
         {
             if (useAPI)
             {
-                List<ExposureDetails> exposureDetails = EnzoicAPI.GetExposureDetails(_email);
+                List<ExposureDetails> exposureDetails = EnzoicAPI.GetExposureDetails(email);
 
                 _breachedDomains.Clear();
 

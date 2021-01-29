@@ -73,7 +73,7 @@ namespace vIDsafe
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            SetIdentityDetails(cmbIdentity.SelectedIndex, cmbIdentity.SelectedItem.ToString(), txtIdentityName.Text, txtIdentityEmail.Text, txtIdentityUsage.Text);
+            SetIdentityDetails(cmbIdentity.SelectedIndex, cmbIdentity.SelectedItem.ToString(), txtIdentityName.Text, txtIdentityEmail.Text.ToLower(), txtIdentityUsage.Text);
         }
 
         //Todo: cleanup parameter names everywhere (consistency)
@@ -81,26 +81,19 @@ namespace vIDsafe
         {
             if (email.Length > 0 && name.Length > 0)
             {
-                Dictionary<string, Identity> identities = FormvIDsafe.Main.User.Vault.Identities;
-
-                if (identities.ContainsKey(email))
+                try
                 {
-                    Console.WriteLine("Email already exists");
-                    return false;
+                    MailAddress m = new MailAddress(email);
+
+                    return true;
                 }
-                else
+                catch (FormatException e)
                 {
-                    try
-                    {
-                        MailAddress m = new MailAddress(email);
+                    Console.WriteLine(e);
 
-                        return true;
-                    }
-                    catch (FormatException e)
-                    {
-                        Console.WriteLine(e);
-                        return false;
-                    }
+                    Console.WriteLine("Invalid email format");
+
+                    return false;
                 }
             }
             else
@@ -116,18 +109,37 @@ namespace vIDsafe
             {
                 Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedEmail];
 
-                identity.SetDetails(identityName, identityEmail, identityUsage);
+                if (selectedEmail != identityEmail)
+                {
+                    if (TryReassignIdentity(selectedEmail, identityEmail))
+                    {
+                        cmbIdentity.Items[selectedIdentityIndex] = identityEmail;
+                        GetBreachedData(identityEmail, true);
+                    }
+                }
 
-                cmbIdentity.Items[selectedIdentityIndex] = identity.Name + " - " + identity.Email;
-
-                GetBreachedData(identityEmail, true);
+                identity.SetDetails(identityName, identityUsage);
             }
         }
-        
+
+        private bool TryReassignIdentity(string oldEmail, string newEmail)
+        {
+            if (FormvIDsafe.Main.User.Vault.TryReassignIdentity(oldEmail, newEmail))
+            {
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("Email already exists");
+                return false;
+            }
+        }
+
         private void GetBreachedData(string selectedEmail, bool useAPI)
         {
             Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedEmail];
-            identity.GetBreaches(useAPI);
+
+            identity.GetBreaches(selectedEmail, useAPI);
 
             Dictionary<string, string> breachedDomains = identity.BreachedDomains;
 
@@ -177,7 +189,7 @@ namespace vIDsafe
             GetBreachedData(selectedEmail, false);
 
             txtIdentityName.Text = identity.Name;
-            txtIdentityEmail.Text = identity.Email;
+            txtIdentityEmail.Text = selectedEmail;
             txtIdentityUsage.Text = identity.Usage;
 
             DisplayCredentialInformation(identity);
@@ -257,7 +269,12 @@ namespace vIDsafe
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            GetBreachedData(cmbIdentity.SelectedItem.ToString(), true);
+            Refresh(cmbIdentity.SelectedItem.ToString());
+        }
+
+        private void Refresh(string selectedEmail)
+        {
+            GetBreachedData(selectedEmail, true);
         }
     }
 }
