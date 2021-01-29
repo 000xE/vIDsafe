@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Text;
 using System.Windows.Forms;
 
@@ -94,16 +95,19 @@ namespace vIDsafe
         {
             string selectedFile = OpenFile(formatIndex);
 
-            MasterAccount.VaultFormat format = GetFormat(formatIndex);
+            if (File.Exists(selectedFile))
+            {
+                MasterAccount.VaultFormat format = GetFormat(formatIndex);
 
-            if (FormvIDsafe.Main.User.ImportVault(format, selectedFile, replace))
-            {
-                KeyValuePair<DateTime, string> log = FormvIDsafe.Main.User.Vault.Log(Vault.LogType.Porting, "Imported data");
-                DisplayLog(log.Key, log.Value);
-            }
-            else
-            {
-                Console.WriteLine("Cannot import");
+                if (FormvIDsafe.Main.User.ImportVault(format, selectedFile, replace))
+                {
+                    KeyValuePair<DateTime, string> log = FormvIDsafe.Main.User.Vault.Log(Vault.LogType.Porting, "Imported data");
+                    DisplayLog(log.Key, log.Value);
+                }
+                else
+                {
+                    Console.WriteLine("Cannot import");
+                }
             }
         }
 
@@ -117,23 +121,26 @@ namespace vIDsafe
         {
             string selectedPath = SelectFolder(formatIndex);
 
-            string selectedEmail = "";
-
-            if (selectedIdentityIndex >= 0)
+            if (File.Exists(selectedPath))
             {
-                selectedEmail = cmbIdentity.SelectedItem.ToString();
-            }
+                string selectedEmail = "";
 
-            MasterAccount.VaultFormat format = GetFormat(formatIndex);
+                if (selectedIdentityIndex >= 0)
+                {
+                    selectedEmail = cmbIdentity.SelectedItem.ToString();
+                }
 
-            if (FormvIDsafe.Main.User.ExportVault(format, selectedEmail, selectedPath))
-            {
-                KeyValuePair<DateTime, string> log = FormvIDsafe.Main.User.Vault.Log(Vault.LogType.Porting, "Exported data");
-                DisplayLog(log.Key, log.Value);
-            }
-            else
-            {
-                Console.WriteLine("Cannot export");
+                MasterAccount.VaultFormat format = GetFormat(formatIndex);
+
+                if (FormvIDsafe.Main.User.ExportVault(format, selectedEmail, selectedPath))
+                {
+                    KeyValuePair<DateTime, string> log = FormvIDsafe.Main.User.Vault.Log(Vault.LogType.Porting, "Exported data");
+                    DisplayLog(log.Key, log.Value);
+                }
+                else
+                {
+                    Console.WriteLine("Cannot export");
+                }
             }
         }
 
