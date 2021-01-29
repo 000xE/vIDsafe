@@ -21,7 +21,7 @@ namespace vIDsafe
 
         private void LoadFormComponents()
         {
-            GetIdentities();
+            DisplayIdentities();
         }
 
         private void chartCredentials_PrePaint(object sender, System.Windows.Forms.DataVisualization.Charting.ChartPaintEventArgs e)
@@ -139,9 +139,7 @@ namespace vIDsafe
         {
             Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedEmail];
 
-            identity.GetBreaches(selectedEmail, useAPI);
-
-            Dictionary<string, string> breachedDomains = identity.BreachedDomains;
+            Dictionary<string, string> breachedDomains = identity.GetBreaches(selectedEmail, useAPI);
 
             DisplayBreaches(breachedDomains);
         }
@@ -169,9 +167,10 @@ namespace vIDsafe
             GetIdentityDetails(cmbIdentity.SelectedItem.ToString());
         }
 
-        private void GetIdentities()
+        private void DisplayIdentities()
         {
             ResetDetails();
+
             cmbIdentity.Items.Clear();
 
             foreach (KeyValuePair<string, Identity> identityPair in FormvIDsafe.Main.User.Vault.Identities)
@@ -189,7 +188,7 @@ namespace vIDsafe
             GetBreachedData(selectedEmail, false);
 
             txtIdentityName.Text = identity.Name;
-            txtIdentityEmail.Text = selectedEmail;
+            txtIdentityEmail.Text = identity.Email;
             txtIdentityUsage.Text = identity.Usage;
 
             DisplayCredentialInformation(identity);
