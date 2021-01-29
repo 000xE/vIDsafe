@@ -18,9 +18,9 @@ namespace vIDsafe
 
         private int _healthScore;
 
-        private Dictionary<string, Credential> _credentials = new Dictionary<string, Credential>();
+        private readonly Dictionary<string, Credential> _credentials = new Dictionary<string, Credential>();
 
-        private Dictionary<Credential.CredentialStatus, int> _credentialCounts = new Dictionary<Credential.CredentialStatus, int>()
+        private readonly Dictionary<Credential.CredentialStatus, int> _credentialCounts = new Dictionary<Credential.CredentialStatus, int>()
         {
             [Credential.CredentialStatus.Safe] = 0,
             [Credential.CredentialStatus.Compromised] = 0,
@@ -28,7 +28,7 @@ namespace vIDsafe
             [Credential.CredentialStatus.Weak] = 0
         };
 
-        private Dictionary<string, string> _breachedDomains = new Dictionary<string, string>();
+        private readonly Dictionary<string, string> _breachedDomains = new Dictionary<string, string>();
 
         [Name("name")]
         public string Name => _name;

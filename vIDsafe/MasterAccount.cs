@@ -179,7 +179,7 @@ namespace vIDsafe
 
         public bool ImportVault(VaultFormat format, string fileName, bool replace)
         {
-            Vault vault = new Vault();
+            Vault importedVault = new Vault();
 
             string readContent = File.ReadAllText(fileName);
 
@@ -188,40 +188,33 @@ namespace vIDsafe
                 switch (format)
                 {
                     case VaultFormat.CSV:
-                        using (var reader = new StringReader(readContent))
-                        using (var csv2 = new CsvReader(reader, CultureInfo.InvariantCulture))
+                        using (StringReader stringReader = new StringReader(readContent))
+                        using (CsvReader csvReader = new CsvReader(stringReader, CultureInfo.InvariantCulture))
                         {
-                            csv2.Read();
-                            csv2.ReadHeader();
+                            csvReader.Read();
+                            csvReader.ReadHeader();
 
-                            while (csv2.Read())
+                            while (csvReader.Read())
                             {
-                                Identity identity = csv2.GetRecord<Identity>();
+                                Identity identity = csvReader.GetRecord<Identity>();
 
-                                identity = vault.FindOrCreateIdentity(identity.Name, identity.Email, identity.Usage);
+                                identity = importedVault.FindOrCreateIdentity(identity.Name, identity.Email, identity.Usage);
 
-                                Credential credential = csv2.GetRecord<Credential>();
+                                Credential credential = csvReader.GetRecord<Credential>();
 
                                 identity.FindOrCreateCredential(credential.CredentialID, credential.Username, credential.Password, credential.URL, credential.Notes);
                             }
                         }
                         break;
                     case VaultFormat.JSON:
-                        vault = JsonConvert.DeserializeObject<Vault>(readContent);
+                        importedVault = JsonConvert.DeserializeObject<Vault>(readContent);
                         break;
                     case VaultFormat.Encrypted:
-                        vault = DecryptVault(readContent, _password);
+                        importedVault = DecryptVault(readContent, _password);
                         break;
                 }
 
-                if (replace)
-                {
-                    Vault = vault;
-                }
-                else
-                {
-                    AddImportedData(vault);
-                }
+                AddImportedData(importedVault, replace);
 
                 return true;
             }
@@ -232,21 +225,28 @@ namespace vIDsafe
             }
         }
 
-        private void AddImportedData(Vault importedVault)
+        private void AddImportedData(Vault importedVault, bool replace)
         {
-            foreach (KeyValuePair<string, Identity> identityPair in importedVault.Identities)
+            if (replace)
             {
-                string identityEmail = identityPair.Key;
-                Identity importedIdentity = identityPair.Value;
-
-                Identity identity = Vault.FindOrCreateIdentity(importedIdentity.Name, identityEmail, importedIdentity.Usage);
-
-                foreach (KeyValuePair<string, Credential> credentialPair in importedIdentity.Credentials)
+                Vault = importedVault;
+            }
+            else
+            {
+                foreach (KeyValuePair<string, Identity> identityPair in importedVault.Identities)
                 {
-                    string credentialID = credentialPair.Key;
-                    Credential importedCredential = credentialPair.Value;
+                    string identityEmail = identityPair.Key;
+                    Identity importedIdentity = identityPair.Value;
 
-                    identity.FindOrCreateCredential(credentialID, importedCredential.Username, importedCredential.Password, importedCredential.URL, importedCredential.Notes);
+                    Identity identity = Vault.FindOrCreateIdentity(importedIdentity.Name, identityEmail, importedIdentity.Usage);
+
+                    foreach (KeyValuePair<string, Credential> credentialPair in importedIdentity.Credentials)
+                    {
+                        string credentialID = credentialPair.Key;
+                        Credential importedCredential = credentialPair.Value;
+
+                        identity.FindOrCreateCredential(credentialID, importedCredential.Username, importedCredential.Password, importedCredential.URL, importedCredential.Notes);
+                    }
                 }
             }
         }
@@ -272,21 +272,21 @@ namespace vIDsafe
                 {
                     case VaultFormat.CSV:
                         using (StringWriter stringWriter = new StringWriter())
-                        using (var csv = new CsvWriter(stringWriter, CultureInfo.InvariantCulture))
+                        using (CsvWriter csvWriter = new CsvWriter(stringWriter, CultureInfo.InvariantCulture))
                         {
-                            var records = vault.Identities.Values.ToList();
+                            List<Identity> identities = vault.Identities.Values.ToList();
 
-                            csv.WriteHeader<Identity>();
-                            csv.WriteHeader<Credential>();
-                            csv.NextRecord();
+                            csvWriter.WriteHeader<Identity>();
+                            csvWriter.WriteHeader<Credential>();
+                            csvWriter.NextRecord();
 
-                            foreach (var record in records)
+                            foreach (Identity identity in identities)
                             {
-                                foreach (var rc in record.Credentials.Values.ToList())
+                                foreach (Credential credential in identity.Credentials.Values.ToList())
                                 {
-                                    csv.WriteRecord(record);
-                                    csv.WriteRecord(rc);
-                                    csv.NextRecord();
+                                    csvWriter.WriteRecord(identity);
+                                    csvWriter.WriteRecord(credential);
+                                    csvWriter.NextRecord();
                                 }
                             }
 
