@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CsvHelper.Configuration.Attributes;
 using EnzoicClient;
 using Newtonsoft.Json;
 
@@ -12,6 +13,7 @@ namespace vIDsafe
     public class Identity
     {
         private string _name;
+        private string _email;
         private string _usage;
 
         private int _healthScore;
@@ -28,25 +30,36 @@ namespace vIDsafe
 
         private Dictionary<string, string> _breachedDomains = new Dictionary<string, string>();
 
+        [Name("name")]
         public string Name => _name;
 
+        [Name("email")]
+        public string Email => _email;
+
+        [Name("usage")]
         public string Usage => _usage;
 
+        [Ignore]
         [JsonIgnore]
         public int HealthScore => _healthScore;
 
+        [Ignore]
         [JsonIgnore]
         public Dictionary<Credential.CredentialStatus, int> CredentialCounts => _credentialCounts;
 
+        [Ignore]
         [JsonIgnore]
         public int SafeCredentials => _credentialCounts[Credential.CredentialStatus.Safe];
 
+        [Ignore]
         [JsonIgnore]
         public int CompromisedCredentials => _credentialCounts[Credential.CredentialStatus.Compromised];
 
+        [Ignore]
         [JsonIgnore]
         public int WeakCredentials => _credentialCounts[Credential.CredentialStatus.Weak];
 
+        [Ignore]
         [JsonIgnore]
         public int ConflictCredentials => _credentialCounts[Credential.CredentialStatus.Conflicted];
 
@@ -54,10 +67,16 @@ namespace vIDsafe
 
         public Dictionary<string, Credential> Credentials => _credentials;
 
-        public Identity(string name, string usage)
+        public Identity(string name, string email, string usage)
         {
             _name = name;
+            _email = email;
             _usage = usage;
+        }
+
+        public void ReassignIdentity(string email)
+        {
+            _email = email;
         }
 
         public string NewCredential(string identityName)
@@ -70,14 +89,14 @@ namespace vIDsafe
             string username = CredentialGeneration.GenerateUsername(identityName);
             string password = CredentialGeneration.GeneratePassword();
 
-            CreateCredential(GUID, username, password, url, notes);
+            Credential credential = FindOrCreateCredential(GUID, username, password, url, notes);
 
             FormvIDsafe.Main.User.SaveVault();
 
-            return GUID;
+            return credential.CredentialID;
         }
 
-        public Credential CreateCredential(string GUID, string username, string password, string url, string notes)
+        public Credential FindOrCreateCredential(string GUID, string username, string password, string url, string notes)
         {
             Credential credential;
 
@@ -87,7 +106,7 @@ namespace vIDsafe
             }
             else
             {
-                 credential = new Credential(this, username, password, url, notes);
+                 credential = new Credential(this, GUID, username, password, url, notes);
                 _credentials.Add(GUID, credential);
             }
 

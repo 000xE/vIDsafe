@@ -1,20 +1,25 @@
-﻿using System;
+﻿using CsvHelper;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using vIDsafe.Properties;
+using CsvHelper.Configuration;
+using CsvHelper.Configuration.Attributes;
 
 namespace vIDsafe
 {
     public partial class FormHome : Form
     {
         private static Panel _pnlChildForm;
-        private static Control.ControlCollection ctrlsFormControls = null;
+        private static Control.ControlCollection _ctrlsFormControls = null;
 
         public FormHome()
         {
@@ -26,15 +31,7 @@ namespace vIDsafe
         private void GetFormComponents()
         {
             _pnlChildForm = panelForm;
-            ctrlsFormControls = Controls;
-        }
-
-        private void GetTheme()
-        {
-            foreach (Control ctrlsMain in ctrlsFormControls)
-            {
-                UpdateColorControls(ctrlsMain);
-            }
+            _ctrlsFormControls = Controls;
         }
 
         //https://stackoverflow.com/questions/22935285/change-color-of-all-controls-inside-the-form-in-c-sharp/22935406#22935406
@@ -66,20 +63,20 @@ namespace vIDsafe
 
         public static void SetName(string name)
         {
-            Label lblMasterAccountName = (Label)ctrlsFormControls.Find("lblMAName", true)[0];
+            Label lblMasterAccountName = (Label)_ctrlsFormControls.Find("lblMAName", true)[0];
             lblMasterAccountName.Text = name;
         }
 
         public static void SetHealthScore(int healthScore, Color healthColor)
         {
-            Panel pnlProgressBar = (Panel)ctrlsFormControls.Find("pnlProgressBar", true)[0];
+            Panel pnlProgressBar = (Panel)_ctrlsFormControls.Find("pnlProgressBar", true)[0];
             pnlProgressBar.BackColor = healthColor;
 
             int panelWidth = (int)((double)pnlProgressBar.MaximumSize.Width / 100 * healthScore);
 
             pnlProgressBar.Size = new Size(panelWidth, pnlProgressBar.Height);
 
-            Panel pnlProgressBack = (Panel)ctrlsFormControls.Find("pnlProgressBack", true)[0];
+            Panel pnlProgressBack = (Panel)_ctrlsFormControls.Find("pnlProgressBack", true)[0];
 
             Label lblHealthScore = (Label)pnlProgressBack.Controls.Find("lblHealthScore", true)[0];
 
@@ -113,7 +110,7 @@ namespace vIDsafe
 
             //Todo: cleanup
 
-            Panel pnlNav = (Panel) ctrlsFormControls.Find("pnlNavigation", true)[0];
+            Panel pnlNav = (Panel) _ctrlsFormControls.Find("pnlNavigation", true)[0];
 
             foreach (Control ctrlMain in pnlNav.Controls)
             {

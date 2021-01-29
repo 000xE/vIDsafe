@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CsvHelper.Configuration.Attributes;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,23 +11,34 @@ namespace vIDsafe
     [Serializable]
     public class Credential
     {
+        private Identity _identity;
+
+        private string _credentialID;
+
         private string _username;
         private string _password;
         private string _url;
         private string _notes;
 
-        private Identity _identity;
-
         private CredentialStatus _status = CredentialStatus.Safe;
 
+        [Name("credentialID")]
+        public string CredentialID => _credentialID;
+
+        [Name("username")]
         public string Username => _username;
 
+        [Name("password")]
         public string Password => _password;
 
+        [Name("url")]
         public string URL => _url;
 
+        [Name("notes")]
         public string Notes => _notes;
 
+        [Ignore]
+        [JsonIgnore]
         public CredentialStatus Status => _status;
 
         public enum CredentialStatus
@@ -36,9 +49,11 @@ namespace vIDsafe
             Weak
         }
 
-        public Credential(Identity identity, string username, string password, string url, string notes)
+        public Credential(Identity identity, string credentialID, string username, string password, string url, string notes)
         {
             _identity = identity;
+
+            _credentialID = credentialID;
 
             _username = username;
             _password = password;

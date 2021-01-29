@@ -71,14 +71,14 @@ namespace vIDsafe
             string name = CredentialGeneration.GenerateUsername(nameToRandomise);
             string usage = "";
 
-            CreateIdentity(name, email, usage);
+            Identity identity = FindOrCreateIdentity(name, email, usage);
 
             FormvIDsafe.Main.User.SaveVault();
 
-            return email;
+            return identity.Email;
         }
 
-        public Identity CreateIdentity(string name, string email, string usage)
+        public Identity FindOrCreateIdentity(string name, string email, string usage)
         {
             Identity identity;
 
@@ -88,7 +88,7 @@ namespace vIDsafe
             }
             else
             {
-                identity = new Identity(name, usage);
+                identity = new Identity(name, email, usage);
                 _identities.Add(email, identity);
             }
 
@@ -106,6 +106,7 @@ namespace vIDsafe
             else
             {
                 DeleteIdentity(oldEmail);
+                identity.ReassignIdentity(newEmail);
                 Identities.Add(newEmail, identity);
 
                 return true;
