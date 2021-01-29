@@ -109,15 +109,20 @@ namespace vIDsafe
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-            if (cmbIdentity.SelectedIndex >= 0)
-            {
-                Export(cmbExportFormat.SelectedIndex, cmbIdentity.SelectedItem.ToString());
-            }
+            Export(cmbExportFormat.SelectedIndex, cmbIdentity.SelectedIndex);
         }
 
-        private void Export(int formatIndex, string selectedEmail)
+        //Todo: refactor
+        private void Export(int formatIndex, int selectedIdentityIndex)
         {
             string selectedPath = SelectFolder(formatIndex);
+
+            string selectedEmail = "";
+
+            if (selectedIdentityIndex >= 0)
+            {
+                selectedEmail = cmbIdentity.SelectedItem.ToString();
+            }
 
             MasterAccount.VaultFormat format = GetFormat(formatIndex);
 

@@ -294,7 +294,7 @@ namespace vIDsafe
                                     Credential credential = credentialPair.Value;
 
                                     csv.WriteField(identity.Name);
-                                    csv.WriteField(identity.Email);
+                                    csv.WriteField(identityPair.Key);
                                     csv.WriteField(identity.Usage);
                                     csv.WriteField(credentialPair.Key);
                                     csv.WriteField(credential.URL);
@@ -306,6 +306,12 @@ namespace vIDsafe
                                 }
                             }
                             writeContent = stringWriter.ToString();
+                        }
+
+                        using (var writer = new StreamWriter("sdasdsadasdsadasd.csv"))
+                        using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+                        {
+                            csv.WriteRecords(vault.Identities);
                         }
                         break;
                     case VaultFormat.JSON:
