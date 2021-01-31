@@ -93,14 +93,15 @@ namespace vIDsafe
                 {
                     Console.WriteLine(e);
 
-                    Console.WriteLine("Invalid email format");
+                    FormvIDsafe.ShowError("Validation error", "Invalid email format");
 
                     return false;
                 }
             }
             else
             {
-                Console.WriteLine("Please enter all details");
+                FormvIDsafe.ShowError("Validation error", "Please enter all details");
+
                 return false;
             }
         }
@@ -132,7 +133,8 @@ namespace vIDsafe
             }
             else
             {
-                Console.WriteLine("Email already exists");
+                FormvIDsafe.ShowError("Email change error", "Email already exists");
+
                 return false;
             }
         }

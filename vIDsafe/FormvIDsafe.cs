@@ -12,6 +12,7 @@ namespace vIDsafe
 {
     public partial class FormvIDsafe : Form
     {
+        private static NotifyIcon _notifyIcon;
         public MasterAccount User;
         public static FormvIDsafe Main;
 
@@ -26,6 +27,7 @@ namespace vIDsafe
 
         private void GetFormComponents()
         {
+            _notifyIcon = notifyIcon;
             _pnlChildForm = panelForm;
 
             Main = this;
@@ -34,6 +36,15 @@ namespace vIDsafe
         private void LoadFormComponents()
         {
             OpenChildForm(new FormLogin());
+        }
+
+        //Todo: change to notification and have type between error and success etc with icon changed to i for success
+        public static void ShowError(string title, string text)
+        {
+            _notifyIcon.Icon = SystemIcons.Error;
+            _notifyIcon.BalloonTipTitle = title;
+            _notifyIcon.BalloonTipText = text;
+            _notifyIcon.ShowBalloonTip(1000);
         }
 
         //https://stackoverflow.com/a/28811266

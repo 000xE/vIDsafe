@@ -29,10 +29,12 @@ namespace vIDsafe
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panelForm = new System.Windows.Forms.Panel();
             this.panelTitle = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
+            this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.panel2.SuspendLayout();
             this.panelTitle.SuspendLayout();
             this.SuspendLayout();
@@ -80,7 +82,13 @@ namespace vIDsafe
             this.label3.TabIndex = 3;
             this.label3.Text = "vIDsafe";
             // 
-            // vIDsafe
+            // notifyIcon
+            // 
+            this.notifyIcon.BalloonTipText = "Test";
+            this.notifyIcon.Text = "notifyIcon1";
+            this.notifyIcon.Visible = true;
+            // 
+            // FormvIDsafe
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -92,7 +100,7 @@ namespace vIDsafe
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(500, 600);
             this.MinimumSize = new System.Drawing.Size(500, 600);
-            this.Name = "vIDsafe";
+            this.Name = "FormvIDsafe";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "vIDsafe";
@@ -109,5 +117,6 @@ namespace vIDsafe
         private System.Windows.Forms.Panel panelForm;
         private System.Windows.Forms.Panel panelTitle;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.NotifyIcon notifyIcon;
     }
 }

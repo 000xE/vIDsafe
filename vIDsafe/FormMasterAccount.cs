@@ -106,7 +106,7 @@ namespace vIDsafe
                 }
                 else
                 {
-                    Console.WriteLine("Wrong old password");
+                    FormvIDsafe.ShowError("Password error", "Wrong old password");
                 }
             }
         }
@@ -131,7 +131,7 @@ namespace vIDsafe
                 }
                 else
                 {
-                    Console.WriteLine("Wrong old password");
+                    FormvIDsafe.ShowError("Password error", "Wrong old password");
                 }
             }
         }
@@ -144,7 +144,7 @@ namespace vIDsafe
             }
             else
             {
-                Console.WriteLine("Name is lower than 8 characters");
+                FormvIDsafe.ShowError("Validation error", "Name is lower than 8 characters");
                 return false;
             }
         }
@@ -157,7 +157,7 @@ namespace vIDsafe
             }
             else
             {
-                Console.WriteLine("Passwords are not the same");
+                FormvIDsafe.ShowError("Password error", "New passwords are not the same");
                 return false;
             }
         }

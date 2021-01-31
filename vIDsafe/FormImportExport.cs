@@ -101,7 +101,7 @@ namespace vIDsafe
             }
             else
             {
-                Console.WriteLine("Cannot import");
+                FormvIDsafe.ShowError("Import error", "Check the file contents or its path");
             }
         }
 
@@ -129,7 +129,7 @@ namespace vIDsafe
             }
             else
             {
-                Console.WriteLine("Cannot export");
+                FormvIDsafe.ShowError("Export error", "Check the file path");
             }
         }
 

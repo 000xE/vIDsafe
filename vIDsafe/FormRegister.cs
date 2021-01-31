@@ -38,7 +38,7 @@ namespace vIDsafe
                 }
                 else
                 {
-                    Console.WriteLine("Account already exist");
+                    FormvIDsafe.ShowError("Registration error", "Account already exist");
                 }
             }
         }
@@ -53,13 +53,13 @@ namespace vIDsafe
                 }
                 else
                 {
-                    Console.WriteLine("Passwords are not the same");
+                    FormvIDsafe.ShowError("Validation error", "Passwords are not the same");
                     return false;
                 }
             }
             else
             {
-                Console.WriteLine("Name is lower than 8 characters");
+                FormvIDsafe.ShowError("Validation error", "Name is lower than 8 characters");
                 return false;
             }
         }
