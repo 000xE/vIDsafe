@@ -227,7 +227,8 @@ namespace vIDsafe
                     X = e.Position.X - (e.Position.Width / 100),
                     Y = e.Position.Y + (e.Position.Height / 100),
                     Font = new Font("Segoe UI", 12, FontStyle.Bold),
-                    ForeColor = Color.Gainsboro
+                    Tag = "MainPanel",
+                    //ForeColor = Color.Gainsboro
                 };
                 //ta.Alignment = ContentAlignment.MiddleCenter;
 
