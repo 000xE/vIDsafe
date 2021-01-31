@@ -48,8 +48,7 @@ namespace vIDsafe
                         X = e.Position.X - (e.Position.Width / 100),
                         Y = e.Position.Y + (e.Position.Height / 100),
                         Font = new Font("Segoe UI", 12, FontStyle.Bold),
-                        Tag = "MainPanel", //Todo: Not working, constant black
-                        //ForeColor = Color.Gainsboro
+                        ForeColor = Color.RoyalBlue,
                     };
                     //ta.Alignment = ContentAlignment.MiddleCenter;
 
@@ -92,14 +91,14 @@ namespace vIDsafe
                 {
                     Console.WriteLine(e);
 
-                    FormvIDsafe.ShowError("Validation error", "Invalid email format");
+                    FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Validation error", "Invalid email format");
 
                     return false;
                 }
             }
             else
             {
-                FormvIDsafe.ShowError("Validation error", "Please enter all details");
+                FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Validation error", "Please enter all details");
 
                 return false;
             }
@@ -132,7 +131,7 @@ namespace vIDsafe
             }
             else
             {
-                FormvIDsafe.ShowError("Email change error", "Email already exists");
+                FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Email change error", "Email already exists");
 
                 return false;
             }

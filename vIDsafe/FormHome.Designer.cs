@@ -60,7 +60,7 @@
             this.alwaysOnTopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.themeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cmbTheme = new System.Windows.Forms.ToolStripComboBox();
-            this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.pnlMain.SuspendLayout();
             this.pnlNavigation.SuspendLayout();
             this.pnlDataSubMenu.SuspendLayout();
@@ -457,12 +457,11 @@
             this.cmbTheme.Size = new System.Drawing.Size(121, 23);
             this.cmbTheme.SelectedIndexChanged += new System.EventHandler(this.cmbTheme_SelectedIndexChanged);
             // 
-            // notifyIcon
+            // trayIcon
             // 
-            this.notifyIcon.BalloonTipText = "Test";
-            this.notifyIcon.Text = "notifyIcon1";
-            this.notifyIcon.Visible = true;
-            this.notifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseDoubleClick);
+            this.trayIcon.BalloonTipText = "Test";
+            this.trayIcon.Text = "notifyIcon1";
+            this.trayIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.trayIcon_MouseDoubleClick);
             // 
             // FormHome
             // 
@@ -525,7 +524,7 @@
         private System.Windows.Forms.ToolStripMenuItem quitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem onStartToolStripMenuItem;
         private System.Windows.Forms.Label lblHealthScore;
-        private System.Windows.Forms.NotifyIcon notifyIcon;
+        private System.Windows.Forms.NotifyIcon trayIcon;
         private System.Windows.Forms.ToolStripMenuItem generateAPasswordToolStripMenuItem;
         private System.Windows.Forms.ToolStripComboBox cmbTheme;
     }

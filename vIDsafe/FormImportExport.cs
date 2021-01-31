@@ -95,12 +95,14 @@ namespace vIDsafe
 
             if (FormvIDsafe.Main.User.ImportVault(format, fileName, replace))
             {
+                FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Import", "Successfully imported");
+
                 KeyValuePair<DateTime, string> log = FormvIDsafe.Main.User.Vault.Log(Vault.LogType.Porting, "Imported data");
                 DisplayLog(log.Key, log.Value);
             }
             else
             {
-                FormvIDsafe.ShowError("Import error", "Check the file contents or its path");
+                FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Import error", "Check the file contents or its path");
             }
         }
 
@@ -123,12 +125,14 @@ namespace vIDsafe
 
             if (FormvIDsafe.Main.User.ExportVault(format, selectedEmail, fileName))
             {
+                FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Export", "Successfully exported");
+
                 KeyValuePair<DateTime, string> log = FormvIDsafe.Main.User.Vault.Log(Vault.LogType.Porting, "Exported data");
                 DisplayLog(log.Key, log.Value);
             }
             else
             {
-                FormvIDsafe.ShowError("Export error", "Check the file path");
+                FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Export error", "Check the file path");
             }
         }
 
@@ -199,7 +203,10 @@ namespace vIDsafe
 
         private void rdbReplace_CheckedChanged(object sender, EventArgs e)
         {
-            Console.WriteLine("Warning: This will erase your current vault details!");
+            if (rdbReplace.Checked)
+            {
+                FormvIDsafe.ShowNotification(ToolTipIcon.Warning, "Warning", "This will erase your current vault details!");
+            }
         }
 
         private void cmbIdentity_SelectedIndexChanged(object sender, EventArgs e)

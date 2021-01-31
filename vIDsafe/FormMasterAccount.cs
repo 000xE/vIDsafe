@@ -53,6 +53,7 @@ namespace vIDsafe
 
         private void DeleteCredentials()
         {
+            FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Credential deletion", "Successfully deleted all credentials");
             FormvIDsafe.Main.User.Vault.DeleteAllCredentials();
 
             KeyValuePair<DateTime, string> log = FormvIDsafe.Main.User.Vault.Log(Vault.LogType.Account, "All credentials deleted");
@@ -67,6 +68,7 @@ namespace vIDsafe
 
         private void DeleteIdentities()
         {
+            FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Identity deletion", "Successfully deleted all identities");
             FormvIDsafe.Main.User.Vault.DeleteAllIdentities();
 
             KeyValuePair<DateTime, string> log = FormvIDsafe.Main.User.Vault.Log(Vault.LogType.Account, "All identities deleted");
@@ -80,6 +82,7 @@ namespace vIDsafe
 
         private void DeleteAccount()
         {
+            FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Account deletion", "Successfully deleted account");
             FormvIDsafe.Main.User.DeleteAccount();
 
             ParentForm.Close();
@@ -96,16 +99,16 @@ namespace vIDsafe
             {
                 if (FormvIDsafe.Main.User.TryChangeName(currentPassword, newName).Equals(true))
                 {
-                    Console.WriteLine("Name changed");
-
                     FormHome.SetName(newName);
+
+                    FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Name change", "Successfully changed name");
 
                     KeyValuePair<DateTime, string> log = FormvIDsafe.Main.User.Vault.Log(Vault.LogType.Account, "Name changed");
                     DisplayLog(log.Key, log.Value);
                 }
                 else
                 {
-                    FormvIDsafe.ShowError("Password error", "Wrong old password");
+                    FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Password error", "Wrong old password");
                 }
             }
         }
@@ -123,14 +126,14 @@ namespace vIDsafe
             {
                 if (FormvIDsafe.Main.User.TryChangePassword(currentPassword, newPassword).Equals(true))
                 {
-                    Console.WriteLine("Pass changed");
+                    FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Password change", "Successfully changed password");
 
                     KeyValuePair<DateTime, string> log = FormvIDsafe.Main.User.Vault.Log(Vault.LogType.Account, "Password changed");
                     DisplayLog(log.Key, log.Value);
                 }
                 else
                 {
-                    FormvIDsafe.ShowError("Password error", "Wrong old password");
+                    FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Password error", "Wrong old password");
                 }
             }
         }
@@ -143,7 +146,7 @@ namespace vIDsafe
             }
             else
             {
-                FormvIDsafe.ShowError("Validation error", "Name is lower than 8 characters");
+                FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Validation error", "Name is lower than 8 characters");
                 return false;
             }
         }
@@ -156,7 +159,7 @@ namespace vIDsafe
             }
             else
             {
-                FormvIDsafe.ShowError("Password error", "New passwords are not the same");
+                FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Password error", "New passwords are not the same");
                 return false;
             }
         }

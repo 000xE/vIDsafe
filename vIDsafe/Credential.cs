@@ -100,12 +100,21 @@ namespace vIDsafe
             }
         }
 
+        //https://www.csharp-console-examples.com/general/c-get-domain-name-from-url/
         private string GetDomain(string url)
         {
             string host = new Uri(url).Host;
-            string domain = host.Substring(host.LastIndexOf('.', host.LastIndexOf('.') - 1) + 1);
 
-            return domain;
+            try
+            {
+                string domain = host.Substring(host.LastIndexOf('.', host.LastIndexOf('.') - 1) + 1);
+
+                return domain;
+            }
+            catch (Exception)
+            {
+                return host;
+            }
         }
         private bool CheckBreached(string url)
         {

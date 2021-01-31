@@ -56,13 +56,13 @@ namespace vIDsafe
                 }
                 else
                 {
-                    FormvIDsafe.ShowError("Validation error", "Please check your URL");
+                    FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Validation error", "Please check your URL");
                     return false;
                 }
             }
             else
             {
-                FormvIDsafe.ShowError("Validation error", "Please enter all details");
+                FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Validation error", "Please enter all details");
                 return false;
             }
         }
