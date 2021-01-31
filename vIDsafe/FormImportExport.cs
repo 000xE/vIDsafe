@@ -22,6 +22,7 @@ namespace vIDsafe
         {
             GetIdentities();
             GetLogs();
+            FormHome.SetTheme(this);
         }
         private void GetLogs()
         {
@@ -57,13 +58,11 @@ namespace vIDsafe
             }
         }
 
-        private string OpenFile(int formatIndex)
+        private void OpenFile(int formatIndex)
         {
             openFileDialog.Filter = GetExtension(formatIndex);
 
             openFileDialog.ShowDialog();
-
-            return openFileDialog.FileName;
         }
 
         private string GetExtension(int formatIndex)
@@ -88,63 +87,53 @@ namespace vIDsafe
 
         private void btnImport_Click(object sender, EventArgs e)
         {
-            Import(cmbImportFormat.SelectedIndex, rdbReplace.Checked);
+            OpenFile(cmbImportFormat.SelectedIndex);
         }
 
-        private void Import(int formatIndex, bool replace)
+        private void Import(int formatIndex, bool replace, string fileName)
         {
-            string selectedFile = OpenFile(formatIndex);
+            MasterAccount.VaultFormat format = GetFormat(formatIndex);
 
-            if (File.Exists(selectedFile))
+            if (FormvIDsafe.Main.User.ImportVault(format, fileName, replace))
             {
-                MasterAccount.VaultFormat format = GetFormat(formatIndex);
-
-                if (FormvIDsafe.Main.User.ImportVault(format, selectedFile, replace))
-                {
-                    KeyValuePair<DateTime, string> log = FormvIDsafe.Main.User.Vault.Log(Vault.LogType.Porting, "Imported data");
-                    DisplayLog(log.Key, log.Value);
-                }
-                else
-                {
-                    Console.WriteLine("Cannot import");
-                }
+                KeyValuePair<DateTime, string> log = FormvIDsafe.Main.User.Vault.Log(Vault.LogType.Porting, "Imported data");
+                DisplayLog(log.Key, log.Value);
+            }
+            else
+            {
+                Console.WriteLine("Cannot import");
             }
         }
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-            Export(cmbExportFormat.SelectedIndex, cmbIdentity.SelectedIndex);
+            SelectFolder(cmbExportFormat.SelectedIndex);
         }
 
         //Todo: refactor
-        private void Export(int formatIndex, int selectedIdentityIndex)
+        private void Export(int formatIndex, int selectedIdentityIndex, string fileName)
         {
-            string selectedPath = SelectFolder(formatIndex);
+            string selectedEmail = "";
 
-            if (File.Exists(selectedPath))
+            if (selectedIdentityIndex >= 0)
             {
-                string selectedEmail = "";
+                selectedEmail = cmbIdentity.SelectedItem.ToString();
+            }
 
-                if (selectedIdentityIndex >= 0)
-                {
-                    selectedEmail = cmbIdentity.SelectedItem.ToString();
-                }
+            MasterAccount.VaultFormat format = GetFormat(formatIndex);
 
-                MasterAccount.VaultFormat format = GetFormat(formatIndex);
-
-                if (FormvIDsafe.Main.User.ExportVault(format, selectedEmail, selectedPath))
-                {
-                    KeyValuePair<DateTime, string> log = FormvIDsafe.Main.User.Vault.Log(Vault.LogType.Porting, "Exported data");
-                    DisplayLog(log.Key, log.Value);
-                }
-                else
-                {
-                    Console.WriteLine("Cannot export");
-                }
+            if (FormvIDsafe.Main.User.ExportVault(format, selectedEmail, fileName))
+            {
+                KeyValuePair<DateTime, string> log = FormvIDsafe.Main.User.Vault.Log(Vault.LogType.Porting, "Exported data");
+                DisplayLog(log.Key, log.Value);
+            }
+            else
+            {
+                Console.WriteLine("Cannot export");
             }
         }
 
-        private string SelectFolder(int formatIndex)
+        private void SelectFolder(int formatIndex)
         {
             saveFileDialog.Filter = GetExtension(formatIndex);
 
@@ -153,8 +142,6 @@ namespace vIDsafe
             saveFileDialog.FileName = fileName;
 
             saveFileDialog.ShowDialog();
-
-            return saveFileDialog.FileName;
         }
 
         private MasterAccount.VaultFormat GetFormat(int formatIndex)
@@ -219,6 +206,16 @@ namespace vIDsafe
         private void cmbIdentity_SelectedIndexChanged(object sender, EventArgs e)
         {
             btnExport.Enabled = cmbIdentity.SelectedIndex >= 0;
+        }
+
+        private void openFileDialog_FileOk(object sender, CancelEventArgs e)
+        {
+            Import(cmbImportFormat.SelectedIndex, rdbReplace.Checked, openFileDialog.FileName);
+        }
+
+        private void saveFileDialog_FileOk(object sender, CancelEventArgs e)
+        {
+            Export(cmbExportFormat.SelectedIndex, cmbIdentity.SelectedIndex, saveFileDialog.FileName);
         }
     }
 }

@@ -21,6 +21,7 @@ namespace vIDsafe
         private void LoadFormComponents()
         {
             GetIdentities();
+            FormHome.SetTheme(this);
         }
 
         private void btnGenerateUsername_Click(object sender, EventArgs e)
@@ -128,12 +129,9 @@ namespace vIDsafe
 
                     credential.SetDetails(credentialUsername, credentialPassword, credentialURL, credentialNotes);
 
-                    Credential.CredentialStatus status = credential.Status;
-
-
                     lvCredentials.SelectedItems[0].SubItems[1].Text = credentialUsername;
                     lvCredentials.SelectedItems[0].SubItems[2].Text = credentialURL;
-                    lvCredentials.SelectedItems[0].SubItems[3].Text = status.ToString();
+                    lvCredentials.SelectedItems[0].SubItems[3].Text = credential.Status.ToString();
                 }
             }
         }

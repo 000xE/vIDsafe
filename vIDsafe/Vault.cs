@@ -65,7 +65,7 @@ namespace vIDsafe
 
         public string NewIdentity()
         {
-            string nameToRandomise = "IdentityEmail";
+            string nameToRandomise = "abcdefghijklmnopqrstuvwxyz";
 
             string email = CredentialGeneration.GenerateUsername(nameToRandomise).ToLower() + "@test.com";
             string name = CredentialGeneration.GenerateUsername(nameToRandomise);

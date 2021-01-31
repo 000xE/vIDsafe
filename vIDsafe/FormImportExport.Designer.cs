@@ -91,6 +91,7 @@
             this.panelTitle.Padding = new System.Windows.Forms.Padding(0, 0, 0, 25);
             this.panelTitle.Size = new System.Drawing.Size(773, 67);
             this.panelTitle.TabIndex = 7;
+            this.panelTitle.Tag = "TitlePanel";
             // 
             // label2
             // 
@@ -101,6 +102,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(773, 21);
             this.label2.TabIndex = 4;
+            this.label2.Tag = "SubTitleLabel";
             this.label2.Text = "Make your data portable";
             // 
             // label1
@@ -112,6 +114,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(773, 21);
             this.label1.TabIndex = 3;
+            this.label1.Tag = "TitleLabel";
             this.label1.Text = "Import/Export";
             // 
             // panelBack
@@ -126,6 +129,7 @@
             this.panelBack.Padding = new System.Windows.Forms.Padding(25);
             this.panelBack.Size = new System.Drawing.Size(823, 618);
             this.panelBack.TabIndex = 3;
+            this.panelBack.Tag = "BackPanel";
             // 
             // panel3
             // 
@@ -137,6 +141,7 @@
             this.panel3.Padding = new System.Windows.Forms.Padding(25);
             this.panel3.Size = new System.Drawing.Size(773, 501);
             this.panel3.TabIndex = 9;
+            this.panel3.Tag = "MainPanel";
             // 
             // panel8
             // 
@@ -156,11 +161,12 @@
             this.panel6.Controls.Add(this.panel10);
             this.panel6.Controls.Add(this.label3);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel6.Location = new System.Drawing.Point(0, 320);
+            this.panel6.Location = new System.Drawing.Point(0, 280);
             this.panel6.Name = "panel6";
             this.panel6.Padding = new System.Windows.Forms.Padding(25);
-            this.panel6.Size = new System.Drawing.Size(723, 131);
+            this.panel6.Size = new System.Drawing.Size(723, 171);
             this.panel6.TabIndex = 16;
+            this.panel6.Tag = "SubPanel";
             // 
             // panel10
             // 
@@ -169,8 +175,9 @@
             this.panel10.Location = new System.Drawing.Point(25, 43);
             this.panel10.Name = "panel10";
             this.panel10.Padding = new System.Windows.Forms.Padding(0, 25, 0, 0);
-            this.panel10.Size = new System.Drawing.Size(673, 63);
+            this.panel10.Size = new System.Drawing.Size(673, 103);
             this.panel10.TabIndex = 6;
+            this.panel10.Tag = "SubPanel";
             // 
             // lvLogs
             // 
@@ -186,9 +193,10 @@
             this.lvLogs.HideSelection = false;
             this.lvLogs.Location = new System.Drawing.Point(0, 25);
             this.lvLogs.Name = "lvLogs";
-            this.lvLogs.Size = new System.Drawing.Size(673, 38);
+            this.lvLogs.Size = new System.Drawing.Size(673, 78);
             this.lvLogs.Sorting = System.Windows.Forms.SortOrder.Descending;
             this.lvLogs.TabIndex = 2;
+            this.lvLogs.Tag = "InnerSubPanel";
             this.lvLogs.UseCompatibleStateImageBehavior = false;
             this.lvLogs.View = System.Windows.Forms.View.Details;
             // 
@@ -217,6 +225,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(673, 18);
             this.label3.TabIndex = 5;
+            this.label3.Tag = "FrontSubTitleLabel";
             this.label3.Text = "Logs";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -233,8 +242,9 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(723, 320);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(723, 280);
             this.tableLayoutPanel2.TabIndex = 10;
+            this.tableLayoutPanel2.Tag = "SubPanel";
             // 
             // panel1
             // 
@@ -248,8 +258,9 @@
             this.panel1.Location = new System.Drawing.Point(365, 4);
             this.panel1.Name = "panel1";
             this.panel1.Padding = new System.Windows.Forms.Padding(25);
-            this.panel1.Size = new System.Drawing.Size(354, 312);
+            this.panel1.Size = new System.Drawing.Size(354, 272);
             this.panel1.TabIndex = 9;
+            this.panel1.Tag = "SubPanel";
             // 
             // panel4
             // 
@@ -260,8 +271,9 @@
             this.panel4.Location = new System.Drawing.Point(25, 47);
             this.panel4.Name = "panel4";
             this.panel4.Padding = new System.Windows.Forms.Padding(0, 25, 0, 0);
-            this.panel4.Size = new System.Drawing.Size(304, 90);
+            this.panel4.Size = new System.Drawing.Size(304, 85);
             this.panel4.TabIndex = 9;
+            this.panel4.Tag = "SubPanel";
             // 
             // cmbIdentity
             // 
@@ -270,7 +282,7 @@
             this.cmbIdentity.Enabled = false;
             this.cmbIdentity.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbIdentity.FormattingEnabled = true;
-            this.cmbIdentity.Location = new System.Drawing.Point(92, 47);
+            this.cmbIdentity.Location = new System.Drawing.Point(92, 45);
             this.cmbIdentity.Name = "cmbIdentity";
             this.cmbIdentity.Size = new System.Drawing.Size(121, 21);
             this.cmbIdentity.TabIndex = 2;
@@ -286,7 +298,7 @@
             "CSV",
             "JSON",
             "Encrypted (Backup)"});
-            this.cmbExportFormat.Location = new System.Drawing.Point(92, 20);
+            this.cmbExportFormat.Location = new System.Drawing.Point(92, 18);
             this.cmbExportFormat.Name = "cmbExportFormat";
             this.cmbExportFormat.Size = new System.Drawing.Size(121, 21);
             this.cmbExportFormat.TabIndex = 1;
@@ -302,6 +314,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(304, 22);
             this.label4.TabIndex = 7;
+            this.label4.Tag = "FrontSubTitleLabel";
             this.label4.Text = "Export data";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label4.UseMnemonic = false;
@@ -312,10 +325,11 @@
             this.panel11.Controls.Add(this.rdbAllData);
             this.panel11.Controls.Add(this.rdbIdentity);
             this.panel11.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel11.Location = new System.Drawing.Point(25, 137);
+            this.panel11.Location = new System.Drawing.Point(25, 132);
             this.panel11.Name = "panel11";
             this.panel11.Size = new System.Drawing.Size(304, 50);
             this.panel11.TabIndex = 10;
+            this.panel11.Tag = "SmallSubPanel";
             // 
             // rdbAllData
             // 
@@ -352,10 +366,11 @@
             this.panel12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(59)))), ((int)(((byte)(66)))));
             this.panel12.Controls.Add(this.btnExport);
             this.panel12.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel12.Location = new System.Drawing.Point(25, 187);
+            this.panel12.Location = new System.Drawing.Point(25, 182);
             this.panel12.Name = "panel12";
-            this.panel12.Size = new System.Drawing.Size(304, 100);
+            this.panel12.Size = new System.Drawing.Size(304, 65);
             this.panel12.TabIndex = 11;
+            this.panel12.Tag = "InnerSubPanel";
             // 
             // btnExport
             // 
@@ -366,7 +381,7 @@
             this.btnExport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExport.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExport.ForeColor = System.Drawing.Color.White;
-            this.btnExport.Location = new System.Drawing.Point(102, 35);
+            this.btnExport.Location = new System.Drawing.Point(102, 17);
             this.btnExport.MaximumSize = new System.Drawing.Size(100, 30);
             this.btnExport.Name = "btnExport";
             this.btnExport.Size = new System.Drawing.Size(100, 30);
@@ -387,8 +402,9 @@
             this.panel2.Location = new System.Drawing.Point(4, 4);
             this.panel2.Name = "panel2";
             this.panel2.Padding = new System.Windows.Forms.Padding(25);
-            this.panel2.Size = new System.Drawing.Size(354, 312);
+            this.panel2.Size = new System.Drawing.Size(354, 272);
             this.panel2.TabIndex = 8;
+            this.panel2.Tag = "SubPanel";
             // 
             // panel5
             // 
@@ -398,8 +414,9 @@
             this.panel5.Location = new System.Drawing.Point(25, 47);
             this.panel5.Name = "panel5";
             this.panel5.Padding = new System.Windows.Forms.Padding(0, 25, 0, 0);
-            this.panel5.Size = new System.Drawing.Size(304, 90);
+            this.panel5.Size = new System.Drawing.Size(304, 85);
             this.panel5.TabIndex = 9;
+            this.panel5.Tag = "SubPanel";
             // 
             // cmbImportFormat
             // 
@@ -411,7 +428,7 @@
             "CSV",
             "JSON",
             "Encrypted (Backup)"});
-            this.cmbImportFormat.Location = new System.Drawing.Point(92, 35);
+            this.cmbImportFormat.Location = new System.Drawing.Point(92, 33);
             this.cmbImportFormat.Name = "cmbImportFormat";
             this.cmbImportFormat.Size = new System.Drawing.Size(121, 21);
             this.cmbImportFormat.TabIndex = 0;
@@ -427,6 +444,7 @@
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(304, 22);
             this.label6.TabIndex = 7;
+            this.label6.Tag = "FrontSubTitleLabel";
             this.label6.Text = "Import data";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label6.UseMnemonic = false;
@@ -437,10 +455,12 @@
             this.panel7.Controls.Add(this.rdbDoNotReplace);
             this.panel7.Controls.Add(this.rdbReplace);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel7.Location = new System.Drawing.Point(25, 137);
+            this.panel7.Location = new System.Drawing.Point(25, 132);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(304, 50);
             this.panel7.TabIndex = 10;
+            this.panel7.Tag = "SmallSubPanel";
+            this.panel7.UseWaitCursor = true;
             // 
             // rdbDoNotReplace
             // 
@@ -456,6 +476,7 @@
             this.rdbDoNotReplace.TabStop = true;
             this.rdbDoNotReplace.Text = "Do not replace";
             this.rdbDoNotReplace.UseVisualStyleBackColor = true;
+            this.rdbDoNotReplace.UseWaitCursor = true;
             // 
             // rdbReplace
             // 
@@ -469,6 +490,7 @@
             this.rdbReplace.TabIndex = 2;
             this.rdbReplace.Text = "Replace vault";
             this.rdbReplace.UseVisualStyleBackColor = true;
+            this.rdbReplace.UseWaitCursor = true;
             this.rdbReplace.CheckedChanged += new System.EventHandler(this.rdbReplace_CheckedChanged);
             // 
             // panel9
@@ -476,10 +498,11 @@
             this.panel9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(59)))), ((int)(((byte)(66)))));
             this.panel9.Controls.Add(this.btnImport);
             this.panel9.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel9.Location = new System.Drawing.Point(25, 187);
+            this.panel9.Location = new System.Drawing.Point(25, 182);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(304, 100);
+            this.panel9.Size = new System.Drawing.Size(304, 65);
             this.panel9.TabIndex = 11;
+            this.panel9.Tag = "InnerSubPanel";
             // 
             // btnImport
             // 
@@ -490,7 +513,7 @@
             this.btnImport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnImport.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnImport.ForeColor = System.Drawing.Color.White;
-            this.btnImport.Location = new System.Drawing.Point(102, 35);
+            this.btnImport.Location = new System.Drawing.Point(102, 17);
             this.btnImport.MaximumSize = new System.Drawing.Size(100, 30);
             this.btnImport.Name = "btnImport";
             this.btnImport.Size = new System.Drawing.Size(100, 30);
@@ -498,6 +521,14 @@
             this.btnImport.Text = "Import";
             this.btnImport.UseVisualStyleBackColor = false;
             this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog_FileOk);
+            // 
+            // saveFileDialog
+            // 
+            this.saveFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialog_FileOk);
             // 
             // FormImportExport
             // 

@@ -19,6 +19,7 @@ namespace vIDsafe
         private void LoadFormComponents()
         {
             GetLogs();
+            FormHome.SetTheme(this);
         }
 
         private void GetLogs()

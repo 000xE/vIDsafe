@@ -21,6 +21,10 @@ namespace vIDsafe
         private static Panel _pnlChildForm;
         private static Control.ControlCollection _ctrlsFormControls = null;
 
+        private static readonly List<Theme> _themes = new List<Theme>() { new DarkTheme(), new LightTheme() };
+
+        private static Theme _currentTheme = _themes[0];
+
         public FormHome()
         {
             InitializeComponent();
@@ -35,15 +39,21 @@ namespace vIDsafe
         }
 
         //https://stackoverflow.com/questions/22935285/change-color-of-all-controls-inside-the-form-in-c-sharp/22935406#22935406
-        public void UpdateColorControls(Control control)
+        private static void UpdateControlColors(Theme theme, Control control)
         {
             //Todo: themes
-            control.BackColor = Color.Black;
-            control.ForeColor = Color.White;
+            _currentTheme.SetControlColors(control);
+
             foreach (Control ctrlSub in control.Controls)
             {
-                UpdateColorControls(ctrlSub);
+                UpdateControlColors(theme, ctrlSub);
             }
+        }
+
+        //Todo: think about having this method in all other forms and calling it on load and on theme index change through static
+        public static void SetTheme(Form form)
+        {
+            UpdateControlColors(_currentTheme, form);
         }
 
         private void LoadFormComponents()
@@ -51,14 +61,21 @@ namespace vIDsafe
             OpenChildForm(new FormOverview());
             SetName(FormvIDsafe.Main.User.Name);
             GetSettings();
-            //GetTheme();
         }
+
         private void GetSettings()
         {
             onCloseToolStripMenuItem.Checked = Settings.Default.HideToTrayClose;
             onMinimizeToolStripMenuItem.Checked = Settings.Default.HideToTrayMinimize;
             onStartToolStripMenuItem.Checked = Settings.Default.HideToTrayStart;
             alwaysOnTopToolStripMenuItem.Checked = Settings.Default.AlwaysOnTop;
+
+            foreach (Theme theme in _themes)
+            {
+                cmbTheme.Items.Add(theme.ToString());
+            }
+
+            cmbTheme.SelectedIndex = Settings.Default.Theme;
         }
 
         public static void SetName(string name)
@@ -104,9 +121,10 @@ namespace vIDsafe
         public void ChangeSelectedButton(object sender)
         {
             Button selectedButton = (Button)sender;
-            selectedButton.ForeColor = Color.Black;
             //selectedButton.BackColor = Color.FromArgb(47, 47, 47);
-            selectedButton.BackColor = Color.Gainsboro;
+            selectedButton.Tag = "NavButton selected";
+
+            _currentTheme.SetControlColors(selectedButton);
 
             //Todo: cleanup
 
@@ -116,18 +134,13 @@ namespace vIDsafe
             {
                 foreach (Control ctrlNav in ctrlMain.Controls)
                 {
-                    if (ctrlNav.Tag != null)
+                    if (ctrlNav != selectedButton)
                     {
-                        if (ctrlNav.Tag.ToString().Equals("navButton"))
-                        {
-                            if (ctrlNav != selectedButton)
-                            {
-                                ctrlNav.ForeColor = Color.FromArgb(204, 204, 204);
-                                //navigationControls.BackColor = Color.FromArgb(26, 26, 26);
-                                //navigationControls.BackColor = Color.FromArgb(32, 32, 32);
-                                ctrlNav.BackColor = Color.FromArgb(29, 32, 36);                        
-                            }
-                        }
+                        ctrlNav.Tag = "NavButton";
+                        //navigationControls.BackColor = Color.FromArgb(26, 26, 26);
+                        //navigationControls.BackColor = Color.FromArgb(32, 32, 32);
+
+                        _currentTheme.SetControlColors(ctrlNav);
                     }
                 }
             }
@@ -292,6 +305,16 @@ namespace vIDsafe
         {
             Settings.Default.HideToTrayStart = onStartToolStripMenuItem.Checked;
             Settings.Default.Save();
+        }
+
+        private void cmbTheme_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Settings.Default.Theme = cmbTheme.SelectedIndex;
+            Settings.Default.Save();
+
+            _currentTheme = _themes[cmbTheme.SelectedIndex];
+
+            SetTheme(this);
         }
     }
 }

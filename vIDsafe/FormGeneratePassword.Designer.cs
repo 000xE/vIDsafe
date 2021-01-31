@@ -88,6 +88,7 @@
             this.panelTitle.Padding = new System.Windows.Forms.Padding(0, 0, 0, 25);
             this.panelTitle.Size = new System.Drawing.Size(773, 67);
             this.panelTitle.TabIndex = 7;
+            this.panelTitle.Tag = "TitlePanel";
             // 
             // label2
             // 
@@ -98,6 +99,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(773, 21);
             this.label2.TabIndex = 4;
+            this.label2.Tag = "SubTitleLabel";
             this.label2.Text = "Create a password or a passphrase";
             // 
             // label3
@@ -109,6 +111,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(773, 21);
             this.label3.TabIndex = 3;
+            this.label3.Tag = "TitleLabel";
             this.label3.Text = "Generate password";
             // 
             // panelBack
@@ -123,6 +126,7 @@
             this.panelBack.Padding = new System.Windows.Forms.Padding(25);
             this.panelBack.Size = new System.Drawing.Size(823, 618);
             this.panelBack.TabIndex = 3;
+            this.panelBack.Tag = "BackPanel";
             // 
             // panel8
             // 
@@ -138,6 +142,7 @@
             this.panel8.Padding = new System.Windows.Forms.Padding(25);
             this.panel8.Size = new System.Drawing.Size(482, 501);
             this.panel8.TabIndex = 11;
+            this.panel8.Tag = "MainPanel";
             // 
             // panel2
             // 
@@ -150,6 +155,7 @@
             this.panel2.Padding = new System.Windows.Forms.Padding(0, 25, 0, 0);
             this.panel2.Size = new System.Drawing.Size(432, 229);
             this.panel2.TabIndex = 9;
+            this.panel2.Tag = "MainPanel";
             // 
             // lblGeneratedPassword
             // 
@@ -161,6 +167,7 @@
             this.lblGeneratedPassword.Name = "lblGeneratedPassword";
             this.lblGeneratedPassword.Size = new System.Drawing.Size(432, 189);
             this.lblGeneratedPassword.TabIndex = 8;
+            this.lblGeneratedPassword.Tag = "SubPanel";
             this.lblGeneratedPassword.Text = "abcdef0123";
             this.lblGeneratedPassword.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -183,6 +190,7 @@
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(432, 22);
             this.label6.TabIndex = 7;
+            this.label6.Tag = "FrontTitleLabel";
             this.label6.Text = "Generate a password";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label6.UseMnemonic = false;
@@ -197,6 +205,7 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(432, 100);
             this.panel4.TabIndex = 10;
+            this.panel4.Tag = "MainPanel";
             // 
             // btnCopy
             // 
@@ -243,6 +252,7 @@
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(432, 100);
             this.panel5.TabIndex = 11;
+            this.panel5.Tag = "SubPanel";
             // 
             // lblLength
             // 
@@ -317,6 +327,7 @@
             this.clbSettings.Name = "clbSettings";
             this.clbSettings.Size = new System.Drawing.Size(85, 68);
             this.clbSettings.TabIndex = 0;
+            this.clbSettings.Tag = "SubPanel";
             this.clbSettings.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.clbSettings_ItemCheck);
             this.clbSettings.SelectedIndexChanged += new System.EventHandler(this.clbSettings_SelectedIndexChanged);
             // 
@@ -331,6 +342,7 @@
             this.panel1.Padding = new System.Windows.Forms.Padding(25);
             this.panel1.Size = new System.Drawing.Size(291, 501);
             this.panel1.TabIndex = 10;
+            this.panel1.Tag = "SubPanel";
             // 
             // panel7
             // 
@@ -341,6 +353,7 @@
             this.panel7.Padding = new System.Windows.Forms.Padding(0, 25, 0, 0);
             this.panel7.Size = new System.Drawing.Size(241, 433);
             this.panel7.TabIndex = 6;
+            this.panel7.Tag = "SubPanel";
             // 
             // lvPasswordHistory
             // 
@@ -359,6 +372,7 @@
             this.lvPasswordHistory.Size = new System.Drawing.Size(241, 408);
             this.lvPasswordHistory.Sorting = System.Windows.Forms.SortOrder.Descending;
             this.lvPasswordHistory.TabIndex = 3;
+            this.lvPasswordHistory.Tag = "InnerSubPanel";
             this.lvPasswordHistory.UseCompatibleStateImageBehavior = false;
             this.lvPasswordHistory.View = System.Windows.Forms.View.Details;
             // 
@@ -387,6 +401,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(241, 18);
             this.label4.TabIndex = 5;
+            this.label4.Tag = "FrontSubTitleLabel";
             this.label4.Text = "Previous passwords";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
