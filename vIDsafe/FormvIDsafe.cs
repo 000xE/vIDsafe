@@ -38,8 +38,6 @@ namespace vIDsafe
             OpenChildForm(new FormLogin());
         }
 
-        //Todo: change to notification and have type between error and success etc with icon changed to i for success
-        //Hide icon after baloontip is gone
 
         public static void ShowNotification(ToolTipIcon icon, string title, string text)
         {
