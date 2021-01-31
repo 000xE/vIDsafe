@@ -93,6 +93,7 @@
             this.panelBack.Padding = new System.Windows.Forms.Padding(25);
             this.panelBack.Size = new System.Drawing.Size(823, 618);
             this.panelBack.TabIndex = 3;
+            this.panelBack.Tag = "BackPanel";
             // 
             // panel3
             // 
@@ -104,6 +105,7 @@
             this.panel3.Padding = new System.Windows.Forms.Padding(25);
             this.panel3.Size = new System.Drawing.Size(773, 501);
             this.panel3.TabIndex = 10;
+            this.panel3.Tag = "MainPanel";
             // 
             // panel8
             // 
@@ -123,9 +125,9 @@
             this.panel13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(47)))), ((int)(((byte)(47)))));
             this.panel13.Controls.Add(this.panel9);
             this.panel13.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel13.Location = new System.Drawing.Point(0, 320);
+            this.panel13.Location = new System.Drawing.Point(0, 280);
             this.panel13.Name = "panel13";
-            this.panel13.Size = new System.Drawing.Size(723, 131);
+            this.panel13.Size = new System.Drawing.Size(723, 171);
             this.panel13.TabIndex = 18;
             // 
             // panel9
@@ -137,8 +139,9 @@
             this.panel9.Location = new System.Drawing.Point(0, 0);
             this.panel9.Name = "panel9";
             this.panel9.Padding = new System.Windows.Forms.Padding(25);
-            this.panel9.Size = new System.Drawing.Size(723, 131);
+            this.panel9.Size = new System.Drawing.Size(723, 171);
             this.panel9.TabIndex = 22;
+            this.panel9.Tag = "SubPanel";
             // 
             // panel10
             // 
@@ -147,7 +150,7 @@
             this.panel10.Location = new System.Drawing.Point(25, 43);
             this.panel10.Name = "panel10";
             this.panel10.Padding = new System.Windows.Forms.Padding(0, 25, 0, 0);
-            this.panel10.Size = new System.Drawing.Size(673, 63);
+            this.panel10.Size = new System.Drawing.Size(673, 103);
             this.panel10.TabIndex = 6;
             // 
             // lvLogs
@@ -164,9 +167,10 @@
             this.lvLogs.HideSelection = false;
             this.lvLogs.Location = new System.Drawing.Point(0, 25);
             this.lvLogs.Name = "lvLogs";
-            this.lvLogs.Size = new System.Drawing.Size(673, 38);
+            this.lvLogs.Size = new System.Drawing.Size(673, 78);
             this.lvLogs.Sorting = System.Windows.Forms.SortOrder.Descending;
             this.lvLogs.TabIndex = 1;
+            this.lvLogs.Tag = "InnerSubPanel";
             this.lvLogs.UseCompatibleStateImageBehavior = false;
             this.lvLogs.View = System.Windows.Forms.View.Details;
             // 
@@ -195,6 +199,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(673, 18);
             this.label3.TabIndex = 5;
+            this.label3.Tag = "FrontSubTitleLabel";
             this.label3.Text = "Logs";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -213,8 +218,9 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(723, 320);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(723, 280);
             this.tableLayoutPanel2.TabIndex = 10;
+            this.tableLayoutPanel2.Tag = "SubPanel";
             // 
             // panel6
             // 
@@ -225,8 +231,9 @@
             this.panel6.Location = new System.Drawing.Point(484, 4);
             this.panel6.Name = "panel6";
             this.panel6.Padding = new System.Windows.Forms.Padding(25);
-            this.panel6.Size = new System.Drawing.Size(235, 312);
+            this.panel6.Size = new System.Drawing.Size(235, 272);
             this.panel6.TabIndex = 20;
+            this.panel6.Tag = "SubPanel";
             // 
             // panel12
             // 
@@ -238,8 +245,9 @@
             this.panel12.Location = new System.Drawing.Point(25, 47);
             this.panel12.Name = "panel12";
             this.panel12.Padding = new System.Windows.Forms.Padding(0, 25, 0, 0);
-            this.panel12.Size = new System.Drawing.Size(185, 240);
+            this.panel12.Size = new System.Drawing.Size(185, 200);
             this.panel12.TabIndex = 23;
+            this.panel12.Tag = "SubPanel";
             // 
             // btnDeleteAccount
             // 
@@ -249,7 +257,7 @@
             this.btnDeleteAccount.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDeleteAccount.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDeleteAccount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnDeleteAccount.Location = new System.Drawing.Point(27, 140);
+            this.btnDeleteAccount.Location = new System.Drawing.Point(27, 120);
             this.btnDeleteAccount.Name = "btnDeleteAccount";
             this.btnDeleteAccount.Size = new System.Drawing.Size(130, 30);
             this.btnDeleteAccount.TabIndex = 29;
@@ -265,7 +273,7 @@
             this.btnDeleteCredentials.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDeleteCredentials.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDeleteCredentials.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnDeleteCredentials.Location = new System.Drawing.Point(27, 68);
+            this.btnDeleteCredentials.Location = new System.Drawing.Point(27, 48);
             this.btnDeleteCredentials.Name = "btnDeleteCredentials";
             this.btnDeleteCredentials.Size = new System.Drawing.Size(130, 30);
             this.btnDeleteCredentials.TabIndex = 27;
@@ -281,7 +289,7 @@
             this.btnDeleteIdentities.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDeleteIdentities.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDeleteIdentities.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnDeleteIdentities.Location = new System.Drawing.Point(27, 104);
+            this.btnDeleteIdentities.Location = new System.Drawing.Point(27, 84);
             this.btnDeleteIdentities.Name = "btnDeleteIdentities";
             this.btnDeleteIdentities.Size = new System.Drawing.Size(130, 30);
             this.btnDeleteIdentities.TabIndex = 28;
@@ -291,7 +299,7 @@
             // 
             // label5
             // 
-            this.label5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
+            this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.Dock = System.Windows.Forms.DockStyle.Top;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.label5.ForeColor = System.Drawing.Color.Salmon;
@@ -299,6 +307,7 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(185, 22);
             this.label5.TabIndex = 22;
+            this.label5.Tag = "";
             this.label5.Text = "Danger Zone";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label5.UseMnemonic = false;
@@ -314,8 +323,9 @@
             this.panel1.Location = new System.Drawing.Point(244, 4);
             this.panel1.Name = "panel1";
             this.panel1.Padding = new System.Windows.Forms.Padding(25);
-            this.panel1.Size = new System.Drawing.Size(233, 312);
+            this.panel1.Size = new System.Drawing.Size(233, 272);
             this.panel1.TabIndex = 9;
+            this.panel1.Tag = "SubPanel";
             // 
             // panel4
             // 
@@ -327,8 +337,9 @@
             this.panel4.Location = new System.Drawing.Point(25, 47);
             this.panel4.Name = "panel4";
             this.panel4.Padding = new System.Windows.Forms.Padding(0, 25, 0, 0);
-            this.panel4.Size = new System.Drawing.Size(183, 140);
+            this.panel4.Size = new System.Drawing.Size(183, 135);
             this.panel4.TabIndex = 9;
+            this.panel4.Tag = "SubPanel";
             // 
             // txtCurrentPassword2
             // 
@@ -336,7 +347,7 @@
             this.txtCurrentPassword2.BackColor = System.Drawing.Color.DimGray;
             this.txtCurrentPassword2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtCurrentPassword2.ForeColor = System.Drawing.Color.Gainsboro;
-            this.txtCurrentPassword2.Location = new System.Drawing.Point(31, 87);
+            this.txtCurrentPassword2.Location = new System.Drawing.Point(31, 85);
             this.txtCurrentPassword2.Name = "txtCurrentPassword2";
             this.txtCurrentPassword2.PasswordChar = '*';
             this.txtCurrentPassword2.Size = new System.Drawing.Size(121, 22);
@@ -348,7 +359,7 @@
             this.txtConfirmPassword.BackColor = System.Drawing.Color.DimGray;
             this.txtConfirmPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtConfirmPassword.ForeColor = System.Drawing.Color.Gainsboro;
-            this.txtConfirmPassword.Location = new System.Drawing.Point(31, 59);
+            this.txtConfirmPassword.Location = new System.Drawing.Point(31, 57);
             this.txtConfirmPassword.Name = "txtConfirmPassword";
             this.txtConfirmPassword.PasswordChar = '*';
             this.txtConfirmPassword.Size = new System.Drawing.Size(121, 22);
@@ -360,7 +371,7 @@
             this.txtNewPassword.BackColor = System.Drawing.Color.DimGray;
             this.txtNewPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtNewPassword.ForeColor = System.Drawing.Color.Gainsboro;
-            this.txtNewPassword.Location = new System.Drawing.Point(31, 31);
+            this.txtNewPassword.Location = new System.Drawing.Point(31, 29);
             this.txtNewPassword.Name = "txtNewPassword";
             this.txtNewPassword.PasswordChar = '*';
             this.txtNewPassword.Size = new System.Drawing.Size(121, 22);
@@ -376,6 +387,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(183, 22);
             this.label4.TabIndex = 7;
+            this.label4.Tag = "FrontSubTitleLabel";
             this.label4.Text = "Change password";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label4.UseMnemonic = false;
@@ -385,10 +397,11 @@
             this.panel11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(59)))), ((int)(((byte)(66)))));
             this.panel11.Controls.Add(this.btnChangePassword);
             this.panel11.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel11.Location = new System.Drawing.Point(25, 187);
+            this.panel11.Location = new System.Drawing.Point(25, 182);
             this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(183, 100);
+            this.panel11.Size = new System.Drawing.Size(183, 65);
             this.panel11.TabIndex = 10;
+            this.panel11.Tag = "InnerSubPanel";
             // 
             // btnChangePassword
             // 
@@ -398,7 +411,7 @@
             this.btnChangePassword.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnChangePassword.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnChangePassword.ForeColor = System.Drawing.Color.White;
-            this.btnChangePassword.Location = new System.Drawing.Point(41, 35);
+            this.btnChangePassword.Location = new System.Drawing.Point(41, 17);
             this.btnChangePassword.Name = "btnChangePassword";
             this.btnChangePassword.Size = new System.Drawing.Size(100, 30);
             this.btnChangePassword.TabIndex = 0;
@@ -417,8 +430,9 @@
             this.panel2.Location = new System.Drawing.Point(4, 4);
             this.panel2.Name = "panel2";
             this.panel2.Padding = new System.Windows.Forms.Padding(25);
-            this.panel2.Size = new System.Drawing.Size(233, 312);
+            this.panel2.Size = new System.Drawing.Size(233, 272);
             this.panel2.TabIndex = 8;
+            this.panel2.Tag = "SubPanel";
             // 
             // panel5
             // 
@@ -429,8 +443,9 @@
             this.panel5.Location = new System.Drawing.Point(25, 47);
             this.panel5.Name = "panel5";
             this.panel5.Padding = new System.Windows.Forms.Padding(0, 25, 0, 0);
-            this.panel5.Size = new System.Drawing.Size(183, 140);
+            this.panel5.Size = new System.Drawing.Size(183, 135);
             this.panel5.TabIndex = 9;
+            this.panel5.Tag = "SubPanel";
             // 
             // txtCurrentPassword
             // 
@@ -438,7 +453,7 @@
             this.txtCurrentPassword.BackColor = System.Drawing.Color.DimGray;
             this.txtCurrentPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtCurrentPassword.ForeColor = System.Drawing.Color.Gainsboro;
-            this.txtCurrentPassword.Location = new System.Drawing.Point(31, 73);
+            this.txtCurrentPassword.Location = new System.Drawing.Point(31, 71);
             this.txtCurrentPassword.Name = "txtCurrentPassword";
             this.txtCurrentPassword.PasswordChar = '*';
             this.txtCurrentPassword.Size = new System.Drawing.Size(121, 22);
@@ -450,7 +465,7 @@
             this.txtName.BackColor = System.Drawing.Color.DimGray;
             this.txtName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtName.ForeColor = System.Drawing.Color.Gainsboro;
-            this.txtName.Location = new System.Drawing.Point(31, 45);
+            this.txtName.Location = new System.Drawing.Point(31, 43);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(121, 22);
             this.txtName.TabIndex = 3;
@@ -465,6 +480,7 @@
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(183, 22);
             this.label6.TabIndex = 7;
+            this.label6.Tag = "FrontSubTitleLabel";
             this.label6.Text = "Change name";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label6.UseMnemonic = false;
@@ -474,10 +490,11 @@
             this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(59)))), ((int)(((byte)(66)))));
             this.panel7.Controls.Add(this.btnChangeDetails);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel7.Location = new System.Drawing.Point(25, 187);
+            this.panel7.Location = new System.Drawing.Point(25, 182);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(183, 100);
+            this.panel7.Size = new System.Drawing.Size(183, 65);
             this.panel7.TabIndex = 10;
+            this.panel7.Tag = "InnerSubPanel";
             // 
             // btnChangeDetails
             // 
@@ -487,7 +504,7 @@
             this.btnChangeDetails.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnChangeDetails.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnChangeDetails.ForeColor = System.Drawing.Color.White;
-            this.btnChangeDetails.Location = new System.Drawing.Point(41, 35);
+            this.btnChangeDetails.Location = new System.Drawing.Point(41, 17);
             this.btnChangeDetails.Name = "btnChangeDetails";
             this.btnChangeDetails.Size = new System.Drawing.Size(100, 30);
             this.btnChangeDetails.TabIndex = 2;
@@ -506,6 +523,7 @@
             this.panelTitle.Padding = new System.Windows.Forms.Padding(0, 0, 0, 25);
             this.panelTitle.Size = new System.Drawing.Size(773, 67);
             this.panelTitle.TabIndex = 7;
+            this.panelTitle.Tag = "TitlePanel";
             // 
             // label2
             // 
@@ -516,6 +534,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(773, 21);
             this.label2.TabIndex = 4;
+            this.label2.Tag = "SubTitleLabel";
             this.label2.Text = "Manage your master account";
             // 
             // label1
@@ -527,6 +546,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(773, 21);
             this.label1.TabIndex = 3;
+            this.label1.Tag = "TitleLabel";
             this.label1.Text = "Master account";
             // 
             // FormMasterAccount

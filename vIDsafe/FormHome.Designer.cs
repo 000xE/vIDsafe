@@ -59,8 +59,8 @@
             this.onStartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.alwaysOnTopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.themeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.cmbTheme = new System.Windows.Forms.ToolStripComboBox();
+            this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.pnlMain.SuspendLayout();
             this.pnlNavigation.SuspendLayout();
             this.pnlDataSubMenu.SuspendLayout();
@@ -82,6 +82,7 @@
             this.btnPasswordManager.Name = "btnPasswordManager";
             this.btnPasswordManager.Size = new System.Drawing.Size(225, 45);
             this.btnPasswordManager.TabIndex = 0;
+            this.btnPasswordManager.Tag = "SubMenuButton";
             this.btnPasswordManager.Text = "Password manager";
             this.btnPasswordManager.UseVisualStyleBackColor = false;
             this.btnPasswordManager.Click += new System.EventHandler(this.btnPasswordManager_Click);
@@ -97,6 +98,7 @@
             this.pnlMain.Name = "pnlMain";
             this.pnlMain.Size = new System.Drawing.Size(225, 657);
             this.pnlMain.TabIndex = 0;
+            this.pnlMain.Tag = "MainPanel";
             // 
             // pnlNavigation
             // 
@@ -111,6 +113,7 @@
             this.pnlNavigation.Name = "pnlNavigation";
             this.pnlNavigation.Size = new System.Drawing.Size(225, 528);
             this.pnlNavigation.TabIndex = 2;
+            this.pnlNavigation.Tag = "NavigationPanel";
             // 
             // btnLogOut
             // 
@@ -150,7 +153,7 @@
             this.btnMasterAccount.Name = "btnMasterAccount";
             this.btnMasterAccount.Size = new System.Drawing.Size(225, 40);
             this.btnMasterAccount.TabIndex = 7;
-            this.btnMasterAccount.Tag = "navButton";
+            this.btnMasterAccount.Tag = "NavButton";
             this.btnMasterAccount.Text = "Manage master account";
             this.btnMasterAccount.UseVisualStyleBackColor = false;
             this.btnMasterAccount.Click += new System.EventHandler(this.btnMasterAccount_Click);
@@ -167,7 +170,7 @@
             this.btnImportExport.Name = "btnImportExport";
             this.btnImportExport.Size = new System.Drawing.Size(225, 40);
             this.btnImportExport.TabIndex = 6;
-            this.btnImportExport.Tag = "navButton";
+            this.btnImportExport.Tag = "NavButton";
             this.btnImportExport.Text = "Import/Export data";
             this.btnImportExport.UseVisualStyleBackColor = false;
             this.btnImportExport.Click += new System.EventHandler(this.btnImportExport_Click);
@@ -184,6 +187,7 @@
             this.btnData.Name = "btnData";
             this.btnData.Size = new System.Drawing.Size(225, 45);
             this.btnData.TabIndex = 5;
+            this.btnData.Tag = "SubMenuButton";
             this.btnData.Text = "Data";
             this.btnData.UseVisualStyleBackColor = false;
             this.btnData.Click += new System.EventHandler(this.btnData_Click);
@@ -212,7 +216,7 @@
             this.btnGeneratePassword.Name = "btnGeneratePassword";
             this.btnGeneratePassword.Size = new System.Drawing.Size(225, 40);
             this.btnGeneratePassword.TabIndex = 4;
-            this.btnGeneratePassword.Tag = "navButton";
+            this.btnGeneratePassword.Tag = "NavButton";
             this.btnGeneratePassword.Text = "Generate a password";
             this.btnGeneratePassword.UseVisualStyleBackColor = false;
             this.btnGeneratePassword.Click += new System.EventHandler(this.btnGeneratePassword_Click);
@@ -229,7 +233,7 @@
             this.btnVault.Name = "btnVault";
             this.btnVault.Size = new System.Drawing.Size(225, 40);
             this.btnVault.TabIndex = 3;
-            this.btnVault.Tag = "navButton";
+            this.btnVault.Tag = "NavButton";
             this.btnVault.Text = "Vault";
             this.btnVault.UseVisualStyleBackColor = false;
             this.btnVault.Click += new System.EventHandler(this.btnVault_Click);
@@ -246,7 +250,7 @@
             this.btnIdentities.Name = "btnIdentities";
             this.btnIdentities.Size = new System.Drawing.Size(225, 40);
             this.btnIdentities.TabIndex = 2;
-            this.btnIdentities.Tag = "navButton";
+            this.btnIdentities.Tag = "NavButton";
             this.btnIdentities.Text = "Identities";
             this.btnIdentities.UseVisualStyleBackColor = false;
             this.btnIdentities.Click += new System.EventHandler(this.btnIdentities_Click);
@@ -263,7 +267,7 @@
             this.btnOverview.Name = "btnOverview";
             this.btnOverview.Size = new System.Drawing.Size(225, 40);
             this.btnOverview.TabIndex = 1;
-            this.btnOverview.Tag = "navButton";
+            this.btnOverview.Tag = "NavButton selected";
             this.btnOverview.Text = "Overview";
             this.btnOverview.UseVisualStyleBackColor = false;
             this.btnOverview.Click += new System.EventHandler(this.btnOverview_Click);
@@ -309,6 +313,7 @@
             this.pnlMasterName.Name = "pnlMasterName";
             this.pnlMasterName.Size = new System.Drawing.Size(225, 100);
             this.pnlMasterName.TabIndex = 0;
+            this.pnlMasterName.Tag = "MasterNamePanel";
             // 
             // lblMAName
             // 
@@ -320,6 +325,7 @@
             this.lblMAName.Name = "lblMAName";
             this.lblMAName.Size = new System.Drawing.Size(225, 100);
             this.lblMAName.TabIndex = 0;
+            this.lblMAName.Tag = "MANameLabel";
             this.lblMAName.Text = "Name";
             this.lblMAName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -331,6 +337,7 @@
             this.panelForm.Name = "panelForm";
             this.panelForm.Size = new System.Drawing.Size(839, 657);
             this.panelForm.TabIndex = 1;
+            this.panelForm.Tag = "";
             // 
             // fileToolStripMenuItem
             // 
@@ -392,7 +399,7 @@
             this.onStartToolStripMenuItem});
             this.hideToTrayToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
             this.hideToTrayToolStripMenuItem.Name = "hideToTrayToolStripMenuItem";
-            this.hideToTrayToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.hideToTrayToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.hideToTrayToolStripMenuItem.Text = "Hide to tray";
             // 
             // onCloseToolStripMenuItem
@@ -401,7 +408,7 @@
             this.onCloseToolStripMenuItem.CheckOnClick = true;
             this.onCloseToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
             this.onCloseToolStripMenuItem.Name = "onCloseToolStripMenuItem";
-            this.onCloseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.onCloseToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.onCloseToolStripMenuItem.Text = "On close";
             this.onCloseToolStripMenuItem.CheckedChanged += new System.EventHandler(this.onCloseToolStripMenuItem_CheckedChanged);
             // 
@@ -411,7 +418,7 @@
             this.onMinimizeToolStripMenuItem.CheckOnClick = true;
             this.onMinimizeToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
             this.onMinimizeToolStripMenuItem.Name = "onMinimizeToolStripMenuItem";
-            this.onMinimizeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.onMinimizeToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.onMinimizeToolStripMenuItem.Text = "On minimize";
             this.onMinimizeToolStripMenuItem.CheckedChanged += new System.EventHandler(this.onMinimizeToolStripMenuItem_CheckedChanged);
             // 
@@ -421,7 +428,7 @@
             this.onStartToolStripMenuItem.CheckOnClick = true;
             this.onStartToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
             this.onStartToolStripMenuItem.Name = "onStartToolStripMenuItem";
-            this.onStartToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.onStartToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.onStartToolStripMenuItem.Text = "On start";
             this.onStartToolStripMenuItem.CheckedChanged += new System.EventHandler(this.onStartToolStripMenuItem_CheckedChanged);
             // 
@@ -431,7 +438,7 @@
             this.alwaysOnTopToolStripMenuItem.CheckOnClick = true;
             this.alwaysOnTopToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
             this.alwaysOnTopToolStripMenuItem.Name = "alwaysOnTopToolStripMenuItem";
-            this.alwaysOnTopToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.alwaysOnTopToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.alwaysOnTopToolStripMenuItem.Text = "Always on top";
             this.alwaysOnTopToolStripMenuItem.CheckedChanged += new System.EventHandler(this.alwaysOnTopToolStripMenuItem_CheckedChanged);
             // 
@@ -444,19 +451,17 @@
             this.themeToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
             this.themeToolStripMenuItem.Text = "Theme";
             // 
+            // cmbTheme
+            // 
+            this.cmbTheme.Name = "cmbTheme";
+            this.cmbTheme.Size = new System.Drawing.Size(121, 23);
+            this.cmbTheme.SelectedIndexChanged += new System.EventHandler(this.cmbTheme_SelectedIndexChanged);
+            // 
             // notifyIcon
             // 
             this.notifyIcon.Text = "notifyIcon1";
             this.notifyIcon.Visible = true;
             this.notifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseDoubleClick);
-            // 
-            // cmbTheme
-            // 
-            this.cmbTheme.Items.AddRange(new object[] {
-            "Dark",
-            "Light"});
-            this.cmbTheme.Name = "cmbTheme";
-            this.cmbTheme.Size = new System.Drawing.Size(121, 23);
             // 
             // FormHome
             // 

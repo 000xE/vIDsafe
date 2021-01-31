@@ -85,6 +85,7 @@
             this.panelBack.Padding = new System.Windows.Forms.Padding(25);
             this.panelBack.Size = new System.Drawing.Size(823, 618);
             this.panelBack.TabIndex = 3;
+            this.panelBack.Tag = "BackPanel";
             // 
             // panel3
             // 
@@ -97,6 +98,7 @@
             this.panel3.Padding = new System.Windows.Forms.Padding(25);
             this.panel3.Size = new System.Drawing.Size(256, 461);
             this.panel3.TabIndex = 9;
+            this.panel3.Tag = "MainPanel";
             // 
             // panel10
             // 
@@ -109,6 +111,7 @@
             this.panel10.Padding = new System.Windows.Forms.Padding(0, 25, 0, 0);
             this.panel10.Size = new System.Drawing.Size(206, 389);
             this.panel10.TabIndex = 8;
+            this.panel10.Tag = "MainPanel";
             // 
             // pnlVaultComponents
             // 
@@ -140,6 +143,7 @@
             this.lvCredentials.Name = "lvCredentials";
             this.lvCredentials.Size = new System.Drawing.Size(206, 238);
             this.lvCredentials.TabIndex = 30;
+            this.lvCredentials.Tag = "InnerSubPanel";
             this.lvCredentials.UseCompatibleStateImageBehavior = false;
             this.lvCredentials.View = System.Windows.Forms.View.Details;
             this.lvCredentials.SelectedIndexChanged += new System.EventHandler(this.lvCredentials_SelectedIndexChanged);
@@ -240,6 +244,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(206, 22);
             this.label4.TabIndex = 7;
+            this.label4.Tag = "FrontTitleLabel";
             this.label4.Text = "Credentials";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label4.UseMnemonic = false;
@@ -255,6 +260,7 @@
             this.panel1.Padding = new System.Windows.Forms.Padding(25);
             this.panel1.Size = new System.Drawing.Size(517, 461);
             this.panel1.TabIndex = 8;
+            this.panel1.Tag = "SubPanel";
             // 
             // panel2
             // 
@@ -271,6 +277,7 @@
             this.panel2.Padding = new System.Windows.Forms.Padding(0, 25, 0, 0);
             this.panel2.Size = new System.Drawing.Size(467, 393);
             this.panel2.TabIndex = 6;
+            this.panel2.Tag = "SubPanel";
             // 
             // btnGeneratePassword
             // 
@@ -362,6 +369,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(467, 18);
             this.label3.TabIndex = 5;
+            this.label3.Tag = "FrontSubTitleLabel";
             this.label3.Text = "Credential information";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -386,6 +394,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(773, 21);
             this.label2.TabIndex = 4;
+            this.label2.Tag = "SubTitleLabel";
             this.label2.Text = "Create and view credentials";
             // 
             // label1
@@ -397,6 +406,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(773, 21);
             this.label1.TabIndex = 3;
+            this.label1.Tag = "TitleLabel";
             this.label1.Text = "Vault";
             // 
             // panel4

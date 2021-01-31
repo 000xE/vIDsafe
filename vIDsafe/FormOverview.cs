@@ -25,6 +25,7 @@ namespace vIDsafe
         private void LoadFormComponents()
         {
             RecalculateHealthScore();
+            FormHome.SetTheme(this);
         }
 
         private void RecalculateHealthScore()

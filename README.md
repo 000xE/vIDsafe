@@ -54,7 +54,7 @@
 		- [x] Encrypt the vault using the methods bcrypt and AES
 		- [x] Allow the user to import and export their vault in JSON/csv format
 - [ ] Application:
-	- [ ] Allow the user to change the application's settings
+	- [x] Allow the user to change the application's settings
 	- [x] Include validation for inputs
 	- [ ] Display error messages
 
