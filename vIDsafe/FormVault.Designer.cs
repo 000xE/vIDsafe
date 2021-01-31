@@ -187,7 +187,7 @@
             // 
             // btnRefresh
             // 
-            this.btnRefresh.BackColor = System.Drawing.Color.SeaGreen;
+            this.btnRefresh.BackColor = System.Drawing.Color.CornflowerBlue;
             this.btnRefresh.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btnRefresh.FlatAppearance.BorderSize = 0;
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -204,7 +204,7 @@
             // 
             // btnDeleteAll
             // 
-            this.btnDeleteAll.BackColor = System.Drawing.Color.SlateGray;
+            this.btnDeleteAll.BackColor = System.Drawing.Color.LightSlateGray;
             this.btnDeleteAll.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btnDeleteAll.FlatAppearance.BorderSize = 0;
             this.btnDeleteAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -436,7 +436,7 @@
             // 
             // btnNewCredential
             // 
-            this.btnNewCredential.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.btnNewCredential.BackColor = System.Drawing.Color.RoyalBlue;
             this.btnNewCredential.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnNewCredential.FlatAppearance.BorderSize = 0;
             this.btnNewCredential.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -470,7 +470,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.btnSave.BackColor = System.Drawing.Color.CornflowerBlue;
             this.btnSave.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnSave.FlatAppearance.BorderSize = 0;
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;

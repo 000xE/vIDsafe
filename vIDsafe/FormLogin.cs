@@ -37,7 +37,7 @@ namespace vIDsafe
                 }
                 else
                 {
-                    FormvIDsafe.ShowError("Login error", "Account doesn't exist or wrong password");
+                    FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Login error", "Account doesn't exist or wrong password");
                 }
             }
         }
@@ -50,7 +50,7 @@ namespace vIDsafe
             }
             else
             {
-                FormvIDsafe.ShowError("Validation error", "Name is lower than 8 characters");
+                FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Validation error", "Name is lower than 8 characters");
                 return false;
             }
         }

@@ -86,7 +86,8 @@ namespace vIDsafe
             // 
             this.notifyIcon.BalloonTipText = "Test";
             this.notifyIcon.Text = "notifyIcon1";
-            this.notifyIcon.Visible = true;
+            this.notifyIcon.BalloonTipClosed += new System.EventHandler(this.notifyIcon_BalloonTipClosed);
+            this.notifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseDoubleClick);
             // 
             // FormvIDsafe
             // 

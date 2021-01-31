@@ -40,12 +40,23 @@ namespace vIDsafe
 
         //Todo: change to notification and have type between error and success etc with icon changed to i for success
         //Hide icon after baloontip is gone
-        public static void ShowError(string title, string text)
+
+        public static void ShowNotification(ToolTipIcon icon, string title, string text)
         {
-            _notifyIcon.Icon = SystemIcons.Error;
-            _notifyIcon.BalloonTipTitle = title;
-            _notifyIcon.BalloonTipText = text;
-            _notifyIcon.ShowBalloonTip(1000);
+            _notifyIcon.Visible = true;
+            _notifyIcon.Icon = SystemIcons.Application;
+
+            _notifyIcon.ShowBalloonTip(1000, title, text, icon);
+        }
+
+        private void notifyIcon_BalloonTipClosed(object sender, EventArgs e)
+        {
+            _notifyIcon.Visible = false;
+        }
+
+        private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            _notifyIcon.Visible = false;
         }
 
         //https://stackoverflow.com/a/28811266

@@ -56,9 +56,9 @@
             this.panel5 = new System.Windows.Forms.Panel();
             this.cmbImportFormat = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.panel7 = new System.Windows.Forms.Panel();
-            this.rdbDoNotReplace = new System.Windows.Forms.RadioButton();
+            this.panel13 = new System.Windows.Forms.Panel();
             this.rdbReplace = new System.Windows.Forms.RadioButton();
+            this.rdbDoNotReplace = new System.Windows.Forms.RadioButton();
             this.panel9 = new System.Windows.Forms.Panel();
             this.btnImport = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
@@ -76,7 +76,7 @@
             this.panel12.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel5.SuspendLayout();
-            this.panel7.SuspendLayout();
+            this.panel13.SuspendLayout();
             this.panel9.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -338,7 +338,7 @@
             this.rdbAllData.Checked = true;
             this.rdbAllData.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rdbAllData.ForeColor = System.Drawing.Color.Gainsboro;
-            this.rdbAllData.Location = new System.Drawing.Point(164, 17);
+            this.rdbAllData.Location = new System.Drawing.Point(165, 17);
             this.rdbAllData.Name = "rdbAllData";
             this.rdbAllData.Size = new System.Drawing.Size(64, 17);
             this.rdbAllData.TabIndex = 3;
@@ -353,7 +353,7 @@
             this.rdbIdentity.AutoSize = true;
             this.rdbIdentity.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rdbIdentity.ForeColor = System.Drawing.Color.Gainsboro;
-            this.rdbIdentity.Location = new System.Drawing.Point(77, 17);
+            this.rdbIdentity.Location = new System.Drawing.Point(76, 17);
             this.rdbIdentity.Name = "rdbIdentity";
             this.rdbIdentity.Size = new System.Drawing.Size(81, 17);
             this.rdbIdentity.TabIndex = 2;
@@ -396,7 +396,7 @@
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
             this.panel2.Controls.Add(this.panel5);
             this.panel2.Controls.Add(this.label6);
-            this.panel2.Controls.Add(this.panel7);
+            this.panel2.Controls.Add(this.panel13);
             this.panel2.Controls.Add(this.panel9);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(4, 4);
@@ -449,18 +449,31 @@
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label6.UseMnemonic = false;
             // 
-            // panel7
+            // panel13
             // 
-            this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(49)))), ((int)(((byte)(56)))));
-            this.panel7.Controls.Add(this.rdbDoNotReplace);
-            this.panel7.Controls.Add(this.rdbReplace);
-            this.panel7.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel7.Location = new System.Drawing.Point(25, 132);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(304, 50);
-            this.panel7.TabIndex = 10;
-            this.panel7.Tag = "SmallSubPanel";
-            this.panel7.UseWaitCursor = true;
+            this.panel13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(49)))), ((int)(((byte)(56)))));
+            this.panel13.Controls.Add(this.rdbReplace);
+            this.panel13.Controls.Add(this.rdbDoNotReplace);
+            this.panel13.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel13.Location = new System.Drawing.Point(25, 132);
+            this.panel13.Name = "panel13";
+            this.panel13.Size = new System.Drawing.Size(304, 50);
+            this.panel13.TabIndex = 12;
+            this.panel13.Tag = "SmallSubPanel";
+            // 
+            // rdbReplace
+            // 
+            this.rdbReplace.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.rdbReplace.AutoSize = true;
+            this.rdbReplace.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rdbReplace.ForeColor = System.Drawing.Color.Gainsboro;
+            this.rdbReplace.Location = new System.Drawing.Point(51, 17);
+            this.rdbReplace.Name = "rdbReplace";
+            this.rdbReplace.Size = new System.Drawing.Size(93, 17);
+            this.rdbReplace.TabIndex = 6;
+            this.rdbReplace.Text = "Replace vault";
+            this.rdbReplace.UseVisualStyleBackColor = true;
+            this.rdbReplace.CheckedChanged += new System.EventHandler(this.rdbReplace_CheckedChanged);
             // 
             // rdbDoNotReplace
             // 
@@ -469,29 +482,14 @@
             this.rdbDoNotReplace.Checked = true;
             this.rdbDoNotReplace.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rdbDoNotReplace.ForeColor = System.Drawing.Color.Gainsboro;
-            this.rdbDoNotReplace.Location = new System.Drawing.Point(150, 17);
+            this.rdbDoNotReplace.Location = new System.Drawing.Point(152, 17);
             this.rdbDoNotReplace.Name = "rdbDoNotReplace";
             this.rdbDoNotReplace.Size = new System.Drawing.Size(101, 17);
-            this.rdbDoNotReplace.TabIndex = 3;
+            this.rdbDoNotReplace.TabIndex = 5;
             this.rdbDoNotReplace.TabStop = true;
             this.rdbDoNotReplace.Text = "Do not replace";
             this.rdbDoNotReplace.UseVisualStyleBackColor = true;
             this.rdbDoNotReplace.UseWaitCursor = true;
-            // 
-            // rdbReplace
-            // 
-            this.rdbReplace.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.rdbReplace.AutoSize = true;
-            this.rdbReplace.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdbReplace.ForeColor = System.Drawing.Color.Gainsboro;
-            this.rdbReplace.Location = new System.Drawing.Point(53, 17);
-            this.rdbReplace.Name = "rdbReplace";
-            this.rdbReplace.Size = new System.Drawing.Size(93, 17);
-            this.rdbReplace.TabIndex = 2;
-            this.rdbReplace.Text = "Replace vault";
-            this.rdbReplace.UseVisualStyleBackColor = true;
-            this.rdbReplace.UseWaitCursor = true;
-            this.rdbReplace.CheckedChanged += new System.EventHandler(this.rdbReplace_CheckedChanged);
             // 
             // panel9
             // 
@@ -557,8 +555,8 @@
             this.panel12.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
-            this.panel7.ResumeLayout(false);
-            this.panel7.PerformLayout();
+            this.panel13.ResumeLayout(false);
+            this.panel13.PerformLayout();
             this.panel9.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -582,10 +580,7 @@
         private System.Windows.Forms.RadioButton rdbIdentity;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Panel panel9;
-        private System.Windows.Forms.RadioButton rdbDoNotReplace;
-        private System.Windows.Forms.RadioButton rdbReplace;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Panel panel10;
@@ -601,5 +596,8 @@
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnDateTime;
         private System.Windows.Forms.ColumnHeader columnLog;
+        private System.Windows.Forms.Panel panel13;
+        private System.Windows.Forms.RadioButton rdbDoNotReplace;
+        private System.Windows.Forms.RadioButton rdbReplace;
     }
 }

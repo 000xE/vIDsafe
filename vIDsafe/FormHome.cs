@@ -39,7 +39,6 @@ namespace vIDsafe
         //https://stackoverflow.com/questions/22935285/change-color-of-all-controls-inside-the-form-in-c-sharp/22935406#22935406
         private void UpdateControlColors(Theme theme, Control control)
         {
-            //Todo: themes
             theme.SetControlColors(control);
 
             foreach (Control ctrlSub in control.Controls)
@@ -48,7 +47,6 @@ namespace vIDsafe
             }
         }
 
-        //Todo: think about having this method in all other forms and calling it on load and on theme index change through static
         private void SetTheme(Form form)
         {
             UpdateControlColors(_currentTheme, form);
@@ -245,8 +243,8 @@ namespace vIDsafe
 
         private void HideToTray(bool hide)
         {
-            notifyIcon.Visible = hide;
-            notifyIcon.Icon = SystemIcons.Application;
+            trayIcon.Visible = hide;
+            trayIcon.Icon = SystemIcons.Application;
 
             if (hide)
             {
@@ -258,7 +256,7 @@ namespace vIDsafe
             }
         }
 
-        private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void trayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             HideToTray(false);
         }
