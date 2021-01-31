@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panelBack = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel8 = new System.Windows.Forms.Panel();
@@ -64,6 +65,7 @@
             this.panelTitle = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.panelBack.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel8.SuspendLayout();
@@ -349,9 +351,10 @@
             this.txtCurrentPassword2.ForeColor = System.Drawing.Color.Gainsboro;
             this.txtCurrentPassword2.Location = new System.Drawing.Point(31, 85);
             this.txtCurrentPassword2.Name = "txtCurrentPassword2";
-            this.txtCurrentPassword2.PasswordChar = '*';
             this.txtCurrentPassword2.Size = new System.Drawing.Size(121, 22);
             this.txtCurrentPassword2.TabIndex = 8;
+            this.toolTip.SetToolTip(this.txtCurrentPassword2, "Current Password");
+            this.txtCurrentPassword2.UseSystemPasswordChar = true;
             // 
             // txtConfirmPassword
             // 
@@ -361,9 +364,10 @@
             this.txtConfirmPassword.ForeColor = System.Drawing.Color.Gainsboro;
             this.txtConfirmPassword.Location = new System.Drawing.Point(31, 57);
             this.txtConfirmPassword.Name = "txtConfirmPassword";
-            this.txtConfirmPassword.PasswordChar = '*';
             this.txtConfirmPassword.Size = new System.Drawing.Size(121, 22);
             this.txtConfirmPassword.TabIndex = 7;
+            this.toolTip.SetToolTip(this.txtConfirmPassword, "Confirm new password\r\n");
+            this.txtConfirmPassword.UseSystemPasswordChar = true;
             // 
             // txtNewPassword
             // 
@@ -373,9 +377,10 @@
             this.txtNewPassword.ForeColor = System.Drawing.Color.Gainsboro;
             this.txtNewPassword.Location = new System.Drawing.Point(31, 29);
             this.txtNewPassword.Name = "txtNewPassword";
-            this.txtNewPassword.PasswordChar = '*';
             this.txtNewPassword.Size = new System.Drawing.Size(121, 22);
             this.txtNewPassword.TabIndex = 6;
+            this.toolTip.SetToolTip(this.txtNewPassword, "New password\r\n");
+            this.txtNewPassword.UseSystemPasswordChar = true;
             // 
             // label4
             // 
@@ -455,9 +460,10 @@
             this.txtCurrentPassword.ForeColor = System.Drawing.Color.Gainsboro;
             this.txtCurrentPassword.Location = new System.Drawing.Point(31, 71);
             this.txtCurrentPassword.Name = "txtCurrentPassword";
-            this.txtCurrentPassword.PasswordChar = '*';
             this.txtCurrentPassword.Size = new System.Drawing.Size(121, 22);
             this.txtCurrentPassword.TabIndex = 5;
+            this.toolTip.SetToolTip(this.txtCurrentPassword, "Current password");
+            this.txtCurrentPassword.UseSystemPasswordChar = true;
             // 
             // txtName
             // 
@@ -469,6 +475,7 @@
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(121, 22);
             this.txtName.TabIndex = 3;
+            this.toolTip.SetToolTip(this.txtName, "New name");
             // 
             // label6
             // 
@@ -549,6 +556,12 @@
             this.label1.Tag = "TitleLabel";
             this.label1.Text = "Master account";
             // 
+            // toolTip
+            // 
+            this.toolTip.AutomaticDelay = 250;
+            this.toolTip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.toolTip.ToolTipTitle = "Master account";
+            // 
             // FormMasterAccount
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -623,5 +636,6 @@
         private System.Windows.Forms.ColumnHeader columnDateTime;
         private System.Windows.Forms.ColumnHeader columnLog;
         private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }

@@ -29,6 +29,7 @@ namespace vIDsafe
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
@@ -36,6 +37,7 @@ namespace vIDsafe
             this.txtName = new System.Windows.Forms.TextBox();
             this.btnLogin = new System.Windows.Forms.Button();
             this.btnRegister = new System.Windows.Forms.Button();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.SuspendLayout();
@@ -85,9 +87,10 @@ namespace vIDsafe
             this.txtPassword.ForeColor = System.Drawing.Color.Gainsboro;
             this.txtPassword.Location = new System.Drawing.Point(137, 218);
             this.txtPassword.Name = "txtPassword";
-            this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(160, 23);
             this.txtPassword.TabIndex = 1;
+            this.toolTip.SetToolTip(this.txtPassword, "Password");
+            this.txtPassword.UseSystemPasswordChar = true;
             // 
             // txtName
             // 
@@ -100,6 +103,7 @@ namespace vIDsafe
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(160, 23);
             this.txtName.TabIndex = 0;
+            this.toolTip.SetToolTip(this.txtName, "Name");
             // 
             // btnLogin
             // 
@@ -133,7 +137,13 @@ namespace vIDsafe
             this.btnRegister.UseVisualStyleBackColor = false;
             this.btnRegister.Click += new System.EventHandler(this.btnRegister_Click);
             // 
-            // Login
+            // toolTip
+            // 
+            this.toolTip.AutomaticDelay = 250;
+            this.toolTip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.toolTip.ToolTipTitle = "Login";
+            // 
+            // FormLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -144,7 +154,7 @@ namespace vIDsafe
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(500, 600);
-            this.Name = "Login";
+            this.Name = "FormLogin";
             this.Text = "Login";
             this.panel1.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
@@ -162,5 +172,6 @@ namespace vIDsafe
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.Button btnRegister;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }

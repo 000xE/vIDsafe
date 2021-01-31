@@ -28,13 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint5 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 146D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint6 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 30D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint7 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 7D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint8 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 17D);
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea10 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend10 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint37 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 146D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint38 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 30D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint39 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 7D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint40 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 17D);
             this.panelTitle = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -67,6 +68,7 @@
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.panelTitle.SuspendLayout();
             this.panelBack.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -291,39 +293,39 @@
             // chartCredentials
             // 
             this.chartCredentials.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(59)))), ((int)(((byte)(66)))));
-            chartArea2.BackColor = System.Drawing.Color.Transparent;
-            chartArea2.Name = "ChartArea1";
-            this.chartCredentials.ChartAreas.Add(chartArea2);
+            chartArea10.BackColor = System.Drawing.Color.Transparent;
+            chartArea10.Name = "ChartArea1";
+            this.chartCredentials.ChartAreas.Add(chartArea10);
             this.chartCredentials.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend2.Alignment = System.Drawing.StringAlignment.Center;
-            legend2.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
-            legend2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            legend2.Name = "Legend1";
-            this.chartCredentials.Legends.Add(legend2);
+            legend10.Alignment = System.Drawing.StringAlignment.Center;
+            legend10.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
+            legend10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            legend10.Name = "Legend1";
+            this.chartCredentials.Legends.Add(legend10);
             this.chartCredentials.Location = new System.Drawing.Point(0, 0);
             this.chartCredentials.Name = "chartCredentials";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
-            series2.LabelForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            series2.Legend = "Legend1";
-            series2.Name = "Credentials";
-            dataPoint5.Color = System.Drawing.Color.LightSeaGreen;
-            dataPoint5.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            dataPoint5.Label = "";
-            dataPoint6.Color = System.Drawing.Color.Khaki;
-            dataPoint6.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            dataPoint6.Label = "";
-            dataPoint7.Color = System.Drawing.Color.MediumSlateBlue;
-            dataPoint7.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            dataPoint7.Label = "";
-            dataPoint8.Color = System.Drawing.Color.Salmon;
-            dataPoint8.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataPoint8.Label = "";
-            series2.Points.Add(dataPoint5);
-            series2.Points.Add(dataPoint6);
-            series2.Points.Add(dataPoint7);
-            series2.Points.Add(dataPoint8);
-            this.chartCredentials.Series.Add(series2);
+            series10.ChartArea = "ChartArea1";
+            series10.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
+            series10.LabelForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            series10.Legend = "Legend1";
+            series10.Name = "Credentials";
+            dataPoint37.Color = System.Drawing.Color.LightSeaGreen;
+            dataPoint37.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            dataPoint37.Label = "";
+            dataPoint38.Color = System.Drawing.Color.Khaki;
+            dataPoint38.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            dataPoint38.Label = "";
+            dataPoint39.Color = System.Drawing.Color.MediumSlateBlue;
+            dataPoint39.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            dataPoint39.Label = "";
+            dataPoint40.Color = System.Drawing.Color.Salmon;
+            dataPoint40.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataPoint40.Label = "";
+            series10.Points.Add(dataPoint37);
+            series10.Points.Add(dataPoint38);
+            series10.Points.Add(dataPoint39);
+            series10.Points.Add(dataPoint40);
+            this.chartCredentials.Series.Add(series10);
             this.chartCredentials.Size = new System.Drawing.Size(206, 134);
             this.chartCredentials.TabIndex = 24;
             this.chartCredentials.Tag = "MainPanel";
@@ -343,6 +345,7 @@
             this.cmbIdentity.Name = "cmbIdentity";
             this.cmbIdentity.Size = new System.Drawing.Size(206, 23);
             this.cmbIdentity.TabIndex = 0;
+            this.toolTip.SetToolTip(this.cmbIdentity, "Selected identity");
             this.cmbIdentity.SelectedIndexChanged += new System.EventHandler(this.cmbIdentity_SelectedIndexChanged);
             // 
             // label4
@@ -398,6 +401,7 @@
             this.txtIdentityEmail.Name = "txtIdentityEmail";
             this.txtIdentityEmail.Size = new System.Drawing.Size(367, 23);
             this.txtIdentityEmail.TabIndex = 16;
+            this.toolTip.SetToolTip(this.txtIdentityEmail, "Identity email");
             // 
             // txtIdentityUsage
             // 
@@ -411,6 +415,7 @@
             this.txtIdentityUsage.Name = "txtIdentityUsage";
             this.txtIdentityUsage.Size = new System.Drawing.Size(367, 309);
             this.txtIdentityUsage.TabIndex = 15;
+            this.toolTip.SetToolTip(this.txtIdentityUsage, "Identity notes");
             // 
             // txtIdentityName
             // 
@@ -422,6 +427,7 @@
             this.txtIdentityName.Name = "txtIdentityName";
             this.txtIdentityName.Size = new System.Drawing.Size(367, 23);
             this.txtIdentityName.TabIndex = 14;
+            this.toolTip.SetToolTip(this.txtIdentityName, "Identity name");
             // 
             // label3
             // 
@@ -529,6 +535,12 @@
             this.btnDelete.UseVisualStyleBackColor = false;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
+            // toolTip
+            // 
+            this.toolTip.AutomaticDelay = 250;
+            this.toolTip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.toolTip.ToolTipTitle = "Identity";
+            // 
             // FormIdentities
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -594,5 +606,6 @@
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Panel panel9;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartCredentials;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }

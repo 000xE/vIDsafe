@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panelBack = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel10 = new System.Windows.Forms.Panel();
@@ -60,6 +61,7 @@
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.panelBack.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel10.SuspendLayout();
@@ -232,6 +234,7 @@
             this.cmbIdentity.Name = "cmbIdentity";
             this.cmbIdentity.Size = new System.Drawing.Size(206, 23);
             this.cmbIdentity.TabIndex = 0;
+            this.toolTip.SetToolTip(this.cmbIdentity, "Selected identity");
             this.cmbIdentity.SelectedIndexChanged += new System.EventHandler(this.cmbIdentity_SelectedIndexChanged);
             // 
             // label4
@@ -323,6 +326,7 @@
             this.txtNotes.Name = "txtNotes";
             this.txtNotes.Size = new System.Drawing.Size(367, 276);
             this.txtNotes.TabIndex = 13;
+            this.toolTip.SetToolTip(this.txtNotes, "Notes");
             // 
             // txtURL
             // 
@@ -335,6 +339,7 @@
             this.txtURL.Name = "txtURL";
             this.txtURL.Size = new System.Drawing.Size(367, 23);
             this.txtURL.TabIndex = 12;
+            this.toolTip.SetToolTip(this.txtURL, "URL");
             // 
             // txtPassword
             // 
@@ -347,6 +352,7 @@
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(252, 23);
             this.txtPassword.TabIndex = 11;
+            this.toolTip.SetToolTip(this.txtPassword, "Password");
             // 
             // txtUsername
             // 
@@ -359,6 +365,7 @@
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(252, 23);
             this.txtUsername.TabIndex = 10;
+            this.toolTip.SetToolTip(this.txtUsername, "Username");
             // 
             // label3
             // 
@@ -502,6 +509,12 @@
             this.btnDelete.UseVisualStyleBackColor = false;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
+            // toolTip
+            // 
+            this.toolTip.AutomaticDelay = 250;
+            this.toolTip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.toolTip.ToolTipTitle = "Vault";
+            // 
             // FormVault
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -562,5 +575,6 @@
         private System.Windows.Forms.ColumnHeader columnStatus;
         private System.Windows.Forms.TextBox txtSearchCredential;
         private System.Windows.Forms.Button btnDeleteAll;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }

@@ -29,6 +29,7 @@ namespace vIDsafe
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.txtConfirmPassword = new System.Windows.Forms.TextBox();
@@ -37,6 +38,7 @@ namespace vIDsafe
             this.txtName = new System.Windows.Forms.TextBox();
             this.btnRegister = new System.Windows.Forms.Button();
             this.btnLogin = new System.Windows.Forms.Button();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.SuspendLayout();
@@ -75,9 +77,10 @@ namespace vIDsafe
             this.txtConfirmPassword.ForeColor = System.Drawing.Color.Gainsboro;
             this.txtConfirmPassword.Location = new System.Drawing.Point(137, 233);
             this.txtConfirmPassword.Name = "txtConfirmPassword";
-            this.txtConfirmPassword.PasswordChar = '*';
             this.txtConfirmPassword.Size = new System.Drawing.Size(160, 23);
             this.txtConfirmPassword.TabIndex = 6;
+            this.toolTip.SetToolTip(this.txtConfirmPassword, "Confirm password");
+            this.txtConfirmPassword.UseSystemPasswordChar = true;
             // 
             // label2
             // 
@@ -100,9 +103,10 @@ namespace vIDsafe
             this.txtPassword.ForeColor = System.Drawing.Color.Gainsboro;
             this.txtPassword.Location = new System.Drawing.Point(137, 204);
             this.txtPassword.Name = "txtPassword";
-            this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(160, 23);
             this.txtPassword.TabIndex = 1;
+            this.toolTip.SetToolTip(this.txtPassword, "Password");
+            this.txtPassword.UseSystemPasswordChar = true;
             // 
             // txtName
             // 
@@ -115,6 +119,7 @@ namespace vIDsafe
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(160, 23);
             this.txtName.TabIndex = 0;
+            this.toolTip.SetToolTip(this.txtName, "Name");
             // 
             // btnRegister
             // 
@@ -148,7 +153,13 @@ namespace vIDsafe
             this.btnLogin.UseVisualStyleBackColor = false;
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
-            // Register
+            // toolTip
+            // 
+            this.toolTip.AutomaticDelay = 250;
+            this.toolTip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.toolTip.ToolTipTitle = "Register";
+            // 
+            // FormRegister
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -156,7 +167,7 @@ namespace vIDsafe
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MaximumSize = new System.Drawing.Size(500, 600);
-            this.Name = "Register";
+            this.Name = "FormRegister";
             this.Text = "Register";
             this.panel1.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
@@ -175,5 +186,6 @@ namespace vIDsafe
         private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.Button btnRegister;
         private System.Windows.Forms.TextBox txtConfirmPassword;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }
