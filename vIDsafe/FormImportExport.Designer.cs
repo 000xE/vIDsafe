@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panelTitle = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -63,6 +64,7 @@
             this.btnImport = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.panelTitle.SuspendLayout();
             this.panelBack.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -286,6 +288,7 @@
             this.cmbIdentity.Name = "cmbIdentity";
             this.cmbIdentity.Size = new System.Drawing.Size(121, 21);
             this.cmbIdentity.TabIndex = 2;
+            this.toolTip.SetToolTip(this.cmbIdentity, "Export identity");
             this.cmbIdentity.SelectedIndexChanged += new System.EventHandler(this.cmbIdentity_SelectedIndexChanged);
             // 
             // cmbExportFormat
@@ -302,6 +305,7 @@
             this.cmbExportFormat.Name = "cmbExportFormat";
             this.cmbExportFormat.Size = new System.Drawing.Size(121, 21);
             this.cmbExportFormat.TabIndex = 1;
+            this.toolTip.SetToolTip(this.cmbExportFormat, "Export format");
             this.cmbExportFormat.SelectedIndexChanged += new System.EventHandler(this.cmbExportFormat_SelectedIndexChanged);
             // 
             // label4
@@ -432,6 +436,7 @@
             this.cmbImportFormat.Name = "cmbImportFormat";
             this.cmbImportFormat.Size = new System.Drawing.Size(121, 21);
             this.cmbImportFormat.TabIndex = 0;
+            this.toolTip.SetToolTip(this.cmbImportFormat, "Import format");
             this.cmbImportFormat.SelectedIndexChanged += new System.EventHandler(this.cmbImportFormat_SelectedIndexChanged);
             // 
             // label6
@@ -528,6 +533,12 @@
             // 
             this.saveFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialog_FileOk);
             // 
+            // toolTip
+            // 
+            this.toolTip.AutomaticDelay = 250;
+            this.toolTip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.toolTip.ToolTipTitle = "Portable";
+            // 
             // FormImportExport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -599,5 +610,6 @@
         private System.Windows.Forms.Panel panel13;
         private System.Windows.Forms.RadioButton rdbDoNotReplace;
         private System.Windows.Forms.RadioButton rdbReplace;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }

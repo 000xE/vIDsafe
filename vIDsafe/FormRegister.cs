@@ -47,13 +47,21 @@ namespace vIDsafe
         {
             if (name.Length >= 8)
             {
-                if (password.Equals(txtConfirmPassword.Text))
+                if (password.Length > 0)
                 {
-                    return true;
+                    if (password.Equals(txtConfirmPassword.Text))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Validation error", "Passwords are not the same");
+                        return false;
+                    }
                 }
                 else
                 {
-                    FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Validation error", "Passwords are not the same");
+                    FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Validation error", "Please enter a password");
                     return false;
                 }
             }

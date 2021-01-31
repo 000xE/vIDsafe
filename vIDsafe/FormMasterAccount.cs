@@ -95,7 +95,7 @@ namespace vIDsafe
         }
         private void ChangeName(string currentPassword, string newName)
         {
-            if (IsValidUsername(newName))
+            if (IsValidUsername(newName, currentPassword))
             {
                 if (FormvIDsafe.Main.User.TryChangeName(currentPassword, newName).Equals(true))
                 {
@@ -122,7 +122,7 @@ namespace vIDsafe
         private void ChangePassword(string currentPassword, string newPassword)
         {
             //Todo: cleanup (put isvalid in btnlogin and maybe pass in confirm pass as parameter)
-            if (IsValidPassword(newPassword))
+            if (IsValidPassword(newPassword, currentPassword))
             {
                 if (FormvIDsafe.Main.User.TryChangePassword(currentPassword, newPassword).Equals(true))
                 {
@@ -138,11 +138,19 @@ namespace vIDsafe
             }
         }
 
-        private bool IsValidUsername(string name)
+        private bool IsValidUsername(string newName, string password)
         {
-            if (name.Length >= 8)
+            if (newName.Length >= 8)
             {
-                return true;
+                if (password.Length > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Validation error", "Please enter your password"); FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Validation error", "Please enter a password");
+                    return false;
+                }
             }
             else
             {
@@ -151,15 +159,31 @@ namespace vIDsafe
             }
         }
 
-        private bool IsValidPassword(string password)
+        private bool IsValidPassword(string newPassword, string oldPassword)
         {
-            if (password.Equals(txtConfirmPassword.Text))
+            if (oldPassword.Length > 0)
             {
-                return true;
+                if (newPassword.Length > 0)
+                {
+                    if (newPassword.Equals(txtConfirmPassword.Text))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Password error", "New passwords are not the same");
+                        return false;
+                    }
+                }
+                else
+                {
+                    FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Password error", "Please enter a new password");
+                    return false;
+                }
             }
             else
             {
-                FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Password error", "New passwords are not the same");
+                FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Validation error", "Please enter your old password");
                 return false;
             }
         }
