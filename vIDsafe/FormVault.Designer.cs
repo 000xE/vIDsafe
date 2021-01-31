@@ -143,7 +143,7 @@
             this.lvCredentials.Name = "lvCredentials";
             this.lvCredentials.Size = new System.Drawing.Size(206, 238);
             this.lvCredentials.TabIndex = 30;
-            this.lvCredentials.Tag = "InnerSubPanel";
+            this.lvCredentials.Tag = "SubPanel";
             this.lvCredentials.UseCompatibleStateImageBehavior = false;
             this.lvCredentials.View = System.Windows.Forms.View.Details;
             this.lvCredentials.SelectedIndexChanged += new System.EventHandler(this.lvCredentials_SelectedIndexChanged);

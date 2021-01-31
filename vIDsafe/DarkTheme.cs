@@ -45,8 +45,6 @@ namespace vIDsafe
             SetTagColors("FrontTitleLabel", ThemeColors["DarkGray"], ThemeColors["Transparent"]);
             SetTagColors("FrontSubTitleLabel", ThemeColors["LightGray"], ThemeColors["Transparent"]);
 
-            SetTagColors("PasswordLabel", ThemeColors["White"], ThemeColors["NavyBlack"]);
-
             SetTagColors("SubPanel", ThemeColors["White"], ThemeColors["NavyBlack"]);
             SetTagColors("InnerSubPanel", ThemeColors["White"], ThemeColors["NavyGray"]);
             SetTagColors("SmallSubPanel", ThemeColors["White"], ThemeColors["DarkNavyGray"]);
