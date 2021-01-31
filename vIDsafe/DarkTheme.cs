@@ -41,7 +41,7 @@ namespace vIDsafe
             SetTagColors("NavButton selected", ThemeColors["Black"], ThemeColors["Gainsboro"]);
 
             SetTagColors("BackPanel", ThemeColors["White"], ThemeColors["DarkNavyGray"]);
-            SetTagColors("MainPanel", ThemeColors["Black"], ThemeColors["NavyGray"]);
+            SetTagColors("MainPanel", ThemeColors["White"], ThemeColors["NavyGray"]);
             SetTagColors("FrontTitleLabel", ThemeColors["DarkGray"], ThemeColors["Transparent"]);
             SetTagColors("FrontSubTitleLabel", ThemeColors["LightGray"], ThemeColors["Transparent"]);
 

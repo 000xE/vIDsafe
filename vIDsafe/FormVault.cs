@@ -57,13 +57,13 @@ namespace vIDsafe
                 }
                 else
                 {
-                    Console.WriteLine("Please check your URL");
+                    FormvIDsafe.ShowError("Validation error", "Please check your URL");
                     return false;
                 }
             }
             else
             {
-                Console.WriteLine("Please enter all details");
+                FormvIDsafe.ShowError("Validation error", "Please enter all details");
                 return false;
             }
         }
