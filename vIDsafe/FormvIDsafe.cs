@@ -39,6 +39,7 @@ namespace vIDsafe
         }
 
         //Todo: change to notification and have type between error and success etc with icon changed to i for success
+        //Hide icon after baloontip is gone
         public static void ShowError(string title, string text)
         {
             _notifyIcon.Icon = SystemIcons.Error;

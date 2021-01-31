@@ -18,12 +18,11 @@ namespace vIDsafe
 {
     public partial class FormHome : Form
     {
-        private static Panel _pnlChildForm;
         private static Control.ControlCollection _ctrlsFormControls = null;
 
-        private static readonly List<Theme> _themes = new List<Theme>() { new DarkTheme(), new LightTheme() };
+        private readonly List<Theme> _themes = new List<Theme>() { new DarkTheme(), new LightTheme() };
 
-        private static Theme _currentTheme = _themes[0];
+        private Theme _currentTheme;
 
         public FormHome()
         {
@@ -34,15 +33,14 @@ namespace vIDsafe
 
         private void GetFormComponents()
         {
-            _pnlChildForm = panelForm;
             _ctrlsFormControls = Controls;
         }
 
         //https://stackoverflow.com/questions/22935285/change-color-of-all-controls-inside-the-form-in-c-sharp/22935406#22935406
-        private static void UpdateControlColors(Theme theme, Control control)
+        private void UpdateControlColors(Theme theme, Control control)
         {
             //Todo: themes
-            _currentTheme.SetControlColors(control);
+            theme.SetControlColors(control);
 
             foreach (Control ctrlSub in control.Controls)
             {
@@ -51,16 +49,17 @@ namespace vIDsafe
         }
 
         //Todo: think about having this method in all other forms and calling it on load and on theme index change through static
-        public static void SetTheme(Form form)
+        private void SetTheme(Form form)
         {
             UpdateControlColors(_currentTheme, form);
         }
 
         private void LoadFormComponents()
         {
-            OpenChildForm(new FormOverview());
             SetName(FormvIDsafe.Main.User.Name);
             GetSettings();
+
+            OpenChildForm(new FormOverview());
         }
 
         private void GetSettings()
@@ -101,24 +100,26 @@ namespace vIDsafe
         }
 
         //https://stackoverflow.com/a/28811266
-        public void OpenChildForm(Form frmChildForm)
+        private void OpenChildForm(Form frmChildForm)
         {
-            while (_pnlChildForm.Controls.Count > 0)
+            while (pnlChildForm.Controls.Count > 0)
             {
-                _pnlChildForm.Controls[0].Dispose();
+                pnlChildForm.Controls[0].Dispose();
             }
 
             frmChildForm.TopLevel = false;
             frmChildForm.FormBorderStyle = FormBorderStyle.None;
             frmChildForm.Dock = DockStyle.Fill;
-            _pnlChildForm.Enabled = true;
-            _pnlChildForm.Controls.Add(frmChildForm);
-            _pnlChildForm.Tag = frmChildForm;
+            pnlChildForm.Enabled = true;
+            pnlChildForm.Controls.Add(frmChildForm);
+            pnlChildForm.Tag = frmChildForm;
             frmChildForm.BringToFront();
             frmChildForm.Show();
+
+            SetTheme(frmChildForm);
         }
 
-        public void ChangeSelectedButton(object sender)
+        private void ChangeSelectedButton(object sender)
         {
             Button selectedButton = (Button)sender;
             //selectedButton.BackColor = Color.FromArgb(47, 47, 47);
@@ -231,7 +232,6 @@ namespace vIDsafe
                 }
             }
         }
-
         private void FormHome_Resize(object sender, EventArgs e)
         {
             if (WindowState.Equals(FormWindowState.Minimized))

@@ -47,7 +47,7 @@
             this.pnlProgressBar = new System.Windows.Forms.Panel();
             this.pnlMasterName = new System.Windows.Forms.Panel();
             this.lblMAName = new System.Windows.Forms.Label();
-            this.panelForm = new System.Windows.Forms.Panel();
+            this.pnlChildForm = new System.Windows.Forms.Panel();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.generateAPasswordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -329,15 +329,15 @@
             this.lblMAName.Text = "Name";
             this.lblMAName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // panelForm
+            // pnlChildForm
             // 
-            this.panelForm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(49)))), ((int)(((byte)(56)))));
-            this.panelForm.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelForm.Location = new System.Drawing.Point(225, 24);
-            this.panelForm.Name = "panelForm";
-            this.panelForm.Size = new System.Drawing.Size(839, 657);
-            this.panelForm.TabIndex = 1;
-            this.panelForm.Tag = "";
+            this.pnlChildForm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(49)))), ((int)(((byte)(56)))));
+            this.pnlChildForm.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlChildForm.Location = new System.Drawing.Point(225, 24);
+            this.pnlChildForm.Name = "pnlChildForm";
+            this.pnlChildForm.Size = new System.Drawing.Size(839, 657);
+            this.pnlChildForm.TabIndex = 1;
+            this.pnlChildForm.Tag = "";
             // 
             // fileToolStripMenuItem
             // 
@@ -469,7 +469,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1064, 681);
-            this.Controls.Add(this.panelForm);
+            this.Controls.Add(this.pnlChildForm);
             this.Controls.Add(this.pnlMain);
             this.Controls.Add(this.menuStrip);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F);
@@ -512,7 +512,7 @@
         private System.Windows.Forms.Button btnMasterAccount;
         private System.Windows.Forms.Button btnImportExport;
         private System.Windows.Forms.Button btnLogOut;
-        private System.Windows.Forms.Panel panelForm;
+        private System.Windows.Forms.Panel pnlChildForm;
         private System.Windows.Forms.Label lblMAName;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.MenuStrip menuStrip;

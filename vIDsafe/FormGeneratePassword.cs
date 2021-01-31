@@ -21,7 +21,6 @@ namespace vIDsafe
         {
             GetPasswordHistory();
             GetSettings();
-            FormHome.SetTheme(this);
         }
 
         private void GetPasswordHistory()
