@@ -22,7 +22,6 @@ namespace vIDsafe
         private void LoadFormComponents()
         {
             DisplayIdentities();
-            FormHome.SetTheme(this);
         }
 
         private void chartCredentials_PrePaint(object sender, System.Windows.Forms.DataVisualization.Charting.ChartPaintEventArgs e)

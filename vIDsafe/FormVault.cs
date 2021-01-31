@@ -21,7 +21,6 @@ namespace vIDsafe
         private void LoadFormComponents()
         {
             GetIdentities();
-            FormHome.SetTheme(this);
         }
 
         private void btnGenerateUsername_Click(object sender, EventArgs e)

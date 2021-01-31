@@ -22,7 +22,6 @@ namespace vIDsafe
         {
             GetIdentities();
             GetLogs();
-            FormHome.SetTheme(this);
         }
         private void GetLogs()
         {
