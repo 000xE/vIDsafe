@@ -59,12 +59,12 @@
             this.label6 = new System.Windows.Forms.Label();
             this.panel13 = new System.Windows.Forms.Panel();
             this.rdbReplace = new System.Windows.Forms.RadioButton();
-            this.rdbDoNotReplace = new System.Windows.Forms.RadioButton();
             this.panel9 = new System.Windows.Forms.Panel();
             this.btnImport = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.rdbDoNotReplace = new System.Windows.Forms.RadioButton();
             this.panelTitle.SuspendLayout();
             this.panelBack.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -357,7 +357,7 @@
             this.rdbIdentity.AutoSize = true;
             this.rdbIdentity.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rdbIdentity.ForeColor = System.Drawing.Color.Gainsboro;
-            this.rdbIdentity.Location = new System.Drawing.Point(76, 17);
+            this.rdbIdentity.Location = new System.Drawing.Point(84, 17);
             this.rdbIdentity.Name = "rdbIdentity";
             this.rdbIdentity.Size = new System.Drawing.Size(81, 17);
             this.rdbIdentity.TabIndex = 2;
@@ -457,8 +457,8 @@
             // panel13
             // 
             this.panel13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(49)))), ((int)(((byte)(56)))));
-            this.panel13.Controls.Add(this.rdbReplace);
             this.panel13.Controls.Add(this.rdbDoNotReplace);
+            this.panel13.Controls.Add(this.rdbReplace);
             this.panel13.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel13.Location = new System.Drawing.Point(25, 132);
             this.panel13.Name = "panel13";
@@ -472,29 +472,13 @@
             this.rdbReplace.AutoSize = true;
             this.rdbReplace.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rdbReplace.ForeColor = System.Drawing.Color.Gainsboro;
-            this.rdbReplace.Location = new System.Drawing.Point(51, 17);
+            this.rdbReplace.Location = new System.Drawing.Point(55, 17);
             this.rdbReplace.Name = "rdbReplace";
             this.rdbReplace.Size = new System.Drawing.Size(93, 17);
             this.rdbReplace.TabIndex = 6;
             this.rdbReplace.Text = "Replace vault";
             this.rdbReplace.UseVisualStyleBackColor = true;
             this.rdbReplace.CheckedChanged += new System.EventHandler(this.rdbReplace_CheckedChanged);
-            // 
-            // rdbDoNotReplace
-            // 
-            this.rdbDoNotReplace.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.rdbDoNotReplace.AutoSize = true;
-            this.rdbDoNotReplace.Checked = true;
-            this.rdbDoNotReplace.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdbDoNotReplace.ForeColor = System.Drawing.Color.Gainsboro;
-            this.rdbDoNotReplace.Location = new System.Drawing.Point(152, 17);
-            this.rdbDoNotReplace.Name = "rdbDoNotReplace";
-            this.rdbDoNotReplace.Size = new System.Drawing.Size(101, 17);
-            this.rdbDoNotReplace.TabIndex = 5;
-            this.rdbDoNotReplace.TabStop = true;
-            this.rdbDoNotReplace.Text = "Do not replace";
-            this.rdbDoNotReplace.UseVisualStyleBackColor = true;
-            this.rdbDoNotReplace.UseWaitCursor = true;
             // 
             // panel9
             // 
@@ -538,6 +522,21 @@
             this.toolTip.AutomaticDelay = 250;
             this.toolTip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.toolTip.ToolTipTitle = "Portable";
+            // 
+            // rdbDoNotReplace
+            // 
+            this.rdbDoNotReplace.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.rdbDoNotReplace.AutoSize = true;
+            this.rdbDoNotReplace.Checked = true;
+            this.rdbDoNotReplace.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rdbDoNotReplace.ForeColor = System.Drawing.Color.Gainsboro;
+            this.rdbDoNotReplace.Location = new System.Drawing.Point(148, 17);
+            this.rdbDoNotReplace.Name = "rdbDoNotReplace";
+            this.rdbDoNotReplace.Size = new System.Drawing.Size(101, 17);
+            this.rdbDoNotReplace.TabIndex = 7;
+            this.rdbDoNotReplace.TabStop = true;
+            this.rdbDoNotReplace.Text = "Do not replace";
+            this.rdbDoNotReplace.UseVisualStyleBackColor = true;
             // 
             // FormImportExport
             // 
@@ -608,8 +607,8 @@
         private System.Windows.Forms.ColumnHeader columnDateTime;
         private System.Windows.Forms.ColumnHeader columnLog;
         private System.Windows.Forms.Panel panel13;
-        private System.Windows.Forms.RadioButton rdbDoNotReplace;
         private System.Windows.Forms.RadioButton rdbReplace;
         private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.RadioButton rdbDoNotReplace;
     }
 }
