@@ -19,17 +19,23 @@ namespace vIDsafe
 
         private void btnRegister_Click(object sender, EventArgs e)
         {
-            Register(txtName.Text, txtPassword.Text);
+            RegisterAsync(txtName.Text, txtPassword.Text);
         }
 
-        private void Register(string name, string password)
+        private async void RegisterAsync(string name, string password)
         {
             //Todo: cleanup (put isvalid in btnregister and maybe pass in confirm pass as parameter)
             if (IsValid(name, password))
             {
+                EnableDisableComponents(false);
+
                 FormvIDsafe.Main.User = new MasterAccount(name, password);
 
-                if (FormvIDsafe.Main.User.TryRegister().Equals(true))
+                Task<bool> task = FormvIDsafe.Main.User.TryRegister();
+
+                bool canRegister = await task;
+
+                if (canRegister.Equals(true))
                 {
                     FormHome form = new FormHome();
                     form.Show();
@@ -40,7 +46,15 @@ namespace vIDsafe
                 {
                     FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Registration error", "Account already exist");
                 }
+
+                EnableDisableComponents(true);
             }
+        }
+
+        private void EnableDisableComponents(bool enable)
+        {
+            btnLogin.Enabled = enable;
+            btnRegister.Enabled = enable;
         }
 
         private bool IsValid(string name, string password)

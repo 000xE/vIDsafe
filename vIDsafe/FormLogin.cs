@@ -19,16 +19,22 @@ namespace vIDsafe
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            Login(txtName.Text, txtPassword.Text);
+            LoginAsync(txtName.Text, txtPassword.Text);
         }
 
-        private void Login(string name, string password)
+        private async void LoginAsync(string name, string password)
         {
             if (IsValid(name))
             {
+                EnableDisableComponents(false);
+
                 FormvIDsafe.Main.User = new MasterAccount(name, password);
 
-                if (FormvIDsafe.Main.User.TryLogin().Equals(true))
+                Task<bool> task = FormvIDsafe.Main.User.TryLogin();
+
+                bool canLogin = await task;
+
+                if (canLogin.Equals(true))
                 {
                     FormHome form = new FormHome();
                     form.Show();
@@ -39,7 +45,15 @@ namespace vIDsafe
                 {
                     FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Login error", "Account doesn't exist or wrong password");
                 }
+
+                EnableDisableComponents(true);
             }
+        }
+
+        private void EnableDisableComponents(bool enable)
+        {
+            btnLogin.Enabled = enable;
+            btnRegister.Enabled = enable;
         }
 
         private bool IsValid(string name)

@@ -69,6 +69,7 @@ namespace vIDsafe
         {
             double score = CredentialGeneration.CheckStrength(password);
 
+            //Todo: maybe separate the colour bit to a different method?
             double colorMultiplier = score / 100;
 
             Color color = Color.SpringGreen;
