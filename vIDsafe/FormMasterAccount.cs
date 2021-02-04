@@ -47,14 +47,21 @@ namespace vIDsafe
 
         private void btnDeleteCredentials_Click(object sender, EventArgs e)
         {
-            DeleteCredentials();
-            GetLogs();
+            DialogResult result = MessageBox.Show("Are you sure you want to delete all credentials?", "Credential deletion",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (result.Equals(DialogResult.Yes))
+            {
+                DeleteCredentials();
+                GetLogs();
+            }
         }
 
         private void DeleteCredentials()
         {
-            FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Credential deletion", "Successfully deleted all credentials");
             FormvIDsafe.Main.User.Vault.DeleteAllCredentials();
+
+            FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Credential deletion", "Successfully deleted all credentials");
 
             KeyValuePair<DateTime, string> log = FormvIDsafe.Main.User.Vault.Log(Vault.LogType.Account, "All credentials deleted");
             DisplayLog(log.Key, log.Value);
@@ -62,14 +69,21 @@ namespace vIDsafe
 
         private void btnDeleteIdentities_Click(object sender, EventArgs e)
         {
-            DeleteIdentities();
-            GetLogs();
+            DialogResult result = MessageBox.Show("Are you sure you want to delete all identities?", "Identity deletion",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (result.Equals(DialogResult.Yes))
+            {
+                DeleteIdentities();
+                GetLogs();
+            }
         }
 
         private void DeleteIdentities()
         {
-            FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Identity deletion", "Successfully deleted all identities");
             FormvIDsafe.Main.User.Vault.DeleteAllIdentities();
+
+            FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Identity deletion", "Successfully deleted all identities");
 
             KeyValuePair<DateTime, string> log = FormvIDsafe.Main.User.Vault.Log(Vault.LogType.Account, "All identities deleted");
             DisplayLog(log.Key, log.Value);
@@ -77,13 +91,20 @@ namespace vIDsafe
 
         private void btnDeleteAccount_Click(object sender, EventArgs e)
         {
-            DeleteAccount();
+            DialogResult result = MessageBox.Show("Are you sure you want to delete your account?", "Account deletion",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (result.Equals(DialogResult.Yes))
+            {
+                DeleteAccount();
+            }
         }
 
         private void DeleteAccount()
         {
-            FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Account deletion", "Successfully deleted account");
             FormvIDsafe.Main.User.DeleteAccount();
+
+            FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Account deletion", "Successfully deleted account");
 
             ParentForm.Close();
         }

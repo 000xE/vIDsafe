@@ -35,7 +35,7 @@ namespace vIDsafe
 
         private void btnNewCredential_Click(object sender, EventArgs e)
         {
-            NewCredential(cmbIdentity.SelectedItem.ToString());
+            GenerateCredential(cmbIdentity.SelectedItem.ToString());
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -99,18 +99,19 @@ namespace vIDsafe
             txtPassword.Text = CredentialGeneration.GeneratePassword();
         }
 
-        private void NewCredential(string selectedEmail)
+        private void GenerateCredential(string selectedEmail)
         {
             Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedEmail];
 
-            int credentialCount = lvCredentials.Items.Count;
-
-            string credentialID = identity.NewCredential(identity.Name);
+            string credentialID = identity.GenerateCredential();
 
             Credential credential = identity.Credentials[credentialID];
 
             DisplayCredential(credentialID, credential);
-            lvCredentials.Items[credentialCount].Selected = true;
+
+            int lastIndex = lvCredentials.Items.Count - 1;
+
+            lvCredentials.Items[lastIndex].Selected = true;
         }
 
         private void SetCredentialDetails(string selectedEmail, int selectedCredentialCount, string credentialUsername, string credentialPassword, string credentialURL, string credentialNotes)
@@ -142,8 +143,6 @@ namespace vIDsafe
                 Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedEmail];
 
                 Dictionary<string, Credential> credentials = identity.Credentials;
-
-                credentials = credentials.Where(pair => pair.Value.Username.ToLower().Contains(searchedText.ToLower().Trim())).ToDictionary(pair => pair.Key, pair => pair.Value);
 
                 credentials = credentials.Where(pair => pair.Value.Username.IndexOf(searchedText, StringComparison.OrdinalIgnoreCase) >= 0).ToDictionary(pair => pair.Key, pair => pair.Value);
 
@@ -236,6 +235,7 @@ namespace vIDsafe
             }
         }
 
+        //Todo: maybe refactor the way this method gets called?
         private void ResetDetails()
         {
             int selectedIdentityIndex = cmbIdentity.SelectedIndex;
@@ -312,16 +312,24 @@ namespace vIDsafe
 
         private void btnDeleteAll_Click(object sender, EventArgs e)
         {
-            DeleteCredential(cmbIdentity.SelectedItem.ToString());
+            DialogResult result = MessageBox.Show("Are you sure you want to delete all credentials for this identity?", "Credential deletion",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (result.Equals(DialogResult.Yes))
+            {
+                DeleteAllCredentials(cmbIdentity.SelectedItem.ToString());
+            }
         }
 
-        private void DeleteCredential(string selectedEmail)
+        private void DeleteAllCredentials(string selectedEmail)
         {
             if (selectedEmail.Length > 0)
             {
                 Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedEmail];
 
                 identity.DeleteAllCredentials();
+
+                FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Credential deletion", "Successfully deleted all credentials");
 
                 GetCredentials(selectedEmail);
             }

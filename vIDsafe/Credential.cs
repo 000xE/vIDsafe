@@ -63,6 +63,7 @@ namespace vIDsafe
             _status = GetStatus();
         }
 
+        //Todo: refactor, maybe have a separate method for each attribute for consistency?
         public void SetDetails(string username, string password, string url, string notes)
         {
             _username = username;
