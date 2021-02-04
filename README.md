@@ -80,6 +80,7 @@
 - 14/01/2021: 1 hour - Demonstrated some implementations of the projects
 - 22/01/2021: 1 hour - Demonstrated some implementations of the projects
 - 28/01/2021: 1 hour - Demonstrated some implementations of the projects
+- 04/01/2021: 1 hour - Demonstrated some implementations of the projects and discussed evaluation methods
 
 ### 1-to-1 meetings
 

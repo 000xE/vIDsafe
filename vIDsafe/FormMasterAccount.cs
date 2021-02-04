@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace vIDsafe
@@ -114,11 +115,24 @@ namespace vIDsafe
             ChangeName(txtCurrentPassword.Text, txtName.Text);
             GetLogs();
         }
-        private void ChangeName(string currentPassword, string newName)
+
+        private void EnableDisableComponents(bool enable)
+        {
+            btnChangeDetails.Enabled = enable;
+            btnChangePassword.Enabled = enable;
+        }
+
+        private async void ChangeName(string currentPassword, string newName)
         {
             if (IsValidUsername(newName, currentPassword))
             {
-                if (FormvIDsafe.Main.User.TryChangeName(currentPassword, newName).Equals(true))
+                EnableDisableComponents(false);
+
+                Task<bool> task = FormvIDsafe.Main.User.TryChangeName(currentPassword, newName);
+
+                bool canChangeName = await task;
+
+                if (canChangeName.Equals(true))
                 {
                     FormHome.SetName(newName);
 
@@ -131,6 +145,8 @@ namespace vIDsafe
                 {
                     FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Password error", "Wrong old password");
                 }
+
+                EnableDisableComponents(true);
             }
         }
 
@@ -140,12 +156,18 @@ namespace vIDsafe
             GetLogs();
         }
 
-        private void ChangePassword(string currentPassword, string newPassword)
+        private async void ChangePassword(string currentPassword, string newPassword)
         {
             //Todo: cleanup (put isvalid in btnlogin and maybe pass in confirm pass as parameter)
             if (IsValidPassword(newPassword, currentPassword))
             {
-                if (FormvIDsafe.Main.User.TryChangePassword(currentPassword, newPassword).Equals(true))
+                EnableDisableComponents(false);
+
+                Task<bool> task = FormvIDsafe.Main.User.TryChangePassword(currentPassword, newPassword);
+
+                bool canChangePass = await task;
+
+                if (canChangePass.Equals(true))
                 {
                     FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Password change", "Successfully changed password");
 
@@ -156,6 +178,8 @@ namespace vIDsafe
                 {
                     FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Password error", "Wrong old password");
                 }
+
+                EnableDisableComponents(true);
             }
         }
 

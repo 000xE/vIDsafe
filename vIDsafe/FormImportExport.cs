@@ -89,11 +89,21 @@ namespace vIDsafe
             OpenFile(cmbImportFormat.SelectedIndex);
         }
 
-        private void Import(int formatIndex, bool replace, string fileName)
+        private void EnableDisableComponents(bool enable)
         {
+            btnImport.Enabled = enable;
+            btnExport.Enabled = enable;
+        }
+
+        private async void Import(int formatIndex, bool replace, string fileName)
+        {
+            EnableDisableComponents(false);
+
             MasterAccount.VaultFormat format = GetFormat(formatIndex);
 
-            if (FormvIDsafe.Main.User.ImportVault(format, fileName, replace))
+            bool canImport = await FormvIDsafe.Main.User.ImportVault(format, fileName, replace);
+
+            if (canImport)
             {
                 FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Import", "Successfully imported");
 
@@ -104,6 +114,8 @@ namespace vIDsafe
             {
                 FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Import error", "Check the file contents or its path");
             }
+
+            EnableDisableComponents(true);
         }
 
         private void btnExport_Click(object sender, EventArgs e)
@@ -112,8 +124,10 @@ namespace vIDsafe
         }
 
         //Todo: refactor
-        private void Export(int formatIndex, int selectedIdentityIndex, string fileName)
+        private async void Export(int formatIndex, int selectedIdentityIndex, string fileName)
         {
+            EnableDisableComponents(false);
+
             string selectedEmail = "";
 
             if (selectedIdentityIndex >= 0)
@@ -123,7 +137,9 @@ namespace vIDsafe
 
             MasterAccount.VaultFormat format = GetFormat(formatIndex);
 
-            if (FormvIDsafe.Main.User.ExportVault(format, selectedEmail, fileName))
+            bool canExport = await FormvIDsafe.Main.User.ExportVaultAsync(format, selectedEmail, fileName);
+
+            if (canExport)
             {
                 FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Export", "Successfully exported");
 
@@ -134,6 +150,8 @@ namespace vIDsafe
             {
                 FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Export error", "Check the file path");
             }
+
+            EnableDisableComponents(true);
         }
 
         private void SelectFolder(int formatIndex)
