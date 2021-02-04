@@ -74,19 +74,29 @@ namespace vIDsafe
             _usage = usage;
         }
 
-        public void ReassignIdentity(string email)
+        //Todo: refactor, maybe have a separate method for each attribute for consistency?
+        public void SetDetails(string name, string usage)
+        {
+            _name = name;
+            _usage = usage;
+
+            FormvIDsafe.Main.User.SaveVault();
+        }
+
+
+        public void ChangeEmail(string email)
         {
             _email = email;
         }
 
-        public string NewCredential(string identityName)
+        public string GenerateCredential()
         {
             string GUID = Guid.NewGuid().ToString();
 
             string url = "";
             string notes = "";
 
-            string username = CredentialGeneration.GenerateUsername(identityName);
+            string username = CredentialGeneration.GenerateUsername(_name);
             string password = CredentialGeneration.GeneratePassword();
 
             Credential credential = FindOrCreateCredential(GUID, username, password, url, notes);
@@ -128,14 +138,6 @@ namespace vIDsafe
 
                 FormvIDsafe.Main.User.SaveVault();
             }
-        }
-
-        public void SetDetails(string name, string usage)
-        {
-            _name = name;
-            _usage = usage;
-
-            FormvIDsafe.Main.User.SaveVault();
         }
 
         public Dictionary<string, string> GetBreaches(string email, bool useAPI)

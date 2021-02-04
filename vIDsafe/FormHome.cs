@@ -194,18 +194,19 @@ namespace vIDsafe
         private void btnLogOut_Click(object sender, EventArgs e)
         {
             Logout();
-            Close();
         }
         
         private void Logout()
         {
-            FormvIDsafe.Main.User.Logout();
+            FormvIDsafe.Main.User = null;
             FormvIDsafe.Main.Show();
+            Close();
         }
+
 
         private bool LoggedIn()
         {
-            if (FormvIDsafe.Main.User.Name.Equals(""))
+            if (FormvIDsafe.Main.User == null)
             {
                 return false;
             }
@@ -277,6 +278,8 @@ namespace vIDsafe
             Clipboard.SetText(password);
 
             FormvIDsafe.Main.User.Vault.Log(Vault.LogType.Passwords, password.ToString());
+
+            FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Password", "Successfully generated and copied");
         }
 
         private void alwaysOnTopToolStripMenuItem_CheckedChanged(object sender, EventArgs e)

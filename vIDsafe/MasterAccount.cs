@@ -19,6 +19,9 @@ namespace vIDsafe
         public Vault Vault = new Vault();
 
         private readonly string _vaultFolder = "Vaults/";
+
+        public string Name => _name;
+
         public enum VaultFormat
         {
             CSV,
@@ -30,8 +33,6 @@ namespace vIDsafe
             _name = name;
             _password = password;
         }
-
-        public string Name => _name;
 
         private bool AccountExists()
         {
@@ -135,6 +136,7 @@ namespace vIDsafe
             return (DecryptVault(encryptedVault, _password));           
         }
 
+        //Todo: refactor and maybe have it call on closing or logging out of form only?
         public void SaveVault()
         {
             string encryptedVault = EncryptVault(Vault, _password);
@@ -143,13 +145,6 @@ namespace vIDsafe
             FileInfo file = new FileInfo(fileName);
             file.Directory.Create(); // If the directory already exists, this method does nothing.
             File.WriteAllText(file.FullName, encryptedVault);
-        }
-
-        public void Logout()
-        {
-            _name = "";
-            _password = "";
-            Vault = new Vault();
         }
 
         private string HashPassword(string password, string salt)

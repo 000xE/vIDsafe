@@ -63,7 +63,7 @@ namespace vIDsafe
 
         }
 
-        public string NewIdentity()
+        public string GenerateIdentity()
         {
             string nameToRandomise = "abcdefghijklmnopqrstuvwxyz";
 
@@ -95,7 +95,7 @@ namespace vIDsafe
             return identity;
         }
 
-        public bool TryReassignIdentity(string oldEmail, string newEmail)
+        public bool TryChangeIdentityEmail(string oldEmail, string newEmail)
         {
             Identity identity = _identities[oldEmail];
 
@@ -106,7 +106,7 @@ namespace vIDsafe
             else
             {
                 DeleteIdentity(oldEmail);
-                identity.ReassignIdentity(newEmail);
+                identity.ChangeEmail(newEmail);
                 Identities.Add(newEmail, identity);
 
                 return true;

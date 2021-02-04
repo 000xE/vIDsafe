@@ -60,12 +60,12 @@ namespace vIDsafe
 
         private void btnNewIdentity_Click(object sender, EventArgs e)
         {
-            NewIdentity();
+            GenerateIdentity();
         }
 
-        private void NewIdentity()
+        private void GenerateIdentity()
         {
-            string email = FormvIDsafe.Main.User.Vault.NewIdentity();
+            string email = FormvIDsafe.Main.User.Vault.GenerateIdentity();
 
             int lastIndex = cmbIdentity.Items.Add(email);
             cmbIdentity.SelectedIndex = lastIndex;
@@ -112,7 +112,7 @@ namespace vIDsafe
 
                 if (selectedEmail != identityEmail)
                 {
-                    if (TryReassignIdentity(selectedEmail, identityEmail))
+                    if (TryChangeIdentityEmail(selectedEmail, identityEmail))
                     {
                         cmbIdentity.Items[selectedIdentityIndex] = identityEmail;
                         GetBreachedData(identityEmail, true);
@@ -123,9 +123,9 @@ namespace vIDsafe
             }
         }
 
-        private bool TryReassignIdentity(string oldEmail, string newEmail)
+        private bool TryChangeIdentityEmail(string oldEmail, string newEmail)
         {
-            if (FormvIDsafe.Main.User.Vault.TryReassignIdentity(oldEmail, newEmail))
+            if (FormvIDsafe.Main.User.Vault.TryChangeIdentityEmail(oldEmail, newEmail))
             {
                 return true;
             }
@@ -221,6 +221,7 @@ namespace vIDsafe
             ResetDetails();
         }
 
+        //Todo: maybe refactor the way this method gets called?
         private void ResetDetails()
         {
             ClearInputs();
