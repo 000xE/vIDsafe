@@ -140,25 +140,28 @@ namespace vIDsafe
             }
         }
 
-        public Dictionary<string, string> GetBreaches(string email, bool useAPI)
+        public async Task<Dictionary<string, string>> GetBreaches(string email, bool useAPI)
         {
-            if (useAPI)
+            await Task.Run(() =>
             {
-                List<ExposureDetails> exposureDetails = EnzoicAPI.GetExposureDetails(email);
-
-                _breachedDomains.Clear();
-
-                if (exposureDetails.Count > 0)
+                if (useAPI)
                 {
-                    foreach (ExposureDetails detail in exposureDetails)
+                    List<ExposureDetails> exposureDetails = EnzoicAPI.GetExposureDetails(email);
+
+                    _breachedDomains.Clear();
+
+                    if (exposureDetails.Count > 0)
                     {
-                        if (!_breachedDomains.ContainsKey(detail.Title))
+                        foreach (ExposureDetails detail in exposureDetails)
                         {
-                            _breachedDomains.Add(detail.Title, detail.Date.ToString());
+                            if (!_breachedDomains.ContainsKey(detail.Title))
+                            {
+                                _breachedDomains.Add(detail.Title, detail.Date.ToString());
+                            }
                         }
                     }
                 }
-            }
+            });
 
             return _breachedDomains;
         }
