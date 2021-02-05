@@ -1,12 +1,16 @@
- version: 2.1
+version: 2.1
 
- orbs:
-  win: circleci/windows@2.2.0
+orbs:
+  win: circleci/windows@2.4.0
 
-  jobs:
-    - build
-    - browser-tests
-    - ui-tests
+workflows:
+  hello-world:
+    jobs:
+      - build
+  integration-tests:
+    jobs:
+      - browser-tests
+      - ui-tests
 
 jobs:
   build:
