@@ -27,13 +27,11 @@ namespace vIDsafe
             //Todo: cleanup (put isvalid in btnregister and maybe pass in confirm pass as parameter)
             if (IsValid(name, password))
             {
-                EnableDisableComponents(false);
+                EnableRegisterComponents(false);
 
                 FormvIDsafe.Main.User = new MasterAccount(name, password);
 
-                Task<bool> task = FormvIDsafe.Main.User.TryRegister();
-
-                bool canRegister = await task;
+                bool canRegister = await FormvIDsafe.Main.User.TryRegister();
 
                 if (canRegister.Equals(true))
                 {
@@ -47,11 +45,11 @@ namespace vIDsafe
                     FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Registration error", "Account already exist");
                 }
 
-                EnableDisableComponents(true);
+                EnableRegisterComponents(true);
             }
         }
 
-        private void EnableDisableComponents(bool enable)
+        private void EnableRegisterComponents(bool enable)
         {
             btnLogin.Enabled = enable;
             btnRegister.Enabled = enable;

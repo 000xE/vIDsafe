@@ -26,13 +26,11 @@ namespace vIDsafe
         {
             if (IsValid(name))
             {
-                EnableDisableComponents(false);
+                EnableLoginComponents(false);
 
                 FormvIDsafe.Main.User = new MasterAccount(name, password);
 
-                Task<bool> task = FormvIDsafe.Main.User.TryLogin();
-
-                bool canLogin = await task;
+                bool canLogin = await FormvIDsafe.Main.User.TryLogin(); 
 
                 if (canLogin.Equals(true))
                 {
@@ -46,11 +44,11 @@ namespace vIDsafe
                     FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Login error", "Account doesn't exist or wrong password");
                 }
 
-                EnableDisableComponents(true);
+                EnableLoginComponents(true);
             }
         }
 
-        private void EnableDisableComponents(bool enable)
+        private void EnableLoginComponents(bool enable)
         {
             btnLogin.Enabled = enable;
             btnRegister.Enabled = enable;

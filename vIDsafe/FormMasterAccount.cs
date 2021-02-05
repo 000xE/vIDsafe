@@ -116,7 +116,7 @@ namespace vIDsafe
             GetLogs();
         }
 
-        private void EnableDisableComponents(bool enable)
+        private void EnableMasterAccountComponents(bool enable)
         {
             btnChangeDetails.Enabled = enable;
             btnChangePassword.Enabled = enable;
@@ -126,11 +126,9 @@ namespace vIDsafe
         {
             if (IsValidUsername(newName, currentPassword))
             {
-                EnableDisableComponents(false);
+                EnableMasterAccountComponents(false);
 
-                Task<bool> task = FormvIDsafe.Main.User.TryChangeName(currentPassword, newName);
-
-                bool canChangeName = await task;
+                bool canChangeName = await FormvIDsafe.Main.User.TryChangeName(currentPassword, newName);
 
                 if (canChangeName.Equals(true))
                 {
@@ -146,7 +144,7 @@ namespace vIDsafe
                     FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Password error", "Wrong old password");
                 }
 
-                EnableDisableComponents(true);
+                EnableMasterAccountComponents(true);
             }
         }
 
@@ -161,11 +159,9 @@ namespace vIDsafe
             //Todo: cleanup (put isvalid in btnlogin and maybe pass in confirm pass as parameter)
             if (IsValidPassword(newPassword, currentPassword))
             {
-                EnableDisableComponents(false);
+                EnableMasterAccountComponents(false);
 
-                Task<bool> task = FormvIDsafe.Main.User.TryChangePassword(currentPassword, newPassword);
-
-                bool canChangePass = await task;
+                bool canChangePass = await FormvIDsafe.Main.User.TryChangePassword(currentPassword, newPassword);
 
                 if (canChangePass.Equals(true))
                 {
@@ -179,7 +175,7 @@ namespace vIDsafe
                     FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Password error", "Wrong old password");
                 }
 
-                EnableDisableComponents(true);
+                EnableMasterAccountComponents(true);
             }
         }
 
