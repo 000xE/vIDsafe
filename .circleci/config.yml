@@ -3,14 +3,10 @@
  orbs:
   win: circleci/windows@2.2.0
 
-workflows:
-  hello-world:
-    jobs:
-      - build
-  integration-tests:
-    jobs:
-      - browser-tests
-      - ui-tests
+  jobs:
+    - build
+    - browser-tests
+    - ui-tests
 
 jobs:
   build:
