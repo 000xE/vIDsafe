@@ -281,6 +281,7 @@ namespace vIDsafe
             }
         }
 
+        //Todo: Refactor the asynchronisation?
         public async Task<bool> ExportVaultAsync(VaultFormat format, string selectedEmail, string fileName)
         {
             Vault vault = new Vault();

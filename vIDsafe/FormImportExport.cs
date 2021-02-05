@@ -89,7 +89,7 @@ namespace vIDsafe
             OpenFile(cmbImportFormat.SelectedIndex);
         }
 
-        private void EnableDisableComponents(bool enable)
+        private void EnableImportExportComponents(bool enable)
         {
             btnImport.Enabled = enable;
             btnExport.Enabled = enable;
@@ -97,7 +97,7 @@ namespace vIDsafe
 
         private async void Import(int formatIndex, bool replace, string fileName)
         {
-            EnableDisableComponents(false);
+            EnableImportExportComponents(false);
 
             MasterAccount.VaultFormat format = GetFormat(formatIndex);
 
@@ -115,7 +115,7 @@ namespace vIDsafe
                 FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Import error", "Check the file contents or its path");
             }
 
-            EnableDisableComponents(true);
+            EnableImportExportComponents(true);
         }
 
         private void btnExport_Click(object sender, EventArgs e)
@@ -126,7 +126,7 @@ namespace vIDsafe
         //Todo: refactor
         private async void Export(int formatIndex, int selectedIdentityIndex, string fileName)
         {
-            EnableDisableComponents(false);
+            EnableImportExportComponents(false);
 
             string selectedEmail = "";
 
@@ -151,7 +151,7 @@ namespace vIDsafe
                 FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Export error", "Check the file path");
             }
 
-            EnableDisableComponents(true);
+            EnableImportExportComponents(true);
         }
 
         private void SelectFolder(int formatIndex)
