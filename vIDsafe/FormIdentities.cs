@@ -140,6 +140,9 @@ namespace vIDsafe
         private async void GetBreachedData(string selectedEmail, bool useAPI)
         {
             EnableIdentityComponents(false);
+
+            FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Breach checking", "Please wait until the breaches are checked");
+
             Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedEmail];
 
             Dictionary<string, string> breachedDomains = await identity.GetBreaches(selectedEmail, useAPI);
