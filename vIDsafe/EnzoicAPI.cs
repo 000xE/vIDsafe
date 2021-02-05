@@ -11,6 +11,7 @@ namespace vIDsafe
     {
         //https://www.enzoic.com/docs-dotnet-quick-start/
 
+        //Include API here
         private static readonly Enzoic _enzoic = new Enzoic("API", "Secret");
 
         public static bool CheckPassword(string password)
