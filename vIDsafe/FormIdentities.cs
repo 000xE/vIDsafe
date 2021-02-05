@@ -137,11 +137,13 @@ namespace vIDsafe
             }
         }
 
-        private void GetBreachedData(string selectedEmail, bool useAPI)
+        private async void GetBreachedData(string selectedEmail, bool useAPI)
         {
+            EnableIdentityComponents(false);
             Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedEmail];
 
-            Dictionary<string, string> breachedDomains = identity.GetBreaches(selectedEmail, useAPI);
+            Dictionary<string, string> breachedDomains = await identity.GetBreaches(selectedEmail, useAPI);
+            EnableIdentityComponents(true);
 
             DisplayBreaches(breachedDomains);
         }
