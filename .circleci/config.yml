@@ -24,7 +24,7 @@ jobs:
             - dotnet-packages-v1-{{ checksum "vIDsafe.csproj" }}
       - run:
           name: "Install project dependencies"
-          command: dotnet.exe restore
+          command: msbuild /p:Restore
       - save_cache:
           paths:
             - C:\Users\circleci\project\vIDsafe\packages
