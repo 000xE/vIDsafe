@@ -32,9 +32,6 @@ jobs:
       - run:
           name: "Run Build step"
           command: msbuild vIDsafe.csproj /p:Configuration=Release
-      - run:
-          name: "Test the executable"
-          command: .\bin\Release\vIDsafe.exe 
       - store_artifacts:
           path: .\bin\Release\vIDsafe.exe
 
