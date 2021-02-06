@@ -31,7 +31,7 @@ jobs:
           key: dotnet-packages-v1-{{ checksum "vIDsafe.csproj" }}
       - run:
           name: "Run Build step"
-          command: dotnet.exe publish -c Release -r win10-x64
+          command: msbuild vIDsafe.csproj /p:Configuration=Release
       - run:
           name: "Test the executable"
           command: .\bin\Release\publish\circleci-demo-windows.exe 
