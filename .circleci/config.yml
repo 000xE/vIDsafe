@@ -16,7 +16,8 @@ jobs:
     executor:
       name: win/default
     steps:
-      - checkout
+      - checkout:
+          path: C:\Users\circleci\project
       - restore_cache:
           keys:
             - dotnet-packages-v1-{{ checksum "vIDsafe/vIDsafe.csproj" }}
