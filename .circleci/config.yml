@@ -25,6 +25,9 @@ jobs:
       - run:
           name: "Install project dependencies"
           command: msbuild /t:Restore
+      - run:
+          name: "Build test"
+          command: msbuild /t:Build
       - save_cache:
           paths:
             - C:\Users\circleci\project\vIDsafe\packages
