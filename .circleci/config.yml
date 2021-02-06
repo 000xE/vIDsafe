@@ -25,6 +25,9 @@ jobs:
       - run:
           name: "Install project dependencies"
           command: dotnet.exe restore
+      - run: 
+          name: Restore Packages
+          command: bash ./ci-dotnet-restore.sh
       - save_cache:
           paths:
             - C:\Users\circleci\project\vIDsafe\.nuget\packages
