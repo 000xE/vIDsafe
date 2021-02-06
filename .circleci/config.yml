@@ -15,23 +15,21 @@ jobs:
   build:
     executor:
       name: win/default
-    working_directory: C:\Users\circleci\project\vIDsafe
     steps:
       - checkout:
-          path: C:\Users\circleci\project
       - restore_cache:
           keys:
-            - dotnet-packages-v1-{{ checksum "vIDsafe.csproj" }}
+            - dotnet-packages-v1-{{ checksum "vIDsafe/vIDsafe.csproj" }}
       - run:
           name: "Install project dependencies"
           command: dotnet.exe restore
       - save_cache:
           paths:
             - C:\Users\circleci\.nuget\packages
-          key: dotnet-packages-v1-{{ checksum "vIDsafe.csproj" }}
+          key: dotnet-packages-v1-{{ checksum "vIDsafe/vIDsafe.csproj" }}
       - run:
           name: "Run Build step"
-          command: dotnet.exe build --configuration Release
+          command: dotnet.exe publish -c Release -r win10-x64
       - run:
           name: "Test the executable"
           command: .\bin\Release\publish\circleci-demo-windows.exe 
