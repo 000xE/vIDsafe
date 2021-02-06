@@ -53,6 +53,5 @@ namespace vIDsafe
                 BackColors.Add(tag, backColor);
             }
         }
-
     }
 }

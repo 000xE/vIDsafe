@@ -229,7 +229,6 @@ namespace vIDsafe
                     ForeColor = Color.RoyalBlue,
                 };
 
-
                 //ta.Alignment = ContentAlignment.MiddleCenter;
 
                 chartCredentials.Annotations.Clear();

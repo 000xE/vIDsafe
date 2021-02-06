@@ -38,7 +38,6 @@ namespace vIDsafe
             OpenChildForm(new FormLogin());
         }
 
-
         public static void ShowNotification(ToolTipIcon icon, string title, string text)
         {
             _notifyIcon.Visible = true;

@@ -203,7 +203,6 @@ namespace vIDsafe
             Close();
         }
 
-
         private bool LoggedIn()
         {
             if (FormvIDsafe.Main.User == null)
