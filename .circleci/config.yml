@@ -15,7 +15,7 @@ jobs:
   build:
     executor:
       name: win/default
-    working_directory: C:\Users\circleci\project
+    working_directory: C:\Users\circleci\project\vIDsafe
     steps:
       - checkout
       - restore_cache:
