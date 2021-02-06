@@ -16,7 +16,7 @@ jobs:
     executor:
       name: win/default
     steps:
-      - checkout:
+      - checkout
       - restore_cache:
           keys:
             - dotnet-packages-v1-{{ checksum "vIDsafe/vIDsafe.csproj" }}
