@@ -25,9 +25,6 @@ jobs:
       - run:
           name: "Install project dependencies"
           command: dotnet.exe restore
-      - run: 
-          name: Restore Packages
-          command: bash ./ci-dotnet-restore.sh
       - save_cache:
           paths:
             - C:\Users\circleci\project\vIDsafe\.nuget\packages
@@ -37,9 +34,9 @@ jobs:
           command: dotnet.exe publish -c Release -r win10-x64
       - run:
           name: "Test the executable"
-          command: .\bin\Release\netcoreapp2.1\win10-x64\publish\circleci-demo-windows.exe 
+          command: .\bin\Release\win10-x64\publish\circleci-demo-windows.exe 
       - store_artifacts:
-          path: .\bin\Release\netcoreapp2.1\win10-x64\publish\circleci-demo-windows.exe
+          path: .\bin\Release\win10-x64\publish\circleci-demo-windows.exe
 
 
   unit-tests:
