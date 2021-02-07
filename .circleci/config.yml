@@ -40,6 +40,7 @@ jobs:
     executor:
       name: win/default
     steps:     
+      - checkout
       - run:
           name: Run master account tests
           command: |
