@@ -43,7 +43,7 @@ jobs:
       - checkout
       - run:
           name: "cd test"
-          command: cd C:\Users\circleci\project\vIDsafe.UnitTests
+          command: cd C:\Users\circleci\project\vIDsafe.UnitTests\bin\Debug
       - run:
           name: Run master account tests
           command: |
