@@ -49,7 +49,6 @@ jobs:
       - run:
           name: "Run Build step"
           command: |
-            cd vIDsafe.UnitTests
             nuget restore
             msbuild vIDsafe.UnitTests.csproj /p:Configuration=Release
       - save_cache:
