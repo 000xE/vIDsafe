@@ -43,4 +43,5 @@ jobs:
       - run:
           name: Run master account tests
           command: |
-              vstest.console.exe C:\Users\circleci\project\vIDsafe.UnitTests\bin\Debug\vIDsafe.UnitTests.dll
+              cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\common7\ide\extensions\TestPlatform"
+              .\vstest.console.exe C:\Users\circleci\project\vIDsafe.UnitTests\bin\Debug\vIDsafe.UnitTests.dll
