@@ -7,6 +7,7 @@ workflows:
   general-testing:
     jobs:
       - build
+      - build-test
   unit-tests:
     jobs:
       - unit-tests
@@ -34,17 +35,17 @@ jobs:
           command: msbuild vIDsafe.csproj /p:Configuration=Release
       - store_artifacts:
           path: .\bin\Release\vIDsafe.exe
-
-
-  unit-tests:
+          
+  build-test:
     executor:
-      name: win/default
+      name: win/default  
     working_directory: C:\Users\circleci\project\vIDsafe.UnitTests
-    steps:     
-      - checkout
+    steps:
+      - checkout:
+          path: C:\Users\circleci\project
       - restore_cache:
           keys:
-            - dotnet-packages-v1-{{ checksum "vIDsafe.UnitTests.csproj" }}
+            - dotnet-packages-v1-{{ checksum "vIDsafe.UnitTests.csproj" }}   
       - run:
           name: "Install project dependencies"
           command: msbuild -t:restore -p:RestorePackagesConfig=true
@@ -52,6 +53,17 @@ jobs:
           paths:
             - C:\Users\circleci\project\vIDsafe.UnitTests\packages
           key: dotnet-packages-v1-{{ checksum "vIDsafe.UnitTests.csproj" }}
+      - run:  
+          name: "Run Build step"
+          command: msbuild vIDsafe.UnitTests.csproj /p:Configuration=Release 
+      - store_artifacts:
+          path: .\bin\Release\vIDsafe.UnitTests.exe
+
+  unit-tests:
+    executor:
+      name: win/default
+    steps:     
+      - checkout
       - run:
           name: Run master account tests
           command: |
