@@ -26,7 +26,7 @@ jobs:
           name: "Run Build step"
           command: msbuild ..\vIDsafe.UnitTests\vIDsafe.UnitTests.csproj /p:Configuration=Release
       - store_artifacts:
-          path: ..\vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.exe
+          path: ..\vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll
       - run:
           name: Run master account tests
           command: |
