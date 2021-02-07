@@ -41,9 +41,11 @@ jobs:
       name: win/default
     working_directory: C:\Users\circleci\project\vIDsafe.UnitTests
     steps:
-      - run:
-          name: "Restore"
-          command: nuget restore
+      - checkout:
+          path: C:\Users\circleci\project
+      - restore_cache:
+          keys:
+            - dotnet-packages-v1-{{ checksum "vIDsafe.csproj" }}
       - run:
           name: "Run Build step"
           command: msbuild vIDsafe.csproj /p:Configuration=Release
