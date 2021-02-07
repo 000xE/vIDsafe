@@ -51,8 +51,8 @@ jobs:
           command: msbuild vIDsafe.UnitTests.csproj /p:Configuration=Release
       - save_cache:
           paths:
-            - C:\Users\circleci\project\vIDsafe\packages
-          key: dotnet-packages-v1-{{ checksum "vIDsafe.csproj" }}
+            - C:\Users\circleci\project\vIDsafe.UnitTests\packages
+          key: dotnet-packages-v1-{{ checksum "vIDsafe.UnitTests.csproj" }}
       - store_artifacts:
           path: .\bin\Release\vIDsafe.UnitTests.exe
 
