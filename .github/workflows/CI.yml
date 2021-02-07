@@ -49,4 +49,4 @@ jobs:
         run: msbuild ..\vIDsafe.UnitTests\vIDsafe.UnitTests.csproj /p:Configuration=Release
         
       - name: Run master account tests
-        run: vstest.console.exe "..\vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll"
+        run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll"
