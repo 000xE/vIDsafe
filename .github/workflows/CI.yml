@@ -41,4 +41,4 @@ jobs:
       
       - name: Build the solution
         working-directory: ${{env.working-directory}}
-        run: msbuild vIDsafe.UnitTests.csproj /p:Configuration=Release
+        run: msbuild ..\vIDsafe.UnitTests\vIDsafe.UnitTests.csproj /p:Configuration=Release
