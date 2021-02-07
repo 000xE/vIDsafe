@@ -42,17 +42,17 @@ jobs:
     working_directory: C:\Users\circleci\project\vIDsafe.UnitTests
     steps:
       - checkout:
-        path: C:\Users\circleci\project
+          path: C:\Users\circleci\project
       - restore_cache:
-        keys:
-          - dotnet-packages-v1-{{ checksum "vIDsafe.UnitTests.csproj" }}
+          keys:
+            - dotnet-packages-v1-{{ checksum "vIDsafe.UnitTests.csproj" }}
       - run:
-        name: "Install project dependencies"
-        command: msbuild -t:restore -p:RestorePackagesConfig=true
+          name: "Install project dependencies"
+          command: msbuild -t:restore -p:RestorePackagesConfig=true
       - save_cache:
-        paths:
-          - C:\Users\circleci\project\vIDsafe.UnitTests\packages
-        key: dotnet-packages-v1-{{ checksum "vIDsafe.UnitTests.csproj" }}        
+          paths:
+            - C:\Users\circleci\project\vIDsafe.UnitTests\packages
+          key: dotnet-packages-v1-{{ checksum "vIDsafe.UnitTests.csproj" }}        
       - run:
           name: Run master account tests
           command: |
