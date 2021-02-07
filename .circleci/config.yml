@@ -45,7 +45,7 @@ jobs:
           path: C:\Users\circleci\project
       - restore_cache:
           keys:
-            - dotnet-packages-v1-{{ checksum "vIDsafe.csproj" }}
+            - dotnet-packages-v1-{{ checksum "vIDsafe.UnitTests.csproj" }}
       - run:
           name: "Run Build step"
           command: msbuild vIDsafe.csproj /p:Configuration=Release
