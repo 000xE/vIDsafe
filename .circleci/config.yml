@@ -10,7 +10,7 @@ workflows:
       - build-test
   unit-tests:
     jobs:
-      - unit-tests
+      #- unit-tests
 
 jobs:
   build:
@@ -38,16 +38,26 @@ jobs:
           
   build-test:
     executor:
-      name: win/default  
-    working_directory: C:\Users\circleci\project\vIDsafe.UnitTests
+      name: win/default
+    working_directory: C:\Users\circleci\project\vIDsafe
     steps:
       - checkout:
           path: C:\Users\circleci\project
-      - run:  
+      - restore_cache:
+          keys:
+            - dotnet-packages-v1-{{ checksum "vIDsafe.csproj" }}
+      - run:
+          name: "Install project dependencies"
+          command: msbuild -t:restore -p:RestorePackagesConfig=true
+      - save_cache:
+          paths:
+            - C:\Users\circleci\project\vIDsafe\packages
+          key: dotnet-packages-v1-{{ checksum "vIDsafe.csproj" }}
+      - run:
           name: "Run Build step"
-          command: msbuild vIDsafe.UnitTests.csproj /p:Configuration=Release 
+          command: msbuild vIDsafe.csproj /p:Configuration=Release
       - store_artifacts:
-          path: .\bin\Release\vIDsafe.UnitTests.exe
+          path: .\bin\Release\vIDsafe.exe
 
   unit-tests:
     executor:
