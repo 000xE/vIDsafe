@@ -42,7 +42,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Run unit tests
+          name: Run master account tests
           command: |
               cd vIDsafe.UnitTests
               dotnet test
+              MSTest.exe /container:vIDsafe.UnitTests.dll /test:MasterAccountTests
