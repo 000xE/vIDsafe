@@ -31,9 +31,9 @@ jobs:
           key: dotnet-packages-v1-{{ checksum "vIDsafe.csproj" }}
       - run:
           name: "Run Build step"
-          command: msbuild \vIDsafe.UnitTests\vIDsafe.UnitTests.csproj /p:Configuration=Release
+          command: msbuild ..\vIDsafe.UnitTests\vIDsafe.UnitTests.csproj /p:Configuration=Release
       - store_artifacts:
-          path: .\vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.exe
+          path: ..\vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.exe
 
   unit-tests:
     executor:
