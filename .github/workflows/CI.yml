@@ -34,6 +34,11 @@ jobs:
         # You may pin to the exact commit or the version.
         # uses: NuGet/setup-nuget@04b0c2b8d1b97922f67eca497d7cf0bf17b8ffe1
         uses: NuGet/setup-nuget@v1.0.5
+        
+      - name: Setup VSTest.console.exe
+        # You may pin to the exact commit or the version.
+        # uses: darenm/Setup-VSTest@fbb574e849d6225ce9702f86e64eb6cdc4b4e561
+        uses: darenm/Setup-VSTest@v1
       
       - name: Restore NuGet Packages
         working-directory: ${{env.working-directory}}
@@ -42,3 +47,12 @@ jobs:
       - name: Build the solution
         working-directory: ${{env.working-directory}}
         run: msbuild ..\vIDsafe.UnitTests\vIDsafe.UnitTests.csproj /p:Configuration=Release
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2.2.2
+        with:
+          # Artifact name
+          name: Testing artifact # optional, default is artifact
+          # A file, directory or wildcard pattern that describes what to upload
+          path: ..\vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll
+      - name: Run master account tests
+        run: vstest.console.exe "..\vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll"
