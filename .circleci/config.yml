@@ -49,7 +49,7 @@ jobs:
       - run:
           name: "Run Build step"
           command: |
-            nuget restore
+            nuget restore packages.config -PackagesDirectory packages
             msbuild vIDsafe.UnitTests.csproj /p:Configuration=Release
       - save_cache:
           paths:
