@@ -45,5 +45,4 @@ jobs:
           name: Run master account tests
           command: |
               cd vIDsafe.UnitTests
-              dotnet test
-              MSTest.exe /container:vIDsafe.UnitTests.dll /test:MasterAccountTests
+              mstest /container:vIDsafe.UnitTests.dll /test:MasterAccountTests
