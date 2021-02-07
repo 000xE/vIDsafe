@@ -7,7 +7,6 @@ workflows:
   general-testing:
     jobs:
       - build
-      - build-test
   unit-tests:
     jobs:
       - unit-tests
@@ -32,31 +31,9 @@ jobs:
           key: dotnet-packages-v1-{{ checksum "vIDsafe.csproj" }}
       - run:
           name: "Run Build step"
-          command: msbuild vIDsafe.csproj /p:Configuration=Release
+          command: msbuild \vIDsafe.UnitTests\vIDsafe.UnitTests.csproj /p:Configuration=Release
       - store_artifacts:
-          path: .\bin\Release\vIDsafe.exe
-          
-  build-test:
-    executor:
-      name: win/default
-    working_directory: C:\Users\circleci\project
-    steps:
-      - checkout:
-          path: C:\Users\circleci\project
-      - restore_cache:
-          keys:
-            - dotnet-packages-v1-{{ checksum "vIDsafe.UnitTests/vIDsafe.UnitTests.csproj" }}
-      - run:
-          name: "Run Build step"
-          command: |
-            nuget restore vIDsafe.UnitTests\packages.config -PackagesDirectory vIDsafe\packages
-            msbuild vIDsafe.UnitTests\vIDsafe.UnitTests.csproj /p:Configuration=Release
-      - save_cache:
-          paths:
-            - C:\Users\circleci\project\vIDsafe\packages
-          key: dotnet-packages-v1-{{ checksum "vIDsafe.UnitTests/vIDsafe.UnitTests.csproj" }}
-      - store_artifacts:
-          path: vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.exe
+          path: .\vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.exe
 
   unit-tests:
     executor:
