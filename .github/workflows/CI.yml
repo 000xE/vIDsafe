@@ -37,9 +37,9 @@ jobs:
         uses: NuGet/setup-nuget@v1.0.5
       
       - name: Restore NuGet Packages
-        working-directory: vIDsafe.UserTests
+        working-directory: "vIDsafe.UserTests"
         run: msbuild -t:restore -p:RestorePackagesConfig=true
       
       - name: Build the solution
-        working-directory: vIDsafe.UserTests
-        run: msbuild ..\vIDsafe.UnitTests\vIDsafe.UnitTests.csproj /p:Configuration=Release
+        working-directory: "vIDsafe.UserTests"
+        run: msbuild vIDsafe.UnitTests.csproj /p:Configuration=Release
