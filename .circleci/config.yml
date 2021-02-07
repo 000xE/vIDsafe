@@ -10,7 +10,7 @@ workflows:
       - build-test
   unit-tests:
     jobs:
-      #- unit-tests
+      - unit-tests
 
 jobs:
   build:
