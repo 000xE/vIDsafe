@@ -48,7 +48,10 @@ jobs:
             - dotnet-packages-v1-{{ checksum "vIDsafe.UnitTests.csproj" }}
       - run:
           name: "Run Build step"
-          command: msbuild vIDsafe.UnitTests.csproj /p:Configuration=Release
+          command: |
+            cd vIDsafe.UnitTests
+            nuget restore
+            msbuild vIDsafe.UnitTests.csproj /p:Configuration=Release
       - save_cache:
           paths:
             - C:\Users\circleci\project\vIDsafe.UnitTests\packages
