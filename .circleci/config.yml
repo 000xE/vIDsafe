@@ -19,21 +19,20 @@ jobs:
     steps:
       - checkout:
           path: C:\Users\circleci\project
-      - restore_cache:
-          keys:
-            - dotnet-packages-v1-{{ checksum "vIDsafe.csproj" }}
       - run:
           name: "Install project dependencies"
           command: msbuild -t:restore -p:RestorePackagesConfig=true
-      - save_cache:
-          paths:
-            - C:\Users\circleci\project\vIDsafe\packages
-          key: dotnet-packages-v1-{{ checksum "vIDsafe.csproj" }}
       - run:
           name: "Run Build step"
           command: msbuild ..\vIDsafe.UnitTests\vIDsafe.UnitTests.csproj /p:Configuration=Release
       - store_artifacts:
           path: ..\vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.exe
+      - checkout
+      - run:
+          name: Run master account tests
+          command: |
+              cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\common7\ide\extensions\TestPlatform"
+              .\vstest.console.exe "C:\Users\circleci\project\vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll"
 
   unit-tests:
     executor:
