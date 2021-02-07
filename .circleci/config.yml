@@ -39,18 +39,19 @@ jobs:
   unit-tests:
     executor:
       name: win/default
+    working_directory: C:\Users\circleci\project\vIDsafe.UnitTests
     steps:     
       - checkout
       - restore_cache:
           keys:
-            - dotnet-packages-v1-{{ checksum "C:\Users\circleci\project\vIDsafe.UnitTests\UnitTests.csproj" }}
+            - dotnet-packages-v1-{{ checksum "UnitTests.csproj" }}
       - run:
           name: "Install project dependencies"
           command: msbuild -t:restore -p:RestorePackagesConfig=true
       - save_cache:
           paths:
             - C:\Users\circleci\project\vIDsafe.UnitTests\packages
-          key: dotnet-packages-v1-{{ checksum "C:\Users\circleci\project\vIDsafe.UnitTests\UnitTests.csproj" }}
+          key: dotnet-packages-v1-{{ checksum "UnitTests.csproj" }}
       - run:
           name: Run master account tests
           command: |
