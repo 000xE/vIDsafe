@@ -20,6 +20,9 @@ jobs:
     # The type of runner that the job will run on
     runs-on: [windows-latest]
     # Steps represent a sequence of tasks that will be executed as part of the job
+    env:
+      working-directory: ./"vIDsafe.UserTests"
+      
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
@@ -33,9 +36,9 @@ jobs:
         uses: NuGet/setup-nuget@v1.0.5
       
       - name: Restore NuGet Packages
-        working-directory: ./vIDsafe.UserTests
+        working-directory: ${{env.working-directory}}
         run: msbuild -t:restore -p:RestorePackagesConfig=true
       
       - name: Build the solution
-        working-directory: ./vIDsafe.UserTests
+        working-directory: ${{env.working-directory}}
         run: msbuild vIDsafe.UnitTests.csproj /p:Configuration=Release
