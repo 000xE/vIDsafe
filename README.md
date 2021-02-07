@@ -13,8 +13,8 @@
   <a style="text-decoration:none" href="https://github.com/outerme/1808827-FYP/releases">
     <img src="https://img.shields.io/github/v/release/outerme/1808827-FYP?include_prereleases" alt="Releases" />
   </a>
-  <a style="text-decoration:none" href="https://circleci.com/gh/outerme/1808827-FYP">
-    <img src="https://circleci.com/gh/outerme/1808827-FYP.svg?style=shield" alt="Build" />
+  <a style="text-decoration:none" href="https://github.com/outerme/1808827-FYP/actions">
+    <img src="https://github.com/outerme/1808827-FYP/workflows/CI/badge.svg" alt="Tests" />
   </a>
 </p>
 
