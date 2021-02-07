@@ -45,7 +45,7 @@ jobs:
           path: C:\Users\circleci\project
       - restore_cache:
           keys:
-            - dotnet-packages-v1-{{ checksum vIDsafe.UnitTests\vIDsafe.UnitTests.csproj }}
+            - dotnet-packages-v1-{{ checksum "vIDsafe.UnitTests/vIDsafe.UnitTests.csproj" }}
       - run:
           name: "Run Build step"
           command: |
@@ -54,7 +54,7 @@ jobs:
       - save_cache:
           paths:
             - C:\Users\circleci\project\vIDsafe\packages
-          key: dotnet-packages-v1-{{ checksum vIDsafe.UnitTests\vIDsafe.UnitTests.csproj }}
+          key: dotnet-packages-v1-{{ checksum "vIDsafe.UnitTests/vIDsafe.UnitTests.csproj" }}
       - store_artifacts:
           path: vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.exe
 
