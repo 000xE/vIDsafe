@@ -8,7 +8,7 @@ using System.IO;
 
 namespace vIDsafe
 {
-    class Encryption
+    public class Encryption
     {
         //AES VARIABLES
         private const int _blockSize = 128;

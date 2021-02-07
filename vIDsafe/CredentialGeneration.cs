@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace vIDsafe
 {
-    class CredentialGeneration
+    public class CredentialGeneration
     {
         public const int MinPasswordLength = 5;
         public const int MaxPasswordLength = 128;
