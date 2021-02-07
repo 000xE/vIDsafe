@@ -42,6 +42,9 @@ jobs:
     steps:     
       - checkout
       - run:
+          name: "cd test"
+          command: cd C:\Users\circleci\project\vIDsafe.UnitTests
+      - run:
           name: Run master account tests
           command: |
               cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\common7\ide\extensions\TestPlatform"
