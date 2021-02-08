@@ -30,5 +30,17 @@ namespace vIDsafe.Tests
 
             Assert.AreEqual(expected, hashed);
         }
+
+        [TestMethod()]
+        public void AesEncryptTest()
+        {
+            Assert.Fail();
+        }
+
+        [TestMethod()]
+        public void AesDecryptTest()
+        {
+            Assert.Fail();
+        }
     }
 }
