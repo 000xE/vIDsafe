@@ -12,32 +12,24 @@ namespace vIDsafe
     [Serializable]
     public class Identity
     {
-        private string _name;
-        private string _email;
-        private string _usage;
+        private readonly Vault _vault;
 
         private int _healthScore;
 
-        private readonly Dictionary<string, Credential> _credentials = new Dictionary<string, Credential>();
+        private readonly Dictionary<string, Credential> _credentials;
 
-        private readonly Dictionary<Credential.CredentialStatus, int> _credentialCounts = new Dictionary<Credential.CredentialStatus, int>()
-        {
-            [Credential.CredentialStatus.Safe] = 0,
-            [Credential.CredentialStatus.Compromised] = 0,
-            [Credential.CredentialStatus.Conflicted] = 0,
-            [Credential.CredentialStatus.Weak] = 0
-        };
+        private readonly Dictionary<Credential.CredentialStatus, int> _credentialCounts;
 
-        private readonly Dictionary<string, string> _breachedDomains = new Dictionary<string, string>();
+        private readonly Dictionary<string, string> _breachedDomains;
 
         [Name("name")]
-        public string Name => _name;
+        public string Name { get; set; }
 
         [Name("email")]
-        public string Email => _email;
+        public string Email { get; set; }
 
         [Name("usage")]
-        public string Usage => _usage;
+        public string Usage { get; set; }
 
         [Ignore]
         [JsonIgnore]
@@ -67,43 +59,39 @@ namespace vIDsafe
 
         public Dictionary<string, Credential> Credentials => _credentials;
 
-        public Identity(string name, string email, string usage)
+        public Identity(Vault vault, string name, string email, string usage)
         {
-            _name = name;
-            _email = email;
-            _usage = usage;
+            _vault = vault;
+
+            Name = name;
+            Email = email;
+            Usage = usage;
+
+            _credentials = new Dictionary<string, Credential>();
+            _breachedDomains = new Dictionary<string, string>();
+
+            _credentialCounts = new Dictionary<Credential.CredentialStatus, int>()
+            {
+                [Credential.CredentialStatus.Safe] = 0,
+                [Credential.CredentialStatus.Compromised] = 0,
+                [Credential.CredentialStatus.Conflicted] = 0,
+                [Credential.CredentialStatus.Weak] = 0
+            };
         }
 
-        //Todo: refactor, maybe have a separate method for each attribute for consistency?
-        public void SetDetails(string name, string usage)
-        {
-            _name = name;
-            _usage = usage;
-
-            FormvIDsafe.Main.User.SaveVault();
-        }
-
-
-        public void ChangeEmail(string email)
-        {
-            _email = email;
-        }
-
-        public string GenerateCredential()
+        public Credential GenerateCredential()
         {
             string GUID = Guid.NewGuid().ToString();
 
             string url = "";
             string notes = "";
 
-            string username = CredentialGeneration.GenerateUsername(_name);
+            string username = CredentialGeneration.GenerateUsername(Name);
             string password = CredentialGeneration.GeneratePassword();
 
             Credential credential = FindOrCreateCredential(GUID, username, password, url, notes);
 
-            FormvIDsafe.Main.User.SaveVault();
-
-            return credential.CredentialID;
+            return credential;
         }
 
         public Credential FindOrCreateCredential(string GUID, string username, string password, string url, string notes)
@@ -116,7 +104,7 @@ namespace vIDsafe
             }
             else
             {
-                 credential = new Credential(this, GUID, username, password, url, notes);
+                credential = new Credential(GUID, username, password, url, notes);
                 _credentials.Add(GUID, credential);
             }
 
@@ -126,8 +114,6 @@ namespace vIDsafe
         public void DeleteAllCredentials()
         {
             Credentials.Clear();
-
-            FormvIDsafe.Main.User.SaveVault();
         }
 
         public void DeleteCredential(string key)
@@ -135,8 +121,6 @@ namespace vIDsafe
             if (_credentials.ContainsKey(key))
             {
                 _credentials.Remove(key);
-
-                FormvIDsafe.Main.User.SaveVault();
             }
         }
 
@@ -178,23 +162,30 @@ namespace vIDsafe
         {
             ResetCredentialCounts();
 
-            foreach (KeyValuePair<string, Credential> credential in _credentials)
+            foreach (KeyValuePair<string, Credential> credentialPair in _credentials)
             {
-                _credentialCounts[credential.Value.Status]++;
+                Credential credential = credentialPair.Value;
+
+                _credentialCounts[credential.Status]++;
             }
         }
 
         private void SetCredentialStatuses()
         {
-            foreach (KeyValuePair<string, Credential> credential in _credentials)
+            foreach (KeyValuePair<string, Credential> credentialPair in _credentials)
             {
-                credential.Value.SetStatus(credential.Value.GetStatus());
+                Credential credential = credentialPair.Value;
+
+                credential.SetStatus(credential.GetStatus(_vault, this));
             }
         }
 
-        public void CalculateHealthScore()
+        public void CalculateHealthScore(bool calculateStatuses)
         {
-            SetCredentialStatuses();
+            if (calculateStatuses)
+            {
+                SetCredentialStatuses();
+            }
 
             CountCredentialStatus();
 
@@ -206,8 +197,6 @@ namespace vIDsafe
             {
                 _healthScore = 0;
             }
-
-            FormvIDsafe.Main.User.SaveVault();
         }
     }
 }

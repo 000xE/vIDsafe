@@ -34,13 +34,42 @@ namespace vIDsafe.Tests
         [TestMethod()]
         public void AesEncryptTest()
         {
-            Assert.Fail();
+            //Arrange
+            Encryption.KeyDerivationFunction keyDerivationFunction = Encryption.KeyDerivationFunction.PBKDF2;
+            string secret = "Password";
+            string salt = "TestUsername123";
+
+            byte[] key = Encryption.DeriveKey(keyDerivationFunction, secret, salt);
+
+            string toEncrypt = "Test";
+
+            //Act
+            string encrypted = Encryption.AesEncrypt(toEncrypt, key);
+
+            //Assert
+            string decrypted = Encryption.AesDecrypt(encrypted, key);
+            Assert.AreEqual(toEncrypt, decrypted);
         }
 
         [TestMethod()]
         public void AesDecryptTest()
         {
-            Assert.Fail();
+            //Arrange
+            Encryption.KeyDerivationFunction keyDerivationFunction = Encryption.KeyDerivationFunction.PBKDF2;
+            string secret = "Password";
+            string salt = "TestUsername123";
+
+            byte[] key = Encryption.DeriveKey(keyDerivationFunction, secret, salt);
+
+            string toDecrypt = "/cme8tTlgqA5VBoHvxe0tynlUwNsE8CCwA8RQycIWAY=";
+
+            //Act
+            string decrypted = Encryption.AesDecrypt(toDecrypt, key);
+
+            //Assert
+            string expected = "Test";
+
+            Assert.AreEqual(expected, decrypted);
         }
     }
 }

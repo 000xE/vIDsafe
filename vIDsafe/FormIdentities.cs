@@ -65,9 +65,9 @@ namespace vIDsafe
 
         private void GenerateIdentity()
         {
-            string email = FormvIDsafe.Main.User.Vault.GenerateIdentity();
+            Identity identity = FormvIDsafe.Main.User.Vault.GenerateIdentity();
 
-            int lastIndex = cmbIdentity.Items.Add(email);
+            int lastIndex = cmbIdentity.Items.Add(identity.Email);
             cmbIdentity.SelectedIndex = lastIndex;
         }
 
@@ -119,7 +119,8 @@ namespace vIDsafe
                     }
                 }
 
-                identity.SetDetails(identityName, identityUsage);
+                identity.Name = identityName;
+                identity.Usage = identityUsage;
             }
         }
 
@@ -205,7 +206,7 @@ namespace vIDsafe
 
         private void DisplayCredentialInformation(Identity identity)
         {
-            identity.CalculateHealthScore();
+            identity.CalculateHealthScore(true);
 
             int safeCount = identity.SafeCredentials;
             int weakCount = identity.WeakCredentials;

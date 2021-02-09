@@ -28,9 +28,9 @@ namespace vIDsafe
             {
                 EnableLoginComponents(false);
 
-                FormvIDsafe.Main.User = new MasterAccount(name, password);
+                FormvIDsafe.Main.User = new MasterAccount();
 
-                bool canLogin = await FormvIDsafe.Main.User.TryLogin(); 
+                bool canLogin = await FormvIDsafe.Main.User.TryLogin(name, password); 
 
                 if (canLogin.Equals(true))
                 {

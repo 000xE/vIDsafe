@@ -29,9 +29,9 @@ namespace vIDsafe
             {
                 EnableRegisterComponents(false);
 
-                FormvIDsafe.Main.User = new MasterAccount(name, password);
+                FormvIDsafe.Main.User = new MasterAccount();
 
-                bool canRegister = await FormvIDsafe.Main.User.TryRegister();
+                bool canRegister = await FormvIDsafe.Main.User.TryRegister(name, password);
 
                 if (canRegister.Equals(true))
                 {

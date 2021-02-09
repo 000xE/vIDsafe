@@ -16,7 +16,7 @@ namespace vIDsafe
         private string _name;
         private string _password;
 
-        public Vault Vault = new Vault();
+        public Vault Vault;
 
         private readonly string _vaultFolder = "Vaults/";
 
@@ -28,15 +28,16 @@ namespace vIDsafe
             JSON,
             Encrypted
         }
-        public MasterAccount(string name, string password)
+        public MasterAccount()
         {
-            _name = name;
-            _password = password;
+            _name = "";
+            _password = "";
+            Vault = new Vault();
         }
 
-        private bool AccountExists()
+        private bool AccountExists(string name)
         {
-            if (File.Exists(_vaultFolder + _name))
+            if (File.Exists(_vaultFolder + name))
             {
                 return true;
             }
@@ -44,57 +45,48 @@ namespace vIDsafe
             return false;
         }
 
-        public async Task<bool> TryLogin()
+        public async Task<bool> TryLogin(string name, string password)
         {
-            bool canLogin = false;
+            bool loggedin = false;
 
             await Task.Run(() =>
             {
-                if (AccountExists())
+                if (AccountExists(name))
                 {
-                    _password = HashPassword(_password, _name);
+                    _password = HashPassword(password, name);
 
-                    Vault = GetVault();
+                    Vault = GetVault(name, _password);
 
-                    if (Vault == null)
+                    if (Vault != null)
                     {
-                        canLogin = false;
+                        _name = name;
+
+                        loggedin = true;
                     }
-                    else
-                    {
-                        canLogin = true;
-                    }
-                }
-                else
-                {
-                    canLogin = false;
                 }
             });
 
-            return canLogin;
+            return loggedin;
         }
 
-        public async Task<bool> TryRegister()
+        public async Task<bool> TryRegister(string name, string password)
         {
-            bool canRegister = false;
+            bool registered = false;
 
             await Task.Run(() =>
             {
-                if (!AccountExists())
+                if (!AccountExists(name))
                 {
-                    _password = HashPassword(_password, _name);
+                    _name = name;
+                    _password = HashPassword(password, name);
 
-                    SaveVault();
+                    CreateVault(Vault, _name, _password);
 
-                    canRegister = true;
-                }
-                else
-                {
-                    canRegister = false;
+                    registered = true;
                 }
             });
 
-            return canRegister;
+            return registered;
         }
 
         private bool VerifyPassword(string oldPassword)
@@ -111,68 +103,78 @@ namespace vIDsafe
 
         public async Task<bool> TryChangePassword(string oldPassword, string password)
         {
-            bool canChangePass = false;
-
-            await Task.Run(() =>
-                {
-                if (VerifyPassword(oldPassword).Equals(true))
-                {
-                    _password = HashPassword(password, _name);
-                    SaveVault();
-
-                    canChangePass = true;
-                }
-                else
-                {
-                    canChangePass = false;
-                }
-            });
-
-            return canChangePass;
-        }
-
-        public async Task<bool> TryChangeName(string oldPassword, string name)
-        {
-            bool canChangeName = false;
+            bool changed = false;
 
             await Task.Run(() =>
             {
                 if (VerifyPassword(oldPassword).Equals(true))
                 {
-                    File.Move(_vaultFolder + _name, _vaultFolder + name);
+                    _password = HashPassword(password, _name);
 
-                    _name = name;
-                    _password = HashPassword(oldPassword, name);
-                    SaveVault();
+                    SaveVault(Vault, _name, _password);
 
-                    return canChangeName = true;
-                }
-                else
-                {
-                    return canChangeName = false;
+                    changed = true;
                 }
             });
 
-            return canChangeName;
+            return changed;
         }
 
-        private Vault GetVault()
+        public async Task<bool> TryChangeName(string oldPassword, string newName)
         {
-            string fileName = _vaultFolder + _name;
+            bool changed = false;
+
+            await Task.Run(() =>
+            {
+                if (VerifyPassword(oldPassword).Equals(true))
+                {
+                    if (AccountExists(_name))
+                    {
+                        File.Move(_vaultFolder + _name, _vaultFolder + newName);
+                    }
+
+                    _name = newName;
+                    _password = HashPassword(oldPassword, newName);
+
+                    SaveVault(Vault, _name, _password);
+
+                    changed = true;
+                }
+            });
+
+            return changed;
+        }
+
+        private Vault GetVault(string name, string password)
+        {
+            string fileName = _vaultFolder + name;
             string encryptedVault = File.ReadAllText(fileName);
 
-            return (DecryptVault(encryptedVault, _password));           
+            return (DecryptVault(encryptedVault, password));           
         }
 
-        //Todo: refactor and maybe have it call on closing or logging out of form only?
-        public void SaveVault()
+        private void CreateVault(Vault vault, string name, string password)
         {
-            string encryptedVault = EncryptVault(Vault, _password);
-            string fileName = _vaultFolder + _name;
+            string encryptedVault = EncryptVault(vault, password);
+            string fileName = _vaultFolder + name;
 
             FileInfo file = new FileInfo(fileName);
             file.Directory.Create(); // If the directory already exists, this method does nothing.
             File.WriteAllText(file.FullName, encryptedVault);
+        }
+
+        //Todo: refactor and maybe have it call on closing or logging out of form only?
+        private void SaveVault(Vault vault, string name, string password)
+        {
+            string encryptedVault = EncryptVault(vault, password);
+            string fileName = _vaultFolder + name;
+
+            FileInfo file = new FileInfo(fileName);
+
+            if (file.Exists)
+            {
+                File.WriteAllText(file.FullName, encryptedVault);
+            }
         }
 
         private string HashPassword(string password, string salt)
@@ -204,14 +206,14 @@ namespace vIDsafe
         {
             Vault importedVault = new Vault();
 
-            string readContent = File.ReadAllText(fileName);
-
             bool canImport = false;
 
             await Task.Run(() =>
             {
                 try
                 {
+                    string readContent = File.ReadAllText(fileName);
+
                     switch (format)
                     {
                         case VaultFormat.CSV:
@@ -286,12 +288,12 @@ namespace vIDsafe
         {
             Vault vault = new Vault();
 
-            string writeContent = "";
-
             bool canExport = false;
 
             await Task.Run(() =>
             {
+                string writeContent = "";
+
                 if (selectedEmail.Length > 0)
                 {
                     vault.Identities.Add(selectedEmail, Vault.Identities[selectedEmail]);
@@ -324,10 +326,8 @@ namespace vIDsafe
                                         csvWriter.NextRecord();
                                     }
                                 }
-
                                 writeContent = stringWriter.ToString();
                             }
-
                             break;
                         case VaultFormat.JSON:
                             string json = JsonConvert.SerializeObject(vault, Formatting.Indented);
@@ -355,17 +355,28 @@ namespace vIDsafe
             return canExport;
         }
 
+
+        public void Logout()
+        {
+            SaveVault(Vault, _name, _password);
+
+            _name = "";
+            _password = "";
+
+            Vault = null;
+        }
+
         public void DeleteAccount()
         {
             Vault = new Vault();
 
-            SaveVault();
+            SaveVault(Vault, _name, _password);
 
             File.Delete(_vaultFolder + _name);
         }
 
         //https://stackoverflow.com/questions/6979718/c-sharp-object-to-string-and-back/6979843#6979843
-        public string VaultToString(Vault vault)
+        private string VaultToString(Vault vault)
         {
             using (MemoryStream ms = new MemoryStream())
             {
@@ -375,7 +386,7 @@ namespace vIDsafe
         }
 
         //https://stackoverflow.com/questions/6979718/c-sharp-object-to-string-and-back/6979843#6979843
-        public Vault StringToVault(string base64String)
+        private Vault StringToVault(string base64String)
         {
             byte[] bytes = Convert.FromBase64String(base64String);
             using (MemoryStream ms = new MemoryStream())

@@ -10,10 +10,18 @@ namespace vIDsafe
 {
     public abstract class Theme
     {
-        protected Dictionary<string, Color> BackColors = new Dictionary<string, Color>();
-        protected Dictionary<string, Color> ForeColors = new Dictionary<string, Color>();
+        protected Dictionary<string, Color> BackColors;
+        protected Dictionary<string, Color> ForeColors;
 
-        protected Dictionary<string, Color> ThemeColors = new Dictionary<string, Color>();
+        protected Dictionary<string, Color> ThemeColors;
+
+        public Theme ()
+        {
+            BackColors = new Dictionary<string, Color>();
+            ForeColors = new Dictionary<string, Color>();
+
+            ThemeColors = new Dictionary<string, Color>();
+        }
 
         protected abstract void AddThemeColors();
         protected abstract void SetTags();

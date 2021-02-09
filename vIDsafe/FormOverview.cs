@@ -29,7 +29,7 @@ namespace vIDsafe
 
         private void RecalculateHealthScore()
         {
-            FormvIDsafe.Main.User.Vault.CalculateOverallHealthScore();
+            FormvIDsafe.Main.User.Vault.CalculateOverallHealthScore(true);
             DisplayHealthScores();
             DisplayCredentialInformation();
             DisplaySecurityAlerts();

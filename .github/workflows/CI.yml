@@ -50,3 +50,18 @@ jobs:
         
       - name: Run encryption tests
         run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /testcasefilter:FullyQualifiedName~vIDsafe.Tests.EncryptionTests
+
+      - name: Run master account tests
+        run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /testcasefilter:FullyQualifiedName~vIDsafe.Tests.MasterAccountTests
+
+      - name: Run vault tests
+        run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /testcasefilter:FullyQualifiedName~vIDsafe.Tests.VaultTests
+
+      - name: Run identity tests
+        run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /testcasefilter:FullyQualifiedName~vIDsafe.Tests.IdentityTests
+
+      - name: Run credential tests
+        run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /testcasefilter:FullyQualifiedName~vIDsafe.Tests.CredentialTests
+        
+      - name: Run credential generation tests
+        run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /testcasefilter:FullyQualifiedName~vIDsafe.Tests.CredentialGenerationTests

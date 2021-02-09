@@ -103,11 +103,9 @@ namespace vIDsafe
         {
             Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedEmail];
 
-            string credentialID = identity.GenerateCredential();
+            Credential credential = identity.GenerateCredential();
 
-            Credential credential = identity.Credentials[credentialID];
-
-            DisplayCredential(credentialID, credential);
+            DisplayCredential(credential);
 
             int lastIndex = lvCredentials.Items.Count - 1;
 
@@ -127,7 +125,10 @@ namespace vIDsafe
 
                     Credential credential = identity.Credentials[credentialID];
 
-                    credential.SetDetails(credentialUsername, credentialPassword, credentialURL, credentialNotes);
+                    credential.Username = credentialUsername;
+                    credential.Password = credentialPassword;
+                    credential.URL = credentialURL;
+                    credential.Notes = credentialNotes;
 
                     lvCredentials.SelectedItems[0].SubItems[1].Text = credentialUsername;
                     lvCredentials.SelectedItems[0].SubItems[2].Text = credentialURL;
@@ -169,7 +170,7 @@ namespace vIDsafe
         private void GetCredentials(string selectedEmail)
         {
             Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedEmail];
-            identity.CalculateHealthScore();
+            identity.CalculateHealthScore(true);
 
             Dictionary<string, Credential> credentials = identity.Credentials;
 
@@ -181,15 +182,15 @@ namespace vIDsafe
             lvCredentials.Items.Clear();
             foreach (KeyValuePair<string, Credential> credential in credentials)
             {
-                DisplayCredential(credential.Key, credential.Value);
+                DisplayCredential(credential.Value);
             }
 
             ResetDetails();
         }
 
-        private void DisplayCredential(string credentialID, Credential credential)
+        private void DisplayCredential(Credential credential)
         {
-            ListViewItem lvi = new ListViewItem(credentialID);
+            ListViewItem lvi = new ListViewItem(credential.CredentialID);
             lvi.SubItems.Add(credential.Username);
             lvi.SubItems.Add(credential.URL);
             lvi.SubItems.Add(credential.Status.ToString());

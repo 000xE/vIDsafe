@@ -198,14 +198,14 @@ namespace vIDsafe
         
         private void Logout()
         {
-            FormvIDsafe.Main.User = null;
+            FormvIDsafe.Main.User.Logout();
             FormvIDsafe.Main.Show();
             Close();
         }
 
         private bool LoggedIn()
         {
-            if (FormvIDsafe.Main.User == null)
+            if (FormvIDsafe.Main.User.Vault == null)
             {
                 return false;
             }

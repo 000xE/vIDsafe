@@ -11,31 +11,22 @@ namespace vIDsafe
     [Serializable]
     public class Credential
     {
-        private readonly Identity _identity;
-
-        private readonly string _credentialID;
-
-        private string _username;
-        private string _password;
-        private string _url;
-        private string _notes;
-
         private CredentialStatus _status = CredentialStatus.Safe;
 
         [Name("credentialID")]
-        public string CredentialID => _credentialID;
+        public string CredentialID { get; private set; } = "";
 
         [Name("username")]
-        public string Username => _username;
+        public string Username { get; set; } = "";
 
         [Name("password")]
-        public string Password => _password;
+        public string Password { get; set; } = "";
 
         [Name("url")]
-        public string URL => _url;
+        public string URL { get; set; } = "";
 
         [Name("notes")]
-        public string Notes => _notes;
+        public string Notes { get; set; } = "";
 
         [Ignore]
         [JsonIgnore]
@@ -49,31 +40,14 @@ namespace vIDsafe
             Weak
         }
 
-        public Credential(Identity identity, string credentialID, string username, string password, string url, string notes)
+        public Credential(string credentialID, string username, string password, string url, string notes)
         {
-            _identity = identity;
+            CredentialID = credentialID;
 
-            _credentialID = credentialID;
-
-            _username = username;
-            _password = password;
-            _url = url;
-            _notes = notes;
-
-            _status = GetStatus();
-        }
-
-        //Todo: refactor, maybe have a separate method for each attribute for consistency?
-        public void SetDetails(string username, string password, string url, string notes)
-        {
-            _username = username;
-            _password = password;
-            _url = url;
-            _notes = notes;
-
-            _status = GetStatus();
-
-            FormvIDsafe.Main.User.SaveVault();
+            Username = username;
+            Password = password;
+            URL = url;
+            Notes = notes;
         }
 
         public void SetStatus(CredentialStatus status)
@@ -81,17 +55,17 @@ namespace vIDsafe
             _status = status;
         }
 
-        public CredentialStatus GetStatus()
+        public CredentialStatus GetStatus(Vault vault, Identity identity)
         {
-            if (CheckBreached(_url))
+            if (CheckBreached(identity.BreachedDomains, URL))
             {
                 return CredentialStatus.Compromised;
             }
-            else if (CheckConflict(_username, _password))
+            else if (CheckConflict(vault.Identities, Username, Password))
             {
                 return CredentialStatus.Conflicted;
             }
-            else if (CheckWeak(_password))
+            else if (CheckWeak(Password))
             {
                 return CredentialStatus.Weak;
             }
@@ -117,11 +91,12 @@ namespace vIDsafe
                 return host;
             }
         }
-        private bool CheckBreached(string url)
+
+        private bool CheckBreached(Dictionary<string, string> breachedDomains, string url)
         {
             if (url.Length > 0)
             {
-                if (_identity.BreachedDomains.ContainsKey(GetDomain(url)))
+                if (breachedDomains.ContainsKey(GetDomain(url)))
                 {
                     return true;
                 }
@@ -130,13 +105,13 @@ namespace vIDsafe
             return false;
         }
 
-        private bool CheckConflict(string username, string password)
+        private bool CheckConflict(Dictionary<string, Identity> identities, string username, string password)
         {
             if (username.Length > 0 || password.Length > 0)
             {
-                foreach (KeyValuePair<string, Identity> identityPair in FormvIDsafe.Main.User.Vault.Identities)
+                foreach (KeyValuePair<string, Identity> identityPair in identities)
                 {
-                    if (identityPair.Value.Credentials.Any(c => (c.Value.CredentialID != _credentialID)
+                    if (identityPair.Value.Credentials.Any(c => (c.Value.CredentialID != CredentialID)
                     && (c.Value.Username.Equals(username, StringComparison.OrdinalIgnoreCase) || c.Value.Password.Equals(password))))
                     {
                         return true;
