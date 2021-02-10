@@ -54,6 +54,7 @@ jobs:
         with:
           name: test-build
           path: vIDsafe.UnitTests
+          retention-days: 1
         
       - name: Save cache
         uses: actions/cache@v2
@@ -97,7 +98,7 @@ jobs:
                 
       - name: Run encryption tests
         working-directory: ${{env.working-directory}}
-        run: vstest.console.exe "bin\Release\vIDsafe.UnitTests.dll" /testcasefilter:FullyQualifiedName~vIDsafe.Tests.EncryptionTests
+        run: vstest.console.exe "\bin\Release\vIDsafe.UnitTests.dll" /testcasefilter:FullyQualifiedName~vIDsafe.Tests.EncryptionTests
 
       - name: Run master account tests
         run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /testcasefilter:FullyQualifiedName~vIDsafe.Tests.MasterAccountTests
