@@ -82,15 +82,12 @@ jobs:
         uses: darenm/Setup-VSTest@v1
                 
       - name: Derive key test
-        continue-on-error: true
         run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /tests:DeriveKeyTest
 
       - name: Encryption test
-        continue-on-error: true
         run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /tests:AesEncryptTest
         
       - name: Decryption test
-        continue-on-error: true
         run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /tests:AesDecryptTest
         
   Test-Master-Account:
@@ -127,7 +124,6 @@ jobs:
         uses: darenm/Setup-VSTest@v1
                 
       - name: Import vault test
-        continue-on-error: true
         run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /tests:ImportVaultTest
 
   Test-Vault:
@@ -164,7 +160,6 @@ jobs:
         uses: darenm/Setup-VSTest@v1
                 
       - name: Vault health score test
-        continue-on-error: true
         run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /tests:CalculateOverallHealthScoreTest
         
   Test-Identity:
@@ -201,7 +196,6 @@ jobs:
         uses: darenm/Setup-VSTest@v1
                 
       - name: Identity health score test
-        continue-on-error: true
         run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /tests:CalculateHealthScoreTest
 
   Test-Credential:
@@ -238,7 +232,6 @@ jobs:
         uses: darenm/Setup-VSTest@v1
                 
       - name: Status test
-        continue-on-error: true
         run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /tests:GetStatusTest
 
   Test-Credential-Generation:
@@ -275,15 +268,12 @@ jobs:
         uses: darenm/Setup-VSTest@v1
                 
       - name: Username generation test
-        continue-on-error: true
         run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /tests:GenerateUsernameTest
 
       - name: Password generation test
-        continue-on-error: true
         run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /tests:GeneratePasswordTest
         
       - name: Strength test
-        continue-on-error: true
         run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /tests:CheckStrengthTest
 
         
