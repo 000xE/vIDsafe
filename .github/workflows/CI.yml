@@ -19,7 +19,6 @@ jobs:
   Build-And-Test:
     # The type of runner that the job will run on
     runs-on: [windows-latest]
-    continue-on-error: true
     # Steps represent a sequence of tasks that will be executed as part of the job
     env:
       working-directory: ./vIDsafe
@@ -50,19 +49,25 @@ jobs:
         run: msbuild ..\vIDsafe.UnitTests\vIDsafe.UnitTests.csproj /p:Configuration=Release
                         
       - name: Run encryption tests
+        continue-on-error: true
         run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /testcasefilter:FullyQualifiedName~vIDsafe.Tests.EncryptionTests
 
       - name: Run master account tests
+        continue-on-error: true
         run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /testcasefilter:FullyQualifiedName~vIDsafe.Tests.MasterAccountTests
 
       - name: Run vault tests
+        continue-on-error: true
         run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /testcasefilter:FullyQualifiedName~vIDsafe.Tests.VaultTests
 
       - name: Run identity tests
+        continue-on-error: true
         run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /testcasefilter:FullyQualifiedName~vIDsafe.Tests.IdentityTests
 
       - name: Run credential tests
+        continue-on-error: true
         run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /testcasefilter:FullyQualifiedName~vIDsafe.Tests.CredentialTests
         
       - name: Run credential generation tests
+        continue-on-error: true
         run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /testcasefilter:FullyQualifiedName~vIDsafe.Tests.CredentialGenerationTests
