@@ -28,6 +28,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         
+      - name: Save cache
+        uses: actions/cache@v2
+        with:
+          path: ${{env.working-directory}}/packages
+          key: test-${{ runner.os }}-${{ hashFiles('**/packages.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-     
+        
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1
         
@@ -48,13 +56,6 @@ jobs:
       - name: Build the solution
         working-directory: ${{env.working-directory}}
         run: msbuild ..\vIDsafe.UnitTests\vIDsafe.UnitTests.csproj /p:Configuration=Release
-      - name: Save cache
-        uses: actions/cache@v2
-        with:
-          path: ${{env.working-directory}}/packages
-          key: test-${{ runner.os }}-${{ hashFiles('**/packages.json') }}
-          restore-keys: |
-            ${{ runner.os }}-nuget-
                   
   # This workflow contains a single job called "build"
   Run-Tests:
