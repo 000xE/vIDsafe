@@ -25,7 +25,8 @@ jobs:
       
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
         
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1
@@ -48,7 +49,7 @@ jobs:
         working-directory: ${{env.working-directory}}
         run: msbuild ..\vIDsafe.UnitTests\vIDsafe.UnitTests.csproj /p:Configuration=Release
       - name: Save cache
-        uses: ./
+        uses: actions/cache@v2
         with:
           path: ${{env.working-directory}}/packages
           key: test-${{ runner.os }}-${{ hashFiles('**/packages.json') }}
@@ -66,10 +67,11 @@ jobs:
       
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-      
+      - name: Checkout
+        uses: actions/checkout@v2
+          
       - name: Restore cache
-        uses: ./
+        uses: actions/cache@v2
         with:
           path: ${{env.working-directory}}/packages
           key: test-${{ runner.os }}-${{ hashFiles('**/packages.json') }}
