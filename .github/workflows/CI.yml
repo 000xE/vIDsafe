@@ -49,7 +49,7 @@ jobs:
             ${{ runner.os }}-nuget-
                   
   # This workflow contains a single job called "build"
-  Build-And-Test:
+  Test-Encryption:
     needs: Restore-Dependencies
     # The type of runner that the job will run on
     runs-on: [windows-latest]
@@ -82,20 +82,12 @@ jobs:
         # uses: darenm/Setup-VSTest@fbb574e849d6225ce9702f86e64eb6cdc4b4e561
         uses: darenm/Setup-VSTest@v1
                 
-      - name: Run encryption tests
-        run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /testcasefilter:FullyQualifiedName~vIDsafe.Tests.EncryptionTests
+      - name: Derive key test
+        run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /tests:DeriveKeyTest
 
-      - name: Run master account tests
-        run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /testcasefilter:FullyQualifiedName~vIDsafe.Tests.MasterAccountTests
-
-      - name: Run vault tests
-        run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /testcasefilter:FullyQualifiedName~vIDsafe.Tests.VaultTests
-
-      - name: Run identity tests
-        run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /testcasefilter:FullyQualifiedName~vIDsafe.Tests.IdentityTests
-
-      - name: Run credential tests
-        run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /testcasefilter:FullyQualifiedName~vIDsafe.Tests.CredentialTests
+      - name: Encryption test
+        run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /tests:AesEncryptTest
         
-      - name: Run credential generation tests
-        run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /testcasefilter:FullyQualifiedName~vIDsafe.Tests.CredentialGenerationTests
+      - name: Decryption tests
+        run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /tests:AesDecryptTest
+        
