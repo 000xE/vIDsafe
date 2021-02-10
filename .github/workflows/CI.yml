@@ -16,7 +16,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  Build-And-Test:
+  Build-And-Restore:
     # The type of runner that the job will run on
     runs-on: [windows-latest]
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -47,27 +47,52 @@ jobs:
       - name: Build the solution
         working-directory: ${{env.working-directory}}
         run: msbuild ..\vIDsafe.UnitTests\vIDsafe.UnitTests.csproj /p:Configuration=Release
-                        
+      - name: Save cache
+        with:
+          path: ${{env.working-directory}}/packages
+          key: test-${{ runner.os }}-${{ hashFiles('**/packages.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+                  
+  # This workflow contains a single job called "build"
+  Run-Tests:
+    needs: Build-And-Restore
+    # The type of runner that the job will run on
+    runs-on: [windows-latest]
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    env:
+      working-directory: ./vIDsafe
+      
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      
+      - name: Restore cache
+        with:
+          path: ${{env.working-directory}}/packages
+          key: test-${{ runner.os }}-${{ hashFiles('**/packages.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+      
+      - name: Setup VSTest.console.exe
+        # You may pin to the exact commit or the version.
+        # uses: darenm/Setup-VSTest@fbb574e849d6225ce9702f86e64eb6cdc4b4e561
+        uses: darenm/Setup-VSTest@v1
+                
       - name: Run encryption tests
-        continue-on-error: true
         run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /testcasefilter:FullyQualifiedName~vIDsafe.Tests.EncryptionTests
 
       - name: Run master account tests
-        continue-on-error: true
         run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /testcasefilter:FullyQualifiedName~vIDsafe.Tests.MasterAccountTests
 
       - name: Run vault tests
-        continue-on-error: true
         run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /testcasefilter:FullyQualifiedName~vIDsafe.Tests.VaultTests
 
       - name: Run identity tests
-        continue-on-error: true
         run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /testcasefilter:FullyQualifiedName~vIDsafe.Tests.IdentityTests
 
       - name: Run credential tests
-        continue-on-error: true
         run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /testcasefilter:FullyQualifiedName~vIDsafe.Tests.CredentialTests
         
       - name: Run credential generation tests
-        continue-on-error: true
         run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /testcasefilter:FullyQualifiedName~vIDsafe.Tests.CredentialGenerationTests
