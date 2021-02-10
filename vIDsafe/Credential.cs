@@ -11,8 +11,6 @@ namespace vIDsafe
     [Serializable]
     public class Credential
     {
-        private CredentialStatus _status = CredentialStatus.Safe;
-
         [Name("credentialID")]
         public string CredentialID { get; private set; } = "";
 
@@ -30,7 +28,7 @@ namespace vIDsafe
 
         [Ignore]
         [JsonIgnore]
-        public CredentialStatus Status => _status;
+        public CredentialStatus Status { get; set; } = CredentialStatus.Safe;
 
         public enum CredentialStatus
         {
@@ -50,28 +48,23 @@ namespace vIDsafe
             Notes = notes;
         }
 
-        public void SetStatus(CredentialStatus status)
-        {
-            _status = status;
-        }
-
-        public CredentialStatus GetStatus(Vault vault, Identity identity)
+        public void CalculateStatus(Vault vault, Identity identity)
         {
             if (CheckBreached(identity.BreachedDomains, URL))
             {
-                return CredentialStatus.Compromised;
+                Status = CredentialStatus.Compromised;
             }
             else if (CheckConflict(vault.Identities, Username, Password))
             {
-                return CredentialStatus.Conflicted;
+                Status = CredentialStatus.Conflicted;
             }
             else if (CheckWeak(Password))
             {
-                return CredentialStatus.Weak;
+                Status = CredentialStatus.Weak;
             }
             else
             {
-                return CredentialStatus.Safe;
+                Status = CredentialStatus.Safe;
             }
         }
 

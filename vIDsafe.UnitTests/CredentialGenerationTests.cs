@@ -49,9 +49,9 @@ namespace vIDsafe.Tests
 
             string passphrase = CredentialGeneration.GeneratePassword();
 
+            //Assert
             int wordCount = passphrase.Split('-').Length;
 
-            //Assert
             Assert.AreEqual(passphraseLength, wordCount);
         }
 
@@ -65,7 +65,6 @@ namespace vIDsafe.Tests
             double strength = CredentialGeneration.CheckStrength(password);
 
             //Assert
-
             bool expected = strength >= 30;
 
             Assert.IsTrue(expected);

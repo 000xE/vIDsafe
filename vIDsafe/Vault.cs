@@ -35,16 +35,16 @@ namespace vIDsafe
         public int TotalCredentialCount => _totalCredentialCount;
 
         [JsonIgnore]
-        public int TotalSafeCredentials => _totalCredentialCounts[Credential.CredentialStatus.Safe];
+        public int TotalSafeCredentialCount => _totalCredentialCounts[Credential.CredentialStatus.Safe];
 
         [JsonIgnore]
-        public int TotalCompromisedCredentials => _totalCredentialCounts[Credential.CredentialStatus.Compromised];
+        public int TotalCompromisedCredentialCount => _totalCredentialCounts[Credential.CredentialStatus.Compromised];
 
         [JsonIgnore]
-        public int TotalConflictCredentials => _totalCredentialCounts[Credential.CredentialStatus.Conflicted];
+        public int TotalConflictCredentialCount => _totalCredentialCounts[Credential.CredentialStatus.Conflicted];
 
         [JsonIgnore]
-        public int TotalWeakCredentials => _totalCredentialCounts[Credential.CredentialStatus.Weak];
+        public int TotalWeakCredentialCount => _totalCredentialCounts[Credential.CredentialStatus.Weak];
 
         public Dictionary<string, Identity> Identities => _identities;
 
@@ -100,14 +100,14 @@ namespace vIDsafe
 
         public bool TryChangeIdentityEmail(string oldEmail, string newEmail)
         {
-            Identity identity = _identities[oldEmail];
-
             if (_identities.ContainsKey(newEmail))
             {
                 return false;
             }
             else
             {
+                Identity identity = _identities[oldEmail];
+
                 DeleteIdentity(oldEmail);
 
                 identity.Email = newEmail;
@@ -127,20 +127,27 @@ namespace vIDsafe
 
         public void DeleteAllIdentities()
         {
-            _identities.Clear();
+            Identities.Clear();
         }
 
         public void DeleteAllCredentials()
         {
             foreach (KeyValuePair<string, Identity> identity in _identities)
             {
-                identity.Value.Credentials.Clear();
+                identity.Value.DeleteAllCredentials();
             }
         }
 
         public Dictionary<DateTime, string> GetLogs(LogType key)
         {
-            return _logs[key];
+            if (_logs.ContainsKey(key))
+            {
+                return _logs[key];
+            }
+            else
+            {
+                return new Dictionary<DateTime, string>();
+            }
         }
 
         public KeyValuePair<DateTime, string> Log(LogType key, string log)

@@ -81,13 +81,13 @@ jobs:
         # uses: darenm/Setup-VSTest@fbb574e849d6225ce9702f86e64eb6cdc4b4e561
         uses: darenm/Setup-VSTest@v1
                 
-      - name: Derive key test
+      - name: Testing key derivation
         run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /tests:DeriveKeyTest
 
-      - name: Encryption test
+      - name: Testing AES encryption
         run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /tests:AesEncryptTest
         
-      - name: Decryption test
+      - name: Testing AES decryption
         run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /tests:AesDecryptTest
         
   Test-Master-Account:
@@ -123,7 +123,7 @@ jobs:
         # uses: darenm/Setup-VSTest@fbb574e849d6225ce9702f86e64eb6cdc4b4e561
         uses: darenm/Setup-VSTest@v1
                 
-      - name: Import vault test
+      - name: Testing vault import
         run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /tests:ImportVaultTest
 
   Test-Vault:
@@ -159,7 +159,7 @@ jobs:
         # uses: darenm/Setup-VSTest@fbb574e849d6225ce9702f86e64eb6cdc4b4e561
         uses: darenm/Setup-VSTest@v1
                 
-      - name: Vault health score test
+      - name: Testing vault health score calculation
         run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /tests:CalculateOverallHealthScoreTest
         
   Test-Identity:
@@ -195,7 +195,7 @@ jobs:
         # uses: darenm/Setup-VSTest@fbb574e849d6225ce9702f86e64eb6cdc4b4e561
         uses: darenm/Setup-VSTest@v1
                 
-      - name: Identity health score test
+      - name: Testing identity health score calculation
         run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /tests:CalculateHealthScoreTest
 
   Test-Credential:
@@ -231,7 +231,7 @@ jobs:
         # uses: darenm/Setup-VSTest@fbb574e849d6225ce9702f86e64eb6cdc4b4e561
         uses: darenm/Setup-VSTest@v1
                 
-      - name: Status test
+      - name: Testing credential status
         run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /tests:GetStatusTest
 
   Test-Credential-Generation:
@@ -267,13 +267,13 @@ jobs:
         # uses: darenm/Setup-VSTest@fbb574e849d6225ce9702f86e64eb6cdc4b4e561
         uses: darenm/Setup-VSTest@v1
                 
-      - name: Username generation test
+      - name: Testing username generation
         run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /tests:GenerateUsernameTest
 
-      - name: Password generation test
+      - name: Testing password/passphrase generation
         run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /tests:GeneratePasswordTest
         
-      - name: Strength test
+      - name: Testing password strength
         run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /tests:CheckStrengthTest
 
         

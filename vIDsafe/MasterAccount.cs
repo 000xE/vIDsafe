@@ -286,7 +286,7 @@ namespace vIDsafe
         //Todo: Refactor the asynchronisation?
         public async Task<bool> ExportVaultAsync(VaultFormat format, string selectedEmail, string fileName)
         {
-            Vault vault = new Vault();
+            Vault vault = Vault;
 
             bool canExport = false;
 
@@ -296,11 +296,8 @@ namespace vIDsafe
 
                 if (selectedEmail.Length > 0)
                 {
+                    vault.DeleteAllIdentities();
                     vault.Identities.Add(selectedEmail, Vault.Identities[selectedEmail]);
-                }
-                else
-                {
-                    vault = Vault;
                 }
 
                 try
@@ -354,7 +351,6 @@ namespace vIDsafe
 
             return canExport;
         }
-
 
         public void Logout()
         {

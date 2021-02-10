@@ -12,7 +12,7 @@ namespace vIDsafe.Tests
     public class CredentialTests
     {
         [TestMethod()]
-        public void GetStatusTest()
+        public void CalculateStatus()
         {
             //Arrange
             Vault vault = new Vault();
@@ -29,8 +29,9 @@ namespace vIDsafe.Tests
 
             //Assert
             Credential.CredentialStatus expectedStatus = Credential.CredentialStatus.Conflicted;
+            credential2.CalculateStatus(vault, identity);
 
-            Assert.AreEqual(expectedStatus, credential2.GetStatus(vault, identity));
+            Assert.AreEqual(expectedStatus, credential2.Status);
         }
     }
 }

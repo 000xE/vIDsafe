@@ -208,10 +208,10 @@ namespace vIDsafe
         {
             identity.CalculateHealthScore(true);
 
-            int safeCount = identity.SafeCredentials;
-            int weakCount = identity.WeakCredentials;
-            int conflictCount = identity.ConflictCredentials;
-            int compromisedCount = identity.CompromisedCredentials;
+            int safeCount = identity.SafeCredentialCount;
+            int weakCount = identity.WeakCredentialCount;
+            int conflictCount = identity.ConflictCredentialCount;
+            int compromisedCount = identity.CompromisedCredentialCount;
 
             chartCredentials.Series["Credentials"].Points[0].SetValueXY("Safe", safeCount);
             chartCredentials.Series["Credentials"].Points[1].SetValueXY("Weak", weakCount);

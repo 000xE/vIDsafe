@@ -41,19 +41,19 @@ namespace vIDsafe
 
         [Ignore]
         [JsonIgnore]
-        public int SafeCredentials => _credentialCounts[Credential.CredentialStatus.Safe];
+        public int SafeCredentialCount => _credentialCounts[Credential.CredentialStatus.Safe];
 
         [Ignore]
         [JsonIgnore]
-        public int CompromisedCredentials => _credentialCounts[Credential.CredentialStatus.Compromised];
+        public int CompromisedCredentialCount => _credentialCounts[Credential.CredentialStatus.Compromised];
 
         [Ignore]
         [JsonIgnore]
-        public int WeakCredentials => _credentialCounts[Credential.CredentialStatus.Weak];
+        public int WeakCredentialCount => _credentialCounts[Credential.CredentialStatus.Weak];
 
         [Ignore]
         [JsonIgnore]
-        public int ConflictCredentials => _credentialCounts[Credential.CredentialStatus.Conflicted];
+        public int ConflictCredentialCount => _credentialCounts[Credential.CredentialStatus.Conflicted];
 
         public Dictionary<string, string> BreachedDomains => _breachedDomains;
 
@@ -111,17 +111,17 @@ namespace vIDsafe
             return credential;
         }
 
-        public void DeleteAllCredentials()
-        {
-            Credentials.Clear();
-        }
-
         public void DeleteCredential(string key)
         {
             if (_credentials.ContainsKey(key))
             {
                 _credentials.Remove(key);
             }
+        }
+
+        public void DeleteAllCredentials()
+        {
+            _credentials.Clear();
         }
 
         public async Task<Dictionary<string, string>> GetBreaches(string email, bool useAPI)
@@ -176,7 +176,7 @@ namespace vIDsafe
             {
                 Credential credential = credentialPair.Value;
 
-                credential.SetStatus(credential.GetStatus(_vault, this));
+                credential.CalculateStatus(_vault, this);
             }
         }
 

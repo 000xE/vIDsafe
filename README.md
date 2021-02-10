@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <a style="text-decoration:none" href="https://www.codefactor.io/repository/github/outerme/1808827-fyp/badge">
+  <a style="text-decoration:none" href="https://www.codefactor.io/repository/github/outerme/1808827-fyp">
     <img src="https://www.codefactor.io/repository/github/outerme/1808827-fyp/badge" alt="CodeFactor" />
   </a>
   <a style="text-decoration:none" href="https://github.com/outerme/1808827-FYP/releases">
@@ -17,7 +17,6 @@
     <img src="https://github.com/outerme/1808827-FYP/workflows/CI/badge.svg" alt="Tests" />
   </a>
 </p>
-
 
 ## Specification
 
@@ -63,9 +62,9 @@
 
 ### Non-functional requirements
 
-- [ ] Ensure the encryption/decryption of the vault is optimally fast and secure.
-- [ ] Ensure the user interface is clear, concise, and pleasant to use
-- [ ] Ensure the application is easy to use
+- [x] Ensure the encryption/decryption of the vault is optimally fast and secure.
+- [x] Ensure the user interface is clear, concise, and pleasant to use
+- [x] Ensure the application is easy to use
 
 ## The minutes of meetings
 

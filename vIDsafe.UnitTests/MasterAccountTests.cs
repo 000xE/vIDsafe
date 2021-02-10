@@ -16,5 +16,11 @@ namespace vIDsafe.Tests
         {
             Assert.Fail();
         }
+
+        [TestMethod()]
+        public void ExportVaultAsyncTest()
+        {
+            Assert.Fail();
+        }
     }
 }

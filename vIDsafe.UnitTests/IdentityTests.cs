@@ -20,7 +20,7 @@ namespace vIDsafe.Tests
 
             //Act
             identity.GenerateCredential();
-            identity.GenerateCredential().SetStatus(Credential.CredentialStatus.Weak);
+            identity.GenerateCredential().Status = Credential.CredentialStatus.Weak;
 
             identity.CalculateHealthScore(false);
 
@@ -28,6 +28,22 @@ namespace vIDsafe.Tests
             int expectedHealthScore = 50;
 
             Assert.AreEqual(expectedHealthScore, identity.HealthScore);
+        }
+
+        [TestMethod()]
+        public void DeleteAllCredentialsTest()
+        {
+            //Arrange
+            Vault vault = new Vault();
+            Identity identity = vault.GenerateIdentity();
+
+            //Act
+            vault.DeleteAllCredentials();
+
+            //Assert
+            int expectedCredentialCount = 0;
+
+            Assert.AreEqual(expectedCredentialCount, identity.Credentials.Count);
         }
     }
 }

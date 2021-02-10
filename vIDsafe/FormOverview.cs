@@ -152,10 +152,10 @@ namespace vIDsafe
 
         private void DisplayCredentialInformation()
         {
-            int safeCount = FormvIDsafe.Main.User.Vault.TotalSafeCredentials;
-            int weakCount = FormvIDsafe.Main.User.Vault.TotalWeakCredentials;
-            int conflictCount = FormvIDsafe.Main.User.Vault.TotalConflictCredentials;
-            int compromisedCount = FormvIDsafe.Main.User.Vault.TotalCompromisedCredentials;
+            int safeCount = FormvIDsafe.Main.User.Vault.TotalSafeCredentialCount;
+            int weakCount = FormvIDsafe.Main.User.Vault.TotalWeakCredentialCount;
+            int conflictCount = FormvIDsafe.Main.User.Vault.TotalConflictCredentialCount;
+            int compromisedCount = FormvIDsafe.Main.User.Vault.TotalCompromisedCredentialCount;
 
             chartCredentials.Series["Credentials"].Points[0].SetValueXY("Safe", safeCount);
             chartCredentials.Series["Credentials"].Points[1].SetValueXY("Weak", weakCount);
@@ -171,7 +171,7 @@ namespace vIDsafe
             {
                 Identity identity = identityPair.Value;
 
-                int breachCount = identity.CompromisedCredentials;
+                int breachCount = identity.CompromisedCredentialCount;
 
                 if (breachCount > 0)
                 {
@@ -180,7 +180,7 @@ namespace vIDsafe
                     DisplayAlert(identity.Name, alert);
                 }
 
-                int conflictCount = identity.ConflictCredentials;
+                int conflictCount = identity.ConflictCredentialCount;
 
                 if (conflictCount > 0)
                 {
@@ -189,7 +189,7 @@ namespace vIDsafe
                     DisplayAlert(identity.Name, alert);
                 }
 
-                int weakCount = identity.WeakCredentials;
+                int weakCount = identity.WeakCredentialCount;
 
                 if (weakCount > 0)
                 {
