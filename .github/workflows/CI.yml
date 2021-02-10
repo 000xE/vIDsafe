@@ -49,11 +49,11 @@ jobs:
         working-directory: ${{env.working-directory}}
         run: msbuild ..\vIDsafe.UnitTests\vIDsafe.UnitTests.csproj /p:Configuration=Release
         
-      - name: Upload test source file
+      - name: Upload test build
         uses: actions/upload-artifact@v2
         with:
-          name: test-file
-          path: vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll
+          name: test-build
+          path: vIDsafe.UnitTests
         
       - name: Save cache
         uses: actions/cache@v2
@@ -77,10 +77,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         
-      - name: Download test source file
+      - name: Download test build
         uses: actions/download-artifact@v2
         with:
-          name: test-file
+          name: test-build
           
       - name: Restore cache
         uses: actions/cache@v2
@@ -96,7 +96,7 @@ jobs:
         uses: darenm/Setup-VSTest@v1
                 
       - name: Run encryption tests
-        run: vstest.console.exe "vIDsafe.UnitTests.dll" /testcasefilter:FullyQualifiedName~vIDsafe.Tests.EncryptionTests
+        run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /testcasefilter:FullyQualifiedName~vIDsafe.Tests.EncryptionTests
 
       - name: Run master account tests
         run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /testcasefilter:FullyQualifiedName~vIDsafe.Tests.MasterAccountTests
