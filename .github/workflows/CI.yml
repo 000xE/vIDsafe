@@ -48,7 +48,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nuget-
                   
-  # This workflow contains a single job called "build"
   Test-Encryption:
     needs: Restore-Dependencies
     # The type of runner that the job will run on
@@ -83,11 +82,208 @@ jobs:
         uses: darenm/Setup-VSTest@v1
                 
       - name: Derive key test
+        continue-on-error: true
         run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /tests:DeriveKeyTest
 
       - name: Encryption test
+        continue-on-error: true
         run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /tests:AesEncryptTest
         
-      - name: Decryption tests
+      - name: Decryption test
+        continue-on-error: true
         run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /tests:AesDecryptTest
+        
+  Test-Master-Account:
+    needs: Restore-Dependencies
+    # The type of runner that the job will run on
+    runs-on: [windows-latest]
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    env:
+      working-directory: ./vIDsafe
+      
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout
+        uses: actions/checkout@v2
+          
+      - name: Restore cache
+        uses: actions/cache@v2
+        with:
+          path: ${{env.working-directory}}/packages
+          key: test-${{ runner.os }}-${{ hashFiles('**/packages.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+            
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1
+        
+      - name: Build the solution
+        working-directory: ${{env.working-directory}}
+        run: msbuild ..\vIDsafe.UnitTests\vIDsafe.UnitTests.csproj /p:Configuration=Release
+              
+      - name: Setup VSTest.console.exe
+        # You may pin to the exact commit or the version.
+        # uses: darenm/Setup-VSTest@fbb574e849d6225ce9702f86e64eb6cdc4b4e561
+        uses: darenm/Setup-VSTest@v1
+                
+      - name: Import vault test
+        continue-on-error: true
+        run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /tests:ImportVaultTest
+
+  Test-Vault:
+    needs: Restore-Dependencies
+    # The type of runner that the job will run on
+    runs-on: [windows-latest]
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    env:
+      working-directory: ./vIDsafe
+      
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout
+        uses: actions/checkout@v2
+          
+      - name: Restore cache
+        uses: actions/cache@v2
+        with:
+          path: ${{env.working-directory}}/packages
+          key: test-${{ runner.os }}-${{ hashFiles('**/packages.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+            
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1
+        
+      - name: Build the solution
+        working-directory: ${{env.working-directory}}
+        run: msbuild ..\vIDsafe.UnitTests\vIDsafe.UnitTests.csproj /p:Configuration=Release
+              
+      - name: Setup VSTest.console.exe
+        # You may pin to the exact commit or the version.
+        # uses: darenm/Setup-VSTest@fbb574e849d6225ce9702f86e64eb6cdc4b4e561
+        uses: darenm/Setup-VSTest@v1
+                
+      - name: Vault health score test
+        continue-on-error: true
+        run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /tests:CalculateOverallHealthScoreTest
+        
+  Test-Identity:
+    needs: Restore-Dependencies
+    # The type of runner that the job will run on
+    runs-on: [windows-latest]
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    env:
+      working-directory: ./vIDsafe
+      
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout
+        uses: actions/checkout@v2
+          
+      - name: Restore cache
+        uses: actions/cache@v2
+        with:
+          path: ${{env.working-directory}}/packages
+          key: test-${{ runner.os }}-${{ hashFiles('**/packages.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+            
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1
+        
+      - name: Build the solution
+        working-directory: ${{env.working-directory}}
+        run: msbuild ..\vIDsafe.UnitTests\vIDsafe.UnitTests.csproj /p:Configuration=Release
+              
+      - name: Setup VSTest.console.exe
+        # You may pin to the exact commit or the version.
+        # uses: darenm/Setup-VSTest@fbb574e849d6225ce9702f86e64eb6cdc4b4e561
+        uses: darenm/Setup-VSTest@v1
+                
+      - name: Identity health score test
+        continue-on-error: true
+        run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /tests:CalculateHealthScoreTest
+
+  Test-Credential:
+    needs: Restore-Dependencies
+    # The type of runner that the job will run on
+    runs-on: [windows-latest]
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    env:
+      working-directory: ./vIDsafe
+      
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout
+        uses: actions/checkout@v2
+          
+      - name: Restore cache
+        uses: actions/cache@v2
+        with:
+          path: ${{env.working-directory}}/packages
+          key: test-${{ runner.os }}-${{ hashFiles('**/packages.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+            
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1
+        
+      - name: Build the solution
+        working-directory: ${{env.working-directory}}
+        run: msbuild ..\vIDsafe.UnitTests\vIDsafe.UnitTests.csproj /p:Configuration=Release
+              
+      - name: Setup VSTest.console.exe
+        # You may pin to the exact commit or the version.
+        # uses: darenm/Setup-VSTest@fbb574e849d6225ce9702f86e64eb6cdc4b4e561
+        uses: darenm/Setup-VSTest@v1
+                
+      - name: Status test
+        continue-on-error: true
+        run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /tests:GetStatusTest
+
+  Test-Credential-Generation:
+    needs: Restore-Dependencies
+    # The type of runner that the job will run on
+    runs-on: [windows-latest]
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    env:
+      working-directory: ./vIDsafe
+      
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout
+        uses: actions/checkout@v2
+          
+      - name: Restore cache
+        uses: actions/cache@v2
+        with:
+          path: ${{env.working-directory}}/packages
+          key: test-${{ runner.os }}-${{ hashFiles('**/packages.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+            
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1
+        
+      - name: Build the solution
+        working-directory: ${{env.working-directory}}
+        run: msbuild ..\vIDsafe.UnitTests\vIDsafe.UnitTests.csproj /p:Configuration=Release
+              
+      - name: Setup VSTest.console.exe
+        # You may pin to the exact commit or the version.
+        # uses: darenm/Setup-VSTest@fbb574e849d6225ce9702f86e64eb6cdc4b4e561
+        uses: darenm/Setup-VSTest@v1
+                
+      - name: Username generation test
+        continue-on-error: true
+        run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /tests:GenerateUsernameTest
+
+      - name: Password generation test
+        continue-on-error: true
+        run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /tests:GeneratePasswordTest
+        
+      - name: Strength test
+        continue-on-error: true
+        run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /tests:CheckStrengthTest
+
         
