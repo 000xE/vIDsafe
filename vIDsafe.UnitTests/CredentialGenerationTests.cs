@@ -59,6 +59,8 @@ namespace vIDsafe.Tests
         public void CheckStrengthTest()
         {
             //Arrange
+            int passwordLength = 20;
+            CredentialGeneration.CurrentPasswordLength = passwordLength;
             string password = CredentialGeneration.GeneratePassword();
 
             //Act
