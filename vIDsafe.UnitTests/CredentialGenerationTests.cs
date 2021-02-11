@@ -64,13 +64,11 @@ namespace vIDsafe.Tests
             CredentialGeneration.PasswordSettings[2] = true;
             CredentialGeneration.PasswordSettings[3] = true;
 
-            int passwordLength = 120;
+            int passwordLength = 50;
 
             CredentialGeneration.CurrentPasswordLength = passwordLength;
 
             string password = CredentialGeneration.GeneratePassword();
-
-            Console.WriteLine(password);
 
             //Act
             double strength = CredentialGeneration.CheckStrength(password);
