@@ -81,15 +81,9 @@ jobs:
         # uses: darenm/Setup-VSTest@fbb574e849d6225ce9702f86e64eb6cdc4b4e561
         uses: darenm/Setup-VSTest@v1
                 
-      - name: Testing key derivation
-        run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /tests:DeriveKeyTest
-
-      - name: Testing AES encryption
-        run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /tests:AesEncryptTest
-        
-      - name: Testing AES decryption
-        run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /tests:AesDecryptTest
-        
+      - name: Run encryption tests
+        run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /testcasefilter:FullyQualifiedName~vIDsafe.Tests.EncryptionTests
+                
   Test-Master-Account:
     needs: Restore-Dependencies
     # The type of runner that the job will run on
@@ -123,9 +117,9 @@ jobs:
         # uses: darenm/Setup-VSTest@fbb574e849d6225ce9702f86e64eb6cdc4b4e561
         uses: darenm/Setup-VSTest@v1
                 
-      - name: Testing vault import
-        run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /tests:ImportVaultTest
-
+      - name: Run master account tests
+        run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /testcasefilter:FullyQualifiedName~vIDsafe.Tests.MasterAccountTests
+        
   Test-Vault:
     needs: Restore-Dependencies
     # The type of runner that the job will run on
@@ -159,9 +153,9 @@ jobs:
         # uses: darenm/Setup-VSTest@fbb574e849d6225ce9702f86e64eb6cdc4b4e561
         uses: darenm/Setup-VSTest@v1
                 
-      - name: Testing vault health score calculation
-        run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /tests:CalculateOverallHealthScoreTest
-        
+      - name: Run vault tests
+        run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /testcasefilter:FullyQualifiedName~vIDsafe.Tests.VaultTests
+                
   Test-Identity:
     needs: Restore-Dependencies
     # The type of runner that the job will run on
@@ -195,9 +189,9 @@ jobs:
         # uses: darenm/Setup-VSTest@fbb574e849d6225ce9702f86e64eb6cdc4b4e561
         uses: darenm/Setup-VSTest@v1
                 
-      - name: Testing identity health score calculation
-        run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /tests:CalculateHealthScoreTest
-
+      - name: Run identity tests
+        run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /testcasefilter:FullyQualifiedName~vIDsafe.Tests.IdentityTests
+        
   Test-Credential:
     needs: Restore-Dependencies
     # The type of runner that the job will run on
@@ -231,9 +225,9 @@ jobs:
         # uses: darenm/Setup-VSTest@fbb574e849d6225ce9702f86e64eb6cdc4b4e561
         uses: darenm/Setup-VSTest@v1
                 
-      - name: Testing credential status
-        run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /tests:GetStatusTest
-
+      - name: Run credential tests
+        run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /testcasefilter:FullyQualifiedName~vIDsafe.Tests.CredentialTests
+        
   Test-Credential-Generation:
     needs: Restore-Dependencies
     # The type of runner that the job will run on
@@ -267,13 +261,6 @@ jobs:
         # uses: darenm/Setup-VSTest@fbb574e849d6225ce9702f86e64eb6cdc4b4e561
         uses: darenm/Setup-VSTest@v1
                 
-      - name: Testing username generation
-        run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /tests:GenerateUsernameTest
-
-      - name: Testing password/passphrase generation
-        run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /tests:GeneratePasswordTest
-        
-      - name: Testing password strength
-        run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /tests:CheckStrengthTest
-
+      - name: Run credential generation tests
+        run: vstest.console.exe "vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll" /testcasefilter:FullyQualifiedName~vIDsafe.Tests.CredentialGenerationTests
         
