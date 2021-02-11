@@ -47,6 +47,19 @@ jobs:
           key: test-${{ runner.os }}-${{ hashFiles('**/packages.json') }}
           restore-keys: |
             ${{ runner.os }}-nuget-
+            
+      - name: Build the solution
+        working-directory: ${{env.working-directory}}
+        run: msbuild ..\vIDsafe.UnitTests\vIDsafe.UnitTests.csproj /p:Configuration=Release         
+              
+      - name: Upload test build
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-build
+          path: vIDsafe.UnitTests
+
+      - name: Save cache
+        uses: actions/cache@v2
                   
   Test-Encryption:
     needs: Restore-Dependencies
@@ -72,10 +85,12 @@ jobs:
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1
         
-      - name: Build the solution
-        working-directory: ${{env.working-directory}}
-        run: msbuild ..\vIDsafe.UnitTests\vIDsafe.UnitTests.csproj /p:Configuration=Release
-              
+      - name: Download test build
+        uses: actions/download-artifact@v2
+        with:
+          name: test-build
+          path: vIDsafe.UnitTests
+        
       - name: Setup VSTest.console.exe
         # You may pin to the exact commit or the version.
         # uses: darenm/Setup-VSTest@fbb574e849d6225ce9702f86e64eb6cdc4b4e561
