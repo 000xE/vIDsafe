@@ -57,9 +57,6 @@ jobs:
         with:
           name: test-build
           path: vIDsafe.UnitTests
-
-      - name: Save cache
-        uses: actions/cache@v2
                   
   Test-Encryption:
     needs: Restore-Dependencies
