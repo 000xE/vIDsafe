@@ -59,11 +59,6 @@ namespace vIDsafe.Tests
         public void CheckStrengthTest()
         {
             //Arrange
-            CredentialGeneration.PasswordSettings[0] = true;
-            CredentialGeneration.PasswordSettings[1] = true;
-            CredentialGeneration.PasswordSettings[2] = true;
-            CredentialGeneration.PasswordSettings[3] = true;
-
             int passwordLength = 50;
 
             CredentialGeneration.CurrentPasswordLength = passwordLength;
@@ -74,7 +69,9 @@ namespace vIDsafe.Tests
             double strength = CredentialGeneration.CheckStrength(password);
 
             //Assert
-            bool expected = strength >= 30;
+            double strengthThreshold = 30.0;
+
+            bool expected = strength >= strengthThreshold;
 
             Assert.IsTrue(expected);
         }
