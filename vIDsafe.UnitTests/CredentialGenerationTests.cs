@@ -69,6 +69,9 @@ namespace vIDsafe.Tests
             double strength = CredentialGeneration.CheckStrength(password);
 
             //Assert
+            Console.WriteLine("Password: " + password);
+            Console.WriteLine("Strength: " + strength);
+
             double strengthThreshold = 30.0;
 
             bool expected = strength >= strengthThreshold;
