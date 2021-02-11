@@ -15,7 +15,10 @@ namespace vIDsafe
         private const int _keySize = 256;
 
         private const int _ivSize = _blockSize / 8;
+
+        //HASHING VARIABLES
         private const int _hashSize = _keySize / 8;
+        private const int _hashIterations = 100000; //Work factor, higher = longer
 
         public enum KeyDerivationFunction
         {
@@ -35,7 +38,6 @@ namespace vIDsafe
             switch (keyDerivationFunction)
             {
                 case KeyDerivationFunction.PBKDF2:
-                    int _hashIterations = 100000; //Work factor, higher = longer
                     using (Rfc2898DeriveBytes pbkdf2 = new Rfc2898DeriveBytes(secret, convertedSalt, _hashIterations))
                     {
                         derivedKey = pbkdf2.GetBytes(_hashSize);

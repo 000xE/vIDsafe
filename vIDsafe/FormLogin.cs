@@ -30,7 +30,12 @@ namespace vIDsafe
 
                 FormvIDsafe.Main.User = new MasterAccount();
 
-                bool canLogin = await FormvIDsafe.Main.User.TryLogin(name, password); 
+                bool canLogin = false;
+
+                await Task.Run(() =>
+                {
+                    canLogin = FormvIDsafe.Main.User.TryLogin(name, password);
+                });
 
                 if (canLogin.Equals(true))
                 {

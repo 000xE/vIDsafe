@@ -124,6 +124,7 @@ namespace vIDsafe
             _credentials.Clear();
         }
 
+        //Todo: refactor async?
         public async Task<Dictionary<string, string>> GetBreaches(string email, bool useAPI)
         {
             await Task.Run(() =>

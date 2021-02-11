@@ -128,7 +128,12 @@ namespace vIDsafe
             {
                 EnableMasterAccountComponents(false);
 
-                bool canChangeName = await FormvIDsafe.Main.User.TryChangeName(currentPassword, newName);
+                bool canChangeName = false;
+
+                await Task.Run(() =>
+                {
+                    canChangeName = FormvIDsafe.Main.User.TryChangeName(currentPassword, newName);
+                });
 
                 if (canChangeName.Equals(true))
                 {
@@ -161,7 +166,12 @@ namespace vIDsafe
             {
                 EnableMasterAccountComponents(false);
 
-                bool canChangePass = await FormvIDsafe.Main.User.TryChangePassword(currentPassword, newPassword);
+                bool canChangePass = false;
+
+                await Task.Run(() =>
+                {
+                    canChangePass = FormvIDsafe.Main.User.TryChangePassword(currentPassword, newPassword);
+                });
 
                 if (canChangePass.Equals(true))
                 {

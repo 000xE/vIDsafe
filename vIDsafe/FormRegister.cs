@@ -31,7 +31,12 @@ namespace vIDsafe
 
                 FormvIDsafe.Main.User = new MasterAccount();
 
-                bool canRegister = await FormvIDsafe.Main.User.TryRegister(name, password);
+                bool canRegister = false;
+
+                await Task.Run(() =>
+                {
+                    canRegister = FormvIDsafe.Main.User.TryRegister(name, password);
+                });
 
                 if (canRegister.Equals(true))
                 {

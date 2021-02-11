@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace vIDsafe
@@ -101,7 +102,12 @@ namespace vIDsafe
 
             MasterAccount.VaultFormat format = GetFormat(formatIndex);
 
-            bool canImport = await FormvIDsafe.Main.User.ImportVault(format, fileName, replace);
+            bool canImport = false;
+
+            await Task.Run(() =>
+            {
+                canImport = FormvIDsafe.Main.User.TryImportVault(format, fileName, replace);
+            });
 
             if (canImport)
             {
@@ -137,7 +143,12 @@ namespace vIDsafe
 
             MasterAccount.VaultFormat format = GetFormat(formatIndex);
 
-            bool canExport = await FormvIDsafe.Main.User.ExportVaultAsync(format, selectedEmail, fileName);
+            bool canExport = false;
+
+            await Task.Run(() =>
+            {
+                canExport = FormvIDsafe.Main.User.TryExportVault(format, selectedEmail, fileName);
+            });
 
             if (canExport)
             {
