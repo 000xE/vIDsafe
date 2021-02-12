@@ -124,29 +124,25 @@ namespace vIDsafe
             _credentials.Clear();
         }
 
-        //Todo: refactor async?
-        public async Task<Dictionary<string, string>> GetBreaches(string email, bool useAPI)
+        public Dictionary<string, string> GetBreaches(string email, bool useAPI)
         {
-            await Task.Run(() =>
+            if (useAPI)
             {
-                if (useAPI)
+                List<ExposureDetails> exposureDetails = EnzoicAPI.GetExposureDetails(email);
+
+                _breachedDomains.Clear();
+
+                if (exposureDetails.Count > 0)
                 {
-                    List<ExposureDetails> exposureDetails = EnzoicAPI.GetExposureDetails(email);
-
-                    _breachedDomains.Clear();
-
-                    if (exposureDetails.Count > 0)
+                    foreach (ExposureDetails detail in exposureDetails)
                     {
-                        foreach (ExposureDetails detail in exposureDetails)
+                        if (!_breachedDomains.ContainsKey(detail.Title))
                         {
-                            if (!_breachedDomains.ContainsKey(detail.Title))
-                            {
-                                _breachedDomains.Add(detail.Title, detail.Date.ToString());
-                            }
+                            _breachedDomains.Add(detail.Title, detail.Date.ToString());
                         }
                     }
                 }
-            });
+            }
 
             return _breachedDomains;
         }

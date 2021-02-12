@@ -7,6 +7,7 @@ using System.Net.Mail;
 using System.Text;
 using System.Windows.Forms;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace vIDsafe
 {
@@ -115,7 +116,7 @@ namespace vIDsafe
                     if (TryChangeIdentityEmail(selectedEmail, identityEmail))
                     {
                         cmbIdentity.Items[selectedIdentityIndex] = identityEmail;
-                        GetBreachedData(identityEmail, true);
+                        GetBreachedDataAsync(identityEmail, true);
                     }
                 }
 
@@ -138,7 +139,7 @@ namespace vIDsafe
             }
         }
 
-        private async void GetBreachedData(string selectedEmail, bool useAPI)
+        private async void GetBreachedDataAsync(string selectedEmail, bool useAPI)
         {
             if (useAPI)
             {
@@ -148,10 +149,13 @@ namespace vIDsafe
 
             Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedEmail];
 
-            Dictionary<string, string> breachedDomains = await identity.GetBreaches(selectedEmail, useAPI);
-            EnableIdentityComponents(true);
+            await Task.Run(() =>
+            {
+                Dictionary<string, string> breachedDomains = identity.GetBreaches(selectedEmail, useAPI);
+                EnableIdentityComponents(true);
 
-            DisplayBreaches(breachedDomains);
+                DisplayBreaches(breachedDomains);
+            });
         }
 
         private void DisplayBreaches(Dictionary<string, string> domains)
@@ -195,7 +199,7 @@ namespace vIDsafe
 
             Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedEmail];
 
-            GetBreachedData(selectedEmail, false);
+            GetBreachedDataAsync(selectedEmail, false);
 
             txtIdentityName.Text = identity.Name;
             txtIdentityEmail.Text = identity.Email;
@@ -284,7 +288,7 @@ namespace vIDsafe
 
         private void Refresh(string selectedEmail)
         {
-            GetBreachedData(selectedEmail, true);
+            GetBreachedDataAsync(selectedEmail, true);
         }
     }
 }

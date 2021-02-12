@@ -112,7 +112,7 @@ namespace vIDsafe
 
         private void btnChangeDetails_Click(object sender, EventArgs e)
         {
-            ChangeName(txtCurrentPassword.Text, txtName.Text);
+            ChangeNameAsync(txtCurrentPassword.Text, txtName.Text);
             GetLogs();
         }
 
@@ -122,7 +122,7 @@ namespace vIDsafe
             btnChangePassword.Enabled = enable;
         }
 
-        private async void ChangeName(string currentPassword, string newName)
+        private async void ChangeNameAsync(string currentPassword, string newName)
         {
             if (IsValidUsername(newName, currentPassword))
             {
@@ -155,11 +155,11 @@ namespace vIDsafe
 
         private void btnChangePassword_Click(object sender, EventArgs e)
         {
-            ChangePassword(txtCurrentPassword2.Text, txtNewPassword.Text);
+            ChangePasswordAsync(txtCurrentPassword2.Text, txtNewPassword.Text);
             GetLogs();
         }
 
-        private async void ChangePassword(string currentPassword, string newPassword)
+        private async void ChangePasswordAsync(string currentPassword, string newPassword)
         {
             //Todo: cleanup (put isvalid in btnlogin and maybe pass in confirm pass as parameter)
             if (IsValidPassword(newPassword, currentPassword))

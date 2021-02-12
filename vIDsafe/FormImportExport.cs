@@ -96,7 +96,7 @@ namespace vIDsafe
             btnExport.Enabled = enable;
         }
 
-        private async void Import(int formatIndex, bool replace, string fileName)
+        private async void ImportAsync(int formatIndex, bool replace, string fileName)
         {
             EnableImportExportComponents(false);
 
@@ -130,7 +130,7 @@ namespace vIDsafe
         }
 
         //Todo: refactor
-        private async void Export(int formatIndex, int selectedIdentityIndex, string fileName)
+        private async void ExportAsync(int formatIndex, int selectedIdentityIndex, string fileName)
         {
             EnableImportExportComponents(false);
 
@@ -245,12 +245,12 @@ namespace vIDsafe
 
         private void openFileDialog_FileOk(object sender, CancelEventArgs e)
         {
-            Import(cmbImportFormat.SelectedIndex, rdbReplace.Checked, openFileDialog.FileName);
+            ImportAsync(cmbImportFormat.SelectedIndex, rdbReplace.Checked, openFileDialog.FileName);
         }
 
         private void saveFileDialog_FileOk(object sender, CancelEventArgs e)
         {
-            Export(cmbExportFormat.SelectedIndex, cmbIdentity.SelectedIndex, saveFileDialog.FileName);
+            ExportAsync(cmbExportFormat.SelectedIndex, cmbIdentity.SelectedIndex, saveFileDialog.FileName);
         }
     }
 }

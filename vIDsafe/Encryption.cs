@@ -62,8 +62,6 @@ namespace vIDsafe
                     {
                         ms.Write(AES.IV, 0, _ivSize);
 
-                        AES.Dispose();
-
                         using (var cs = new CryptoStream(ms, encryptor, CryptoStreamMode.Write))
                         {
                             cs.Write(textBytes, 0, textBytes.Length);
