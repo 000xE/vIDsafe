@@ -15,10 +15,13 @@ namespace vIDsafe
         {
             InitializeComponent();
 
-            LoadFormComponents();
+            InitialMethods();
         }
 
-        private void LoadFormComponents()
+        /// <summary>
+        /// Initial methods to run when the form starts
+        /// </summary>
+        private void InitialMethods()
         {
             GetIdentities();
         }
@@ -43,6 +46,12 @@ namespace vIDsafe
             SetCredentialDetails(cmbIdentity.SelectedItem.ToString(), lvCredentials.SelectedItems.Count, txtUsername.Text, txtPassword.Text, txtURL.Text, txtNotes.Text);
         }
 
+        /// <summary>
+        /// Checks if the URL, username and password are valid
+        /// </summary>
+        /// <returns>
+        /// True if valid, false if not
+        /// </returns>
         private bool IsValid(string URL, string username, string password)
         {
             if (URL.Length > 0 && username.Length > 0 && password.Length > 0)
@@ -87,6 +96,9 @@ namespace vIDsafe
             SearchCredentials(cmbIdentity.SelectedItem.ToString(), txtSearchCredential.Text);
         }
 
+        /// <summary>
+        /// Generates a username based on an identity name
+        /// </summary>
         private void GenerateUsername(string selectedEmail)
         {
             Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedEmail];
@@ -94,11 +106,17 @@ namespace vIDsafe
             txtUsername.Text = CredentialGeneration.GenerateUsername(identity.Name);
         }
 
+        /// <summary>
+        /// Generates a password
+        /// </summary>
         private void GeneratePassword()
         {
             txtPassword.Text = CredentialGeneration.GeneratePassword();
         }
 
+        /// <summary>
+        /// Generates a credential for an identity
+        /// </summary>
         private void GenerateCredential(string selectedEmail)
         {
             Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedEmail];
@@ -112,6 +130,9 @@ namespace vIDsafe
             lvCredentials.Items[lastIndex].Selected = true;
         }
 
+        /// <summary>
+        /// Sets the details of a credential
+        /// </summary>
         private void SetCredentialDetails(string selectedEmail, int selectedCredentialCount, string credentialUsername, string credentialPassword, string credentialURL, string credentialNotes)
         {
             if (IsValid(credentialURL, credentialUsername, credentialPassword))
@@ -137,6 +158,9 @@ namespace vIDsafe
             }
         }
 
+        /// <summary>
+        /// Searches for a credential
+        /// </summary>
         private void SearchCredentials(string selectedEmail, string searchedText)
         {
             if (searchedText.Length > 0)
@@ -157,6 +181,9 @@ namespace vIDsafe
             ResetDetails();
         }
 
+        /// <summary>
+        /// Gets the identitie sin the vault
+        /// </summary>
         private void GetIdentities()
         {
             foreach (KeyValuePair<string, Identity> identityPair in FormvIDsafe.Main.User.Vault.Identities)
@@ -167,6 +194,9 @@ namespace vIDsafe
             ResetDetails();
         }
 
+        /// <summary>
+        /// Gets the credentials for an identity
+        /// </summary>
         private void GetCredentials(string selectedEmail)
         {
             Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedEmail];
@@ -177,6 +207,9 @@ namespace vIDsafe
             DisplayCredentials(credentials);
         }
 
+        /// <summary>
+        /// Displays the credentials for an identity
+        /// </summary>
         private void DisplayCredentials(Dictionary<string, Credential> credentials)
         {
             lvCredentials.Items.Clear();
@@ -188,6 +221,9 @@ namespace vIDsafe
             ResetDetails();
         }
 
+        /// <summary>
+        /// Display a specific credential
+        /// </summary>
         private void DisplayCredential(Credential credential)
         {
             ListViewItem lvi = new ListViewItem(credential.CredentialID);
@@ -198,6 +234,9 @@ namespace vIDsafe
             lvCredentials.Items.Add(lvi);
         }
 
+        /// <summary>
+        /// Gets the details of a credential
+        /// </summary>
         private void GetCredentialDetails(string selectedEmail, int selectedCredentialCount)
         {
             if (selectedCredentialCount > 0)
@@ -218,6 +257,9 @@ namespace vIDsafe
             ResetDetails();
         }
 
+        /// <summary>
+        /// Deletes a credential
+        /// </summary>
         private void DeleteCredential(string selectedEmail, int selectedCredentialCount)
         {
             if (selectedEmail.Length > 0)
@@ -237,6 +279,9 @@ namespace vIDsafe
         }
 
         //Todo: maybe refactor the way this method gets called?
+        /// <summary>
+        /// Resets the form components
+        /// </summary>
         private void ResetDetails()
         {
             int selectedIdentityIndex = cmbIdentity.SelectedIndex;
@@ -265,6 +310,9 @@ namespace vIDsafe
             }
         }
 
+        /// <summary>
+        /// Enables or disables form's identity components
+        /// </summary>
         private void EnableIdentityComponents(bool enabled)
         {
             btnNewCredential.Enabled = enabled;
@@ -272,6 +320,9 @@ namespace vIDsafe
             pnlVaultComponents.Visible = enabled;
         }
 
+        /// <summary>
+        /// Enables or disables form's credential components
+        /// </summary>
         private void EnableCredentialComponents(bool enabled)
         {
             txtURL.Enabled = enabled;
@@ -286,6 +337,9 @@ namespace vIDsafe
             btnGeneratePassword.Enabled = enabled;
         }
 
+        /// <summary>
+        /// Clears the input texts
+        /// </summary>
         private void ClearInputs()
         {
             txtURL.Clear();
@@ -299,6 +353,9 @@ namespace vIDsafe
             FixColumnWidths();
         }
 
+        /// <summary>
+        /// Fixes the column widths based on listview width and column count
+        /// </summary>
         private void FixColumnWidths()
         {
             lvCredentials.Columns[1].Width = lvCredentials.Width / (lvCredentials.Columns.Count - 1);
@@ -322,6 +379,9 @@ namespace vIDsafe
             }
         }
 
+        /// <summary>
+        /// Deletes all credentials for an identity
+        /// </summary>
         private void DeleteAllCredentials(string selectedEmail)
         {
             if (selectedEmail.Length > 0)

@@ -14,51 +14,55 @@ namespace vIDsafe
     {
         private readonly Vault _vault;
 
-        private int _healthScore;
-
-        private readonly Dictionary<string, Credential> _credentials;
-
-        private readonly Dictionary<Credential.CredentialStatus, int> _credentialCounts;
-
-        private readonly Dictionary<string, string> _breachedDomains;
-
+        ///<value>Get or set the identity name</value>
         [Name("name")]
         public string Name { get; set; }
 
+        ///<value>Get or set the identity email</value>
         [Name("email")]
         public string Email { get; set; }
 
+        ///<value>Get or set the identity usage</value>
         [Name("usage")]
         public string Usage { get; set; }
 
+        ///<value>Get or set the identity health score</value>
         [Ignore]
         [JsonIgnore]
-        public int HealthScore => _healthScore;
+        public int HealthScore { get; private set; }
 
-        [Ignore]
-        [JsonIgnore]
-        public Dictionary<Credential.CredentialStatus, int> CredentialCounts => _credentialCounts;
+        ///<value>Get or set the dictionary of breached doamins</value>
+        public Dictionary<string, string> BreachedDomains { get; private set; }
 
-        [Ignore]
-        [JsonIgnore]
-        public int SafeCredentialCount => _credentialCounts[Credential.CredentialStatus.Safe];
-
-        [Ignore]
-        [JsonIgnore]
-        public int CompromisedCredentialCount => _credentialCounts[Credential.CredentialStatus.Compromised];
+        ///<value>Get or set the dictionary of credentials</value>
+        public Dictionary<string, Credential> Credentials { get; private set; }
 
         [Ignore]
         [JsonIgnore]
-        public int WeakCredentialCount => _credentialCounts[Credential.CredentialStatus.Weak];
+        public Dictionary<Credential.CredentialStatus, int> CredentialCounts { get; private set; }
 
         [Ignore]
         [JsonIgnore]
-        public int ConflictCredentialCount => _credentialCounts[Credential.CredentialStatus.Conflicted];
+        public int SafeCredentialCount => CredentialCounts[Credential.CredentialStatus.Safe];
 
-        public Dictionary<string, string> BreachedDomains => _breachedDomains;
+        [Ignore]
+        [JsonIgnore]
+        public int CompromisedCredentialCount => CredentialCounts[Credential.CredentialStatus.Compromised];
 
-        public Dictionary<string, Credential> Credentials => _credentials;
+        [Ignore]
+        [JsonIgnore]
+        public int WeakCredentialCount => CredentialCounts[Credential.CredentialStatus.Weak];
 
+        [Ignore]
+        [JsonIgnore]
+        public int ConflictCredentialCount => CredentialCounts[Credential.CredentialStatus.Conflicted];
+
+        /// <summary>
+        /// Creates an identity
+        /// </summary>
+        /// <returns>
+        /// The identity
+        /// </returns>
         public Identity(Vault vault, string name, string email, string usage)
         {
             _vault = vault;
@@ -67,10 +71,10 @@ namespace vIDsafe
             Email = email;
             Usage = usage;
 
-            _credentials = new Dictionary<string, Credential>();
-            _breachedDomains = new Dictionary<string, string>();
+            Credentials = new Dictionary<string, Credential>();
+            BreachedDomains = new Dictionary<string, string>();
 
-            _credentialCounts = new Dictionary<Credential.CredentialStatus, int>()
+            CredentialCounts = new Dictionary<Credential.CredentialStatus, int>()
             {
                 [Credential.CredentialStatus.Safe] = 0,
                 [Credential.CredentialStatus.Compromised] = 0,
@@ -79,6 +83,12 @@ namespace vIDsafe
             };
         }
 
+        /// <summary>
+        /// Creates a credential with a generated ID, username and a password
+        /// </summary>
+        /// <returns>
+        /// The credential
+        /// </returns>
         public Credential GenerateCredential()
         {
             string GUID = Guid.NewGuid().ToString();
@@ -94,6 +104,12 @@ namespace vIDsafe
             return credential;
         }
 
+        /// <summary>
+        /// Find a credential by its ID if not create one
+        /// </summary>
+        /// <returns>
+        /// The credential
+        /// </returns>
         public Credential FindOrCreateCredential(string GUID, string username, string password, string url, string notes)
         {
             Credential credential;
@@ -105,71 +121,92 @@ namespace vIDsafe
             else
             {
                 credential = new Credential(GUID, username, password, url, notes);
-                _credentials.Add(GUID, credential);
+                Credentials.Add(GUID, credential);
             }
 
             return credential;
         }
 
+        /// <summary>
+        /// Deletes a credential in the identity
+        /// </summary>
         public void DeleteCredential(string key)
         {
-            if (_credentials.ContainsKey(key))
+            if (Credentials.ContainsKey(key))
             {
-                _credentials.Remove(key);
+                Credentials.Remove(key);
             }
         }
 
+        /// <summary>
+        /// Deletes all credentials in the identity
+        /// </summary>
         public void DeleteAllCredentials()
         {
-            _credentials.Clear();
+            Credentials.Clear();
         }
 
+        /// <summary>
+        /// Gets the breached data for an email address
+        /// </summary>
+        /// <returns>
+        /// The breached domains with their date/time
+        /// </returns>
         public Dictionary<string, string> GetBreaches(string email, bool useAPI)
         {
             if (useAPI)
             {
                 List<ExposureDetails> exposureDetails = EnzoicAPI.GetExposureDetails(email);
 
-                _breachedDomains.Clear();
+                BreachedDomains.Clear();
 
                 if (exposureDetails.Count > 0)
                 {
                     foreach (ExposureDetails detail in exposureDetails)
                     {
-                        if (!_breachedDomains.ContainsKey(detail.Title))
+                        if (!BreachedDomains.ContainsKey(detail.Title))
                         {
-                            _breachedDomains.Add(detail.Title, detail.Date.ToString());
+                            BreachedDomains.Add(detail.Title, detail.Date.ToString());
                         }
                     }
                 }
             }
 
-            return _breachedDomains;
+            return BreachedDomains;
         }
 
+        /// <summary>
+        /// Resets the credential status counts in the identity
+        /// </summary>
         private void ResetCredentialCounts()
         {
             foreach (Credential.CredentialStatus status in Enum.GetValues(typeof(Credential.CredentialStatus)))
             {
-                _credentialCounts[status] = 0;
+                CredentialCounts[status] = 0;
             }
         }
 
+        /// <summary>
+        /// Counts the credential statuses in the identity
+        /// </summary>
         private void CountCredentialStatus()
         {
             ResetCredentialCounts();
 
-            foreach (KeyValuePair<string, Credential> credentialPair in _credentials)
+            foreach (KeyValuePair<string, Credential> credentialPair in Credentials)
             {
                 Credential credential = credentialPair.Value;
 
-                _credentialCounts[credential.Status]++;
+                CredentialCounts[credential.Status]++;
             }
         }
 
+        /// <summary>
+        /// Calculates the credential statuses in the identity
+        /// </summary>
         private void SetCredentialStatuses()
         {
-            foreach (KeyValuePair<string, Credential> credentialPair in _credentials)
+            foreach (KeyValuePair<string, Credential> credentialPair in Credentials)
             {
                 Credential credential = credentialPair.Value;
 
@@ -177,6 +214,9 @@ namespace vIDsafe
             }
         }
 
+        /// <summary>
+        /// Calculates the health score for the identity
+        /// </summary>
         public void CalculateHealthScore(bool calculateStatuses)
         {
             if (calculateStatuses)
@@ -186,13 +226,13 @@ namespace vIDsafe
 
             CountCredentialStatus();
 
-            if (_credentials.Count > 0)
+            if (Credentials.Count > 0)
             {
-                _healthScore = (int)((double)_credentialCounts[Credential.CredentialStatus.Safe] / _credentials.Count * 100);
+                HealthScore = (int)((double)CredentialCounts[Credential.CredentialStatus.Safe] / Credentials.Count * 100);
             }
             else
             {
-                _healthScore = 0;
+                HealthScore = 0;
             }
         }
     }

@@ -22,6 +22,9 @@ namespace vIDsafe
             LoginAsync(txtName.Text, txtPassword.Text);
         }
 
+        /// <summary>
+        /// Tries to login to an account
+        /// </summary>
         private async void LoginAsync(string name, string password)
         {
             if (IsValid(name))
@@ -53,12 +56,21 @@ namespace vIDsafe
             }
         }
 
+        /// <summary>
+        /// Enables or disables form components
+        /// </summary>
         private void EnableLoginComponents(bool enable)
         {
             btnLogin.Enabled = enable;
             btnRegister.Enabled = enable;
         }
 
+        /// <summary>
+        /// Checks if the name is valid
+        /// </summary>
+        /// <returns>
+        /// True if valid, false if not
+        /// </returns>
         private bool IsValid(string name)
         {
             if (name.Length >= 8)

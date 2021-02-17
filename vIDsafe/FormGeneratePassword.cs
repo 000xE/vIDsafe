@@ -14,24 +14,26 @@ namespace vIDsafe
         public FormGeneratePassword()
         {
             InitializeComponent();
-            LoadFormComponents();
+            InitialMethods();
         }
 
-        private void LoadFormComponents()
+        /// <summary>
+        /// Initial methods to run when the form starts
+        /// </summary>
+        private void InitialMethods()
         {
-            GetPasswordHistory();
             GetSettings();
+
+            DisplayPasswordHistory();
         }
 
-        private void GetPasswordHistory()
+        /// <summary>
+        /// Displays the password history
+        /// </summary>
+        private void DisplayPasswordHistory()
         {
             Dictionary<DateTime, string> passwords = FormvIDsafe.Main.User.Vault.GetLogs(Vault.LogType.Passwords);
 
-            DisplayPasswords(passwords);
-        }
-
-        private void DisplayPasswords(Dictionary<DateTime, string> passwords)
-        {
             lvPasswordHistory.Items.Clear();
 
             foreach (KeyValuePair<DateTime, string> password in passwords)
@@ -40,6 +42,9 @@ namespace vIDsafe
             }
         }
 
+        /// <summary>
+        /// Displays a specific password
+        /// </summary>
         private void DisplayPassword(DateTime dateTime, string password)
         {
             ListViewItem lvi = new ListViewItem("");
@@ -54,6 +59,9 @@ namespace vIDsafe
             GeneratePassword();
         }
 
+        /// <summary>
+        /// Generate a password
+        /// </summary>
         private void GeneratePassword()
         {
             string password = CredentialGeneration.GeneratePassword();
@@ -65,18 +73,28 @@ namespace vIDsafe
             lblGeneratedPassword.Text = password;
         }
 
+        /// <summary>
+        /// Checks the strength of a password
+        /// </summary>
         private void CheckStrength(string password)
         {
-            double score = CredentialGeneration.CheckStrength(password);
+            double score = CredentialGeneration.CheckStrength(password);     
 
-            //Todo: maybe separate the colour bit to a different method?
+            panelPasswordStrength.BackColor = CalculateStrengthColor(score);
+        }
+
+        /// <summary>
+        /// Calculates the strength panel colour based on the strength of a password
+        /// </summary>
+        private Color CalculateStrengthColor(double score)
+        {
             double colorMultiplier = score / 100;
 
             Color color = Color.SpringGreen;
 
-            Color newColor = Color.FromArgb((int) (color.R * colorMultiplier), (int) (color.G * colorMultiplier), (int) (color.B * colorMultiplier));
+            Color newColor = Color.FromArgb((int)(color.R * colorMultiplier), (int)(color.G * colorMultiplier), (int)(color.B * colorMultiplier));
 
-            panelPasswordStrength.BackColor = newColor;
+            return newColor;
         }
 
         private void btnCopy_Click(object sender, EventArgs e)
@@ -84,6 +102,9 @@ namespace vIDsafe
             CopyPassword(lblGeneratedPassword.Text);
         }
 
+        /// <summary>
+        /// Copies a password to clipboard
+        /// </summary>
         private void CopyPassword(string password)
         {
             Clipboard.SetText(password);
@@ -114,6 +135,9 @@ namespace vIDsafe
             ResetPasswordLengths(rbPassphrase.Checked);
         }
 
+        /// <summary>
+        /// Resets the password length values
+        /// </summary>
         private void ResetPasswordLengths(bool passphrase)
         {
             CredentialGeneration.Passphrase = passphrase;
@@ -152,6 +176,9 @@ namespace vIDsafe
             }
         }
 
+        /// <summary>
+        /// Gets the password settings
+        /// </summary>
         private void GetSettings()
         {
             foreach (KeyValuePair<int, bool> setting in CredentialGeneration.PasswordSettings)
@@ -164,6 +191,9 @@ namespace vIDsafe
             ResetPasswordLengths(rbPassphrase.Checked);
         }
 
+        /// <summary>
+        /// Sets the password settings
+        /// </summary>
         private void SetSettings(int checkboxIndex, bool value)
         {
             CredentialGeneration.PasswordSettings[checkboxIndex] = value;

@@ -16,23 +16,36 @@ namespace vIDsafe
         {
             InitializeComponent();
 
-            LoadFormComponents();
+            InitialMethods();
         }
 
-        private void LoadFormComponents()
+        /// <summary>
+        /// Initial methods to run when the form starts
+        /// </summary>
+        private void InitialMethods()
         {
             GetIdentities();
-            GetLogs();
+            DisplayLogs();
         }
-        private void GetLogs()
+
+        /// <summary>
+        /// Displays the logs
+        /// </summary>
+        private void DisplayLogs()
         {
+            Dictionary<DateTime, string> logs = FormvIDsafe.Main.User.Vault.GetLogs(Vault.LogType.Porting);
+
             lvLogs.Items.Clear();
-            foreach (KeyValuePair<DateTime, string> log in FormvIDsafe.Main.User.Vault.GetLogs(Vault.LogType.Porting))
+
+            foreach (KeyValuePair<DateTime, string> log in logs)
             {
                 DisplayLog(log.Key, log.Value);
             }
         }
 
+        /// <summary>
+        /// Displays a specific log
+        /// </summary>
         private void DisplayLog(DateTime dateTime, string log)
         {
             ListViewItem lvi = new ListViewItem("");
@@ -42,12 +55,18 @@ namespace vIDsafe
             lvLogs.Items.Add(lvi);
         }
 
+        /// <summary>
+        /// Fixes the column widths based on listview width and column count
+        /// </summary>
         private void FixColumnWidths()
         {
             lvLogs.Columns[1].Width = lvLogs.Width / (lvLogs.Columns.Count - 1);
             lvLogs.Columns[2].Width = lvLogs.Width / (lvLogs.Columns.Count - 1);
         }
 
+        /// <summary>
+        /// Gets and displays the identities
+        /// </summary>
         private void GetIdentities()
         {
             cmbIdentity.Items.Clear();
@@ -58,6 +77,9 @@ namespace vIDsafe
             }
         }
 
+        /// <summary>
+        /// Opens a file dialog for the selected format
+        /// </summary>
         private void OpenFile(int formatIndex)
         {
             openFileDialog.Filter = GetExtension(formatIndex);
@@ -65,6 +87,12 @@ namespace vIDsafe
             openFileDialog.ShowDialog();
         }
 
+        /// <summary>
+        /// Gets the extension filter based on the selected format
+        /// </summary>
+        /// <returns>
+        /// The extension filter
+        /// </returns>
         private string GetExtension(int formatIndex)
         {
             string extension = "All files (*.*)|*.*";
@@ -90,12 +118,18 @@ namespace vIDsafe
             OpenFile(cmbImportFormat.SelectedIndex);
         }
 
+        /// <summary>
+        /// Enables or disables form components
+        /// </summary>
         private void EnableImportExportComponents(bool enable)
         {
             btnImport.Enabled = enable;
             btnExport.Enabled = enable;
         }
 
+        /// <summary>
+        /// Imports the selected file
+        /// </summary>
         private async void ImportAsync(int formatIndex, bool replace, string fileName)
         {
             EnableImportExportComponents(false);
@@ -130,6 +164,9 @@ namespace vIDsafe
         }
 
         //Todo: refactor
+        /// <summary>
+        /// Exports the selected data
+        /// </summary>
         private async void ExportAsync(int formatIndex, int selectedIdentityIndex, string fileName)
         {
             EnableImportExportComponents(false);
@@ -165,17 +202,26 @@ namespace vIDsafe
             EnableImportExportComponents(true);
         }
 
+        /// <summary>
+        /// Selects a folder to import or export
+        /// </summary>
         private void SelectFolder(int formatIndex)
         {
-            saveFileDialog.Filter = GetExtension(formatIndex);
-
+            string extension = GetExtension(formatIndex);
             string fileName = FormvIDsafe.Main.User.Name + "_export_" + DateTime.Now.ToString("yyyyMMddHHmms");
 
+            saveFileDialog.Filter = extension;
             saveFileDialog.FileName = fileName;
 
             saveFileDialog.ShowDialog();
         }
 
+        /// <summary>
+        /// Gets the format to import/export based on the selection
+        /// </summary>
+        /// <returns>
+        /// The format to import/export
+        /// </returns>
         private MasterAccount.VaultFormat GetFormat(int formatIndex)
         {
             MasterAccount.VaultFormat format = MasterAccount.VaultFormat.Encrypted;

@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace vIDsafe
 {
@@ -17,20 +18,26 @@ namespace vIDsafe
         {
             InitializeComponent();
 
-            LoadFormComponents();
+            InitialMethods();
         }
 
-        private void LoadFormComponents()
+        /// <summary>
+        /// Initial methods to run when the form starts
+        /// </summary>
+        private void InitialMethods()
         {
             DisplayIdentities();
         }
 
-        private void chartCredentials_PrePaint(object sender, System.Windows.Forms.DataVisualization.Charting.ChartPaintEventArgs e)
+        private void chartCredentials_PrePaint(object sender, ChartPaintEventArgs e)
         {
             DisplayCredentialCount(e);
         }
 
-        private void DisplayCredentialCount(System.Windows.Forms.DataVisualization.Charting.ChartPaintEventArgs e)
+        /// <summary>
+        /// Displays the total credential count of an identity
+        /// </summary>
+        private void DisplayCredentialCount(ChartPaintEventArgs e)
         {
             string selectedEmail = cmbIdentity.SelectedItem.ToString();
 
@@ -38,20 +45,9 @@ namespace vIDsafe
             {
                 Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedEmail];
 
-                if (e.ChartElement is System.Windows.Forms.DataVisualization.Charting.ChartArea)
+                if (e.ChartElement is ChartArea)
                 {
-                    //Todo: cleanup, maybe separate method called createtextannotation? or maybe use label
-                    var ta = new System.Windows.Forms.DataVisualization.Charting.TextAnnotation
-                    {
-                        Text = Convert.ToString(identity.Credentials.Count),
-                        Width = e.Position.Width,
-                        Height = e.Position.Height,
-                        X = e.Position.X - (e.Position.Width / 100),
-                        Y = e.Position.Y + (e.Position.Height / 100),
-                        Font = new Font("Segoe UI", 12, FontStyle.Bold),
-                        ForeColor = Color.RoyalBlue,
-                    };
-                    //ta.Alignment = ContentAlignment.MiddleCenter;
+                    TextAnnotation ta = CreateTextAnnotation(Convert.ToString(identity.Credentials.Count), e);
 
                     chartCredentials.Annotations.Clear();
                     chartCredentials.Annotations.Add(ta);
@@ -59,11 +55,36 @@ namespace vIDsafe
             }
         }
 
+        /// <summary>
+        /// Creates a custom text annotation
+        /// </summary>
+        /// <returns>
+        /// The text anotation
+        /// </returns>
+        private TextAnnotation CreateTextAnnotation(string text, ChartPaintEventArgs e)
+        {
+            TextAnnotation ta = new TextAnnotation
+            {
+                Text = text,
+                Width = e.Position.Width,
+                Height = e.Position.Height,
+                X = e.Position.X - (e.Position.Width / 100),
+                Y = e.Position.Y + (e.Position.Height / 100),
+                Font = new Font("Segoe UI", 12, FontStyle.Bold),
+                ForeColor = Color.RoyalBlue,
+            };
+
+            return ta;
+        }
+
         private void btnNewIdentity_Click(object sender, EventArgs e)
         {
             GenerateIdentity();
         }
 
+        /// <summary>
+        /// Generates an identity
+        /// </summary>
         private void GenerateIdentity()
         {
             Identity identity = FormvIDsafe.Main.User.Vault.GenerateIdentity();
@@ -78,6 +99,12 @@ namespace vIDsafe
         }
 
         //Todo: cleanup parameter names everywhere (consistency)
+        /// <summary>
+        /// Checks if the name and email are valid
+        /// </summary>
+        /// <returns>
+        /// True if valid, false if not
+        /// </returns>
         private bool IsValid(string name, string email)
         {
             if (email.Length > 0 && name.Length > 0)
@@ -105,6 +132,9 @@ namespace vIDsafe
             }
         }
 
+        /// <summary>
+        /// Sets the details of an identity
+        /// </summary>
         private void SetIdentityDetails(int selectedIdentityIndex, string selectedEmail, string identityName, string identityEmail, string identityUsage)
         {
             if (IsValid(identityName, identityEmail))
@@ -125,6 +155,9 @@ namespace vIDsafe
             }
         }
 
+        /// <summary>
+        /// Tries to change an identity's email (ID)
+        /// </summary>
         private bool TryChangeIdentityEmail(string oldEmail, string newEmail)
         {
             if (FormvIDsafe.Main.User.Vault.TryChangeIdentityEmail(oldEmail, newEmail))
@@ -139,11 +172,13 @@ namespace vIDsafe
             }
         }
 
+        /// <summary>
+        /// Gets the breached data for an email
+        /// </summary>
         private async void GetBreachedDataAsync(string selectedEmail, bool useAPI)
         {
             if (useAPI)
             {
-                EnableIdentityComponents(false);
                 FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Breach checking", "Please wait until the breaches are checked");
             }
 
@@ -152,12 +187,14 @@ namespace vIDsafe
             await Task.Run(() =>
             {
                 Dictionary<string, string> breachedDomains = identity.GetBreaches(selectedEmail, useAPI);
-                EnableIdentityComponents(true);
 
                 DisplayBreaches(breachedDomains);
             });
         }
 
+        /// <summary>
+        /// Displays the breaches for an identity
+        /// </summary>
         private void DisplayBreaches(Dictionary<string, string> domains)
         {
             lvBreachedData.Items.Clear();
@@ -181,6 +218,9 @@ namespace vIDsafe
             GetIdentityDetails(cmbIdentity.SelectedItem.ToString());
         }
 
+        /// <summary>
+        /// Displays the identities in the vault
+        /// </summary>
         private void DisplayIdentities()
         {
             ResetDetails();
@@ -193,6 +233,9 @@ namespace vIDsafe
             }
         }
 
+        /// <summary>
+        /// Gets the details of an identity
+        /// </summary>
         private void GetIdentityDetails(string selectedEmail)
         {
             ResetDetails();
@@ -208,6 +251,9 @@ namespace vIDsafe
             DisplayCredentialInformation(identity);
         }
 
+        /// <summary>
+        /// Displays the credential status count for an identity
+        /// </summary>
         private void DisplayCredentialInformation(Identity identity)
         {
             identity.CalculateHealthScore(true);
@@ -224,6 +270,9 @@ namespace vIDsafe
             chartCredentials.Series["Credentials"].IsValueShownAsLabel = true;
         }
 
+        /// <summary>
+        /// Deletes an identity
+        /// </summary>
         private void DeleteIdentity(string selectedEmail)
         {
             FormvIDsafe.Main.User.Vault.DeleteIdentity(selectedEmail);
@@ -234,6 +283,9 @@ namespace vIDsafe
         }
 
         //Todo: maybe refactor the way this method gets called?
+        /// <summary>
+        /// Resets the form components
+        /// </summary>
         private void ResetDetails()
         {
             ClearInputs();
@@ -252,6 +304,9 @@ namespace vIDsafe
             }
         }
 
+        /// <summary>
+        /// Enables or disables form components
+        /// </summary>
         private void EnableIdentityComponents(bool enabled)
         {
             txtIdentityName.Enabled = enabled;
@@ -264,6 +319,9 @@ namespace vIDsafe
             pnlIdentityComponents.Visible = enabled;
         }
 
+        /// <summary>
+        /// Clears the input texts
+        /// </summary>
         private void ClearInputs()
         {
             txtIdentityName.Clear();
@@ -275,6 +333,10 @@ namespace vIDsafe
         {
             FixColumnWidths();
         }
+
+        /// <summary>
+        /// Fixes the column widths based on listview width and column count
+        /// </summary>
         private void FixColumnWidths()
         {
             lvBreachedData.Columns[1].Width = lvBreachedData.Width / (lvBreachedData.Columns.Count - 1);
@@ -283,12 +345,7 @@ namespace vIDsafe
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            Refresh(cmbIdentity.SelectedItem.ToString());
-        }
-
-        private void Refresh(string selectedEmail)
-        {
-            GetBreachedDataAsync(selectedEmail, true);
+            GetBreachedDataAsync(cmbIdentity.SelectedItem.ToString(), true);
         }
     }
 }

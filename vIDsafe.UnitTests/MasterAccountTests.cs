@@ -12,7 +12,7 @@ namespace vIDsafe.Tests
     public class MasterAccountTests
     {
         [TestMethod()]
-        public void ImportVaultTest()
+        public void TryImportVaultTest()
         {
             //Arrange
             MasterAccount user = new MasterAccount();

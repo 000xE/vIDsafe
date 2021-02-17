@@ -9,6 +9,7 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using System.Linq;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace vIDsafe
 {
@@ -18,24 +19,35 @@ namespace vIDsafe
         {
             InitializeComponent();
 
-            LoadFormComponents();
+            InitialMethods();
         }
 
-        //Todo: cleanup all "Load/GetFormComponents" methods by renaming?
-        private void LoadFormComponents()
+        /// <summary>
+        /// Initial methods to run when the form starts
+        /// </summary>
+        private void InitialMethods()
         {
             RecalculateHealthScore();
         }
 
+        /// <summary>
+        /// Recalculates the health score and displays details
+        /// </summary>
         private void RecalculateHealthScore()
         {
-            FormvIDsafe.Main.User.Vault.CalculateOverallHealthScore(true);
-            DisplayHealthScores();
-            DisplayCredentialInformation();
-            DisplaySecurityAlerts();
+            Vault vault = FormvIDsafe.Main.User.Vault;
+
+            vault.CalculateOverallHealthScore(true);
+            DisplayHealthScores(vault);
+            DisplayCredentialStatusCounts(vault);
+            DisplaySecurityAlerts(vault.Identities);
         }
 
-        private void DisplayHealthScores()
+        //Todo: separate to gethealthscores and put calculate method on it
+        /// <summary>
+        /// Displays the health scores and identity details
+        /// </summary>
+        private void DisplayHealthScores(Vault vault)
         {
             tlpIdentities.ColumnStyles.Clear();
             tlpIdentities.Controls.Clear();
@@ -60,6 +72,12 @@ namespace vIDsafe
             FormHome.SetHealthScore(totalHealthScore, CalculateHealthColor(totalHealthScore));
         }
 
+        /// <summary>
+        /// Creates a custom panel
+        /// </summary>
+        /// <returns>
+        /// The panel
+        /// </returns>
         private Panel CreatePanel(Color backColor)
         {
             int panelPadding = 12;
@@ -74,6 +92,12 @@ namespace vIDsafe
             return panel;
         }
 
+        /// <summary>
+        /// Creates a custom label
+        /// </summary>
+        /// <returns>
+        /// The label
+        /// </returns>
         private Label CreateLabel(string text)
         {
             ContentAlignment textAlign = ContentAlignment.MiddleCenter;
@@ -94,6 +118,12 @@ namespace vIDsafe
             return label;
         }
 
+        /// <summary>
+        /// Calculates a colour based on the health score
+        /// </summary>
+        /// <returns>
+        /// The health score color
+        /// </returns>
         private Color CalculateHealthColor(int healthScore)
         {
             int maxGoodScore = 100;
@@ -127,6 +157,12 @@ namespace vIDsafe
         }
 
         //https://gist.github.com/zihotki/09fc41d52981fb6f93a81ebf20b35cd5
+        /// <summary>
+        /// Changes the brightness of a colour
+        /// </summary>
+        /// <returns>
+        /// The changed colour
+        /// </returns>
         public static Color ChangeColorBrightness(Color color, float correctionFactor)
         {
             float red = color.R;
@@ -150,12 +186,16 @@ namespace vIDsafe
             return Color.FromArgb(color.A, (int)red, (int)green, (int)blue);
         }
 
-        private void DisplayCredentialInformation()
+        //Todo: separate to getcredentialinformation and maybe rename in identities too
+        /// <summary>
+        /// Displays the total credential status counts in the vault
+        /// </summary>
+        private void DisplayCredentialStatusCounts(Vault vault)
         {
-            int safeCount = FormvIDsafe.Main.User.Vault.TotalSafeCredentialCount;
-            int weakCount = FormvIDsafe.Main.User.Vault.TotalWeakCredentialCount;
-            int conflictCount = FormvIDsafe.Main.User.Vault.TotalConflictCredentialCount;
-            int compromisedCount = FormvIDsafe.Main.User.Vault.TotalCompromisedCredentialCount;
+            int safeCount = vault.TotalSafeCredentialCount;
+            int weakCount = vault.TotalWeakCredentialCount;
+            int conflictCount = vault.TotalConflictCredentialCount;
+            int compromisedCount = vault.TotalCompromisedCredentialCount;
 
             chartCredentials.Series["Credentials"].Points[0].SetValueXY("Safe", safeCount);
             chartCredentials.Series["Credentials"].Points[1].SetValueXY("Weak", weakCount);
@@ -165,9 +205,12 @@ namespace vIDsafe
             chartCredentials.Series["Credentials"].IsValueShownAsLabel = true;
         }
 
-        private void DisplaySecurityAlerts()
+        /// <summary>
+        /// Displays the security alerts
+        /// </summary>
+        private void DisplaySecurityAlerts(Dictionary<string, Identity> identities)
         {
-            foreach (KeyValuePair<string, Identity> identityPair in FormvIDsafe.Main.User.Vault.Identities)
+            foreach (KeyValuePair<string, Identity> identityPair in identities)
             {
                 Identity identity = identityPair.Value;
 
@@ -199,6 +242,10 @@ namespace vIDsafe
                 }
             }
         }
+
+        /// <summary>
+        /// Displays a specific security alert
+        /// </summary>
         private void DisplayAlert(string identityName, string alert)
         {
             ListViewItem lvi = new ListViewItem("");
@@ -208,32 +255,45 @@ namespace vIDsafe
             lvSecurityAlerts.Items.Add(lvi);
         }
 
-        private void chartCredentials_PrePaint(object sender, System.Windows.Forms.DataVisualization.Charting.ChartPaintEventArgs e)
+        private void chartCredentials_PrePaint(object sender, ChartPaintEventArgs e)
         {
             DisplayCredentialCount(e);
         }
 
-        private void DisplayCredentialCount(System.Windows.Forms.DataVisualization.Charting.ChartPaintEventArgs e)
+        /// <summary>
+        /// Displays the total credential count
+        /// </summary>
+        private void DisplayCredentialCount(ChartPaintEventArgs e)
         {
-            if (e.ChartElement is System.Windows.Forms.DataVisualization.Charting.ChartArea)
+            if (e.ChartElement is ChartArea)
             {
-                //Todo: cleanup, maybe separate method called createtextannotation? or maybe use label
-                var ta = new System.Windows.Forms.DataVisualization.Charting.TextAnnotation
-                {
-                    Text = Convert.ToString(FormvIDsafe.Main.User.Vault.TotalCredentialCount),
-                    Width = e.Position.Width,
-                    Height = e.Position.Height,
-                    X = e.Position.X - (e.Position.Width / 100),
-                    Y = e.Position.Y + (e.Position.Height / 100),
-                    Font = new Font("Segoe UI", 12, FontStyle.Bold),
-                    ForeColor = Color.RoyalBlue,
-                };
-
-                //ta.Alignment = ContentAlignment.MiddleCenter;
+                TextAnnotation ta = CreateTextAnnotation(Convert.ToString(FormvIDsafe.Main.User.Vault.TotalCredentialCount), e);
 
                 chartCredentials.Annotations.Clear();
                 chartCredentials.Annotations.Add(ta);
             }
+        }
+
+        /// <summary>
+        /// Creates a custom text annotation
+        /// </summary>
+        /// <returns>
+        /// The text anotation
+        /// </returns>
+        private TextAnnotation CreateTextAnnotation(string text, ChartPaintEventArgs e)
+        {
+            TextAnnotation ta = new TextAnnotation
+            {
+                Text = text,
+                Width = e.Position.Width,
+                Height = e.Position.Height,
+                X = e.Position.X - (e.Position.Width / 100),
+                Y = e.Position.Y + (e.Position.Height / 100),
+                Font = new Font("Segoe UI", 12, FontStyle.Bold),
+                ForeColor = Color.RoyalBlue,
+            };
+
+            return ta;
         }
     }
 }

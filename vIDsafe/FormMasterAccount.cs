@@ -14,23 +14,35 @@ namespace vIDsafe
         public FormMasterAccount()
         {
             InitializeComponent();
-            LoadFormComponents();
+            InitialMethods();
         }
 
-        private void LoadFormComponents()
+        /// <summary>
+        /// Initial methods to run when the form starts
+        /// </summary>
+        private void InitialMethods()
         {
-            GetLogs();
+            DisplayLogs();
         }
 
-        private void GetLogs()
+        /// <summary>
+        /// Displays the logs
+        /// </summary>
+        private void DisplayLogs()
         {
+            Dictionary<DateTime, string> logs = FormvIDsafe.Main.User.Vault.GetLogs(Vault.LogType.Account);
+
             lvLogs.Items.Clear();
-            foreach (KeyValuePair<DateTime, string> log in FormvIDsafe.Main.User.Vault.GetLogs(Vault.LogType.Account))
+
+            foreach (KeyValuePair<DateTime, string> log in logs)
             {
                 DisplayLog(log.Key, log.Value);
             }
         }
 
+        /// <summary>
+        /// Displays a specific log
+        /// </summary>
         private void DisplayLog(DateTime dateTime, string log)
         {
             ListViewItem lvi = new ListViewItem("");
@@ -40,6 +52,9 @@ namespace vIDsafe
             lvLogs.Items.Add(lvi);
         }
 
+        /// <summary>
+        /// Fixes the column widths based on listview width and column count
+        /// </summary>
         private void FixColumnWidths()
         {
             lvLogs.Columns[1].Width = lvLogs.Width / (lvLogs.Columns.Count - 1);
@@ -54,10 +69,12 @@ namespace vIDsafe
             if (result.Equals(DialogResult.Yes))
             {
                 DeleteCredentials();
-                GetLogs();
             }
         }
 
+        /// <summary>
+        /// Deletes all credentials in the vault
+        /// </summary>
         private void DeleteCredentials()
         {
             FormvIDsafe.Main.User.Vault.DeleteAllCredentials();
@@ -76,10 +93,12 @@ namespace vIDsafe
             if (result.Equals(DialogResult.Yes))
             {
                 DeleteIdentities();
-                GetLogs();
             }
         }
 
+        /// <summary>
+        /// Deletes all identities in the vault
+        /// </summary>
         private void DeleteIdentities()
         {
             FormvIDsafe.Main.User.Vault.DeleteAllIdentities();
@@ -101,6 +120,9 @@ namespace vIDsafe
             }
         }
 
+        /// <summary>
+        /// Deletes the account
+        /// </summary>
         private void DeleteAccount()
         {
             FormvIDsafe.Main.User.DeleteAccount();
@@ -113,15 +135,20 @@ namespace vIDsafe
         private void btnChangeDetails_Click(object sender, EventArgs e)
         {
             ChangeNameAsync(txtCurrentPassword.Text, txtName.Text);
-            GetLogs();
         }
 
+        /// <summary>
+        /// Enables or disables form components
+        /// </summary>
         private void EnableMasterAccountComponents(bool enable)
         {
             btnChangeDetails.Enabled = enable;
             btnChangePassword.Enabled = enable;
         }
 
+        /// <summary>
+        /// Tries to change the name
+        /// </summary>
         private async void ChangeNameAsync(string currentPassword, string newName)
         {
             if (IsValidUsername(newName, currentPassword))
@@ -156,12 +183,13 @@ namespace vIDsafe
         private void btnChangePassword_Click(object sender, EventArgs e)
         {
             ChangePasswordAsync(txtCurrentPassword2.Text, txtNewPassword.Text);
-            GetLogs();
         }
 
+        /// <summary>
+        /// Tries to change the password
+        /// </summary>
         private async void ChangePasswordAsync(string currentPassword, string newPassword)
         {
-            //Todo: cleanup (put isvalid in btnlogin and maybe pass in confirm pass as parameter)
             if (IsValidPassword(newPassword, currentPassword))
             {
                 EnableMasterAccountComponents(false);
@@ -189,6 +217,12 @@ namespace vIDsafe
             }
         }
 
+        /// <summary>
+        /// Checks if the username is valid
+        /// </summary>
+        /// <returns>
+        /// True if valid, false if not
+        /// </returns>
         private bool IsValidUsername(string newName, string password)
         {
             if (newName.Length >= 8)
@@ -210,6 +244,12 @@ namespace vIDsafe
             }
         }
 
+        /// <summary>
+        /// Checks if the password is valid
+        /// </summary>
+        /// <returns>
+        /// True if valid, false if not
+        /// </returns>
         private bool IsValidPassword(string newPassword, string oldPassword)
         {
             if (oldPassword.Length > 0)

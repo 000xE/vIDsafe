@@ -23,7 +23,6 @@ namespace vIDsafe.Tests
             byte[] key = Encryption.DeriveKey(keyDerivationFunction, secret, salt);
 
             string hashed = Convert.ToBase64String(key);
-            Console.WriteLine(hashed);
 
             //Asert
             string expected = "izqZNy0kuStl/VVrWwJ8sGrdgQVqycxKQGZcXQXWXQg=";

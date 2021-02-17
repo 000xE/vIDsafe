@@ -13,14 +13,15 @@ namespace vIDsafe
 {
     public class MasterAccount
     {
-        private string _name;
         private string _password;
 
-        public Vault Vault;
+        ///<value>Get or set the master account name</value>
+        public string Name { get; private set; }
+
+        ///<value>Get or set the vault</value>
+        public Vault Vault { get; private set; }
 
         private readonly string _vaultFolder = "Vaults/";
-
-        public string Name => _name;
 
         public enum VaultFormat
         {
@@ -28,13 +29,26 @@ namespace vIDsafe
             JSON,
             Encrypted
         }
+
+        /// <summary>
+        /// Creates a master account
+        /// </summary>
+        /// <returns>
+        /// The master account
+        /// </returns>
         public MasterAccount()
         {
-            _name = "";
+            Name = "";
             _password = "";
             Vault = new Vault();
         }
 
+        /// <summary>
+        /// Checks if the account exists in the directory
+        /// </summary>
+        /// <returns>
+        /// True if the account exists, false if not
+        /// </returns>
         private bool AccountExists(string name)
         {
             if (File.Exists(_vaultFolder + name))
@@ -45,6 +59,12 @@ namespace vIDsafe
             return false;
         }
 
+        /// <summary>
+        /// Tries to login to the account
+        /// </summary>
+        /// <returns>
+        /// True if the logged in, false if not
+        /// </returns>
         public bool TryLogin(string name, string password)
         {
             bool loggedin = false;
@@ -57,7 +77,7 @@ namespace vIDsafe
 
                 if (Vault != null)
                 {
-                    _name = name;
+                    Name = name;
 
                     loggedin = true;
                 }
@@ -66,16 +86,22 @@ namespace vIDsafe
             return loggedin;
         }
 
+        /// <summary>
+        /// Tries to register an account
+        /// </summary>
+        /// <returns>
+        /// True if the registered, false if not
+        /// </returns>
         public bool TryRegister(string name, string password)
         {
             bool registered = false;
 
             if (!AccountExists(name))
             {
-                _name = name;
+                Name = name;
                 _password = HashPassword(password, name);
 
-                CreateVault(Vault, _name, _password);
+                CreateVault(Vault, Name, _password);
 
                 registered = true;
             }
@@ -83,27 +109,39 @@ namespace vIDsafe
             return registered;
         }
 
+        /// <summary>
+        /// Checks if the entered password is correct
+        /// </summary>
+        /// <returns>
+        /// True if the correct, false if not
+        /// </returns>
         private bool VerifyPassword(string oldPassword)
         {
-            if (HashPassword(oldPassword, _name).Equals(_password))
+            bool correct = false;
+
+            if (HashPassword(oldPassword, Name).Equals(_password))
             {
-                return true;
+                correct = true;
             }
-            else
-            {
-                return false;
-            }
+
+            return correct;
         }
 
+        /// <summary>
+        /// Tries to change the password of the account
+        /// </summary>
+        /// <returns>
+        /// True if the password is changed, false if not
+        /// </returns>
         public bool TryChangePassword(string oldPassword, string password)
         {
             bool changed = false;
 
             if (VerifyPassword(oldPassword).Equals(true))
             {
-                _password = HashPassword(password, _name);
+                _password = HashPassword(password, Name);
 
-                SaveVault(Vault, _name, _password);
+                SaveVault(Vault, Name, _password);
 
                 changed = true;
             }
@@ -111,21 +149,27 @@ namespace vIDsafe
             return changed;
         }
 
+        /// <summary>
+        /// Tries to change the name of the account
+        /// </summary>
+        /// <returns>
+        /// True if the name is changed, false if not
+        /// </returns>
         public bool TryChangeName(string oldPassword, string newName)
         {
             bool changed = false;
 
             if (VerifyPassword(oldPassword).Equals(true))
             {
-                if (AccountExists(_name))
+                if (AccountExists(Name))
                 {
-                    File.Move(_vaultFolder + _name, _vaultFolder + newName);
+                    File.Move(_vaultFolder + Name, _vaultFolder + newName);
                 }
 
-                _name = newName;
+                Name = newName;
                 _password = HashPassword(oldPassword, newName);
 
-                SaveVault(Vault, _name, _password);
+                SaveVault(Vault, Name, _password);
 
                 changed = true;
             }
@@ -133,6 +177,12 @@ namespace vIDsafe
             return changed;
         }
 
+        /// <summary>
+        /// Decrypts and sets the vault to the account
+        /// </summary>
+        /// <returns>
+        /// The decrypted vault if it exists, null if not 
+        /// </returns>
         private Vault GetVault(string name, string password)
         {
             string fileName = _vaultFolder + name;
@@ -141,6 +191,9 @@ namespace vIDsafe
             return (DecryptVault(encryptedVault, password));           
         }
 
+        /// <summary>
+        /// Creates the vault and encrypts it
+        /// </summary>
         private void CreateVault(Vault vault, string name, string password)
         {
             string encryptedVault = EncryptVault(vault, password);
@@ -151,7 +204,9 @@ namespace vIDsafe
             File.WriteAllText(file.FullName, encryptedVault);
         }
 
-        //Todo: refactor and maybe have it call on closing or logging out of form only?
+        /// <summary>
+        /// Encrypts and saves the vault
+        /// </summary>
         private void SaveVault(Vault vault, string name, string password)
         {
             string encryptedVault = EncryptVault(vault, password);
@@ -165,17 +220,36 @@ namespace vIDsafe
             }
         }
 
+        /// <summary>
+        /// Hashes the password
+        /// </summary>
+        /// <returns>
+        /// The hashed password if it's hashed, null if not
+        /// </returns>
         private string HashPassword(string password, string salt)
         {
             return Convert.ToBase64String(Encryption.DeriveKey(Encryption.KeyDerivationFunction.PBKDF2, password, salt));
         }
 
+        /// <summary>
+        /// Serialises and encrypts the vault
+        /// </summary>
+        /// <returns>
+        /// The encrypted vault if it's encrypted, cleartext vault if not
+        /// </returns>
         private string EncryptVault(Vault vault, string key)
         {
             string serialisedVault = VaultToString(vault);
 
             return Encryption.AesEncrypt(serialisedVault, Convert.FromBase64String(key));
         }
+
+        /// <summary>
+        /// Decrypts and deserialises the vault
+        /// </summary>
+        /// <returns>
+        /// The decrypted vault if it's deserialised, null if not
+        /// </returns>
         private Vault DecryptVault(string encryptedVault, string key)
         {
             string decryptedVault = Encryption.AesDecrypt(encryptedVault, Convert.FromBase64String(key));
@@ -190,6 +264,12 @@ namespace vIDsafe
             }                   
         }
 
+        /// <summary>
+        /// Tries to import a vault
+        /// </summary>
+        /// <returns>
+        /// True if vault is imported, false if not
+        /// </returns>
         public bool TryImportVault(VaultFormat format, string fileName, bool replace)
         {
             Vault importedVault = new Vault();
@@ -242,6 +322,9 @@ namespace vIDsafe
             return canImport;
         }
 
+        /// <summary>
+        /// Adds the data inside the imported vault
+        /// </summary>
         private void AddImportedData(Vault importedVault, bool replace)
         {
             if (replace)
@@ -269,6 +352,12 @@ namespace vIDsafe
         }
 
         //Todo: Refactor the selected email thing
+        /// <summary>
+        /// Tries to export the vault
+        /// </summary>
+        /// <returns>
+        /// True if the vault is export, false if not
+        /// </returns>
         public bool TryExportVault(VaultFormat format, string selectedEmail, string fileName)
         {
             Vault vault = Vault;
@@ -334,25 +423,37 @@ namespace vIDsafe
             return canExport;
         }
 
+        /// <summary>
+        /// Saves the vault and empties all values in the memory
+        /// </summary>
         public void Logout()
         {
-            SaveVault(Vault, _name, _password);
+            SaveVault(Vault, Name, _password);
 
-            _name = "";
+            Name = "";
             _password = "";
 
             Vault = null;
         }
 
+        /// <summary>
+        /// Deletes the vault and saves it before deleting it
+        /// </summary>
         public void DeleteAccount()
         {
             Vault = new Vault();
 
-            SaveVault(Vault, _name, _password);
+            SaveVault(Vault, Name, _password);
 
-            File.Delete(_vaultFolder + _name);
+            File.Delete(_vaultFolder + Name);
         }
 
+        /// <summary>
+        /// Serialises the vault to a string
+        /// </summary>
+        /// <returns>
+        /// The vault as a string if serialised
+        /// </returns>
         //https://stackoverflow.com/questions/6979718/c-sharp-object-to-string-and-back/6979843#6979843
         private string VaultToString(Vault vault)
         {
@@ -363,6 +464,12 @@ namespace vIDsafe
             }
         }
 
+        /// <summary>
+        /// Deserialises a string to a vault
+        /// </summary>
+        /// <returns>
+        /// The vault if deserialised
+        /// </returns>
         //https://stackoverflow.com/questions/6979718/c-sharp-object-to-string-and-back/6979843#6979843
         private Vault StringToVault(string base64String)
         {

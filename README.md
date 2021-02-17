@@ -82,7 +82,9 @@
 - 14/01/2021: 1 hour - Demonstrated some implementations of the projects
 - 22/01/2021: 1 hour - Demonstrated some implementations of the projects
 - 28/01/2021: 1 hour - Demonstrated some implementations of the projects
-- 04/01/2021: 1 hour - Demonstrated some implementations of the projects and discussed evaluation methods
+- 04/02/2021: 1 hour - Demonstrated some implementations of the projects and discussed evaluation methods
+- 11/02/2021: 1 hour - Mock presentations
+- 15/02/2021: 1 hour - Mock presentations
 
 ### 1-to-1 meetings
 

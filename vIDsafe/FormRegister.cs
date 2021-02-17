@@ -22,6 +22,9 @@ namespace vIDsafe
             RegisterAsync(txtName.Text, txtPassword.Text);
         }
 
+        /// <summary>
+        /// Tries to register an account
+        /// </summary>
         private async void RegisterAsync(string name, string password)
         {
             //Todo: cleanup (put isvalid in btnregister and maybe pass in confirm pass as parameter)
@@ -54,12 +57,21 @@ namespace vIDsafe
             }
         }
 
+        /// <summary>
+        /// Enables or disables form components
+        /// </summary>
         private void EnableRegisterComponents(bool enable)
         {
             btnLogin.Enabled = enable;
             btnRegister.Enabled = enable;
         }
 
+        /// <summary>
+        /// Checks if the name and password are valid
+        /// </summary>
+        /// <returns>
+        /// True if valid, false if not
+        /// </returns>
         private bool IsValid(string name, string password)
         {
             if (name.Length >= 8)

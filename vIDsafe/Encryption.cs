@@ -25,6 +25,12 @@ namespace vIDsafe
             PBKDF2
         }
 
+        /// <summary>
+        /// Derives a salted key from a secret
+        /// </summary>
+        /// <returns>
+        /// The derived key
+        /// </returns>
         public static byte[] DeriveKey(KeyDerivationFunction keyDerivationFunction, string secret, string salt)
         {
             //a new password hash is generated from a generated salt with the passed settings
@@ -48,6 +54,12 @@ namespace vIDsafe
             return derivedKey;
         }
 
+        /// <summary>
+        /// Encrypts plaintext using a key with AES256 CBC
+        /// </summary>
+        /// <returns>
+        /// The encrypted text
+        /// </returns>
         public static string AesEncrypt(string plainText, byte[] key)
         {
             byte[] textBytes = Encoding.ASCII.GetBytes(plainText);
@@ -74,6 +86,12 @@ namespace vIDsafe
             }
         }
 
+        /// <summary>
+        /// Decrypts ciphertext using a key with AES256 CBC
+        /// </summary>
+        /// <returns>
+        /// The decrypted text
+        /// </returns>
         public static string AesDecrypt(string encryptedText, byte[] key)
         {
             byte[] textBytes = Convert.FromBase64String(encryptedText);
@@ -107,6 +125,13 @@ namespace vIDsafe
                 }
             }
         }
+
+        /// <summary>
+        /// Gets the AES crypto service provider for encryption/decryption
+        /// </summary>
+        /// <returns>
+        /// The AES crpto service provider
+        /// </returns>
         private static AesCryptoServiceProvider GetAES (byte [] key)
         {
             AesCryptoServiceProvider AES = new AesCryptoServiceProvider
@@ -121,8 +146,11 @@ namespace vIDsafe
             return AES;
         }
 
+        /// <summary>
+        /// Randomises a string builder securely using CryptoRandom
+        /// </summary>
         //https://stackoverflow.com/a/12646864
-        public static void SecurelyRandomizeArray(StringBuilder sb)
+        public static void SecurelyRandomizeStringBuilder(StringBuilder sb)
         {
             freakcode.Cryptography.CryptoRandom cryptoRandom = new freakcode.Cryptography.CryptoRandom();
 

@@ -14,6 +14,12 @@ namespace vIDsafe
         //Include API here
         private static readonly Enzoic _enzoic = new Enzoic("API", "Secret");
 
+        /// <summary>
+        /// Checks if a password is compromised
+        /// </summary>
+        /// <returns>
+        /// True if compromised, false if not
+        /// </returns>
         public static bool CheckPassword(string password)
         {
             // Check whether a password has been compromised
@@ -27,6 +33,12 @@ namespace vIDsafe
             }
         }
 
+        /// <summary>
+        /// Checks if a username and password together is compromised
+        /// </summary>
+        /// <returns>
+        /// True if compromised, false if not
+        /// </returns>
         public static bool CheckCredential(string email, string password)
         {
             // Check whether a specific set of credentials are compromised
@@ -40,6 +52,12 @@ namespace vIDsafe
             }
         }
 
+        /// <summary>
+        /// Gets the exposure details for an email
+        /// </summary>
+        /// <returns>
+        /// The list of exposures with their details
+        /// </returns>
         public static List<ExposureDetails> GetExposureDetails (string email)
         {
             // get all exposures for a given user

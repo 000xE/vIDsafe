@@ -27,8 +27,18 @@ namespace vIDsafe
         public FormHome()
         {
             InitializeComponent();
+            InitialMethods();
+        }
+
+        /// <summary>
+        /// Initial methods to run when the form starts
+        /// </summary>
+        private void InitialMethods()
+        {
             GetFormComponents();
-            LoadFormComponents();
+            SetName(FormvIDsafe.Main.User.Name);
+            GetSettings();
+            OpenChildForm(new FormOverview());
         }
 
         private void GetFormComponents()
@@ -37,6 +47,9 @@ namespace vIDsafe
         }
 
         //https://stackoverflow.com/questions/22935285/change-color-of-all-controls-inside-the-form-in-c-sharp/22935406#22935406
+        /// <summary>
+        /// Appends a form into a panel
+        /// </summary>
         private void UpdateControlColors(Theme theme, Control control)
         {
             theme.SetControlColors(control);
@@ -47,19 +60,9 @@ namespace vIDsafe
             }
         }
 
-        private void SetTheme(Form form)
-        {
-            UpdateControlColors(_currentTheme, form);
-        }
-
-        private void LoadFormComponents()
-        {
-            SetName(FormvIDsafe.Main.User.Name);
-            GetSettings();
-
-            OpenChildForm(new FormOverview());
-        }
-
+        /// <summary>
+        /// Gets the form settings
+        /// </summary>
         private void GetSettings()
         {
             onCloseToolStripMenuItem.Checked = Settings.Default.HideToTrayClose;
@@ -75,12 +78,18 @@ namespace vIDsafe
             cmbTheme.SelectedIndex = Settings.Default.Theme;
         }
 
+        /// <summary>
+        /// Sets the master account name
+        /// </summary>
         public static void SetName(string name)
         {
             Label lblMasterAccountName = (Label)_ctrlsFormControls.Find("lblMAName", true)[0];
             lblMasterAccountName.Text = name;
         }
 
+        /// <summary>
+        /// Sets the overall health score
+        /// </summary>
         public static void SetHealthScore(int healthScore, Color healthColor)
         {
             Panel pnlProgressBar = (Panel)_ctrlsFormControls.Find("pnlProgressBar", true)[0];
@@ -98,6 +107,9 @@ namespace vIDsafe
         }
 
         //https://stackoverflow.com/a/28811266
+        /// <summary>
+        /// Appends a form into a panel
+        /// </summary>
         private void OpenChildForm(Form frmChildForm)
         {
             while (pnlChildForm.Controls.Count > 0)
@@ -114,9 +126,12 @@ namespace vIDsafe
             frmChildForm.BringToFront();
             frmChildForm.Show();
 
-            SetTheme(frmChildForm);
+            UpdateControlColors(_currentTheme, frmChildForm);
         }
 
+        /// <summary>
+        /// Changes the selected navigation button
+        /// </summary>
         private void ChangeSelectedButton(object sender)
         {
             Button selectedButton = (Button)sender;
@@ -195,7 +210,10 @@ namespace vIDsafe
         {
             Logout();
         }
-        
+
+        /// <summary>
+        /// Logs out of the master account
+        /// </summary>
         private void Logout()
         {
             FormvIDsafe.Main.User.Logout();
@@ -203,6 +221,12 @@ namespace vIDsafe
             Close();
         }
 
+        /// <summary>
+        /// Checks if the user is logged in
+        /// </summary>
+        /// <returns>
+        /// True if logged in, false if not
+        /// </returns>
         private bool LoggedIn()
         {
             if (FormvIDsafe.Main.User.Vault == null)
@@ -241,6 +265,9 @@ namespace vIDsafe
             }
         }
 
+        /// <summary>
+        /// Hide to tray or show the form
+        /// </summary>
         private void HideToTray(bool hide)
         {
             trayIcon.Visible = hide;
@@ -272,6 +299,9 @@ namespace vIDsafe
             GenerateAndCopyPassword();
         }
 
+        /// <summary>
+        /// Generates a password and copies it
+        /// </summary>
         private void GenerateAndCopyPassword()
         {
             string password = CredentialGeneration.GeneratePassword();
@@ -315,7 +345,7 @@ namespace vIDsafe
 
             _currentTheme = _themes[cmbTheme.SelectedIndex];
 
-            SetTheme(this);
+            UpdateControlColors(_currentTheme, this);
         }
     }
 }

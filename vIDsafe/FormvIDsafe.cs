@@ -21,8 +21,16 @@ namespace vIDsafe
         public FormvIDsafe()
         {
             InitializeComponent();
+            InitialMethods();
+        }
+
+        /// <summary>
+        /// Initial methods to run when the form starts
+        /// </summary>
+        private void InitialMethods()
+        {
             GetFormComponents();
-            LoadFormComponents();
+            OpenChildForm(new FormLogin());
         }
 
         private void GetFormComponents()
@@ -33,11 +41,9 @@ namespace vIDsafe
             Main = this;
         }
 
-        private void LoadFormComponents()
-        {
-            OpenChildForm(new FormLogin());
-        }
-
+        /// <summary>
+        /// Shows a customised notification
+        /// </summary>
         public static void ShowNotification(ToolTipIcon icon, string title, string text)
         {
             _notifyIcon.Visible = true;
@@ -57,6 +63,9 @@ namespace vIDsafe
         }
 
         //https://stackoverflow.com/a/28811266
+        /// <summary>
+        /// Appends a form into a panel
+        /// </summary>
         public static void OpenChildForm(Form frmChildForm)
         {
             while (_pnlChildForm.Controls.Count > 0)

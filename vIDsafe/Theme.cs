@@ -15,6 +15,12 @@ namespace vIDsafe
 
         protected Dictionary<string, Color> ThemeColors;
 
+        /// <summary>
+        /// Creates a theme
+        /// </summary>
+        /// <returns>
+        /// The theme
+        /// </returns>
         public Theme ()
         {
             BackColors = new Dictionary<string, Color>();
@@ -23,13 +29,35 @@ namespace vIDsafe
             ThemeColors = new Dictionary<string, Color>();
         }
 
+        /// <summary>
+        /// Assigns colours to colour names to be used
+        /// </summary>
         protected abstract void AddThemeColors();
+
+        /// <summary>
+        /// Assigns foreground and background colours to tags
+        /// </summary>
         protected abstract void SetTags();
 
+        /// <summary>
+        /// Gets an assigned foreground colour for a tag
+        /// </summary>        
+        /// <returns>
+        /// The foreground colour
+        /// </returns>
         protected abstract Color GetForeColor(string tag);
 
+        /// <summary>
+        /// Gets an assigned background colour for a tag
+        /// </summary>        
+        /// <returns>
+        /// The background colour
+        /// </returns>
         protected abstract Color GetBackColor(string tag);
 
+        /// <summary>
+        /// Set the foreground and background colour of a control based on a tag
+        /// </summary>
         public void SetControlColors(Control control)
         {
             if (control.Tag != null)
@@ -41,6 +69,10 @@ namespace vIDsafe
                 }
             }
         }
+
+        /// <summary>
+        /// Sets the foregroujnd and background colour of a tag if it exists
+        /// </summary>
         protected void SetTagColors(string tag, Color foreColor, Color backColor)
         {
             if (ForeColors.ContainsKey(tag))

@@ -46,6 +46,12 @@ namespace vIDsafe
             [3] = true
         };
 
+        /// <summary>
+        /// Generates a username based on a derived name
+        /// </summary>
+        /// <returns>
+        /// The username
+        /// </returns>
         public static string GenerateUsername(string deriveName)
         {
             deriveName = deriveName.Replace(" ", "");
@@ -55,8 +61,6 @@ namespace vIDsafe
             char[] lowerUsername = deriveName.ToLower().ToCharArray();
             char[] upperUsername = deriveName.ToUpper().ToCharArray();
 
-            freakcode.Cryptography.CryptoRandom cryptoRandom = new freakcode.Cryptography.CryptoRandom();
-
             List<char[]> characters = new List<char[]>
             {
                 lowerUsername,
@@ -64,39 +68,55 @@ namespace vIDsafe
                 _numbers
             };
 
-            int nextCharacterChoice = cryptoRandom.Next(0, characters.Count);
-
             if (CurrentUsernameLength > characters.Count)
             {
-                for (int i = 0; i < CurrentUsernameLength; i++)
-                {
-                    int length = characters[nextCharacterChoice].Length;
-
-                    char randomChar = characters[nextCharacterChoice][cryptoRandom.Next(0, length)];
-
-                    if (nextCharacterChoice + 1 < characters.Count)
-                    {
-                        nextCharacterChoice++;
-                    }
-                    else
-                    {
-                        nextCharacterChoice = 0;
-                    }
-
-                    username.Append(randomChar);
-                }
+                AppendRandomCharacters(characters, CurrentUsernameLength, username);
             }
 
-            Encryption.SecurelyRandomizeArray(username);
+            Encryption.SecurelyRandomizeStringBuilder(username);
 
             return username.ToString();
         }
 
+        /// <summary>
+        /// Appends random characters of a chosen list over iterations onto a string builder
+        /// </summary>
+        private static void AppendRandomCharacters(List<char[]> characters, int iterations, StringBuilder stringBuilder)
+        {
+            freakcode.Cryptography.CryptoRandom cryptoRandom = new freakcode.Cryptography.CryptoRandom();
+
+            int nextCharacterChoice = cryptoRandom.Next(0, characters.Count);
+
+            for (int i = 0; i < iterations; i++)
+            {
+                int length = characters[nextCharacterChoice].Length;
+
+                char randomChar = characters[nextCharacterChoice][cryptoRandom.Next(0, length)];
+
+                if (nextCharacterChoice + 1 < characters.Count)
+                {
+                    nextCharacterChoice++;
+                }
+                else
+                {
+                    nextCharacterChoice = 0;
+                }
+
+                stringBuilder.Append(randomChar);
+            }
+
+            Encryption.SecurelyRandomizeStringBuilder(stringBuilder);
+        }
+
+        /// <summary>
+        /// Generates a password
+        /// </summary>
+        /// <returns>
+        /// The password
+        /// </returns>
         public static string GeneratePassword()
         {
             StringBuilder password = new StringBuilder("");
-
-            freakcode.Cryptography.CryptoRandom cryptoRandom = new freakcode.Cryptography.CryptoRandom();
 
             if (!Passphrase)
             {
@@ -110,30 +130,12 @@ namespace vIDsafe
                     }
                 }
 
-                int nextCharacterChoice = cryptoRandom.Next(0, characters.Count);
-
-                for (int i = 0; i < CurrentPasswordLength; i++)
-                {
-                    int length = characters[nextCharacterChoice].Length;
-
-                    char randomChar = characters[nextCharacterChoice][cryptoRandom.Next(0, length)];
-
-                    if (nextCharacterChoice+1 < characters.Count)
-                    {
-                        nextCharacterChoice++;
-                    }
-                    else
-                    {
-                        nextCharacterChoice = 0;
-                    }
-
-                    password.Append(randomChar);
-                }
-
-                Encryption.SecurelyRandomizeArray(password);
+                AppendRandomCharacters(characters, CurrentPasswordLength, password);
             }
             else
             {
+                freakcode.Cryptography.CryptoRandom cryptoRandom = new freakcode.Cryptography.CryptoRandom();
+
                 int wordListLength = WordList.EEFLongWordList.Length;
 
                 string wordSeparator = "-";
@@ -156,6 +158,12 @@ namespace vIDsafe
             return password.ToString();
         }
 
+        /// <summary>
+        /// Checks the strength of a password
+        /// </summary>
+        /// <returns>
+        /// The percentage of the strength of the password
+        /// </returns>
         public static double CheckStrength(string password)
         {
             double score = password.Length;
