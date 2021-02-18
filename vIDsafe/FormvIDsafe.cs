@@ -5,17 +5,16 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace vIDsafe
 {
     public partial class FormvIDsafe : Form
     {
-        private static NotifyIcon _notifyIcon;
-        public MasterAccount User;
         public static FormvIDsafe Main;
+        public MasterAccount User;
 
+        private static NotifyIcon _notifyIcon;
         private static Panel _pnlChildForm;
 
         public FormvIDsafe()

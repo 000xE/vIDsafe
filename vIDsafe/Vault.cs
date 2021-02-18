@@ -18,17 +18,28 @@ namespace vIDsafe
             Porting
         }
 
-        private readonly Dictionary<LogType, Dictionary<DateTime, string>> _logs;
+        private readonly Dictionary<LogType, Dictionary<DateTime, string>> _logs = new Dictionary<LogType, Dictionary<DateTime, string>>
+        {
+            [LogType.Account] = new Dictionary<DateTime, string>(),
+            [LogType.Passwords] = new Dictionary<DateTime, string>(),
+            [LogType.Porting] = new Dictionary<DateTime, string>()
+        };
 
-        private readonly Dictionary<Credential.CredentialStatus, int> _totalCredentialCounts;
+        private readonly Dictionary<Credential.CredentialStatus, int> _totalCredentialCounts = new Dictionary<Credential.CredentialStatus, int>()
+        {
+            [Credential.CredentialStatus.Safe] = 0,
+            [Credential.CredentialStatus.Compromised] = 0,
+            [Credential.CredentialStatus.Conflicted] = 0,
+            [Credential.CredentialStatus.Weak] = 0
+        };
 
         ///<value>Get or set the vault health score</value>
         [JsonIgnore]
-        public int OverallHealthScore { get; private set; }
+        public int OverallHealthScore { get; private set; } = 0;
 
         ///<value>Get or set the total credential count</value>
         [JsonIgnore]
-        public int TotalCredentialCount { get; private set; }
+        public int TotalCredentialCount { get; private set; } = 0;
 
         ///<value>Gets the safe credential count</value>
         [JsonIgnore]
@@ -47,33 +58,9 @@ namespace vIDsafe
         public int TotalWeakCredentialCount => _totalCredentialCounts[Credential.CredentialStatus.Weak];
 
         ///<value>Get or set the dictionary of identities</value>
-        public Dictionary<string, Identity> Identities { get; private set; }
+        public Dictionary<string, Identity> Identities { get; private set; } = new Dictionary<string, Identity>();
 
-        /// <summary>
-        /// Creates the vault
-        /// </summary>
-        /// <returns>
-        /// The vault
-        /// </returns>
-        public Vault()
-        {
-            Identities = new Dictionary<string, Identity>();
-
-            _logs = new Dictionary<LogType, Dictionary<DateTime, string>>
-            {
-                [LogType.Account] = new Dictionary<DateTime, string>(),
-                [LogType.Passwords] = new Dictionary<DateTime, string>(),
-                [LogType.Porting] = new Dictionary<DateTime, string>()
-            };
-
-            _totalCredentialCounts = new Dictionary<Credential.CredentialStatus, int>()
-            {
-                [Credential.CredentialStatus.Safe] = 0,
-                [Credential.CredentialStatus.Compromised] = 0,
-                [Credential.CredentialStatus.Conflicted] = 0,
-                [Credential.CredentialStatus.Weak] = 0
-            };
-        }
+        private readonly object _lock = new object();
 
         /// <summary>
         /// Creates an identity with a generated email and name
@@ -83,15 +70,18 @@ namespace vIDsafe
         /// </returns>
         public Identity GenerateIdentity()
         {
-            string nameToRandomise = "abcdefghijklmnopqrstuvwxyz";
+            lock (_lock)
+            {
+                string nameToRandomise = "abcdefghijklmnopqrstuvwxyz";
 
-            string email = CredentialGeneration.GenerateUsername(nameToRandomise).ToLower() + "@test.com";
-            string name = CredentialGeneration.GenerateUsername(nameToRandomise);
-            string usage = "";
+                string email = CredentialGeneration.GenerateUsername(nameToRandomise).ToLower() + "@test.com";
+                string name = CredentialGeneration.GenerateUsername(nameToRandomise);
+                string usage = "";
 
-            Identity identity = FindOrCreateIdentity(name, email, usage);
+                Identity identity = FindOrCreateIdentity(name, email, usage);
 
-            return identity;
+                return identity;
+            }
         }
 
         /// <summary>
@@ -102,19 +92,22 @@ namespace vIDsafe
         /// </returns>
         public Identity FindOrCreateIdentity(string name, string email, string usage)
         {
-            Identity identity;
-
-            if (Identities.ContainsKey(email))
+            lock (_lock)
             {
-                identity = Identities[email];
-            }
-            else
-            {
-                identity = new Identity(this, name, email, usage);
-                Identities.Add(email, identity);
-            }
+                Identity identity;
 
-            return identity;
+                if (Identities.ContainsKey(email))
+                {
+                    identity = Identities[email];
+                }
+                else
+                {
+                    identity = new Identity(this, name, email, usage);
+                    Identities.Add(email, identity);
+                }
+
+                return identity;
+            }
         }
 
         /// <summary>
@@ -125,20 +118,23 @@ namespace vIDsafe
         /// </returns>
         public bool TryChangeIdentityEmail(string oldEmail, string newEmail)
         {
-            if (Identities.ContainsKey(newEmail))
+            lock (_lock)
             {
-                return false;
-            }
-            else
-            {
-                Identity identity = Identities[oldEmail];
+                if (Identities.ContainsKey(newEmail))
+                {
+                    return false;
+                }
+                else
+                {
+                    Identity identity = Identities[oldEmail];
 
-                DeleteIdentity(oldEmail);
+                    DeleteIdentity(oldEmail);
 
-                identity.Email = newEmail;
-                Identities.Add(newEmail, identity);
+                    identity.Email = newEmail;
+                    Identities.Add(newEmail, identity);
 
-                return true;
+                    return true;
+                }
             }
         }
 
@@ -147,9 +143,12 @@ namespace vIDsafe
         /// </summary>
         public void DeleteIdentity(string email)
         {
-            if (Identities.ContainsKey(email))
+            lock (_lock)
             {
-                Identities.Remove(email);
+                if (Identities.ContainsKey(email))
+                {
+                    Identities.Remove(email);
+                }
             }
         }
 
@@ -158,7 +157,10 @@ namespace vIDsafe
         /// </summary>
         public void DeleteAllIdentities()
         {
-            Identities.Clear();
+            lock (_lock)
+            {
+                Identities.Clear();
+            }
         }
 
         /// <summary>
@@ -166,9 +168,12 @@ namespace vIDsafe
         /// </summary>
         public void DeleteAllCredentials()
         {
-            foreach (KeyValuePair<string, Identity> identity in Identities)
+            lock (_lock)
             {
-                identity.Value.DeleteAllCredentials();
+                foreach (KeyValuePair<string, Identity> identity in Identities)
+                {
+                    identity.Value.DeleteAllCredentials();
+                }
             }
         }
 
@@ -180,13 +185,16 @@ namespace vIDsafe
         /// </returns>
         public Dictionary<DateTime, string> GetLogs(LogType key)
         {
-            if (_logs.ContainsKey(key))
+            lock (_lock)
             {
-                return _logs[key];
-            }
-            else
-            {
-                return new Dictionary<DateTime, string>();
+                if (_logs.ContainsKey(key))
+                {
+                    return _logs[key];
+                }
+                else
+                {
+                    return new Dictionary<DateTime, string>();
+                }
             }
         }
 
@@ -198,11 +206,14 @@ namespace vIDsafe
         /// </returns>
         public KeyValuePair<DateTime, string> Log(LogType key, string log)
         {
-            DateTime currentTime = DateTime.Now;
+            lock (_lock)
+            {
+                DateTime currentTime = DateTime.Now;
 
-            _logs[key].Add(currentTime, log);
+                _logs[key].Add(currentTime, log);
 
-            return new KeyValuePair<DateTime, string>(currentTime, log);
+                return new KeyValuePair<DateTime, string>(currentTime, log);
+            }
         }
 
         /// <summary>
@@ -245,15 +256,18 @@ namespace vIDsafe
         /// </summary>
         public void CalculateOverallHealthScore(bool calculateStatuses)
         {
-            CountTotalCredentialStatus(calculateStatuses);
+            lock (_lock)
+            {
+                CountTotalCredentialStatus(calculateStatuses);
 
-            if (TotalCredentialCount > 0)
-            {
-                OverallHealthScore = (int)((double)_totalCredentialCounts[Credential.CredentialStatus.Safe] / TotalCredentialCount * 100);
-            }
-            else
-            {
-                OverallHealthScore = 0;
+                if (TotalCredentialCount > 0)
+                {
+                    OverallHealthScore = (int)((double)_totalCredentialCounts[Credential.CredentialStatus.Safe] / TotalCredentialCount * 100);
+                }
+                else
+                {
+                    OverallHealthScore = 0;
+                }
             }
         }
     }

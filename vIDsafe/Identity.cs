@@ -12,34 +12,40 @@ namespace vIDsafe
     [Serializable]
     public class Identity
     {
-        private readonly Vault _vault;
+        private readonly Vault _vault = new Vault();
 
         ///<value>Get or set the identity name</value>
         [Name("name")]
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
 
         ///<value>Get or set the identity email</value>
         [Name("email")]
-        public string Email { get; set; }
+        public string Email { get; set; } = "";
 
         ///<value>Get or set the identity usage</value>
         [Name("usage")]
-        public string Usage { get; set; }
+        public string Usage { get; set; } = "";
 
         ///<value>Get or set the identity health score</value>
         [Ignore]
         [JsonIgnore]
-        public int HealthScore { get; private set; }
+        public int HealthScore { get; private set; } = 0;
 
         ///<value>Get or set the dictionary of breached doamins</value>
-        public Dictionary<string, string> BreachedDomains { get; private set; }
+        public Dictionary<string, string> BreachedDomains { get; private set; } = new Dictionary<string, string>();
 
         ///<value>Get or set the dictionary of credentials</value>
-        public Dictionary<string, Credential> Credentials { get; private set; }
+        public Dictionary<string, Credential> Credentials { get; private set; } = new Dictionary<string, Credential>();
 
         [Ignore]
         [JsonIgnore]
-        public Dictionary<Credential.CredentialStatus, int> CredentialCounts { get; private set; }
+        public Dictionary<Credential.CredentialStatus, int> CredentialCounts { get; private set; } = new Dictionary<Credential.CredentialStatus, int>()
+        {
+            [Credential.CredentialStatus.Safe] = 0,
+            [Credential.CredentialStatus.Compromised] = 0,
+            [Credential.CredentialStatus.Conflicted] = 0,
+            [Credential.CredentialStatus.Weak] = 0
+        };
 
         [Ignore]
         [JsonIgnore]
@@ -57,6 +63,8 @@ namespace vIDsafe
         [JsonIgnore]
         public int ConflictCredentialCount => CredentialCounts[Credential.CredentialStatus.Conflicted];
 
+        private readonly object _lock = new object();
+
         /// <summary>
         /// Creates an identity
         /// </summary>
@@ -70,17 +78,6 @@ namespace vIDsafe
             Name = name;
             Email = email;
             Usage = usage;
-
-            Credentials = new Dictionary<string, Credential>();
-            BreachedDomains = new Dictionary<string, string>();
-
-            CredentialCounts = new Dictionary<Credential.CredentialStatus, int>()
-            {
-                [Credential.CredentialStatus.Safe] = 0,
-                [Credential.CredentialStatus.Compromised] = 0,
-                [Credential.CredentialStatus.Conflicted] = 0,
-                [Credential.CredentialStatus.Weak] = 0
-            };
         }
 
         /// <summary>
@@ -91,17 +88,20 @@ namespace vIDsafe
         /// </returns>
         public Credential GenerateCredential()
         {
-            string GUID = Guid.NewGuid().ToString();
+            lock (_lock)
+            {
+                string GUID = Guid.NewGuid().ToString();
 
-            string url = "";
-            string notes = "";
+                string url = "";
+                string notes = "";
 
-            string username = CredentialGeneration.GenerateUsername(Name);
-            string password = CredentialGeneration.GeneratePassword();
+                string username = CredentialGeneration.GenerateUsername(Name);
+                string password = CredentialGeneration.GeneratePassword();
 
-            Credential credential = FindOrCreateCredential(GUID, username, password, url, notes);
+                Credential credential = FindOrCreateCredential(GUID, username, password, url, notes);
 
-            return credential;
+                return credential;
+            }
         }
 
         /// <summary>
@@ -112,19 +112,22 @@ namespace vIDsafe
         /// </returns>
         public Credential FindOrCreateCredential(string GUID, string username, string password, string url, string notes)
         {
-            Credential credential;
-
-            if (Credentials.ContainsKey(GUID))
+            lock (_lock)
             {
-                credential = Credentials[GUID];
-            }
-            else
-            {
-                credential = new Credential(GUID, username, password, url, notes);
-                Credentials.Add(GUID, credential);
-            }
+                Credential credential;
 
-            return credential;
+                if (Credentials.ContainsKey(GUID))
+                {
+                    credential = Credentials[GUID];
+                }
+                else
+                {
+                    credential = new Credential(GUID, username, password, url, notes);
+                    Credentials.Add(GUID, credential);
+                }
+
+                return credential;
+            }
         }
 
         /// <summary>
@@ -132,9 +135,12 @@ namespace vIDsafe
         /// </summary>
         public void DeleteCredential(string key)
         {
-            if (Credentials.ContainsKey(key))
+            lock (_lock)
             {
-                Credentials.Remove(key);
+                if (Credentials.ContainsKey(key))
+                {
+                    Credentials.Remove(key);
+                }
             }
         }
 
@@ -143,7 +149,10 @@ namespace vIDsafe
         /// </summary>
         public void DeleteAllCredentials()
         {
-            Credentials.Clear();
+            lock (_lock)
+            {
+                Credentials.Clear();
+            }
         }
 
         /// <summary>
@@ -154,25 +163,28 @@ namespace vIDsafe
         /// </returns>
         public Dictionary<string, string> GetBreaches(string email, bool useAPI)
         {
-            if (useAPI)
+            lock (_lock)
             {
-                List<ExposureDetails> exposureDetails = EnzoicAPI.GetExposureDetails(email);
-
-                BreachedDomains.Clear();
-
-                if (exposureDetails.Count > 0)
+                if (useAPI)
                 {
-                    foreach (ExposureDetails detail in exposureDetails)
+                    List<ExposureDetails> exposureDetails = EnzoicAPI.GetExposureDetails(email);
+
+                    BreachedDomains.Clear();
+
+                    if (exposureDetails.Count > 0)
                     {
-                        if (!BreachedDomains.ContainsKey(detail.Title))
+                        foreach (ExposureDetails detail in exposureDetails)
                         {
-                            BreachedDomains.Add(detail.Title, detail.Date.ToString());
+                            if (!BreachedDomains.ContainsKey(detail.Title))
+                            {
+                                BreachedDomains.Add(detail.Title, detail.Date.ToString());
+                            }
                         }
                     }
                 }
-            }
 
-            return BreachedDomains;
+                return BreachedDomains;
+            }
         }
 
         /// <summary>
@@ -219,20 +231,23 @@ namespace vIDsafe
         /// </summary>
         public void CalculateHealthScore(bool calculateStatuses)
         {
-            if (calculateStatuses)
+            lock (_lock)
             {
-                SetCredentialStatuses();
-            }
+                if (calculateStatuses)
+                {
+                    SetCredentialStatuses();
+                }
 
-            CountCredentialStatus();
+                CountCredentialStatus();
 
-            if (Credentials.Count > 0)
-            {
-                HealthScore = (int)((double)CredentialCounts[Credential.CredentialStatus.Safe] / Credentials.Count * 100);
-            }
-            else
-            {
-                HealthScore = 0;
+                if (Credentials.Count > 0)
+                {
+                    HealthScore = (int)((double)CredentialCounts[Credential.CredentialStatus.Safe] / Credentials.Count * 100);
+                }
+                else
+                {
+                    HealthScore = 0;
+                }
             }
         }
     }

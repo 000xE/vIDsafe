@@ -135,12 +135,9 @@ namespace vIDsafe
         private void ChangeSelectedButton(object sender)
         {
             Button selectedButton = (Button)sender;
-            //selectedButton.BackColor = Color.FromArgb(47, 47, 47);
             selectedButton.Tag = "NavButton selected";
 
             _currentTheme.SetControlColors(selectedButton);
-
-            //Todo: cleanup
 
             Panel pnlNav = (Panel) _ctrlsFormControls.Find("pnlNavigation", true)[0];
 
@@ -151,8 +148,6 @@ namespace vIDsafe
                     if (ctrlNav != selectedButton)
                     {
                         ctrlNav.Tag = "NavButton";
-                        //navigationControls.BackColor = Color.FromArgb(26, 26, 26);
-                        //navigationControls.BackColor = Color.FromArgb(32, 32, 32);
 
                         _currentTheme.SetControlColors(ctrlNav);
                     }

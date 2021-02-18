@@ -36,6 +36,8 @@ namespace vIDsafe
         [JsonIgnore]
         public CredentialStatus Status { get; set; } = CredentialStatus.Safe;
 
+        private readonly object _lock = new object();
+
         public enum CredentialStatus
         {
             Safe,
@@ -65,21 +67,24 @@ namespace vIDsafe
         /// </summary>
         public void CalculateStatus(Vault vault, Identity identity)
         {
-            if (CheckBreached(identity.BreachedDomains, URL))
+            lock (_lock)
             {
-                Status = CredentialStatus.Compromised;
-            }
-            else if (CheckConflict(vault.Identities, Username, Password))
-            {
-                Status = CredentialStatus.Conflicted;
-            }
-            else if (CheckWeak(Password))
-            {
-                Status = CredentialStatus.Weak;
-            }
-            else
-            {
-                Status = CredentialStatus.Safe;
+                if (CheckBreached(identity.BreachedDomains, URL))
+                {
+                    Status = CredentialStatus.Compromised;
+                }
+                else if (CheckConflict(vault.Identities, Username, Password))
+                {
+                    Status = CredentialStatus.Conflicted;
+                }
+                else if (CheckWeak(Password))
+                {
+                    Status = CredentialStatus.Weak;
+                }
+                else
+                {
+                    Status = CredentialStatus.Safe;
+                }
             }
         }
 

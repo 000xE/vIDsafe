@@ -10,24 +10,12 @@ namespace vIDsafe
 {
     public abstract class Theme
     {
-        protected Dictionary<string, Color> BackColors;
-        protected Dictionary<string, Color> ForeColors;
+        protected Dictionary<string, Color> BackColors = new Dictionary<string, Color>();
+        protected Dictionary<string, Color> ForeColors = new Dictionary<string, Color>();
 
-        protected Dictionary<string, Color> ThemeColors;
+        protected Dictionary<string, Color> ThemeColors = new Dictionary<string, Color>();
 
-        /// <summary>
-        /// Creates a theme
-        /// </summary>
-        /// <returns>
-        /// The theme
-        /// </returns>
-        public Theme ()
-        {
-            BackColors = new Dictionary<string, Color>();
-            ForeColors = new Dictionary<string, Color>();
-
-            ThemeColors = new Dictionary<string, Color>();
-        }
+        private readonly object _lock = new object();
 
         /// <summary>
         /// Assigns colours to colour names to be used
@@ -60,18 +48,21 @@ namespace vIDsafe
         /// </summary>
         public void SetControlColors(Control control)
         {
-            if (control.Tag != null)
+            lock (_lock)
             {
-                if (control.Tag.ToString().Length > 0)
+                if (control.Tag != null)
                 {
-                    control.ForeColor = GetForeColor(control.Tag.ToString());
-                    control.BackColor = GetBackColor(control.Tag.ToString());
+                    if (control.Tag.ToString().Length > 0)
+                    {
+                        control.ForeColor = GetForeColor(control.Tag.ToString());
+                        control.BackColor = GetBackColor(control.Tag.ToString());
+                    }
                 }
             }
         }
 
         /// <summary>
-        /// Sets the foregroujnd and background colour of a tag if it exists
+        /// Sets the foreground and background colour of a tag if it exists
         /// </summary>
         protected void SetTagColors(string tag, Color foreColor, Color backColor)
         {

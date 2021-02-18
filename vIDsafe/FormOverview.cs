@@ -35,19 +35,16 @@ namespace vIDsafe
         /// </summary>
         private void RecalculateHealthScore()
         {
-            Vault vault = FormvIDsafe.Main.User.Vault;
-
-            vault.CalculateOverallHealthScore(true);
-            DisplayHealthScores(vault);
-            DisplayCredentialStatusCounts(vault);
-            DisplaySecurityAlerts(vault.Identities);
+            FormvIDsafe.Main.User.Vault.CalculateOverallHealthScore(true);
+            DisplayHealthScores();
+            DisplayCredentialStatusCounts();
+            DisplaySecurityAlerts();
         }
 
-        //Todo: separate to gethealthscores and put calculate method on it
         /// <summary>
         /// Displays the health scores and identity details
         /// </summary>
-        private void DisplayHealthScores(Vault vault)
+        private void DisplayHealthScores()
         {
             tlpIdentities.ColumnStyles.Clear();
             tlpIdentities.Controls.Clear();
@@ -70,6 +67,74 @@ namespace vIDsafe
             int totalHealthScore = FormvIDsafe.Main.User.Vault.OverallHealthScore;
 
             FormHome.SetHealthScore(totalHealthScore, CalculateHealthColor(totalHealthScore));
+        }
+
+        /// <summary>
+        /// Displays the total credential status counts in the vault
+        /// </summary>
+        private void DisplayCredentialStatusCounts()
+        {
+            int safeCount = FormvIDsafe.Main.User.Vault.TotalSafeCredentialCount;
+            int weakCount = FormvIDsafe.Main.User.Vault.TotalWeakCredentialCount;
+            int conflictCount = FormvIDsafe.Main.User.Vault.TotalConflictCredentialCount;
+            int compromisedCount = FormvIDsafe.Main.User.Vault.TotalCompromisedCredentialCount;
+
+            chartCredentials.Series["Credentials"].Points[0].SetValueXY("Safe", safeCount);
+            chartCredentials.Series["Credentials"].Points[1].SetValueXY("Weak", weakCount);
+            chartCredentials.Series["Credentials"].Points[2].SetValueXY("Conflicts", conflictCount);
+            chartCredentials.Series["Credentials"].Points[3].SetValueXY("Compromised", compromisedCount);
+
+            chartCredentials.Series["Credentials"].IsValueShownAsLabel = true;
+        }
+
+        /// <summary>
+        /// Displays the security alerts
+        /// </summary>
+        private void DisplaySecurityAlerts()
+        {
+            foreach (KeyValuePair<string, Identity> identityPair in FormvIDsafe.Main.User.Vault.Identities)
+            {
+                Identity identity = identityPair.Value;
+
+                int breachCount = identity.CompromisedCredentialCount;
+
+                if (breachCount > 0)
+                {
+                    string alert = breachCount + " exposed credential(s)";
+
+                    DisplayAlert(identity.Name, alert);
+                }
+
+                int conflictCount = identity.ConflictCredentialCount;
+
+                if (conflictCount > 0)
+                {
+                    string alert = conflictCount + " conflicted credential(s)";
+
+                    DisplayAlert(identity.Name, alert);
+                }
+
+                int weakCount = identity.WeakCredentialCount;
+
+                if (weakCount > 0)
+                {
+                    string alert = weakCount + " weak credential(s)";
+
+                    DisplayAlert(identity.Name, alert);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Displays a specific security alert
+        /// </summary>
+        private void DisplayAlert(string identityName, string alert)
+        {
+            ListViewItem lvi = new ListViewItem("");
+            lvi.SubItems.Add(identityName);
+            lvi.SubItems.Add(alert);
+
+            lvSecurityAlerts.Items.Add(lvi);
         }
 
         /// <summary>
@@ -184,75 +249,6 @@ namespace vIDsafe
             }
 
             return Color.FromArgb(color.A, (int)red, (int)green, (int)blue);
-        }
-
-        //Todo: separate to getcredentialinformation and maybe rename in identities too
-        /// <summary>
-        /// Displays the total credential status counts in the vault
-        /// </summary>
-        private void DisplayCredentialStatusCounts(Vault vault)
-        {
-            int safeCount = vault.TotalSafeCredentialCount;
-            int weakCount = vault.TotalWeakCredentialCount;
-            int conflictCount = vault.TotalConflictCredentialCount;
-            int compromisedCount = vault.TotalCompromisedCredentialCount;
-
-            chartCredentials.Series["Credentials"].Points[0].SetValueXY("Safe", safeCount);
-            chartCredentials.Series["Credentials"].Points[1].SetValueXY("Weak", weakCount);
-            chartCredentials.Series["Credentials"].Points[2].SetValueXY("Conflicts", conflictCount);
-            chartCredentials.Series["Credentials"].Points[3].SetValueXY("Compromised", compromisedCount);
-
-            chartCredentials.Series["Credentials"].IsValueShownAsLabel = true;
-        }
-
-        /// <summary>
-        /// Displays the security alerts
-        /// </summary>
-        private void DisplaySecurityAlerts(Dictionary<string, Identity> identities)
-        {
-            foreach (KeyValuePair<string, Identity> identityPair in identities)
-            {
-                Identity identity = identityPair.Value;
-
-                int breachCount = identity.CompromisedCredentialCount;
-
-                if (breachCount > 0)
-                {
-                    string alert = breachCount + " exposed credential(s)";
-
-                    DisplayAlert(identity.Name, alert);
-                }
-
-                int conflictCount = identity.ConflictCredentialCount;
-
-                if (conflictCount > 0)
-                {
-                    string alert = conflictCount + " conflicted credential(s)";
-
-                    DisplayAlert(identity.Name, alert);
-                }
-
-                int weakCount = identity.WeakCredentialCount;
-
-                if (weakCount > 0)
-                {
-                    string alert = weakCount + " weak credential(s)";
-
-                    DisplayAlert(identity.Name, alert);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Displays a specific security alert
-        /// </summary>
-        private void DisplayAlert(string identityName, string alert)
-        {
-            ListViewItem lvi = new ListViewItem("");
-            lvi.SubItems.Add(identityName);
-            lvi.SubItems.Add(alert);
-
-            lvSecurityAlerts.Items.Add(lvi);
         }
 
         private void chartCredentials_PrePaint(object sender, ChartPaintEventArgs e)
