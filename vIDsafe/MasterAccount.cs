@@ -23,8 +23,6 @@ namespace vIDsafe
 
         private readonly string _vaultFolder = "Vaults/";
 
-        private readonly object _lock = new object();
-
         public enum VaultFormat
         {
             CSV,
@@ -56,10 +54,8 @@ namespace vIDsafe
         /// </returns>
         public bool TryLogin(string name, string password)
         {
-            lock (_lock)
+            lock (this)
             {
-                bool loggedin = false;
-
                 if (AccountExists(name))
                 {
                     _password = HashPassword(password, name);
@@ -70,11 +66,11 @@ namespace vIDsafe
                     {
                         Name = name;
 
-                        loggedin = true;
+                        return true;
                     }
                 }
 
-                return loggedin;
+                return false;
             }
         }
 
@@ -86,10 +82,8 @@ namespace vIDsafe
         /// </returns>
         public bool TryRegister(string name, string password)
         {
-            lock (_lock)
+            lock (this)
             {
-                bool registered = false;
-
                 if (!AccountExists(name))
                 {
                     Name = name;
@@ -97,10 +91,10 @@ namespace vIDsafe
 
                     CreateVault(Vault, Name, _password);
 
-                    registered = true;
+                    return true;
                 }
 
-                return registered;
+                return false;
             }
         }
 
@@ -112,14 +106,12 @@ namespace vIDsafe
         /// </returns>
         private bool VerifyPassword(string oldPassword)
         {
-            bool correct = false;
-
             if (HashPassword(oldPassword, Name).Equals(_password))
             {
-                correct = true;
+                return true;
             }
 
-            return correct;
+            return false;
         }
 
         /// <summary>
@@ -130,20 +122,18 @@ namespace vIDsafe
         /// </returns>
         public bool TryChangePassword(string oldPassword, string password)
         {
-            lock (_lock)
+            lock (this)
             {
-                bool changed = false;
-
                 if (VerifyPassword(oldPassword).Equals(true))
                 {
                     _password = HashPassword(password, Name);
 
                     SaveVault(Vault, Name, _password);
 
-                    changed = true;
+                    return true;
                 }
 
-                return changed;
+                return false;
             }
         }
 
@@ -155,10 +145,8 @@ namespace vIDsafe
         /// </returns>
         public bool TryChangeName(string oldPassword, string newName)
         {
-            lock (_lock)
+            lock (this)
             {
-                bool changed = false;
-
                 if (VerifyPassword(oldPassword).Equals(true))
                 {
                     if (AccountExists(Name))
@@ -171,10 +159,10 @@ namespace vIDsafe
 
                     SaveVault(Vault, Name, _password);
 
-                    changed = true;
+                    return true;
                 }
 
-                return changed;
+                return false;
             }
         }
 
@@ -200,9 +188,7 @@ namespace vIDsafe
             string encryptedVault = EncryptVault(vault, password);
             string fileName = _vaultFolder + name;
 
-            FileInfo file = new FileInfo(fileName);
-            file.Directory.Create(); // If the directory already exists, this method does nothing.
-            File.WriteAllText(file.FullName, encryptedVault);
+            CreateFile(fileName, encryptedVault);
         }
 
         /// <summary>
@@ -275,11 +261,9 @@ namespace vIDsafe
         /// </returns>
         public bool TryImportVault(VaultFormat format, string fileName, bool replace)
         {
-            lock (_lock)
+            lock (this)
             {
                 Vault importedVault = new Vault();
-
-                bool canImport;
 
                 try
                 {
@@ -316,15 +300,13 @@ namespace vIDsafe
 
                     AddImportedData(importedVault, replace);
 
-                    canImport = true;
+                    return true;
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e);
-                    canImport = false;
+                    return false;
                 }
-
-                return canImport;
             }
         }
 
@@ -366,11 +348,9 @@ namespace vIDsafe
         /// </returns>
         public bool TryExportVault(VaultFormat format, string selectedEmail, string fileName)
         {
-            lock (_lock)
+            lock (this)
             {
                 Vault vault = Vault;
-
-                bool canExport;
 
                 string writeContent = "";
 
@@ -416,20 +396,23 @@ namespace vIDsafe
                             break;
                     }
 
-                    FileInfo file = new FileInfo(fileName);
-                    file.Directory.Create(); // If the directory already exists, this method does nothing.
-                    File.WriteAllText(file.FullName, writeContent);
+                    CreateFile(fileName, writeContent);
 
-                    canExport = true;
+                    return true;
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e);
-                    canExport = false;
+                    return false;
                 }
-
-                return canExport;
             }
+        }
+
+        private void CreateFile(string fileName, string writeContent)
+        {
+            FileInfo file = new FileInfo(fileName);
+            file.Directory.Create(); // If the directory already exists, this method does nothing.
+            File.WriteAllText(file.FullName, writeContent);
         }
 
         /// <summary>
@@ -437,7 +420,7 @@ namespace vIDsafe
         /// </summary>
         public void Logout()
         {
-            lock (_lock)
+            lock (this)
             {
                 SaveVault(Vault, Name, _password);
 
@@ -453,7 +436,7 @@ namespace vIDsafe
         /// </summary>
         public void DeleteAccount()
         {
-            lock (_lock)
+            lock (this)
             {
                 Vault = new Vault();
 

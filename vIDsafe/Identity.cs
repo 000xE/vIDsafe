@@ -63,8 +63,6 @@ namespace vIDsafe
         [JsonIgnore]
         public int ConflictCredentialCount => CredentialCounts[Credential.CredentialStatus.Conflicted];
 
-        private readonly object _lock = new object();
-
         /// <summary>
         /// Creates an identity
         /// </summary>
@@ -88,7 +86,7 @@ namespace vIDsafe
         /// </returns>
         public Credential GenerateCredential()
         {
-            lock (_lock)
+            lock (this)
             {
                 string GUID = Guid.NewGuid().ToString();
 
@@ -112,7 +110,7 @@ namespace vIDsafe
         /// </returns>
         public Credential FindOrCreateCredential(string GUID, string username, string password, string url, string notes)
         {
-            lock (_lock)
+            lock (this)
             {
                 Credential credential;
 
@@ -135,7 +133,7 @@ namespace vIDsafe
         /// </summary>
         public void DeleteCredential(string key)
         {
-            lock (_lock)
+            lock (this)
             {
                 if (Credentials.ContainsKey(key))
                 {
@@ -149,7 +147,7 @@ namespace vIDsafe
         /// </summary>
         public void DeleteAllCredentials()
         {
-            lock (_lock)
+            lock (this)
             {
                 Credentials.Clear();
             }
@@ -163,7 +161,7 @@ namespace vIDsafe
         /// </returns>
         public Dictionary<string, string> GetBreaches(string email, bool useAPI)
         {
-            lock (_lock)
+            lock (this)
             {
                 if (useAPI)
                 {
@@ -231,7 +229,7 @@ namespace vIDsafe
         /// </summary>
         public void CalculateHealthScore(bool calculateStatuses)
         {
-            lock (_lock)
+            lock (this)
             {
                 if (calculateStatuses)
                 {

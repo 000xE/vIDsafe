@@ -60,8 +60,6 @@ namespace vIDsafe
         ///<value>Get or set the dictionary of identities</value>
         public Dictionary<string, Identity> Identities { get; private set; } = new Dictionary<string, Identity>();
 
-        private readonly object _lock = new object();
-
         /// <summary>
         /// Creates an identity with a generated email and name
         /// </summary>
@@ -70,7 +68,7 @@ namespace vIDsafe
         /// </returns>
         public Identity GenerateIdentity()
         {
-            lock (_lock)
+            lock (this)
             {
                 string nameToRandomise = "abcdefghijklmnopqrstuvwxyz";
 
@@ -92,7 +90,7 @@ namespace vIDsafe
         /// </returns>
         public Identity FindOrCreateIdentity(string name, string email, string usage)
         {
-            lock (_lock)
+            lock (this)
             {
                 Identity identity;
 
@@ -118,7 +116,7 @@ namespace vIDsafe
         /// </returns>
         public bool TryChangeIdentityEmail(string oldEmail, string newEmail)
         {
-            lock (_lock)
+            lock (this)
             {
                 if (Identities.ContainsKey(newEmail))
                 {
@@ -143,7 +141,7 @@ namespace vIDsafe
         /// </summary>
         public void DeleteIdentity(string email)
         {
-            lock (_lock)
+            lock (this)
             {
                 if (Identities.ContainsKey(email))
                 {
@@ -157,7 +155,7 @@ namespace vIDsafe
         /// </summary>
         public void DeleteAllIdentities()
         {
-            lock (_lock)
+            lock (this)
             {
                 Identities.Clear();
             }
@@ -168,7 +166,7 @@ namespace vIDsafe
         /// </summary>
         public void DeleteAllCredentials()
         {
-            lock (_lock)
+            lock (this)
             {
                 foreach (KeyValuePair<string, Identity> identity in Identities)
                 {
@@ -185,7 +183,7 @@ namespace vIDsafe
         /// </returns>
         public Dictionary<DateTime, string> GetLogs(LogType key)
         {
-            lock (_lock)
+            lock (this)
             {
                 if (_logs.ContainsKey(key))
                 {
@@ -206,7 +204,7 @@ namespace vIDsafe
         /// </returns>
         public KeyValuePair<DateTime, string> Log(LogType key, string log)
         {
-            lock (_lock)
+            lock (this)
             {
                 DateTime currentTime = DateTime.Now;
 
@@ -256,7 +254,7 @@ namespace vIDsafe
         /// </summary>
         public void CalculateOverallHealthScore(bool calculateStatuses)
         {
-            lock (_lock)
+            lock (this)
             {
                 CountTotalCredentialStatus(calculateStatuses);
 
