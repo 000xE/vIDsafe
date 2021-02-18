@@ -479,6 +479,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "vIDsafe";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormHome_FormClosing);
+            this.Load += new System.EventHandler(this.FormHome_Load);
             this.Resize += new System.EventHandler(this.FormHome_Resize);
             this.pnlMain.ResumeLayout(false);
             this.pnlNavigation.ResumeLayout(false);

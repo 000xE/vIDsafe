@@ -36,8 +36,8 @@ namespace vIDsafe
         private void InitialMethods()
         {
             GetFormComponents();
-            SetName(FormvIDsafe.Main.User.Name);
             GetSettings();
+            SetName(FormvIDsafe.Main.User.Name);
             OpenChildForm(new FormOverview());
         }
 
@@ -265,6 +265,18 @@ namespace vIDsafe
             }
         }
 
+        private void FormHome_Load(object sender, EventArgs e)
+        {
+            if (Settings.Default.HideToTrayStart)
+            {
+                //https://stackoverflow.com/questions/70272/single-form-hide-on-startup/189045#189045
+                BeginInvoke(new MethodInvoker(delegate
+                {
+                    HideToTray(true);
+                }));
+            }
+        }
+
         /// <summary>
         /// Hide to tray or show the form
         /// </summary>
@@ -275,10 +287,12 @@ namespace vIDsafe
 
             if (hide)
             {
+                Opacity = 0;
                 Hide();
             }
             else
             {
+                Opacity = 100;
                 Show();
             }
         }

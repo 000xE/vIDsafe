@@ -64,12 +64,11 @@ namespace vIDsafe
         {
             byte[] textBytes = Encoding.ASCII.GetBytes(plainText);
 
-            //https://stackoverflow.com/q/8041451
-
             using (AesCryptoServiceProvider AES = GetAES(key))
             {
                 using (var encryptor = AES.CreateEncryptor(AES.Key, AES.IV))
                 {
+                    //https://stackoverflow.com/q/8041451
                     using (var ms = new MemoryStream())
                     {
                         ms.Write(AES.IV, 0, _ivSize);
@@ -98,9 +97,9 @@ namespace vIDsafe
 
             using (AesCryptoServiceProvider AES = GetAES(key))
             {
-                //https://stackoverflow.com/q/8041451
                 try
                 {
+                    //https://stackoverflow.com/q/8041451
                     using (var ms = new MemoryStream(textBytes))
                     {
                         byte[] buffer = new byte[_ivSize];

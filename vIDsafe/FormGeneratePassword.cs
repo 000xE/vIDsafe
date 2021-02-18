@@ -113,7 +113,12 @@ namespace vIDsafe
 
         private void tbPasswordLength_Scroll(object sender, EventArgs e)
         {
-            if (rbPassphrase.Checked)
+            SetPasswordLengths(rbPassphrase.Checked);
+        }
+
+        private void SetPasswordLengths (bool passphrase)
+        {
+            if (passphrase)
             {
                 CredentialGeneration.CurrentPassphraseLength = tbPasswordLength.Value;
             }
