@@ -31,13 +31,12 @@ namespace vIDsafe
             {
                 EnableLoginComponents(false);
 
-                FormvIDsafe.Main.User = new MasterAccount();
-
                 bool canLogin = false;
 
                 await Task.Run(() =>
                 {
-                    canLogin = FormvIDsafe.Main.User.TryLogin(name, password);
+                    FormvIDsafe.Main.User = new MasterAccount(name, password);
+                    canLogin = FormvIDsafe.Main.User.TryLogin();
                 });
 
                 if (canLogin.Equals(true))

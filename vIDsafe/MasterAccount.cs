@@ -31,6 +31,18 @@ namespace vIDsafe
         }
 
         /// <summary>
+        /// Creates a master account
+        /// </summary>
+        /// <returns>
+        /// The master account
+        /// </returns>
+        public MasterAccount(string name, string password)
+        {
+            Name = name;
+            _password = HashPassword(password, name);
+        }
+
+        /// <summary>
         /// Checks if the account exists in the directory
         /// </summary>
         /// <returns>
@@ -52,20 +64,16 @@ namespace vIDsafe
         /// <returns>
         /// True if the logged in, false if not
         /// </returns>
-        public bool TryLogin(string name, string password)
+        public bool TryLogin()
         {
             lock (this)
             {
-                if (AccountExists(name))
+                if (AccountExists(Name))
                 {
-                    _password = HashPassword(password, name);
-
-                    Vault = GetVault(name, _password);
+                    Vault = GetVault(Name, _password);
 
                     if (Vault != null)
                     {
-                        Name = name;
-
                         return true;
                     }
                 }
@@ -80,16 +88,13 @@ namespace vIDsafe
         /// <returns>
         /// True if the registered, false if not
         /// </returns>
-        public bool TryRegister(string name, string password)
+        public bool TryRegister()
         {
             lock (this)
             {
-                if (!AccountExists(name))
+                if (!AccountExists(Name))
                 {
-                    Name = name;
-                    _password = HashPassword(password, name);
-
-                    CreateVault(Vault, Name, _password);
+                    CreateVault();
 
                     return true;
                 }
@@ -128,7 +133,7 @@ namespace vIDsafe
                 {
                     _password = HashPassword(password, Name);
 
-                    SaveVault(Vault, Name, _password);
+                    SaveVault();
 
                     return true;
                 }
@@ -143,21 +148,21 @@ namespace vIDsafe
         /// <returns>
         /// True if the name is changed, false if not
         /// </returns>
-        public bool TryChangeName(string oldPassword, string newName)
+        public bool TryChangeName(string password, string newName)
         {
             lock (this)
             {
-                if (VerifyPassword(oldPassword).Equals(true))
+                if (VerifyPassword(password).Equals(true))
                 {
+                    Name = newName;
+                    _password = HashPassword(password, newName);
+
                     if (AccountExists(Name))
                     {
-                        File.Move(_vaultFolder + Name, _vaultFolder + newName);
+                        File.Delete(_vaultFolder + Name);
                     }
 
-                    Name = newName;
-                    _password = HashPassword(oldPassword, newName);
-
-                    SaveVault(Vault, Name, _password);
+                    SaveVault();
 
                     return true;
                 }
@@ -183,10 +188,10 @@ namespace vIDsafe
         /// <summary>
         /// Creates the vault and encrypts it
         /// </summary>
-        private void CreateVault(Vault vault, string name, string password)
+        private void CreateVault()
         {
-            string encryptedVault = EncryptVault(vault, password);
-            string fileName = _vaultFolder + name;
+            string encryptedVault = EncryptVault(Vault, _password);
+            string fileName = _vaultFolder + Name;
 
             CreateFile(fileName, encryptedVault);
         }
@@ -194,18 +199,18 @@ namespace vIDsafe
         /// <summary>
         /// Encrypts and saves the vault
         /// </summary>
-        private void SaveVault(Vault vault, string name, string password)
+        private void SaveVault()
         {
-            string encryptedVault = EncryptVault(vault, password);
-            string fileName = _vaultFolder + name;
+            string encryptedVault = EncryptVault(Vault, _password);
+            string fileName = _vaultFolder + Name;
 
-            if (AccountExists(name))
+            if (AccountExists(Name))
             {
                 File.WriteAllText(fileName, encryptedVault);
             }
             else
             {
-                CreateVault(vault, name, password);
+                CreateVault();
             }
         }
 
@@ -408,6 +413,9 @@ namespace vIDsafe
             }
         }
 
+        /// <summary>
+        /// Creates a file
+        /// </summary>
         private void CreateFile(string fileName, string writeContent)
         {
             FileInfo file = new FileInfo(fileName);
@@ -422,7 +430,7 @@ namespace vIDsafe
         {
             lock (this)
             {
-                SaveVault(Vault, Name, _password);
+                SaveVault();
 
                 Name = "";
                 _password = "";
@@ -440,7 +448,7 @@ namespace vIDsafe
             {
                 Vault = new Vault();
 
-                SaveVault(Vault, Name, _password);
+                SaveVault();
 
                 File.Delete(_vaultFolder + Name);
             }

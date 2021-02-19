@@ -32,13 +32,12 @@ namespace vIDsafe
             {
                 EnableRegisterComponents(false);
 
-                FormvIDsafe.Main.User = new MasterAccount();
-
                 bool canRegister = false;
 
                 await Task.Run(() =>
                 {
-                    canRegister = FormvIDsafe.Main.User.TryRegister(name, password);
+                    FormvIDsafe.Main.User = new MasterAccount(name, password);
+                    canRegister = FormvIDsafe.Main.User.TryRegister();
                 });
 
                 if (canRegister.Equals(true))
