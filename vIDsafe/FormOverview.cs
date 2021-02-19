@@ -35,7 +35,7 @@ namespace vIDsafe
         /// </summary>
         private void RecalculateHealthScore()
         {
-            FormvIDsafe.Main.User.Vault.CalculateOverallHealthScore(true);
+            MasterAccount.GetUser().GetVault().CalculateOverallHealthScore(true);
             DisplayHealthScores();
             DisplayCredentialStatusCounts();
             DisplaySecurityAlerts();
@@ -49,12 +49,12 @@ namespace vIDsafe
             tlpIdentities.ColumnStyles.Clear();
             tlpIdentities.Controls.Clear();
 
-            foreach (KeyValuePair<string,Identity> identityPair in FormvIDsafe.Main.User.Vault.Identities)
+            foreach (KeyValuePair<string,Identity> identityPair in MasterAccount.GetUser().GetVault().Identities)
             {
                 tlpIdentities.ColumnCount++;
                 tlpIdentities.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
 
-                Identity identity = FormvIDsafe.Main.User.Vault.Identities[identityPair.Key];
+                Identity identity = MasterAccount.GetUser().GetVault().Identities[identityPair.Key];
 
                 Panel identityPanel = CreatePanel(CalculateHealthColor(identity.HealthScore));
 
@@ -64,7 +64,7 @@ namespace vIDsafe
                 tlpIdentities.Controls.Add(identityPanel, tlpIdentities.ColumnCount-2, 0);
             }
 
-            int totalHealthScore = FormvIDsafe.Main.User.Vault.OverallHealthScore;
+            int totalHealthScore = MasterAccount.GetUser().GetVault().OverallHealthScore;
 
             FormHome.SetHealthScore(totalHealthScore, CalculateHealthColor(totalHealthScore));
         }
@@ -74,10 +74,10 @@ namespace vIDsafe
         /// </summary>
         private void DisplayCredentialStatusCounts()
         {
-            int safeCount = FormvIDsafe.Main.User.Vault.TotalSafeCredentialCount;
-            int weakCount = FormvIDsafe.Main.User.Vault.TotalWeakCredentialCount;
-            int conflictCount = FormvIDsafe.Main.User.Vault.TotalConflictCredentialCount;
-            int compromisedCount = FormvIDsafe.Main.User.Vault.TotalCompromisedCredentialCount;
+            int safeCount = MasterAccount.GetUser().GetVault().TotalSafeCredentialCount;
+            int weakCount = MasterAccount.GetUser().GetVault().TotalWeakCredentialCount;
+            int conflictCount = MasterAccount.GetUser().GetVault().TotalConflictCredentialCount;
+            int compromisedCount = MasterAccount.GetUser().GetVault().TotalCompromisedCredentialCount;
 
             chartCredentials.Series["Credentials"].Points[0].SetValueXY("Safe", safeCount);
             chartCredentials.Series["Credentials"].Points[1].SetValueXY("Weak", weakCount);
@@ -92,7 +92,7 @@ namespace vIDsafe
         /// </summary>
         private void DisplaySecurityAlerts()
         {
-            foreach (KeyValuePair<string, Identity> identityPair in FormvIDsafe.Main.User.Vault.Identities)
+            foreach (KeyValuePair<string, Identity> identityPair in MasterAccount.GetUser().GetVault().Identities)
             {
                 Identity identity = identityPair.Value;
 
@@ -263,7 +263,7 @@ namespace vIDsafe
         {
             if (e.ChartElement is ChartArea)
             {
-                TextAnnotation ta = CreateTextAnnotation(Convert.ToString(FormvIDsafe.Main.User.Vault.TotalCredentialCount), e);
+                TextAnnotation ta = CreateTextAnnotation(Convert.ToString(MasterAccount.GetUser().GetVault().TotalCredentialCount), e);
 
                 chartCredentials.Annotations.Clear();
                 chartCredentials.Annotations.Add(ta);

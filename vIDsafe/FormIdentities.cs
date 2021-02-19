@@ -43,7 +43,7 @@ namespace vIDsafe
 
             if (selectedEmail.Length > 0)
             {
-                Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedEmail];
+                Identity identity = MasterAccount.GetUser().GetVault().Identities[selectedEmail];
 
                 if (e.ChartElement is ChartArea)
                 {
@@ -87,7 +87,7 @@ namespace vIDsafe
         /// </summary>
         private void GenerateIdentity()
         {
-            Identity identity = FormvIDsafe.Main.User.Vault.GenerateIdentity();
+            Identity identity = MasterAccount.GetUser().GetVault().GenerateIdentity();
 
             int lastIndex = cmbIdentity.Items.Add(identity.Email);
             cmbIdentity.SelectedIndex = lastIndex;
@@ -139,7 +139,7 @@ namespace vIDsafe
         {
             if (IsValid(identityName, identityEmail))
             {
-                Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedEmail];
+                Identity identity = MasterAccount.GetUser().GetVault().Identities[selectedEmail];
 
                 if (selectedEmail != identityEmail)
                 {
@@ -160,7 +160,7 @@ namespace vIDsafe
         /// </summary>
         private bool TryChangeIdentityEmail(string oldEmail, string newEmail)
         {
-            if (FormvIDsafe.Main.User.Vault.TryChangeIdentityEmail(oldEmail, newEmail))
+            if (MasterAccount.GetUser().GetVault().TryChangeIdentityEmail(oldEmail, newEmail))
             {
                 return true;
             }
@@ -182,7 +182,7 @@ namespace vIDsafe
                 FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Breach checking", "Please wait until the breaches are checked");
             }
 
-            Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedEmail];
+            Identity identity = MasterAccount.GetUser().GetVault().Identities[selectedEmail];
 
             await Task.Run(() =>
             {
@@ -227,7 +227,7 @@ namespace vIDsafe
 
             cmbIdentity.Items.Clear();
 
-            foreach (KeyValuePair<string, Identity> identityPair in FormvIDsafe.Main.User.Vault.Identities)
+            foreach (KeyValuePair<string, Identity> identityPair in MasterAccount.GetUser().GetVault().Identities)
             {
                 cmbIdentity.Items.Add(identityPair.Key);
             }
@@ -240,7 +240,7 @@ namespace vIDsafe
         {
             ResetDetails();
 
-            Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedEmail];
+            Identity identity = MasterAccount.GetUser().GetVault().Identities[selectedEmail];
 
             GetBreachedDataAsync(selectedEmail, false);
 
@@ -275,7 +275,7 @@ namespace vIDsafe
         /// </summary>
         private void DeleteIdentity(string selectedEmail)
         {
-            FormvIDsafe.Main.User.Vault.DeleteIdentity(selectedEmail);
+            MasterAccount.GetUser().GetVault().DeleteIdentity(selectedEmail);
 
             cmbIdentity.Items.Remove(selectedEmail);
 

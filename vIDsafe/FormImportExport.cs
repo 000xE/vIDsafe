@@ -33,7 +33,7 @@ namespace vIDsafe
         /// </summary>
         private void DisplayLogs()
         {
-            Dictionary<DateTime, string> logs = FormvIDsafe.Main.User.Vault.GetLogs(Vault.LogType.Porting);
+            Dictionary<DateTime, string> logs = MasterAccount.GetUser().GetVault().GetLogs(Vault.LogType.Porting);
 
             lvLogs.Items.Clear();
 
@@ -71,7 +71,7 @@ namespace vIDsafe
         {
             cmbIdentity.Items.Clear();
 
-            foreach (KeyValuePair<string, Identity> identityPair in FormvIDsafe.Main.User.Vault.Identities)
+            foreach (KeyValuePair<string, Identity> identityPair in MasterAccount.GetUser().GetVault().Identities)
             {
                 cmbIdentity.Items.Add(identityPair.Key);
             }
@@ -140,14 +140,14 @@ namespace vIDsafe
 
             await Task.Run(() =>
             {
-                canImport = FormvIDsafe.Main.User.TryImportVault(format, fileName, replace);
+                canImport = MasterAccount.GetUser().TryImportVault(format, fileName, replace);
             });
 
             if (canImport)
             {
                 FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Import", "Successfully imported");
 
-                KeyValuePair<DateTime, string> log = FormvIDsafe.Main.User.Vault.Log(Vault.LogType.Porting, "Imported data");
+                KeyValuePair<DateTime, string> log = MasterAccount.GetUser().GetVault().Log(Vault.LogType.Porting, "Imported data");
                 DisplayLog(log.Key, log.Value);
             }
             else
@@ -184,14 +184,14 @@ namespace vIDsafe
 
             await Task.Run(() =>
             {
-                canExport = FormvIDsafe.Main.User.TryExportVault(format, selectedEmail, fileName);
+                canExport = MasterAccount.GetUser().TryExportVault(format, selectedEmail, fileName);
             });
 
             if (canExport)
             {
                 FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Export", "Successfully exported");
 
-                KeyValuePair<DateTime, string> log = FormvIDsafe.Main.User.Vault.Log(Vault.LogType.Porting, "Exported data");
+                KeyValuePair<DateTime, string> log = MasterAccount.GetUser().GetVault().Log(Vault.LogType.Porting, "Exported data");
                 DisplayLog(log.Key, log.Value);
             }
             else
@@ -208,7 +208,7 @@ namespace vIDsafe
         private void SelectFolder(int formatIndex)
         {
             string extension = GetExtension(formatIndex);
-            string fileName = FormvIDsafe.Main.User.Name + "_export_" + DateTime.Now.ToString("yyyyMMddHHmms");
+            string fileName = MasterAccount.GetUser().Name + "_export_" + DateTime.Now.ToString("yyyyMMddHHmms");
 
             saveFileDialog.Filter = extension;
             saveFileDialog.FileName = fileName;

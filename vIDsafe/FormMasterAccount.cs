@@ -30,7 +30,7 @@ namespace vIDsafe
         /// </summary>
         private void DisplayLogs()
         {
-            Dictionary<DateTime, string> logs = FormvIDsafe.Main.User.Vault.GetLogs(Vault.LogType.Account);
+            Dictionary<DateTime, string> logs = MasterAccount.GetUser().GetVault().GetLogs(Vault.LogType.Account);
 
             lvLogs.Items.Clear();
 
@@ -77,11 +77,11 @@ namespace vIDsafe
         /// </summary>
         private void DeleteCredentials()
         {
-            FormvIDsafe.Main.User.Vault.DeleteAllCredentials();
+            MasterAccount.GetUser().GetVault().DeleteAllCredentials();
 
             FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Credential deletion", "Successfully deleted all credentials");
 
-            KeyValuePair<DateTime, string> log = FormvIDsafe.Main.User.Vault.Log(Vault.LogType.Account, "All credentials deleted");
+            KeyValuePair<DateTime, string> log = MasterAccount.GetUser().GetVault().Log(Vault.LogType.Account, "All credentials deleted");
             DisplayLog(log.Key, log.Value);
         }
 
@@ -101,11 +101,11 @@ namespace vIDsafe
         /// </summary>
         private void DeleteIdentities()
         {
-            FormvIDsafe.Main.User.Vault.DeleteAllIdentities();
+            MasterAccount.GetUser().GetVault().DeleteAllIdentities();
 
             FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Identity deletion", "Successfully deleted all identities");
 
-            KeyValuePair<DateTime, string> log = FormvIDsafe.Main.User.Vault.Log(Vault.LogType.Account, "All identities deleted");
+            KeyValuePair<DateTime, string> log = MasterAccount.GetUser().GetVault().Log(Vault.LogType.Account, "All identities deleted");
             DisplayLog(log.Key, log.Value);
         }
 
@@ -125,7 +125,7 @@ namespace vIDsafe
         /// </summary>
         private void DeleteAccount()
         {
-            FormvIDsafe.Main.User.DeleteAccount();
+            MasterAccount.GetUser().DeleteAccount();
 
             FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Account deletion", "Successfully deleted account");
 
@@ -159,7 +159,7 @@ namespace vIDsafe
 
                 await Task.Run(() =>
                 {
-                    canChangeName = FormvIDsafe.Main.User.TryChangeName(currentPassword, newName);
+                    canChangeName = MasterAccount.GetUser().TryChangeName(currentPassword, newName);
                 });
 
                 if (canChangeName.Equals(true))
@@ -168,7 +168,7 @@ namespace vIDsafe
 
                     FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Name change", "Successfully changed name");
 
-                    KeyValuePair<DateTime, string> log = FormvIDsafe.Main.User.Vault.Log(Vault.LogType.Account, "Name changed");
+                    KeyValuePair<DateTime, string> log = MasterAccount.GetUser().GetVault().Log(Vault.LogType.Account, "Name changed");
                     DisplayLog(log.Key, log.Value);
                 }
                 else
@@ -198,14 +198,14 @@ namespace vIDsafe
 
                 await Task.Run(() =>
                 {
-                    canChangePass = FormvIDsafe.Main.User.TryChangePassword(currentPassword, newPassword);
+                    canChangePass = MasterAccount.GetUser().TryChangePassword(currentPassword, newPassword);
                 });
 
                 if (canChangePass.Equals(true))
                 {
                     FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Password change", "Successfully changed password");
 
-                    KeyValuePair<DateTime, string> log = FormvIDsafe.Main.User.Vault.Log(Vault.LogType.Account, "Password changed");
+                    KeyValuePair<DateTime, string> log = MasterAccount.GetUser().GetVault().Log(Vault.LogType.Account, "Password changed");
                     DisplayLog(log.Key, log.Value);
                 }
                 else

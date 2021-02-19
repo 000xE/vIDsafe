@@ -12,7 +12,6 @@ namespace vIDsafe
     public partial class FormvIDsafe : Form
     {
         public static FormvIDsafe Main;
-        public MasterAccount User;
 
         private static NotifyIcon _notifyIcon;
         private static Panel _pnlChildForm;

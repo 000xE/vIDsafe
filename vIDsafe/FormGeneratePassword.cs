@@ -32,7 +32,7 @@ namespace vIDsafe
         /// </summary>
         private void DisplayPasswordHistory()
         {
-            Dictionary<DateTime, string> passwords = FormvIDsafe.Main.User.Vault.GetLogs(Vault.LogType.Passwords);
+            Dictionary<DateTime, string> passwords = MasterAccount.GetUser().GetVault().GetLogs(Vault.LogType.Passwords);
 
             lvPasswordHistory.Items.Clear();
 
@@ -67,7 +67,7 @@ namespace vIDsafe
             string password = CredentialGeneration.GeneratePassword();
             CheckStrength(password);
 
-            KeyValuePair<DateTime, string> passwordLog = FormvIDsafe.Main.User.Vault.Log(Vault.LogType.Passwords, password.ToString());
+            KeyValuePair<DateTime, string> passwordLog = MasterAccount.GetUser().GetVault().Log(Vault.LogType.Passwords, password.ToString());
             DisplayPassword(passwordLog.Key, passwordLog.Value);
 
             lblGeneratedPassword.Text = password;

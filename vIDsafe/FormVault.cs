@@ -101,7 +101,7 @@ namespace vIDsafe
         /// </summary>
         private void GenerateUsername(string selectedEmail)
         {
-            Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedEmail];
+            Identity identity = MasterAccount.GetUser().GetVault().Identities[selectedEmail];
 
             txtUsername.Text = CredentialGeneration.GenerateUsername(identity.Name);
         }
@@ -119,7 +119,7 @@ namespace vIDsafe
         /// </summary>
         private void GenerateCredential(string selectedEmail)
         {
-            Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedEmail];
+            Identity identity = MasterAccount.GetUser().GetVault().Identities[selectedEmail];
 
             Credential credential = identity.GenerateCredential();
 
@@ -142,7 +142,7 @@ namespace vIDsafe
                     ListViewItem selectedCredential = lvCredentials.SelectedItems[0];
                     string credentialID = selectedCredential.SubItems[0].Text;
 
-                    Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedEmail];
+                    Identity identity = MasterAccount.GetUser().GetVault().Identities[selectedEmail];
 
                     Credential credential = identity.Credentials[credentialID];
 
@@ -165,7 +165,7 @@ namespace vIDsafe
         {
             if (searchedText.Length > 0)
             {
-                Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedEmail];
+                Identity identity = MasterAccount.GetUser().GetVault().Identities[selectedEmail];
 
                 Dictionary<string, Credential> credentials = identity.Credentials;
 
@@ -186,7 +186,7 @@ namespace vIDsafe
         /// </summary>
         private void GetIdentities()
         {
-            foreach (KeyValuePair<string, Identity> identityPair in FormvIDsafe.Main.User.Vault.Identities)
+            foreach (KeyValuePair<string, Identity> identityPair in MasterAccount.GetUser().GetVault().Identities)
             {
                 cmbIdentity.Items.Add(identityPair.Key);
             }
@@ -199,7 +199,7 @@ namespace vIDsafe
         /// </summary>
         private void GetCredentials(string selectedEmail)
         {
-            Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedEmail];
+            Identity identity = MasterAccount.GetUser().GetVault().Identities[selectedEmail];
             identity.CalculateHealthScore(true);
 
             Dictionary<string, Credential> credentials = identity.Credentials;
@@ -244,7 +244,7 @@ namespace vIDsafe
                 ListViewItem selectedCredential = lvCredentials.SelectedItems[0];
                 string credentialID = selectedCredential.SubItems[0].Text;
 
-                Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedEmail];
+                Identity identity = MasterAccount.GetUser().GetVault().Identities[selectedEmail];
 
                 Credential credential = identity.Credentials[credentialID];
 
@@ -269,7 +269,7 @@ namespace vIDsafe
                     ListViewItem currentItem = lvCredentials.SelectedItems[0];
                     string currentCredentialID = currentItem.SubItems[0].Text;
 
-                    Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedEmail];
+                    Identity identity = MasterAccount.GetUser().GetVault().Identities[selectedEmail];
 
                     identity.DeleteCredential(currentCredentialID);
 
@@ -386,7 +386,7 @@ namespace vIDsafe
         {
             if (selectedEmail.Length > 0)
             {
-                Identity identity = FormvIDsafe.Main.User.Vault.Identities[selectedEmail];
+                Identity identity = MasterAccount.GetUser().GetVault().Identities[selectedEmail];
 
                 identity.DeleteAllCredentials();
 
