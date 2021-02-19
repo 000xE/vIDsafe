@@ -68,18 +68,15 @@ namespace vIDsafe
         /// </returns>
         public Identity GenerateIdentity()
         {
-            lock (this)
-            {
-                string nameToRandomise = "abcdefghijklmnopqrstuvwxyz";
+            string nameToRandomise = "abcdefghijklmnopqrstuvwxyz";
 
-                string email = CredentialGeneration.GenerateUsername(nameToRandomise).ToLower() + "@test.com";
-                string name = CredentialGeneration.GenerateUsername(nameToRandomise);
-                string usage = "";
+            string email = CredentialGeneration.GenerateUsername(nameToRandomise).ToLower() + "@test.com";
+            string name = CredentialGeneration.GenerateUsername(nameToRandomise);
+            string usage = "";
 
-                Identity identity = FindOrCreateIdentity(name, email, usage);
+            Identity identity = FindOrCreateIdentity(name, email, usage);
 
-                return identity;
-            }
+            return identity;
         }
 
         /// <summary>
@@ -90,22 +87,19 @@ namespace vIDsafe
         /// </returns>
         public Identity FindOrCreateIdentity(string name, string email, string usage)
         {
-            lock (this)
+            Identity identity;
+
+            if (Identities.ContainsKey(email))
             {
-                Identity identity;
-
-                if (Identities.ContainsKey(email))
-                {
-                    identity = Identities[email];
-                }
-                else
-                {
-                    identity = new Identity(this, name, email, usage);
-                    Identities.Add(email, identity);
-                }
-
-                return identity;
+                identity = Identities[email];
             }
+            else
+            {
+                identity = new Identity(this, name, email, usage);
+                Identities.Add(email, identity);
+            }
+
+            return identity;
         }
 
         /// <summary>
@@ -116,23 +110,20 @@ namespace vIDsafe
         /// </returns>
         public bool TryChangeIdentityEmail(string oldEmail, string newEmail)
         {
-            lock (this)
+            if (Identities.ContainsKey(newEmail))
             {
-                if (Identities.ContainsKey(newEmail))
-                {
-                    return false;
-                }
-                else
-                {
-                    Identity identity = Identities[oldEmail];
+                return false;
+            }
+            else
+            {
+                Identity identity = Identities[oldEmail];
 
-                    DeleteIdentity(oldEmail);
+                DeleteIdentity(oldEmail);
 
-                    identity.Email = newEmail;
-                    Identities.Add(newEmail, identity);
+                identity.Email = newEmail;
+                Identities.Add(newEmail, identity);
 
-                    return true;
-                }
+                return true;
             }
         }
 
@@ -141,12 +132,9 @@ namespace vIDsafe
         /// </summary>
         public void DeleteIdentity(string email)
         {
-            lock (this)
+            if (Identities.ContainsKey(email))
             {
-                if (Identities.ContainsKey(email))
-                {
-                    Identities.Remove(email);
-                }
+                Identities.Remove(email);
             }
         }
 
@@ -155,10 +143,7 @@ namespace vIDsafe
         /// </summary>
         public void DeleteAllIdentities()
         {
-            lock (this)
-            {
-                Identities.Clear();
-            }
+            Identities.Clear();
         }
 
         /// <summary>
@@ -166,12 +151,9 @@ namespace vIDsafe
         /// </summary>
         public void DeleteAllCredentials()
         {
-            lock (this)
+            foreach (KeyValuePair<string, Identity> identity in Identities)
             {
-                foreach (KeyValuePair<string, Identity> identity in Identities)
-                {
-                    identity.Value.DeleteAllCredentials();
-                }
+                identity.Value.DeleteAllCredentials();
             }
         }
 
@@ -183,16 +165,13 @@ namespace vIDsafe
         /// </returns>
         public Dictionary<DateTime, string> GetLogs(LogType key)
         {
-            lock (this)
+            if (_logs.ContainsKey(key))
             {
-                if (_logs.ContainsKey(key))
-                {
-                    return _logs[key];
-                }
-                else
-                {
-                    return new Dictionary<DateTime, string>();
-                }
+                return _logs[key];
+            }
+            else
+            {
+                return new Dictionary<DateTime, string>();
             }
         }
 
@@ -204,14 +183,11 @@ namespace vIDsafe
         /// </returns>
         public KeyValuePair<DateTime, string> Log(LogType key, string log)
         {
-            lock (this)
-            {
-                DateTime currentTime = DateTime.Now;
+            DateTime currentTime = DateTime.Now;
 
-                _logs[key].Add(currentTime, log);
+            _logs[key].Add(currentTime, log);
 
-                return new KeyValuePair<DateTime, string>(currentTime, log);
-            }
+            return new KeyValuePair<DateTime, string>(currentTime, log);
         }
 
         /// <summary>
@@ -254,18 +230,15 @@ namespace vIDsafe
         /// </summary>
         public void CalculateOverallHealthScore(bool calculateStatuses)
         {
-            lock (this)
-            {
-                CountTotalCredentialStatus(calculateStatuses);
+            CountTotalCredentialStatus(calculateStatuses);
 
-                if (TotalCredentialCount > 0)
-                {
-                    OverallHealthScore = (int)((double)_totalCredentialCounts[Credential.CredentialStatus.Safe] / TotalCredentialCount * 100);
-                }
-                else
-                {
-                    OverallHealthScore = 0;
-                }
+            if (TotalCredentialCount > 0)
+            {
+                OverallHealthScore = (int)((double)_totalCredentialCounts[Credential.CredentialStatus.Safe] / TotalCredentialCount * 100);
+            }
+            else
+            {
+                OverallHealthScore = 0;
             }
         }
     }

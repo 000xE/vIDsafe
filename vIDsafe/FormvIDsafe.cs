@@ -31,6 +31,9 @@ namespace vIDsafe
             OpenChildForm(new FormLogin());
         }
 
+        /// <summary>
+        /// Gets the static variables
+        /// </summary>
         private void GetFormComponents()
         {
             _notifyIcon = notifyIcon;

@@ -41,6 +41,9 @@ namespace vIDsafe
             OpenChildForm(new FormOverview());
         }
 
+        /// <summary>
+        /// Gets the static variables
+        /// </summary>
         private void GetFormComponents()
         {
             _ctrlsFormControls = Controls;

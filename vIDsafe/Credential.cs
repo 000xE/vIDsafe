@@ -65,24 +65,21 @@ namespace vIDsafe
         /// </summary>
         public void CalculateStatus(Vault vault, Identity identity)
         {
-            lock (this)
+            if (CheckBreached(identity.BreachedDomains, URL))
             {
-                if (CheckBreached(identity.BreachedDomains, URL))
-                {
-                    Status = CredentialStatus.Compromised;
-                }
-                else if (CheckConflict(vault.Identities, Username, Password))
-                {
-                    Status = CredentialStatus.Conflicted;
-                }
-                else if (CheckWeak(Password))
-                {
-                    Status = CredentialStatus.Weak;
-                }
-                else
-                {
-                    Status = CredentialStatus.Safe;
-                }
+                Status = CredentialStatus.Compromised;
+            }
+            else if (CheckConflict(vault.Identities, Username, Password))
+            {
+                Status = CredentialStatus.Conflicted;
+            }
+            else if (CheckWeak(Password))
+            {
+                Status = CredentialStatus.Weak;
+            }
+            else
+            {
+                Status = CredentialStatus.Safe;
             }
         }
 

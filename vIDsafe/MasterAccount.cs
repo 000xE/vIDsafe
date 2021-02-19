@@ -70,24 +70,21 @@ namespace vIDsafe
         /// </returns>
         public bool TryLogin(string name, string password)
         {
-            lock (this)
+            if (AccountExists(name))
             {
-                if (AccountExists(name))
+                _password = HashPassword(password, name);
+
+                _vault = RetrieveVault(name, _password);
+
+                if (_vault != null)
                 {
-                    _password = HashPassword(password, name);
+                    Name = name;
 
-                    _vault = RetrieveVault(name, _password);
-
-                    if (_vault != null)
-                    {
-                        Name = name;
-
-                        return true;
-                    }
+                    return true;
                 }
-
-                return false;
             }
+
+            return false;
         }
 
         /// <summary>
@@ -98,20 +95,17 @@ namespace vIDsafe
         /// </returns>
         public bool TryRegister(string name, string password)
         {
-            lock (this)
+            if (!AccountExists(name))
             {
-                if (!AccountExists(name))
-                {
-                    Name = name;
-                    _password = HashPassword(password, name);
+                Name = name;
+                _password = HashPassword(password, name);
 
-                    CreateVault();
+                CreateVault();
 
-                    return true;
-                }
-
-                return false;
+                return true;
             }
+
+            return false;
         }
 
         /// <summary>
@@ -138,19 +132,16 @@ namespace vIDsafe
         /// </returns>
         public bool TryChangePassword(string oldPassword, string password)
         {
-            lock (this)
+            if (VerifyPassword(oldPassword).Equals(true))
             {
-                if (VerifyPassword(oldPassword).Equals(true))
-                {
-                    _password = HashPassword(password, Name);
+                _password = HashPassword(password, Name);
 
-                    SaveVault();
+                SaveVault();
 
-                    return true;
-                }
-
-                return false;
+                return true;
             }
+
+            return false;
         }
 
         /// <summary>
@@ -161,25 +152,22 @@ namespace vIDsafe
         /// </returns>
         public bool TryChangeName(string password, string newName)
         {
-            lock (this)
+            if (VerifyPassword(password).Equals(true))
             {
-                if (VerifyPassword(password).Equals(true))
+                Name = newName;
+                _password = HashPassword(password, newName);
+
+                if (AccountExists(Name))
                 {
-                    Name = newName;
-                    _password = HashPassword(password, newName);
-
-                    if (AccountExists(Name))
-                    {
-                        File.Delete(_vaultFolder + Name);
-                    }
-
-                    SaveVault();
-
-                    return true;
+                    File.Delete(_vaultFolder + Name);
                 }
 
-                return false;
+                SaveVault();
+
+                return true;
             }
+
+            return false;
         }
 
         /// <summary>
@@ -193,7 +181,7 @@ namespace vIDsafe
             string fileName = _vaultFolder + name;
             string encryptedVault = File.ReadAllText(fileName);
 
-            return (DecryptVault(encryptedVault, password));           
+            return (DecryptVault(encryptedVault, password));
         }
 
         /// <summary>
@@ -266,7 +254,7 @@ namespace vIDsafe
             else
             {
                 return null;
-            }                   
+            }
         }
 
         /// <summary>
@@ -277,52 +265,49 @@ namespace vIDsafe
         /// </returns>
         public bool TryImportVault(VaultFormat format, string fileName, bool replace)
         {
-            lock (this)
+            Vault importedVault = new Vault();
+
+            try
             {
-                Vault importedVault = new Vault();
+                string readContent = File.ReadAllText(fileName);
 
-                try
+                switch (format)
                 {
-                    string readContent = File.ReadAllText(fileName);
+                    case VaultFormat.CSV:
+                        using (StringReader stringReader = new StringReader(readContent))
+                        using (CsvReader csvReader = new CsvReader(stringReader, CultureInfo.InvariantCulture))
+                        {
+                            csvReader.Read();
+                            csvReader.ReadHeader();
 
-                    switch (format)
-                    {
-                        case VaultFormat.CSV:
-                            using (StringReader stringReader = new StringReader(readContent))
-                            using (CsvReader csvReader = new CsvReader(stringReader, CultureInfo.InvariantCulture))
+                            while (csvReader.Read())
                             {
-                                csvReader.Read();
-                                csvReader.ReadHeader();
+                                Identity identity = csvReader.GetRecord<Identity>();
 
-                                while (csvReader.Read())
-                                {
-                                    Identity identity = csvReader.GetRecord<Identity>();
+                                identity = importedVault.FindOrCreateIdentity(identity.Name, identity.Email, identity.Usage);
 
-                                    identity = importedVault.FindOrCreateIdentity(identity.Name, identity.Email, identity.Usage);
+                                Credential credential = csvReader.GetRecord<Credential>();
 
-                                    Credential credential = csvReader.GetRecord<Credential>();
-
-                                    identity.FindOrCreateCredential(credential.CredentialID, credential.Username, credential.Password, credential.URL, credential.Notes);
-                                }
+                                identity.FindOrCreateCredential(credential.CredentialID, credential.Username, credential.Password, credential.URL, credential.Notes);
                             }
-                            break;
-                        case VaultFormat.JSON:
-                            importedVault = JsonConvert.DeserializeObject<Vault>(readContent);
-                            break;
-                        case VaultFormat.Encrypted:
-                            importedVault = DecryptVault(readContent, _password);
-                            break;
-                    }
-
-                    AddImportedData(importedVault, replace);
-
-                    return true;
+                        }
+                        break;
+                    case VaultFormat.JSON:
+                        importedVault = JsonConvert.DeserializeObject<Vault>(readContent);
+                        break;
+                    case VaultFormat.Encrypted:
+                        importedVault = DecryptVault(readContent, _password);
+                        break;
                 }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    return false;
-                }
+
+                AddImportedData(importedVault, replace);
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
             }
         }
 
@@ -364,63 +349,60 @@ namespace vIDsafe
         /// </returns>
         public bool TryExportVault(VaultFormat format, string selectedEmail, string fileName)
         {
-            lock (this)
+            Vault vault = _vault;
+
+            string writeContent = "";
+
+            if (selectedEmail.Length > 0)
             {
-                Vault vault = _vault;
+                vault.DeleteAllIdentities();
+                vault.Identities.Add(selectedEmail, _vault.Identities[selectedEmail]);
+            }
 
-                string writeContent = "";
-
-                if (selectedEmail.Length > 0)
+            try
+            {
+                switch (format)
                 {
-                    vault.DeleteAllIdentities();
-                    vault.Identities.Add(selectedEmail, _vault.Identities[selectedEmail]);
-                }
+                    case VaultFormat.CSV:
+                        using (StringWriter stringWriter = new StringWriter())
+                        using (CsvWriter csvWriter = new CsvWriter(stringWriter, CultureInfo.InvariantCulture))
+                        {
+                            List<Identity> identities = vault.Identities.Values.ToList();
 
-                try
-                {
-                    switch (format)
-                    {
-                        case VaultFormat.CSV:
-                            using (StringWriter stringWriter = new StringWriter())
-                            using (CsvWriter csvWriter = new CsvWriter(stringWriter, CultureInfo.InvariantCulture))
+                            csvWriter.WriteHeader<Identity>();
+                            csvWriter.WriteHeader<Credential>();
+                            csvWriter.NextRecord();
+
+                            foreach (Identity identity in identities)
                             {
-                                List<Identity> identities = vault.Identities.Values.ToList();
-
-                                csvWriter.WriteHeader<Identity>();
-                                csvWriter.WriteHeader<Credential>();
-                                csvWriter.NextRecord();
-
-                                foreach (Identity identity in identities)
+                                foreach (Credential credential in identity.Credentials.Values.ToList())
                                 {
-                                    foreach (Credential credential in identity.Credentials.Values.ToList())
-                                    {
-                                        csvWriter.WriteRecord(identity);
-                                        csvWriter.WriteRecord(credential);
-                                        csvWriter.NextRecord();
-                                    }
+                                    csvWriter.WriteRecord(identity);
+                                    csvWriter.WriteRecord(credential);
+                                    csvWriter.NextRecord();
                                 }
-                                writeContent = stringWriter.ToString();
                             }
-                            break;
-                        case VaultFormat.JSON:
-                            string json = JsonConvert.SerializeObject(vault, Formatting.Indented);
-                            writeContent = json;
-                            break;
-                        case VaultFormat.Encrypted:
-                            string encryptedVault = EncryptVault(vault, _password);
-                            writeContent = encryptedVault;
-                            break;
-                    }
-
-                    CreateFile(fileName, writeContent);
-
-                    return true;
+                            writeContent = stringWriter.ToString();
+                        }
+                        break;
+                    case VaultFormat.JSON:
+                        string json = JsonConvert.SerializeObject(vault, Formatting.Indented);
+                        writeContent = json;
+                        break;
+                    case VaultFormat.Encrypted:
+                        string encryptedVault = EncryptVault(vault, _password);
+                        writeContent = encryptedVault;
+                        break;
                 }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    return false;
-                }
+
+                CreateFile(fileName, writeContent);
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
             }
         }
 
@@ -439,15 +421,12 @@ namespace vIDsafe
         /// </summary>
         public void Logout()
         {
-            lock (this)
-            {
-                SaveVault();
+            SaveVault();
 
-                Name = "";
-                _password = "";
+            Name = "";
+            _password = "";
 
-                _vault = null;
-            }
+            _vault = null;
         }
 
         /// <summary>
@@ -455,14 +434,11 @@ namespace vIDsafe
         /// </summary>
         public void DeleteAccount()
         {
-            lock (this)
-            {
-                _vault = new Vault();
+            _vault = new Vault();
 
-                SaveVault();
+            SaveVault();
 
-                File.Delete(_vaultFolder + Name);
-            }
+            File.Delete(_vaultFolder + Name);
         }
 
         /// <summary>

@@ -86,20 +86,17 @@ namespace vIDsafe
         /// </returns>
         public Credential GenerateCredential()
         {
-            lock (this)
-            {
-                string GUID = Guid.NewGuid().ToString();
+            string GUID = Guid.NewGuid().ToString();
 
-                string url = "";
-                string notes = "";
+            string url = "";
+            string notes = "";
 
-                string username = CredentialGeneration.GenerateUsername(Name);
-                string password = CredentialGeneration.GeneratePassword();
+            string username = CredentialGeneration.GenerateUsername(Name);
+            string password = CredentialGeneration.GeneratePassword();
 
-                Credential credential = FindOrCreateCredential(GUID, username, password, url, notes);
+            Credential credential = FindOrCreateCredential(GUID, username, password, url, notes);
 
-                return credential;
-            }
+            return credential;
         }
 
         /// <summary>
@@ -110,22 +107,19 @@ namespace vIDsafe
         /// </returns>
         public Credential FindOrCreateCredential(string GUID, string username, string password, string url, string notes)
         {
-            lock (this)
+            Credential credential;
+
+            if (Credentials.ContainsKey(GUID))
             {
-                Credential credential;
-
-                if (Credentials.ContainsKey(GUID))
-                {
-                    credential = Credentials[GUID];
-                }
-                else
-                {
-                    credential = new Credential(GUID, username, password, url, notes);
-                    Credentials.Add(GUID, credential);
-                }
-
-                return credential;
+                credential = Credentials[GUID];
             }
+            else
+            {
+                credential = new Credential(GUID, username, password, url, notes);
+                Credentials.Add(GUID, credential);
+            }
+
+            return credential;
         }
 
         /// <summary>
@@ -133,12 +127,9 @@ namespace vIDsafe
         /// </summary>
         public void DeleteCredential(string key)
         {
-            lock (this)
+            if (Credentials.ContainsKey(key))
             {
-                if (Credentials.ContainsKey(key))
-                {
-                    Credentials.Remove(key);
-                }
+                Credentials.Remove(key);
             }
         }
 
@@ -147,10 +138,7 @@ namespace vIDsafe
         /// </summary>
         public void DeleteAllCredentials()
         {
-            lock (this)
-            {
-                Credentials.Clear();
-            }
+            Credentials.Clear();
         }
 
         /// <summary>
@@ -161,28 +149,25 @@ namespace vIDsafe
         /// </returns>
         public Dictionary<string, string> GetBreaches(string email, bool useAPI)
         {
-            lock (this)
+            if (useAPI)
             {
-                if (useAPI)
+                List<ExposureDetails> exposureDetails = EnzoicAPI.GetExposureDetails(email);
+
+                BreachedDomains.Clear();
+
+                if (exposureDetails.Count > 0)
                 {
-                    List<ExposureDetails> exposureDetails = EnzoicAPI.GetExposureDetails(email);
-
-                    BreachedDomains.Clear();
-
-                    if (exposureDetails.Count > 0)
+                    foreach (ExposureDetails detail in exposureDetails)
                     {
-                        foreach (ExposureDetails detail in exposureDetails)
+                        if (!BreachedDomains.ContainsKey(detail.Title))
                         {
-                            if (!BreachedDomains.ContainsKey(detail.Title))
-                            {
-                                BreachedDomains.Add(detail.Title, detail.Date.ToString());
-                            }
+                            BreachedDomains.Add(detail.Title, detail.Date.ToString());
                         }
                     }
                 }
-
-                return BreachedDomains;
             }
+
+            return BreachedDomains;
         }
 
         /// <summary>
@@ -229,23 +214,20 @@ namespace vIDsafe
         /// </summary>
         public void CalculateHealthScore(bool calculateStatuses)
         {
-            lock (this)
+            if (calculateStatuses)
             {
-                if (calculateStatuses)
-                {
-                    SetCredentialStatuses();
-                }
+                SetCredentialStatuses();
+            }
 
-                CountCredentialStatus();
+            CountCredentialStatus();
 
-                if (Credentials.Count > 0)
-                {
-                    HealthScore = (int)((double)CredentialCounts[Credential.CredentialStatus.Safe] / Credentials.Count * 100);
-                }
-                else
-                {
-                    HealthScore = 0;
-                }
+            if (Credentials.Count > 0)
+            {
+                HealthScore = (int)((double)CredentialCounts[Credential.CredentialStatus.Safe] / Credentials.Count * 100);
+            }
+            else
+            {
+                HealthScore = 0;
             }
         }
     }
