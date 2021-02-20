@@ -164,25 +164,19 @@ namespace vIDsafe
         /// </summary>
         private void SearchCredentials(string selectedEmail, string searchedText)
         {
+            GetCredentials(selectedEmail);
+
             if (searchedText.Length > 0)
             {
-                Identity identity = MasterAccount.User.Vault.TryGetIdentity(selectedEmail);
-
-                ConcurrentDictionary<string, Credential> searchedCredentials = new ConcurrentDictionary<string, Credential>();
-
-                foreach (KeyValuePair<string, Credential> credentialPair in identity.Credentials)
+                foreach (ListViewItem lvi in lvCredentials.Items)
                 {
-                    if (credentialPair.Value.Username.IndexOf(searchedText, StringComparison.OrdinalIgnoreCase) >= 0)
+                    string username = lvi.SubItems[1].Text;
+
+                    if (username.IndexOf(searchedText, StringComparison.OrdinalIgnoreCase) < 0)
                     {
-                        searchedCredentials.TryAdd(credentialPair.Key, credentialPair.Value);
+                        lvCredentials.Items.Remove(lvi);
                     }
                 }
-
-                DisplayCredentials(searchedCredentials);
-            }
-            else
-            {
-                GetCredentials(selectedEmail);
             }
 
             ResetDetails();

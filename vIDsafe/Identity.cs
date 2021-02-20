@@ -13,7 +13,8 @@ namespace vIDsafe
     [Serializable]
     public class Identity
     {
-        private readonly Vault _vault = new Vault();
+        ///<value>Get or set the vault</value>
+        public Vault Vault { private get; set; } = new Vault();
 
         ///<value>Get or set the identity name</value>
         [Name("name")]
@@ -70,10 +71,8 @@ namespace vIDsafe
         /// <returns>
         /// The identity
         /// </returns>
-        public Identity(Vault vault, string name, string email, string usage)
+        public Identity(string name, string email, string usage)
         {
-            _vault = vault;
-
             Name = name;
             Email = email;
             Usage = usage;
@@ -227,7 +226,7 @@ namespace vIDsafe
             {
                 Credential credential = credentialPair.Value;
 
-                credential.CalculateStatus(_vault, this);
+                credential.CalculateStatus(Vault, this);
             }
         }
 
