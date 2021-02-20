@@ -15,9 +15,9 @@ namespace vIDsafe.Tests
         public void TryImportVaultTest()
         {
             //Arrange
-            MasterAccount user = MasterAccount.GetUser();
+            MasterAccount user = MasterAccount.User;
             user.TryRegister("TestAccountName", "TestAccountPassword");
-            Vault vault = user.GetVault();
+            Vault vault = user.Vault;
 
             Identity identity = vault.GenerateIdentity();
             identity.GenerateCredential();
@@ -73,9 +73,9 @@ namespace vIDsafe.Tests
         public void TryExportVaultTest()
         {
             //Arrange
-            MasterAccount user = MasterAccount.GetUser();
+            MasterAccount user = MasterAccount.User;
             user.TryRegister("TestAccountName", "TestAccountPassword");
-            Vault vault = user.GetVault();
+            Vault vault = user.Vault;
 
             Identity identity = vault.GenerateIdentity();
             identity.GenerateCredential();

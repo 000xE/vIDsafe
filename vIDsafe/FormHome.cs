@@ -37,7 +37,7 @@ namespace vIDsafe
         {
             GetFormComponents();
             GetSettings();
-            SetName(MasterAccount.GetUser().Name);
+            SetName(MasterAccount.User.Name);
             OpenChildForm(new FormOverview());
         }
 
@@ -214,7 +214,7 @@ namespace vIDsafe
         /// </summary>
         private void Logout()
         {
-            MasterAccount.GetUser().Logout();
+            MasterAccount.User.Logout();
             FormvIDsafe.Main.Show();
             Close();
         }
@@ -227,7 +227,7 @@ namespace vIDsafe
         /// </returns>
         private bool LoggedIn()
         {
-            if (MasterAccount.GetUser().GetVault() == null)
+            if (MasterAccount.User.Vault == null)
             {
                 return false;
             }
@@ -319,7 +319,7 @@ namespace vIDsafe
             string password = CredentialGeneration.GeneratePassword();
             Clipboard.SetText(password);
 
-            MasterAccount.GetUser().GetVault().Log(Vault.LogType.Passwords, password.ToString());
+            MasterAccount.User.Vault.Log(Vault.LogType.Passwords, password.ToString());
 
             FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Password", "Successfully generated and copied");
         }

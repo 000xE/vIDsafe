@@ -18,11 +18,12 @@ namespace vIDsafe
         ///<value>Get or set the master account name</value>
         public string Name { get; private set; } = "";
 
+        ///<value>Get or set the vault</value>
+        public Vault Vault { get; private set; } = new Vault();
+
+        public static readonly MasterAccount User = new MasterAccount();
+
         private readonly string _vaultFolder = "Vaults/";
-
-        private static readonly MasterAccount _user = new MasterAccount();
-
-        private Vault _vault = new Vault();
 
         public enum VaultFormat
         {
@@ -31,19 +32,15 @@ namespace vIDsafe
             Encrypted
         }
 
+        /// <summary>
+        /// Creates a master account singleton (private)
+        /// </summary>
+        /// <returns>
+        /// The master account
+        /// </returns>
         private MasterAccount()
         {
-
-        }
-
-        public static MasterAccount GetUser()
-        {
-            return _user;
-        }
-
-        public Vault GetVault()
-        {
-            return _vault;
+            
         }
 
         /// <summary>
@@ -74,9 +71,9 @@ namespace vIDsafe
             {
                 _password = HashPassword(password, name);
 
-                _vault = RetrieveVault(name, _password);
+                Vault = RetrieveVault(name, _password);
 
-                if (_vault != null)
+                if (Vault != null)
                 {
                     Name = name;
 
@@ -189,7 +186,7 @@ namespace vIDsafe
         /// </summary>
         private void CreateVault()
         {
-            string encryptedVault = EncryptVault(_vault, _password);
+            string encryptedVault = EncryptVault(Vault, _password);
             string fileName = _vaultFolder + Name;
 
             CreateFile(fileName, encryptedVault);
@@ -200,7 +197,7 @@ namespace vIDsafe
         /// </summary>
         private void SaveVault()
         {
-            string encryptedVault = EncryptVault(_vault, _password);
+            string encryptedVault = EncryptVault(Vault, _password);
             string fileName = _vaultFolder + Name;
 
             if (AccountExists(Name))
@@ -318,7 +315,7 @@ namespace vIDsafe
         {
             if (replace)
             {
-                _vault = importedVault;
+                Vault = importedVault;
             }
             else
             {
@@ -327,7 +324,7 @@ namespace vIDsafe
                     string identityEmail = identityPair.Key;
                     Identity importedIdentity = identityPair.Value;
 
-                    Identity identity = _vault.FindOrCreateIdentity(importedIdentity.Name, identityEmail, importedIdentity.Usage);
+                    Identity identity = Vault.FindOrCreateIdentity(importedIdentity.Name, identityEmail, importedIdentity.Usage);
 
                     foreach (KeyValuePair<string, Credential> credentialPair in importedIdentity.Credentials)
                     {
@@ -349,14 +346,14 @@ namespace vIDsafe
         /// </returns>
         public bool TryExportVault(VaultFormat format, string selectedEmail, string fileName)
         {
-            Vault vault = _vault;
+            Vault vault = Vault;
 
             string writeContent = "";
 
             if (selectedEmail.Length > 0)
             {
                 vault.DeleteAllIdentities();
-                vault.Identities.Add(selectedEmail, _vault.Identities[selectedEmail]);
+                vault.Identities.Add(selectedEmail, Vault.Identities[selectedEmail]);
             }
 
             try
@@ -426,7 +423,7 @@ namespace vIDsafe
             Name = "";
             _password = "";
 
-            _vault = null;
+            Vault = null;
         }
 
         /// <summary>
@@ -434,7 +431,7 @@ namespace vIDsafe
         /// </summary>
         public void DeleteAccount()
         {
-            _vault = new Vault();
+            Vault = new Vault();
 
             SaveVault();
 

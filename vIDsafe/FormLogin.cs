@@ -35,7 +35,7 @@ namespace vIDsafe
 
                 await Task.Run(() =>
                 {
-                    canLogin = MasterAccount.GetUser().TryLogin(name, password);
+                    canLogin = MasterAccount.User.TryLogin(name, password);
                 });
 
                 if (canLogin.Equals(true))

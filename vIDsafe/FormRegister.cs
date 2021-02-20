@@ -36,7 +36,7 @@ namespace vIDsafe
 
                 await Task.Run(() =>
                 {
-                    canRegister = MasterAccount.GetUser().TryRegister(name, password);
+                    canRegister = MasterAccount.User.TryRegister(name, password);
                 });
 
                 if (canRegister.Equals(true))
