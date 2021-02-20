@@ -104,7 +104,7 @@ namespace vIDsafe
         {
             bool changed = false;
 
-            if (TryDeleteIdentity(identity))
+            if (TryDeleteIdentity(identity.Email))
             {
                 identity.Email = newEmail;
 
@@ -148,10 +148,8 @@ namespace vIDsafe
         /// <returns>
         /// True if deleted, false if not
         /// </returns>
-        public bool TryDeleteIdentity(Identity identity)
+        public bool TryDeleteIdentity(string identityEmail)
         {
-            string identityEmail = identity.Email;
-
             bool deleted = Identities.TryRemove(identityEmail, out Identity deletedIdentity);
 
             return deleted;

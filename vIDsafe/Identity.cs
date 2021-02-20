@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,7 +36,7 @@ namespace vIDsafe
         public Dictionary<string, string> BreachedDomains { get; private set; } = new Dictionary<string, string>();
 
         ///<value>Get or set the dictionary of credentials</value>
-        public Dictionary<string, Credential> Credentials { get; private set; } = new Dictionary<string, Credential>();
+        public ConcurrentDictionary<string, Credential> Credentials { get; private set; } = new ConcurrentDictionary<string, Credential>();
 
         [Ignore]
         [JsonIgnore]
@@ -107,30 +108,51 @@ namespace vIDsafe
         /// </returns>
         public Credential FindOrCreateCredential(string GUID, string username, string password, string url, string notes)
         {
-            Credential credential;
+            Credential credential = new Credential(GUID, username, password, url, notes);
+            credential = Credentials.GetOrAdd(GUID, credential);
 
-            if (Credentials.ContainsKey(GUID))
-            {
-                credential = Credentials[GUID];
-            }
-            else
-            {
-                credential = new Credential(GUID, username, password, url, notes);
-                Credentials.Add(GUID, credential);
-            }
+            return credential;
+        }
+
+        /// <summary>
+        /// Add a credential to an identity
+        /// </summary>
+        /// <returns>
+        /// True if added, false if not
+        /// </returns>
+        public bool TryAddCredential(Credential credential)
+        {
+            string credentialID = credential.CredentialID;
+
+            bool added = Credentials.TryAdd(credentialID, credential);
+
+            return added;
+        }
+
+        /// <summary>
+        /// Gets a credential from an identity using an ID
+        /// </summary>
+        /// <returns>
+        /// The credential
+        /// </returns>
+        public Credential TryGetCredential(string credentialID)
+        {
+            Credentials.TryGetValue(credentialID, out Credential credential);
 
             return credential;
         }
 
         /// <summary>
         /// Deletes a credential in the identity
-        /// </summary>
-        public void DeleteCredential(string key)
+        /// </summary>        
+        /// <returns>
+        /// True if deleted, false if not
+        /// </returns>
+        public bool TryDeleteCredential(string credentialID)
         {
-            if (Credentials.ContainsKey(key))
-            {
-                Credentials.Remove(key);
-            }
+            bool deleted = Credentials.TryRemove(credentialID, out Credential deletedCredential);
+
+            return deleted;
         }
 
         /// <summary>

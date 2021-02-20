@@ -59,7 +59,7 @@ namespace vIDsafe.Tests
             Identity identity = vault.GenerateIdentity();
 
             //Act
-            vault.TryDeleteIdentity(identity);
+            vault.TryDeleteIdentity(identity.Email);
 
             //Assert
             Assert.IsFalse(vault.Identities.ContainsKey(identity.Email));

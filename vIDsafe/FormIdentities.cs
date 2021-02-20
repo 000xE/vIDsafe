@@ -43,7 +43,7 @@ namespace vIDsafe
 
             if (selectedEmail.Length > 0)
             {
-                Identity identity = MasterAccount.User.Vault.Identities[selectedEmail];
+                Identity identity = MasterAccount.User.Vault.TryGetIdentity(selectedEmail);
 
                 if (e.ChartElement is ChartArea)
                 {
@@ -139,7 +139,7 @@ namespace vIDsafe
         {
             if (IsValid(identityName, identityEmail))
             {
-                Identity identity = MasterAccount.User.Vault.Identities[selectedEmail];
+                Identity identity = MasterAccount.User.Vault.TryGetIdentity(selectedEmail);
 
                 if (selectedEmail != identityEmail)
                 {
@@ -182,7 +182,7 @@ namespace vIDsafe
                 FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Breach checking", "Please wait until the breaches are checked");
             }
 
-            Identity identity = MasterAccount.User.Vault.Identities[selectedEmail];
+            Identity identity = MasterAccount.User.Vault.TryGetIdentity(selectedEmail);
 
             await Task.Run(() =>
             {
@@ -240,7 +240,7 @@ namespace vIDsafe
         {
             ResetDetails();
 
-            Identity identity = MasterAccount.User.Vault.Identities[selectedEmail];
+            Identity identity = MasterAccount.User.Vault.TryGetIdentity(selectedEmail);
 
             GetBreachedDataAsync(selectedEmail, false);
 
@@ -275,9 +275,7 @@ namespace vIDsafe
         /// </summary>
         private void DeleteIdentity(string selectedEmail)
         {
-            Identity identity = MasterAccount.User.Vault.TryGetIdentity(selectedEmail);
-
-            MasterAccount.User.Vault.TryDeleteIdentity(identity);
+            MasterAccount.User.Vault.TryDeleteIdentity(selectedEmail);
 
             cmbIdentity.Items.Remove(selectedEmail);
 

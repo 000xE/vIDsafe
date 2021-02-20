@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Linq;
+using System.Collections.Concurrent;
 
 namespace vIDsafe
 {
@@ -101,7 +102,7 @@ namespace vIDsafe
         /// </summary>
         private void GenerateUsername(string selectedEmail)
         {
-            Identity identity = MasterAccount.User.Vault.Identities[selectedEmail];
+            Identity identity = MasterAccount.User.Vault.TryGetIdentity(selectedEmail);
 
             txtUsername.Text = CredentialGeneration.GenerateUsername(identity.Name);
         }
@@ -119,7 +120,7 @@ namespace vIDsafe
         /// </summary>
         private void GenerateCredential(string selectedEmail)
         {
-            Identity identity = MasterAccount.User.Vault.Identities[selectedEmail];
+            Identity identity = MasterAccount.User.Vault.TryGetIdentity(selectedEmail);
 
             Credential credential = identity.GenerateCredential();
 
@@ -142,9 +143,9 @@ namespace vIDsafe
                     ListViewItem selectedCredential = lvCredentials.SelectedItems[0];
                     string credentialID = selectedCredential.SubItems[0].Text;
 
-                    Identity identity = MasterAccount.User.Vault.Identities[selectedEmail];
+                    Identity identity = MasterAccount.User.Vault.TryGetIdentity(selectedEmail);
 
-                    Credential credential = identity.Credentials[credentialID];
+                    Credential credential = identity.TryGetCredential(credentialID);
 
                     credential.Username = credentialUsername;
                     credential.Password = credentialPassword;
@@ -165,13 +166,19 @@ namespace vIDsafe
         {
             if (searchedText.Length > 0)
             {
-                Identity identity = MasterAccount.User.Vault.Identities[selectedEmail];
+                Identity identity = MasterAccount.User.Vault.TryGetIdentity(selectedEmail);
 
-                Dictionary<string, Credential> credentials = identity.Credentials;
+                ConcurrentDictionary<string, Credential> searchedCredentials = new ConcurrentDictionary<string, Credential>();
 
-                credentials = credentials.Where(pair => pair.Value.Username.IndexOf(searchedText, StringComparison.OrdinalIgnoreCase) >= 0).ToDictionary(pair => pair.Key, pair => pair.Value);
+                foreach (KeyValuePair<string, Credential> credentialPair in identity.Credentials)
+                {
+                    if (credentialPair.Value.Username.IndexOf(searchedText, StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        searchedCredentials.TryAdd(credentialPair.Key, credentialPair.Value);
+                    }
+                }
 
-                DisplayCredentials(credentials);
+                DisplayCredentials(searchedCredentials);
             }
             else
             {
@@ -199,10 +206,10 @@ namespace vIDsafe
         /// </summary>
         private void GetCredentials(string selectedEmail)
         {
-            Identity identity = MasterAccount.User.Vault.Identities[selectedEmail];
+            Identity identity = MasterAccount.User.Vault.TryGetIdentity(selectedEmail);
             identity.CalculateHealthScore(true);
 
-            Dictionary<string, Credential> credentials = identity.Credentials;
+            ConcurrentDictionary<string, Credential> credentials = identity.Credentials;
 
             DisplayCredentials(credentials);
         }
@@ -210,12 +217,12 @@ namespace vIDsafe
         /// <summary>
         /// Displays the credentials for an identity
         /// </summary>
-        private void DisplayCredentials(Dictionary<string, Credential> credentials)
+        private void DisplayCredentials(ConcurrentDictionary<string, Credential> credentials)
         {
             lvCredentials.Items.Clear();
-            foreach (KeyValuePair<string, Credential> credential in credentials)
+            foreach (KeyValuePair<string, Credential> credentialPair in credentials)
             {
-                DisplayCredential(credential.Value);
+                DisplayCredential(credentialPair.Value);
             }
 
             ResetDetails();
@@ -244,9 +251,9 @@ namespace vIDsafe
                 ListViewItem selectedCredential = lvCredentials.SelectedItems[0];
                 string credentialID = selectedCredential.SubItems[0].Text;
 
-                Identity identity = MasterAccount.User.Vault.Identities[selectedEmail];
+                Identity identity = MasterAccount.User.Vault.TryGetIdentity(selectedEmail);
 
-                Credential credential = identity.Credentials[credentialID];
+                Credential credential = identity.TryGetCredential(credentialID);
 
                 txtURL.Text = credential.URL;
                 txtUsername.Text = credential.Username;
@@ -269,9 +276,9 @@ namespace vIDsafe
                     ListViewItem currentItem = lvCredentials.SelectedItems[0];
                     string currentCredentialID = currentItem.SubItems[0].Text;
 
-                    Identity identity = MasterAccount.User.Vault.Identities[selectedEmail];
+                    Identity identity = MasterAccount.User.Vault.TryGetIdentity(selectedEmail);
 
-                    identity.DeleteCredential(currentCredentialID);
+                    identity.TryDeleteCredential(currentCredentialID);
 
                     lvCredentials.Items.RemoveAt(currentItem.Index);
                 }
@@ -386,7 +393,7 @@ namespace vIDsafe
         {
             if (selectedEmail.Length > 0)
             {
-                Identity identity = MasterAccount.User.Vault.Identities[selectedEmail];
+                Identity identity = MasterAccount.User.Vault.TryGetIdentity(selectedEmail);
 
                 identity.DeleteAllCredentials();
 

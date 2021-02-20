@@ -54,7 +54,7 @@ namespace vIDsafe
                 tlpIdentities.ColumnCount++;
                 tlpIdentities.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
 
-                Identity identity = MasterAccount.User.Vault.Identities[identityPair.Key];
+                Identity identity = MasterAccount.User.Vault.TryGetIdentity(identityPair.Key);
 
                 Panel identityPanel = CreatePanel(CalculateHealthColor(identity.HealthScore));
 
