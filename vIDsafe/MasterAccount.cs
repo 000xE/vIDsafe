@@ -353,7 +353,10 @@ namespace vIDsafe
             if (selectedEmail.Length > 0)
             {
                 vault.DeleteAllIdentities();
-                vault.Identities.Add(selectedEmail, Vault.Identities[selectedEmail]);
+
+                Identity identity = vault.TryGetIdentity(selectedEmail);
+
+                vault.TryAddIdentity(identity);
             }
 
             try

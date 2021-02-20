@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -58,7 +59,7 @@ namespace vIDsafe
         public int TotalWeakCredentialCount => _totalCredentialCounts[Credential.CredentialStatus.Weak];
 
         ///<value>Get or set the dictionary of identities</value>
-        public Dictionary<string, Identity> Identities { get; private set; } = new Dictionary<string, Identity>();
+        public ConcurrentDictionary<string, Identity> Identities { get; private set; } = new ConcurrentDictionary<string, Identity>();
 
         /// <summary>
         /// Creates an identity with a generated email and name
@@ -87,17 +88,8 @@ namespace vIDsafe
         /// </returns>
         public Identity FindOrCreateIdentity(string name, string email, string usage)
         {
-            Identity identity;
-
-            if (Identities.ContainsKey(email))
-            {
-                identity = Identities[email];
-            }
-            else
-            {
-                identity = new Identity(this, name, email, usage);
-                Identities.Add(email, identity);
-            }
+            Identity identity = new Identity(this, name, email, usage);
+            identity = Identities.GetOrAdd(email, identity);
 
             return identity;
         }
@@ -108,34 +100,61 @@ namespace vIDsafe
         /// <returns>
         /// True if doesn't exist and changed, false if not
         /// </returns>
-        public bool TryChangeIdentityEmail(string oldEmail, string newEmail)
+        public bool TryChangeIdentityEmail(Identity identity, string newEmail)
         {
-            if (Identities.ContainsKey(newEmail))
-            {
-                return false;
-            }
-            else
-            {
-                Identity identity = Identities[oldEmail];
+            bool changed = false;
 
-                DeleteIdentity(oldEmail);
-
+            if (TryDeleteIdentity(identity))
+            {
                 identity.Email = newEmail;
-                Identities.Add(newEmail, identity);
 
-                return true;
+                changed = TryAddIdentity(identity);
             }
+
+            return changed;
+        }
+
+        /// <summary>
+        /// Add an identity to the vault
+        /// </summary>
+        /// <returns>
+        /// True if added, false if not
+        /// </returns>
+        public bool TryAddIdentity(Identity identity)
+        {
+            string identityEmail = identity.Email;
+
+            bool added = Identities.TryAdd(identityEmail, identity);
+
+            return added;
+        }
+
+        /// <summary>
+        /// Gets an identity in the vault using an email
+        /// </summary>
+        /// <returns>
+        /// The identity
+        /// </returns>
+        public Identity TryGetIdentity(string email)
+        {
+            Identities.TryGetValue(email, out Identity identity);
+
+            return identity;
         }
 
         /// <summary>
         /// Deletes an identity in the vault
         /// </summary>
-        public void DeleteIdentity(string email)
+        /// <returns>
+        /// True if deleted, false if not
+        /// </returns>
+        public bool TryDeleteIdentity(Identity identity)
         {
-            if (Identities.ContainsKey(email))
-            {
-                Identities.Remove(email);
-            }
+            string identityEmail = identity.Email;
+
+            bool deleted = Identities.TryRemove(identityEmail, out Identity deletedIdentity);
+
+            return deleted;
         }
 
         /// <summary>

@@ -45,7 +45,7 @@ namespace vIDsafe.Tests
             string newEmail = "test123456@test.com";
 
             //Act
-            vault.TryChangeIdentityEmail(identity.Email, newEmail);
+            vault.TryChangeIdentityEmail(identity, newEmail);
 
             //Assert
             Assert.IsTrue(vault.Identities.ContainsKey(newEmail));
@@ -59,7 +59,7 @@ namespace vIDsafe.Tests
             Identity identity = vault.GenerateIdentity();
 
             //Act
-            vault.DeleteIdentity(identity.Email);
+            vault.TryDeleteIdentity(identity);
 
             //Assert
             Assert.IsFalse(vault.Identities.ContainsKey(identity.Email));

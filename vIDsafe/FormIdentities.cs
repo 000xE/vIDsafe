@@ -143,7 +143,7 @@ namespace vIDsafe
 
                 if (selectedEmail != identityEmail)
                 {
-                    if (TryChangeIdentityEmail(selectedEmail, identityEmail))
+                    if (TryChangeIdentityEmail(identity, identityEmail))
                     {
                         cmbIdentity.Items[selectedIdentityIndex] = identityEmail;
                         GetBreachedDataAsync(identityEmail, true);
@@ -158,9 +158,9 @@ namespace vIDsafe
         /// <summary>
         /// Tries to change an identity's email (ID)
         /// </summary>
-        private bool TryChangeIdentityEmail(string oldEmail, string newEmail)
+        private bool TryChangeIdentityEmail(Identity identity, string newEmail)
         {
-            if (MasterAccount.User.Vault.TryChangeIdentityEmail(oldEmail, newEmail))
+            if (MasterAccount.User.Vault.TryChangeIdentityEmail(identity, newEmail))
             {
                 return true;
             }
@@ -275,7 +275,9 @@ namespace vIDsafe
         /// </summary>
         private void DeleteIdentity(string selectedEmail)
         {
-            MasterAccount.User.Vault.DeleteIdentity(selectedEmail);
+            Identity identity = MasterAccount.User.Vault.TryGetIdentity(selectedEmail);
+
+            MasterAccount.User.Vault.TryDeleteIdentity(identity);
 
             cmbIdentity.Items.Remove(selectedEmail);
 

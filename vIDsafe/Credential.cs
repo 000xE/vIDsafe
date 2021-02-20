@@ -1,6 +1,7 @@
 ﻿using CsvHelper.Configuration.Attributes;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -131,7 +132,7 @@ namespace vIDsafe
         /// <returns>
         /// True if either is present, false if not
         /// </returns>
-        private bool CheckConflict(Dictionary<string, Identity> identities, string username, string password)
+        private bool CheckConflict(ConcurrentDictionary<string, Identity> identities, string username, string password)
         {
             if (username.Length > 0 || password.Length > 0)
             {
