@@ -35,11 +35,13 @@ namespace vIDsafe
         /// <returns>
         /// The encrypted text
         /// </returns>
-        public static string AesEncrypt(string plainText, byte[] key)
+        public static string AesEncrypt(string plainText, string key)
         {
             byte[] textBytes = Encoding.ASCII.GetBytes(plainText);
 
-            using (AesCryptoServiceProvider AES = GetAES(key))
+            byte[] convertedKey = Convert.FromBase64String(key);
+
+            using (AesCryptoServiceProvider AES = GetAES(convertedKey))
             {
                 using (var encryptor = AES.CreateEncryptor(AES.Key, AES.IV))
                 {
@@ -66,11 +68,13 @@ namespace vIDsafe
         /// <returns>
         /// The decrypted text
         /// </returns>
-        public static string AesDecrypt(string encryptedText, byte[] key)
+        public static string AesDecrypt(string encryptedText, string key)
         {
             byte[] textBytes = Convert.FromBase64String(encryptedText);
 
-            using (AesCryptoServiceProvider AES = GetAES(key))
+            byte[] convertedKey = Convert.FromBase64String(key);
+
+            using (AesCryptoServiceProvider AES = GetAES(convertedKey))
             {
                 try
                 {

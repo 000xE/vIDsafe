@@ -15,14 +15,12 @@ namespace vIDsafe.Tests
         public void DeriveKeyTest()
         {
             //Arrange
-            Encryption.KeyDerivationFunction keyDerivationFunction = Encryption.KeyDerivationFunction.PBKDF2;
+            Hashing.KeyDerivationFunction function = Hashing.KeyDerivationFunction.PBKDF2;
             string secret = "This is a secret";
             string salt = "TestSalt123";
 
             //Act
-            byte[] key = Encryption.DeriveKey(keyDerivationFunction, secret, salt);
-
-            string hashed = Convert.ToBase64String(key);
+            string hashed = Encryption.HashPassword(function, secret, salt);
 
             //Asert
             string expected = "izqZNy0kuStl/VVrWwJ8sGrdgQVqycxKQGZcXQXWXQg=";
@@ -34,11 +32,11 @@ namespace vIDsafe.Tests
         public void AesEncryptTest()
         {
             //Arrange
-            Hashing.KeyDerivationFunction keyDerivationFunction = Hashing.KeyDerivationFunction.PBKDF2;
+            Hashing.KeyDerivationFunction function = Hashing.KeyDerivationFunction.PBKDF2;
             string secret = "Password";
             string salt = "TestUsername123";
 
-            byte[] key = Encryption.DeriveKey(keyDerivationFunction, secret, salt);
+            string key = Encryption.HashPassword(function, secret, salt);
 
             string toEncrypt = "Test";
 
@@ -54,11 +52,11 @@ namespace vIDsafe.Tests
         public void AesDecryptTest()
         {
             //Arrange
-            Hashing.KeyDerivationFunction keyDerivationFunction = Hashing.KeyDerivationFunction.PBKDF2;
+            Hashing.KeyDerivationFunction function = Hashing.KeyDerivationFunction.PBKDF2;
             string secret = "Password";
             string salt = "TestUsername123";
 
-            byte[] key = Hashing.DeriveKey(keyDerivationFunction, secret, salt);
+            string key = Encryption.HashPassword(function, secret, salt);
 
             string toDecrypt = "/cme8tTlgqA5VBoHvxe0tynlUwNsE8CCwA8RQycIWAY=";
 

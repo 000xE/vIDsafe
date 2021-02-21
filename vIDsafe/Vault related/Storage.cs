@@ -19,7 +19,7 @@ namespace vIDsafe
         /// </returns>
         protected Vault DecryptVault(string encryptedVault, string key)
         {
-            string decryptedVault = Encryption.AesDecrypt(encryptedVault, Convert.FromBase64String(key));
+            string decryptedVault = Encryption.AesDecrypt(encryptedVault, key);
 
             if (decryptedVault != null)
             {
@@ -41,7 +41,7 @@ namespace vIDsafe
         {
             string serialisedVault = VaultToString(vault);
 
-            return Encryption.AesEncrypt(serialisedVault, Convert.FromBase64String(key));
+            return Encryption.AesEncrypt(serialisedVault, key);
         }
 
         /// <summary>
