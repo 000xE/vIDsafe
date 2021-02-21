@@ -29,10 +29,10 @@ namespace vIDsafe.Tests
             vault.DeleteAllCredentials();
             user.TryImportVault(MasterAccount.VaultFormat.CSV, "ImportTestData/testvault.csv", false);
 
-            vault.CalculateOverallHealthScore(false);
+            vault.CalculateHealthScore(false);
 
             //Assert
-            Assert.AreEqual(1, vault.TotalCredentialCount);
+            Assert.AreEqual(1, vault.CredentialCount);
 
             //Arrange
             vault.DeleteAllCredentials();
@@ -45,10 +45,10 @@ namespace vIDsafe.Tests
             vault.DeleteAllCredentials();
             user.TryImportVault(MasterAccount.VaultFormat.JSON, "ImportTestData/testvault.json", false);
 
-            vault.CalculateOverallHealthScore(false);
+            vault.CalculateHealthScore(false);
 
             //Assert
-            Assert.AreEqual(1, vault.TotalCredentialCount);
+            Assert.AreEqual(1, vault.CredentialCount);
 
             //Arrange
             vault.DeleteAllCredentials();
@@ -61,10 +61,10 @@ namespace vIDsafe.Tests
             vault.DeleteAllCredentials();
             user.TryImportVault(MasterAccount.VaultFormat.Encrypted, "ImportTestData/testvault", false);
 
-            vault.CalculateOverallHealthScore(false);
+            vault.CalculateHealthScore(false);
 
             //Assert
-            Assert.AreEqual(1, vault.TotalCredentialCount);
+            Assert.AreEqual(1, vault.CredentialCount);
 
             user.DeleteAccount();
         }

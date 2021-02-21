@@ -35,7 +35,7 @@ namespace vIDsafe
         /// </summary>
         private void RecalculateHealthScore()
         {
-            MasterAccount.User.Vault.CalculateOverallHealthScore(true);
+            MasterAccount.User.Vault.CalculateHealthScore(true);
             DisplayHealthScores();
             DisplayCredentialStatusCounts();
             DisplaySecurityAlerts();
@@ -64,7 +64,7 @@ namespace vIDsafe
                 tlpIdentities.Controls.Add(identityPanel, tlpIdentities.ColumnCount-2, 0);
             }
 
-            int totalHealthScore = MasterAccount.User.Vault.OverallHealthScore;
+            int totalHealthScore = MasterAccount.User.Vault.HealthScore;
 
             FormHome.SetHealthScore(totalHealthScore, CalculateHealthColor(totalHealthScore));
         }
@@ -74,10 +74,10 @@ namespace vIDsafe
         /// </summary>
         private void DisplayCredentialStatusCounts()
         {
-            int safeCount = MasterAccount.User.Vault.TotalSafeCredentialCount;
-            int weakCount = MasterAccount.User.Vault.TotalWeakCredentialCount;
-            int conflictCount = MasterAccount.User.Vault.TotalConflictCredentialCount;
-            int compromisedCount = MasterAccount.User.Vault.TotalCompromisedCredentialCount;
+            int safeCount = MasterAccount.User.Vault.SafeCredentialCount;
+            int weakCount = MasterAccount.User.Vault.WeakCredentialCount;
+            int conflictCount = MasterAccount.User.Vault.ConflictCredentialCount;
+            int compromisedCount = MasterAccount.User.Vault.CompromisedCredentialCount;
 
             chartCredentials.Series["Credentials"].Points[0].SetValueXY("Safe", safeCount);
             chartCredentials.Series["Credentials"].Points[1].SetValueXY("Weak", weakCount);
@@ -263,7 +263,7 @@ namespace vIDsafe
         {
             if (e.ChartElement is ChartArea)
             {
-                TextAnnotation ta = CreateTextAnnotation(Convert.ToString(MasterAccount.User.Vault.TotalCredentialCount), e);
+                TextAnnotation ta = CreateTextAnnotation(Convert.ToString(MasterAccount.User.Vault.CredentialCount), e);
 
                 chartCredentials.Annotations.Clear();
                 chartCredentials.Annotations.Add(ta);

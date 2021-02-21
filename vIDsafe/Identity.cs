@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 namespace vIDsafe
 {
     [Serializable]
-    public class Identity
+    public class Identity : Health
     {
         ///<value>Get or set the vault</value>
         public Vault Vault { private get; set; } = new Vault();
@@ -28,42 +28,11 @@ namespace vIDsafe
         [Name("usage")]
         public string Usage { get; set; } = "";
 
-        ///<value>Get or set the identity health score</value>
-        [Ignore]
-        [JsonIgnore]
-        public int HealthScore { get; private set; } = 0;
-
         ///<value>Get or set the dictionary of breached doamins</value>
         public Dictionary<string, string> BreachedDomains { get; private set; } = new Dictionary<string, string>();
 
         ///<value>Get or set the dictionary of credentials</value>
         public ConcurrentDictionary<string, Credential> Credentials { get; private set; } = new ConcurrentDictionary<string, Credential>();
-
-        [Ignore]
-        [JsonIgnore]
-        public Dictionary<Credential.CredentialStatus, int> CredentialCounts { get; private set; } = new Dictionary<Credential.CredentialStatus, int>()
-        {
-            [Credential.CredentialStatus.Safe] = 0,
-            [Credential.CredentialStatus.Compromised] = 0,
-            [Credential.CredentialStatus.Conflicted] = 0,
-            [Credential.CredentialStatus.Weak] = 0
-        };
-
-        [Ignore]
-        [JsonIgnore]
-        public int SafeCredentialCount => CredentialCounts[Credential.CredentialStatus.Safe];
-
-        [Ignore]
-        [JsonIgnore]
-        public int CompromisedCredentialCount => CredentialCounts[Credential.CredentialStatus.Compromised];
-
-        [Ignore]
-        [JsonIgnore]
-        public int WeakCredentialCount => CredentialCounts[Credential.CredentialStatus.Weak];
-
-        [Ignore]
-        [JsonIgnore]
-        public int ConflictCredentialCount => CredentialCounts[Credential.CredentialStatus.Conflicted];
 
         /// <summary>
         /// Creates an identity
@@ -194,7 +163,7 @@ namespace vIDsafe
         /// <summary>
         /// Resets the credential status counts in the identity
         /// </summary>
-        private void ResetCredentialCounts()
+        protected override void ResetCredentialCounts()
         {
             foreach (Credential.CredentialStatus status in Enum.GetValues(typeof(Credential.CredentialStatus)))
             {
@@ -203,9 +172,9 @@ namespace vIDsafe
         }
 
         /// <summary>
-        /// Counts the credential statuses in the identity
+        /// Counts (and calculate) the credential statuses in the identity
         /// </summary>
-        private void CountCredentialStatus()
+        protected override void CountCredentialStatus(bool calculateStatuses)
         {
             ResetCredentialCounts();
 
@@ -213,34 +182,21 @@ namespace vIDsafe
             {
                 Credential credential = credentialPair.Value;
 
+                if (calculateStatuses)
+                {
+                    credential.CalculateStatus(Vault, this);
+                }
+
                 CredentialCounts[credential.Status]++;
-            }
-        }
-
-        /// <summary>
-        /// Calculates the credential statuses in the identity
-        /// </summary>
-        private void SetCredentialStatuses()
-        {
-            foreach (KeyValuePair<string, Credential> credentialPair in Credentials)
-            {
-                Credential credential = credentialPair.Value;
-
-                credential.CalculateStatus(Vault, this);
             }
         }
 
         /// <summary>
         /// Calculates the health score for the identity
         /// </summary>
-        public void CalculateHealthScore(bool calculateStatuses)
+        public override void CalculateHealthScore(bool calculateStatuses)
         {
-            if (calculateStatuses)
-            {
-                SetCredentialStatuses();
-            }
-
-            CountCredentialStatus();
+            CountCredentialStatus(calculateStatuses);
 
             if (Credentials.Count > 0)
             {

@@ -153,6 +153,7 @@
     <Compile Include="FormIdentities.Designer.cs">
       <DependentUpon>FormIdentities.cs</DependentUpon>
     </Compile>
+    <Compile Include="Health.cs" />
     <Compile Include="Identity.cs" />
     <Compile Include="FormImportExport.cs">
       <SubType>Form</SubType>
@@ -179,6 +180,7 @@
       <DependentUpon>FormOverview.cs</DependentUpon>
     </Compile>
     <Compile Include="LightTheme.cs" />
+    <Compile Include="Porting.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FormRegister.cs">
@@ -188,6 +190,7 @@
       <DependentUpon>FormRegister.cs</DependentUpon>
     </Compile>
     <Compile Include="MasterAccount.cs" />
+    <Compile Include="Storage.cs" />
     <Compile Include="Theme.cs" />
     <Compile Include="Vault.cs" />
     <Compile Include="FormVault.cs">

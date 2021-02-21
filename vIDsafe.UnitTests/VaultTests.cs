@@ -27,12 +27,12 @@ namespace vIDsafe.Tests
             identity2.CalculateHealthScore(false);
 
             //Act
-            vault.CalculateOverallHealthScore(false);
+            vault.CalculateHealthScore(false);
 
             //Assert
             int expectedHealthScore = 50;
 
-            Assert.AreEqual(expectedHealthScore, vault.OverallHealthScore);
+            Assert.AreEqual(expectedHealthScore, vault.HealthScore);
         }
 
         [TestMethod()]
@@ -81,7 +81,7 @@ namespace vIDsafe.Tests
             //Assert
             int expectedCredentialCount = 0;
 
-            Assert.AreEqual(expectedCredentialCount, vault.TotalCredentialCount);
+            Assert.AreEqual(expectedCredentialCount, vault.CredentialCount);
         }
 
         [TestMethod()]

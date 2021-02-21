@@ -10,7 +10,7 @@ using System.Windows.Forms;
 namespace vIDsafe
 {
     [Serializable]
-    public class Vault
+    public class Vault : Health
     {
         public enum LogType
         {
@@ -26,40 +26,12 @@ namespace vIDsafe
             [LogType.Porting] = new Dictionary<DateTime, string>()
         };
 
-        private readonly Dictionary<Credential.CredentialStatus, int> _totalCredentialCounts = new Dictionary<Credential.CredentialStatus, int>()
-        {
-            [Credential.CredentialStatus.Safe] = 0,
-            [Credential.CredentialStatus.Compromised] = 0,
-            [Credential.CredentialStatus.Conflicted] = 0,
-            [Credential.CredentialStatus.Weak] = 0
-        };
-
-        ///<value>Get or set the vault health score</value>
-        [JsonIgnore]
-        public int OverallHealthScore { get; private set; } = 0;
+        ///<value>Get or set the dictionary of identities</value>
+        public ConcurrentDictionary<string, Identity> Identities { get; private set; } = new ConcurrentDictionary<string, Identity>();
 
         ///<value>Get or set the total credential count</value>
         [JsonIgnore]
-        public int TotalCredentialCount { get; private set; } = 0;
-
-        ///<value>Gets the safe credential count</value>
-        [JsonIgnore]
-        public int TotalSafeCredentialCount => _totalCredentialCounts[Credential.CredentialStatus.Safe];
-
-        ///<value>Gets the compromised credential count</value>
-        [JsonIgnore]
-        public int TotalCompromisedCredentialCount => _totalCredentialCounts[Credential.CredentialStatus.Compromised];
-
-        ///<value>Gets the conflicted credential count</value>
-        [JsonIgnore]
-        public int TotalConflictCredentialCount => _totalCredentialCounts[Credential.CredentialStatus.Conflicted];
-
-        ///<value>Gets the weak credential count</value>
-        [JsonIgnore]
-        public int TotalWeakCredentialCount => _totalCredentialCounts[Credential.CredentialStatus.Weak];
-
-        ///<value>Get or set the dictionary of identities</value>
-        public ConcurrentDictionary<string, Identity> Identities { get; private set; } = new ConcurrentDictionary<string, Identity>();
+        public int CredentialCount { get; protected set; } = 0;
 
         /// <summary>
         /// Creates an identity with a generated email and name
@@ -214,22 +186,22 @@ namespace vIDsafe
         /// <summary>
         /// Resets the total credential status counts in the vault
         /// </summary>
-        private void ResetTotalCredentialCounts()
+        protected override void ResetCredentialCounts()
         {
-            TotalCredentialCount = 0;
+            CredentialCount = 0;
 
             foreach (Credential.CredentialStatus status in Enum.GetValues(typeof(Credential.CredentialStatus)))
             {
-                _totalCredentialCounts[status] = 0;
+                CredentialCounts[status] = 0;
             }
         }
 
         /// <summary>
         /// Counts the total credential statuses in the vault
         /// </summary>
-        private void CountTotalCredentialStatus(bool calculateStatuses)
+        protected override void CountCredentialStatus(bool calculateStatuses)
         {
-            ResetTotalCredentialCounts();
+            ResetCredentialCounts();
 
             foreach (KeyValuePair<string, Identity> identityPair in Identities)
             {
@@ -239,27 +211,27 @@ namespace vIDsafe
 
                 foreach (KeyValuePair<Credential.CredentialStatus, int> status in identity.CredentialCounts)
                 {
-                    _totalCredentialCounts[status.Key] += status.Value;
+                    CredentialCounts[status.Key] += status.Value;
                 }
 
-                TotalCredentialCount += identity.Credentials.Count;
+                CredentialCount += identity.Credentials.Count;
             }
         }
 
         /// <summary>
         /// Calculates the overall health score for the vault
         /// </summary>
-        public void CalculateOverallHealthScore(bool calculateStatuses)
+        public override void CalculateHealthScore(bool calculateStatuses)
         {
-            CountTotalCredentialStatus(calculateStatuses);
+            CountCredentialStatus(calculateStatuses);
 
-            if (TotalCredentialCount > 0)
+            if (CredentialCount > 0)
             {
-                OverallHealthScore = (int)((double)_totalCredentialCounts[Credential.CredentialStatus.Safe] / TotalCredentialCount * 100);
+                HealthScore = (int)((double)CredentialCounts[Credential.CredentialStatus.Safe] / CredentialCount * 100);
             }
             else
             {
-                OverallHealthScore = 0;
+                HealthScore = 0;
             }
         }
     }
