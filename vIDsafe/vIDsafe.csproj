@@ -129,12 +129,12 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Credential.cs" />
-    <Compile Include="CredentialGeneration.cs" />
-    <Compile Include="CryptoRandom.cs" />
-    <Compile Include="DarkTheme.cs" />
-    <Compile Include="Encryption.cs" />
-    <Compile Include="EnzoicAPI.cs" />
+    <Compile Include="Credential Related\Credential.cs" />
+    <Compile Include="Credential Related\CredentialGeneration.cs" />
+    <Compile Include="Credential Related\CryptoRandom.cs" />
+    <Compile Include="Theme related\DarkTheme.cs" />
+    <Compile Include="Vault related\Encryption.cs" />
+    <Compile Include="Credential Related\EnzoicAPI.cs" />
     <Compile Include="FormHome.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -153,8 +153,8 @@
     <Compile Include="FormIdentities.Designer.cs">
       <DependentUpon>FormIdentities.cs</DependentUpon>
     </Compile>
-    <Compile Include="Health.cs" />
-    <Compile Include="Identity.cs" />
+    <Compile Include="Vault related\Health.cs" />
+    <Compile Include="Vault related\Identity.cs" />
     <Compile Include="FormImportExport.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -179,8 +179,8 @@
     <Compile Include="FormOverview.Designer.cs">
       <DependentUpon>FormOverview.cs</DependentUpon>
     </Compile>
-    <Compile Include="LightTheme.cs" />
-    <Compile Include="Porting.cs" />
+    <Compile Include="Theme related\LightTheme.cs" />
+    <Compile Include="Vault related\Porting.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FormRegister.cs">
@@ -189,11 +189,11 @@
     <Compile Include="FormRegister.Designer.cs">
       <DependentUpon>FormRegister.cs</DependentUpon>
     </Compile>
-    <Compile Include="MasterAccount.cs" />
-    <Compile Include="Status.cs" />
-    <Compile Include="Storage.cs" />
-    <Compile Include="Theme.cs" />
-    <Compile Include="Vault.cs" />
+    <Compile Include="Vault related\MasterAccount.cs" />
+    <Compile Include="Credential Related\Status.cs" />
+    <Compile Include="Vault related\Storage.cs" />
+    <Compile Include="Theme related\Theme.cs" />
+    <Compile Include="Vault related\Vault.cs" />
     <Compile Include="FormVault.cs">
       <SubType>Form</SubType>
     </Compile>
