@@ -198,7 +198,7 @@ namespace vIDsafe
         /// </returns>
         private string HashPassword(string password, string salt)
         {
-            return Convert.ToBase64String(Encryption.DeriveKey(Encryption.KeyDerivationFunction.PBKDF2, password, salt));
+            return Convert.ToBase64String(Hashing.DeriveKey(Hashing.KeyDerivationFunction.PBKDF2, password, salt));
         }
 
         /// <summary>

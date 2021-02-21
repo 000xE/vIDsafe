@@ -153,6 +153,7 @@
     <Compile Include="FormIdentities.Designer.cs">
       <DependentUpon>FormIdentities.cs</DependentUpon>
     </Compile>
+    <Compile Include="Vault related\Hashing.cs" />
     <Compile Include="Vault related\Health.cs" />
     <Compile Include="Vault related\Identity.cs" />
     <Compile Include="FormImportExport.cs">

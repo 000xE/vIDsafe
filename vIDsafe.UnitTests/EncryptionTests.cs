@@ -34,7 +34,7 @@ namespace vIDsafe.Tests
         public void AesEncryptTest()
         {
             //Arrange
-            Encryption.KeyDerivationFunction keyDerivationFunction = Encryption.KeyDerivationFunction.PBKDF2;
+            Hashing.KeyDerivationFunction keyDerivationFunction = Hashing.KeyDerivationFunction.PBKDF2;
             string secret = "Password";
             string salt = "TestUsername123";
 
@@ -54,11 +54,11 @@ namespace vIDsafe.Tests
         public void AesDecryptTest()
         {
             //Arrange
-            Encryption.KeyDerivationFunction keyDerivationFunction = Encryption.KeyDerivationFunction.PBKDF2;
+            Hashing.KeyDerivationFunction keyDerivationFunction = Hashing.KeyDerivationFunction.PBKDF2;
             string secret = "Password";
             string salt = "TestUsername123";
 
-            byte[] key = Encryption.DeriveKey(keyDerivationFunction, secret, salt);
+            byte[] key = Hashing.DeriveKey(keyDerivationFunction, secret, salt);
 
             string toDecrypt = "/cme8tTlgqA5VBoHvxe0tynlUwNsE8CCwA8RQycIWAY=";
 

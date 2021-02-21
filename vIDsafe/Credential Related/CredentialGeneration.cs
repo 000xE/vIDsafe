@@ -73,7 +73,7 @@ namespace vIDsafe
                 AppendRandomCharacters(characters, CurrentUsernameLength, username);
             }
 
-            Encryption.SecurelyRandomizeStringBuilder(username);
+            SecurelyRandomizeStringBuilder(username);
 
             return username.ToString();
         }
@@ -105,7 +105,24 @@ namespace vIDsafe
                 stringBuilder.Append(randomChar);
             }
 
-            Encryption.SecurelyRandomizeStringBuilder(stringBuilder);
+            SecurelyRandomizeStringBuilder(stringBuilder);
+        }
+
+        /// <summary>
+        /// Randomises a string builder securely using CryptoRandom
+        /// </summary>
+        //https://stackoverflow.com/a/12646864
+        private static void SecurelyRandomizeStringBuilder(StringBuilder sb)
+        {
+            freakcode.Cryptography.CryptoRandom cryptoRandom = new freakcode.Cryptography.CryptoRandom();
+
+            for (int i = sb.Length - 1; i > 0; i--)
+            {
+                int randomIndex = cryptoRandom.Next(0, i);
+                char temp = sb[i];
+                sb[i] = sb[randomIndex];
+                sb[randomIndex] = temp;
+            }
         }
 
         /// <summary>
