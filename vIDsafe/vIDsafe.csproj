@@ -190,6 +190,7 @@
       <DependentUpon>FormRegister.cs</DependentUpon>
     </Compile>
     <Compile Include="MasterAccount.cs" />
+    <Compile Include="Status.cs" />
     <Compile Include="Storage.cs" />
     <Compile Include="Theme.cs" />
     <Compile Include="Vault.cs" />
