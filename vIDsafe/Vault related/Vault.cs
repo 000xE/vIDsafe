@@ -33,7 +33,7 @@ namespace vIDsafe
         ///<value>Get or set the total credential count</value>
         [Ignore]
         [JsonIgnore]
-        public int CredentialCount { get; protected set; } = 0;
+        public int TotalCredentialCount { get; protected set; } = 0;
 
         /// <summary>
         /// Creates an identity with a generated email and name
@@ -128,7 +128,7 @@ namespace vIDsafe
         /// </returns>
         public bool TryDeleteIdentity(string email)
         {
-            bool deleted = Identities.TryRemove(email, out Identity deletedIdentity);
+            bool deleted = Identities.TryRemove(email, out _);
 
             return deleted;
         }
@@ -190,7 +190,7 @@ namespace vIDsafe
         /// </summary>
         protected override void ResetCredentialCounts()
         {
-            CredentialCount = 0;
+            TotalCredentialCount = 0;
 
             foreach (Status.CredentialStatus status in Enum.GetValues(typeof(Status.CredentialStatus)))
             {
@@ -216,7 +216,7 @@ namespace vIDsafe
                     CredentialCounts[status.Key] += status.Value;
                 }
 
-                CredentialCount += identity.Credentials.Count;
+                TotalCredentialCount += identity.Credentials.Count;
             }
         }
 
@@ -227,9 +227,9 @@ namespace vIDsafe
         {
             CountCredentialStatus(calculateStatuses);
 
-            if (CredentialCount > 0)
+            if (TotalCredentialCount > 0)
             {
-                HealthScore = (int)((double)CredentialCounts[Status.CredentialStatus.Safe] / CredentialCount * 100);
+                HealthScore = (int)((double)CredentialCounts[Status.CredentialStatus.Safe] / TotalCredentialCount * 100);
             }
             else
             {

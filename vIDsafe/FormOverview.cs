@@ -263,7 +263,7 @@ namespace vIDsafe
         {
             if (e.ChartElement is ChartArea)
             {
-                TextAnnotation ta = CreateTextAnnotation(Convert.ToString(MasterAccount.User.Vault.CredentialCount), e);
+                TextAnnotation ta = CreateTextAnnotation(Convert.ToString(MasterAccount.User.Vault.TotalCredentialCount), e);
 
                 chartCredentials.Annotations.Clear();
                 chartCredentials.Annotations.Add(ta);

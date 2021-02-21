@@ -21,7 +21,7 @@ namespace vIDsafe
         /// <returns>
         /// The derived key
         /// </returns>
-        public static byte[] DeriveKey(KeyDerivationFunction function, string secret, byte[] salt)
+        protected static byte[] DeriveKey(KeyDerivationFunction function, string secret, byte[] salt)
         {
             byte[] derivedKey = null;
 

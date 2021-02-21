@@ -81,7 +81,7 @@ namespace vIDsafe.Tests
             //Assert
             int expectedCredentialCount = 0;
 
-            Assert.AreEqual(expectedCredentialCount, vault.CredentialCount);
+            Assert.AreEqual(expectedCredentialCount, vault.TotalCredentialCount);
         }
 
         [TestMethod()]

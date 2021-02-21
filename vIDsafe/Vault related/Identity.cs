@@ -118,7 +118,7 @@ namespace vIDsafe
         /// </returns>
         public bool TryDeleteCredential(string credentialID)
         {
-            bool deleted = Credentials.TryRemove(credentialID, out Credential deletedCredential);
+            bool deleted = Credentials.TryRemove(credentialID, out _);
 
             return deleted;
         }

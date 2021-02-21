@@ -32,7 +32,7 @@ namespace vIDsafe.Tests
             vault.CalculateHealthScore(false);
 
             //Assert
-            Assert.AreEqual(1, vault.CredentialCount);
+            Assert.AreEqual(1, vault.TotalCredentialCount);
 
             //Arrange
             vault.DeleteAllCredentials();
@@ -48,7 +48,7 @@ namespace vIDsafe.Tests
             vault.CalculateHealthScore(false);
 
             //Assert
-            Assert.AreEqual(1, vault.CredentialCount);
+            Assert.AreEqual(1, vault.TotalCredentialCount);
 
             //Arrange
             vault.DeleteAllCredentials();
@@ -64,7 +64,7 @@ namespace vIDsafe.Tests
             vault.CalculateHealthScore(false);
 
             //Assert
-            Assert.AreEqual(1, vault.CredentialCount);
+            Assert.AreEqual(1, vault.TotalCredentialCount);
 
             user.DeleteAccount();
         }
