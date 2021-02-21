@@ -166,15 +166,17 @@ namespace vIDsafe
         /// </returns>
         public bool TryExportVault(VaultFormat format, string email, string fileName)
         {
-            Vault vault = Vault;
+            Vault vault = new Vault();
 
             if (email.Length > 0)
             {
-                vault.DeleteAllIdentities();
-
                 Identity identity = vault.TryGetIdentity(email);
 
                 vault.TryAddIdentity(identity);
+            }
+            else
+            {
+                vault = Vault;
             }
 
             string serialisedVault = TrySerializeVault(format, vault, Password);
