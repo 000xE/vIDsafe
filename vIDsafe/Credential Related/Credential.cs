@@ -37,14 +37,6 @@ namespace vIDsafe
         [JsonIgnore]
         public CredentialStatus Status { get; set; } = CredentialStatus.Safe;
 
-        public enum CredentialStatus
-        {
-            Safe,
-            Compromised,
-            Conflicted,
-            Weak
-        }
-
         /// <summary>
         /// Creates a credential
         /// </summary>

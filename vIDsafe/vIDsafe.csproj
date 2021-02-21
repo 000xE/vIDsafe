@@ -206,7 +206,7 @@
     <Compile Include="FormvIDsafe.Designer.cs">
       <DependentUpon>FormvIDsafe.cs</DependentUpon>
     </Compile>
-    <Compile Include="WordList.cs" />
+    <Compile Include="Credential Related\WordList.cs" />
     <EmbeddedResource Include="FormHome.resx">
       <DependentUpon>FormHome.cs</DependentUpon>
     </EmbeddedResource>

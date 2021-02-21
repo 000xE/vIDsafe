@@ -8,6 +8,14 @@ namespace vIDsafe
     [Serializable]
     public class Status
     {
+        public enum CredentialStatus
+        {
+            Safe,
+            Compromised,
+            Conflicted,
+            Weak
+        }
+
         /// <summary>
         /// Checks if the URL has been breached 
         /// </summary>
