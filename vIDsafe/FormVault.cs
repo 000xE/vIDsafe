@@ -25,6 +25,9 @@ namespace vIDsafe
         private void InitialMethods()
         {
             GetIdentities();
+
+            EnableIdentityComponents(-1);
+            EnableCredentialComponents(-1);
         }
 
         private void btnGenerateUsername_Click(object sender, EventArgs e)
@@ -85,16 +88,22 @@ namespace vIDsafe
         private void cmbIdentity_SelectedIndexChanged(object sender, EventArgs e)
         {
             GetCredentials(cmbIdentity.SelectedItem.ToString());
+
+            EnableIdentityComponents(cmbIdentity.SelectedIndex);
         }
 
         private void lvCredentials_SelectedIndexChanged(object sender, EventArgs e)
         {
             GetCredentialDetails(cmbIdentity.SelectedItem.ToString(), lvCredentials.SelectedItems.Count);
+
+            EnableCredentialComponents(lvCredentials.SelectedItems.Count);
         }
 
         private void txtSearchCredential_TextChanged(object sender, EventArgs e)
         {
             SearchCredentials(cmbIdentity.SelectedItem.ToString(), txtSearchCredential.Text);
+
+            EnableCredentialComponents(lvCredentials.SelectedItems.Count);
         }
 
         /// <summary>
@@ -134,9 +143,9 @@ namespace vIDsafe
         /// <summary>
         /// Sets the details of a credential
         /// </summary>
-        private void SetCredentialDetails(string selectedEmail, int selectedCredentialCount, string credentialUsername, string credentialPassword, string credentialURL, string credentialNotes)
+        private void SetCredentialDetails(string selectedEmail, int selectedCredentialCount, string username, string password, string URL, string Notes)
         {
-            if (IsValid(credentialURL, credentialUsername, credentialPassword))
+            if (IsValid(URL, username, password))
             {
                 if (selectedCredentialCount > 0)
                 {
@@ -147,13 +156,13 @@ namespace vIDsafe
 
                     Credential credential = identity.TryGetCredential(credentialID);
 
-                    credential.Username = credentialUsername;
-                    credential.Password = credentialPassword;
-                    credential.URL = credentialURL;
-                    credential.Notes = credentialNotes;
+                    credential.Username = username;
+                    credential.Password = password;
+                    credential.URL = URL;
+                    credential.Notes = Notes;
 
-                    lvCredentials.SelectedItems[0].SubItems[1].Text = credentialUsername;
-                    lvCredentials.SelectedItems[0].SubItems[2].Text = credentialURL;
+                    lvCredentials.SelectedItems[0].SubItems[1].Text = username;
+                    lvCredentials.SelectedItems[0].SubItems[2].Text = URL;
                     lvCredentials.SelectedItems[0].SubItems[3].Text = credential.Status.ToString();
                 }
             }
@@ -162,9 +171,9 @@ namespace vIDsafe
         /// <summary>
         /// Searches for a credential
         /// </summary>
-        private void SearchCredentials(string selectedEmail, string searchedText)
+        private void SearchCredentials(string email, string searchedText)
         {
-            GetCredentials(selectedEmail);
+            GetCredentials(email);
 
             if (searchedText.Length > 0)
             {
@@ -178,8 +187,6 @@ namespace vIDsafe
                     }
                 }
             }
-
-            ResetDetails();
         }
 
         /// <summary>
@@ -191,16 +198,14 @@ namespace vIDsafe
             {
                 cmbIdentity.Items.Add(identityPair.Key);
             }
-
-            ResetDetails();
         }
 
         /// <summary>
         /// Gets the credentials for an identity
         /// </summary>
-        private void GetCredentials(string selectedEmail)
+        private void GetCredentials(string email)
         {
-            Identity identity = MasterAccount.User.Vault.TryGetIdentity(selectedEmail);
+            Identity identity = MasterAccount.User.Vault.TryGetIdentity(email);
             identity.CalculateHealthScore(true);
 
             ConcurrentDictionary<string, Credential> credentials = identity.Credentials;
@@ -218,8 +223,6 @@ namespace vIDsafe
             {
                 DisplayCredential(credentialPair.Value);
             }
-
-            ResetDetails();
         }
 
         /// <summary>
@@ -238,14 +241,14 @@ namespace vIDsafe
         /// <summary>
         /// Gets the details of a credential
         /// </summary>
-        private void GetCredentialDetails(string selectedEmail, int selectedCredentialCount)
+        private void GetCredentialDetails(string email, int selectedCredentialCount)
         {
             if (selectedCredentialCount > 0)
             {
                 ListViewItem selectedCredential = lvCredentials.SelectedItems[0];
                 string credentialID = selectedCredential.SubItems[0].Text;
 
-                Identity identity = MasterAccount.User.Vault.TryGetIdentity(selectedEmail);
+                Identity identity = MasterAccount.User.Vault.TryGetIdentity(email);
 
                 Credential credential = identity.TryGetCredential(credentialID);
 
@@ -254,23 +257,21 @@ namespace vIDsafe
                 txtPassword.Text = credential.Password;
                 txtNotes.Text = credential.Notes;
             }
-
-            ResetDetails();
         }
 
         /// <summary>
         /// Deletes a credential
         /// </summary>
-        private void DeleteCredential(string selectedEmail, int selectedCredentialCount)
+        private void DeleteCredential(string email, int selectedCredentialCount)
         {
-            if (selectedEmail.Length > 0)
+            if (email.Length > 0)
             {
                 if (selectedCredentialCount > 0)
                 {
                     ListViewItem currentItem = lvCredentials.SelectedItems[0];
                     string currentCredentialID = currentItem.SubItems[0].Text;
 
-                    Identity identity = MasterAccount.User.Vault.TryGetIdentity(selectedEmail);
+                    Identity identity = MasterAccount.User.Vault.TryGetIdentity(email);
 
                     identity.TryDeleteCredential(currentCredentialID);
 
@@ -279,53 +280,42 @@ namespace vIDsafe
             }
         }
 
-        //Todo: maybe refactor the way this method gets called?
-        /// <summary>
-        /// Resets the form components
-        /// </summary>
-        private void ResetDetails()
-        {
-            int selectedIdentityIndex = cmbIdentity.SelectedIndex;
-            int selectedCredentialCount = lvCredentials.SelectedItems.Count;
-
-            if (selectedIdentityIndex >= 0)
-            {
-                EnableIdentityComponents(true);
-
-                FixColumnWidths();
-            }
-            else
-            {
-                ClearInputs();
-                EnableIdentityComponents(false);
-            }
-
-            if (selectedCredentialCount > 0)
-            {
-                EnableCredentialComponents(true);
-            }
-            else
-            {
-                ClearInputs();
-                EnableCredentialComponents(false);
-            }
-        }
-
         /// <summary>
         /// Enables or disables form's identity components
         /// </summary>
-        private void EnableIdentityComponents(bool enabled)
+        private void EnableIdentityComponents(int selectedIdentityIndex)
         {
-            btnNewCredential.Enabled = enabled;
+            bool enabled = false;
 
+            if (selectedIdentityIndex >= 0)
+            {
+                enabled = true;
+            }
+            else
+            {
+                ClearInputs();
+            }
+
+            btnNewCredential.Enabled = enabled;
             pnlVaultComponents.Visible = enabled;
         }
 
         /// <summary>
         /// Enables or disables form's credential components
         /// </summary>
-        private void EnableCredentialComponents(bool enabled)
+        private void EnableCredentialComponents(int selectedCredentialCount)
         {
+            bool enabled = false;
+
+            if (selectedCredentialCount > 0)
+            {
+                enabled = true;
+            }
+            else
+            {
+                ClearInputs();
+            }
+
             txtURL.Enabled = enabled;
             txtUsername.Enabled = enabled;
             txtPassword.Enabled = enabled;
@@ -383,17 +373,17 @@ namespace vIDsafe
         /// <summary>
         /// Deletes all credentials for an identity
         /// </summary>
-        private void DeleteAllCredentials(string selectedEmail)
+        private void DeleteAllCredentials(string email)
         {
-            if (selectedEmail.Length > 0)
+            if (email.Length > 0)
             {
-                Identity identity = MasterAccount.User.Vault.TryGetIdentity(selectedEmail);
+                Identity identity = MasterAccount.User.Vault.TryGetIdentity(email);
 
                 identity.DeleteAllCredentials();
 
                 FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Credential deletion", "Successfully deleted all credentials");
 
-                GetCredentials(selectedEmail);
+                GetCredentials(email);
             }
         }
     }

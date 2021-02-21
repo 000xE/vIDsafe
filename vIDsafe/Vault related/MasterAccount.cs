@@ -76,9 +76,9 @@ namespace vIDsafe
         /// <returns>
         /// True if the correct, false if not
         /// </returns>
-        private bool VerifyPassword(string oldPassword)
+        private bool VerifyPassword(string password)
         {
-            if (HashPassword(oldPassword, Name).Equals(Password))
+            if (HashPassword(password, Name).Equals(Password))
             {
                 return true;
             }
@@ -92,11 +92,11 @@ namespace vIDsafe
         /// <returns>
         /// True if the password is changed, false if not
         /// </returns>
-        public bool TryChangePassword(string oldPassword, string password)
+        public bool TryChangePassword(string password, string newPassword)
         {
-            if (VerifyPassword(oldPassword).Equals(true))
+            if (VerifyPassword(password).Equals(true))
             {
-                Password = HashPassword(password, Name);
+                Password = HashPassword(newPassword, Name);
 
                 SaveVault(Vault, Name, Password);
 
@@ -156,9 +156,9 @@ namespace vIDsafe
         /// <returns>
         /// True if the vault is export, false if not
         /// </returns>
-        public bool TryExportVault(VaultFormat format, string selectedEmail, string fileName)
+        public bool TryExportVault(VaultFormat format, string email, string fileName)
         {
-            string vault = TrySerializeVault(format, selectedEmail, fileName);
+            string vault = TrySerializeVault(format, email, fileName);
 
             if (vault.Length > 0)
             {

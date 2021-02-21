@@ -124,9 +124,9 @@ namespace vIDsafe
         /// <returns>
         /// True if deleted, false if not
         /// </returns>
-        public bool TryDeleteIdentity(string identityEmail)
+        public bool TryDeleteIdentity(string email)
         {
-            bool deleted = Identities.TryRemove(identityEmail, out Identity deletedIdentity);
+            bool deleted = Identities.TryRemove(email, out Identity deletedIdentity);
 
             return deleted;
         }

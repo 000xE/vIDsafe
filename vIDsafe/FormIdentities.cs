@@ -27,6 +27,8 @@ namespace vIDsafe
         private void InitialMethods()
         {
             DisplayIdentities();
+
+            EnableIdentityComponents(-1);
         }
 
         private void chartCredentials_PrePaint(object sender, ChartPaintEventArgs e)
@@ -98,7 +100,6 @@ namespace vIDsafe
             SetIdentityDetails(cmbIdentity.SelectedIndex, cmbIdentity.SelectedItem.ToString(), txtIdentityName.Text, txtIdentityEmail.Text.ToLower(), txtIdentityUsage.Text);
         }
 
-        //Todo: cleanup parameter names everywhere (consistency)
         /// <summary>
         /// Checks if the name and email are valid
         /// </summary>
@@ -135,23 +136,23 @@ namespace vIDsafe
         /// <summary>
         /// Sets the details of an identity
         /// </summary>
-        private void SetIdentityDetails(int selectedIdentityIndex, string selectedEmail, string identityName, string identityEmail, string identityUsage)
+        private void SetIdentityDetails(int selectedIdentityIndex, string email, string name, string newEmail, string usage)
         {
-            if (IsValid(identityName, identityEmail))
+            if (IsValid(name, newEmail))
             {
-                Identity identity = MasterAccount.User.Vault.TryGetIdentity(selectedEmail);
+                Identity identity = MasterAccount.User.Vault.TryGetIdentity(email);
 
-                if (selectedEmail != identityEmail)
+                if (email != newEmail)
                 {
-                    if (TryChangeIdentityEmail(identity, identityEmail))
+                    if (TryChangeIdentityEmail(identity, newEmail))
                     {
-                        cmbIdentity.Items[selectedIdentityIndex] = identityEmail;
-                        GetBreachedDataAsync(identityEmail, true);
+                        cmbIdentity.Items[selectedIdentityIndex] = newEmail;
+                        GetBreachedDataAsync(newEmail, true);
                     }
                 }
 
-                identity.Name = identityName;
-                identity.Usage = identityUsage;
+                identity.Name = name;
+                identity.Usage = usage;
             }
         }
 
@@ -175,18 +176,18 @@ namespace vIDsafe
         /// <summary>
         /// Gets the breached data for an email
         /// </summary>
-        private async void GetBreachedDataAsync(string selectedEmail, bool useAPI)
+        private async void GetBreachedDataAsync(string email, bool useAPI)
         {
             if (useAPI)
             {
                 FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Breach checking", "Please wait until the breaches are checked");
             }
 
-            Identity identity = MasterAccount.User.Vault.TryGetIdentity(selectedEmail);
+            Identity identity = MasterAccount.User.Vault.TryGetIdentity(email);
 
             await Task.Run(() =>
             {
-                Dictionary<string, string> breachedDomains = identity.GetBreaches(selectedEmail, useAPI);
+                Dictionary<string, string> breachedDomains = identity.GetBreaches(email, useAPI);
 
                 DisplayBreaches(breachedDomains);
             });
@@ -216,6 +217,7 @@ namespace vIDsafe
         private void cmbIdentity_SelectedIndexChanged(object sender, EventArgs e)
         {
             GetIdentityDetails(cmbIdentity.SelectedItem.ToString());
+            EnableIdentityComponents(cmbIdentity.SelectedIndex);
         }
 
         /// <summary>
@@ -223,8 +225,6 @@ namespace vIDsafe
         /// </summary>
         private void DisplayIdentities()
         {
-            ResetDetails();
-
             cmbIdentity.Items.Clear();
 
             foreach (KeyValuePair<string, Identity> identityPair in MasterAccount.User.Vault.Identities)
@@ -236,13 +236,11 @@ namespace vIDsafe
         /// <summary>
         /// Gets the details of an identity
         /// </summary>
-        private void GetIdentityDetails(string selectedEmail)
+        private void GetIdentityDetails(string email)
         {
-            ResetDetails();
+            Identity identity = MasterAccount.User.Vault.TryGetIdentity(email);
 
-            Identity identity = MasterAccount.User.Vault.TryGetIdentity(selectedEmail);
-
-            GetBreachedDataAsync(selectedEmail, false);
+            GetBreachedDataAsync(email, false);
 
             txtIdentityName.Text = identity.Name;
             txtIdentityEmail.Text = identity.Email;
@@ -273,42 +271,29 @@ namespace vIDsafe
         /// <summary>
         /// Deletes an identity
         /// </summary>
-        private void DeleteIdentity(string selectedEmail)
+        private void DeleteIdentity(string email)
         {
-            MasterAccount.User.Vault.TryDeleteIdentity(selectedEmail);
+            MasterAccount.User.Vault.TryDeleteIdentity(email);
 
-            cmbIdentity.Items.Remove(selectedEmail);
-
-            ResetDetails();
-        }
-
-        //Todo: maybe refactor the way this method gets called?
-        /// <summary>
-        /// Resets the form components
-        /// </summary>
-        private void ResetDetails()
-        {
-            ClearInputs();
-
-            int selectedIdentityIndex = cmbIdentity.SelectedIndex;
-
-            if (selectedIdentityIndex >= 0)
-            {
-                EnableIdentityComponents(true);
-
-                FixColumnWidths();
-            }
-            else
-            {
-                EnableIdentityComponents(false);
-            }
+            cmbIdentity.Items.Remove(email);
         }
 
         /// <summary>
         /// Enables or disables form components
         /// </summary>
-        private void EnableIdentityComponents(bool enabled)
+        private void EnableIdentityComponents(int selectedIdentityIndex)
         {
+            bool enabled = false;
+
+            if (selectedIdentityIndex >= 0)
+            {
+                enabled = true;
+            }
+            else
+            {
+                ClearInputs();
+            }
+
             txtIdentityName.Enabled = enabled;
             txtIdentityEmail.Enabled = enabled;
             txtIdentityUsage.Enabled = enabled;

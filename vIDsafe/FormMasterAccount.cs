@@ -149,18 +149,15 @@ namespace vIDsafe
         /// <summary>
         /// Tries to change the name
         /// </summary>
-        private async void ChangeNameAsync(string currentPassword, string newName)
+        private async void ChangeNameAsync(string password, string newName)
         {
-            if (IsValidUsername(newName, currentPassword))
+            if (IsValidUsername(newName, password))
             {
                 EnableMasterAccountComponents(false);
 
-                bool canChangeName = false;
-
-                await Task.Run(() =>
-                {
-                    canChangeName = MasterAccount.User.TryChangeName(currentPassword, newName);
-                });
+                bool canChangeName = await Task.Run(() =>
+                    MasterAccount.User.TryChangeName(password, newName)
+                );
 
                 if (canChangeName.Equals(true))
                 {
@@ -188,18 +185,15 @@ namespace vIDsafe
         /// <summary>
         /// Tries to change the password
         /// </summary>
-        private async void ChangePasswordAsync(string currentPassword, string newPassword)
+        private async void ChangePasswordAsync(string password, string newPassword)
         {
-            if (IsValidPassword(newPassword, currentPassword))
+            if (IsValidPassword(newPassword, password))
             {
                 EnableMasterAccountComponents(false);
 
-                bool canChangePass = false;
-
-                await Task.Run(() =>
-                {
-                    canChangePass = MasterAccount.User.TryChangePassword(currentPassword, newPassword);
-                });
+                bool canChangePass = await Task.Run(() =>
+                    MasterAccount.User.TryChangePassword(password, newPassword)
+                );
 
                 if (canChangePass.Equals(true))
                 {
@@ -223,9 +217,9 @@ namespace vIDsafe
         /// <returns>
         /// True if valid, false if not
         /// </returns>
-        private bool IsValidUsername(string newName, string password)
+        private bool IsValidUsername(string name, string password)
         {
-            if (newName.Length >= 8)
+            if (name.Length >= 8)
             {
                 if (password.Length > 0)
                 {
@@ -250,9 +244,9 @@ namespace vIDsafe
         /// <returns>
         /// True if valid, false if not
         /// </returns>
-        private bool IsValidPassword(string newPassword, string oldPassword)
+        private bool IsValidPassword(string newPassword, string password)
         {
-            if (oldPassword.Length > 0)
+            if (password.Length > 0)
             {
                 if (newPassword.Length > 0)
                 {

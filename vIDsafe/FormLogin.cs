@@ -31,12 +31,9 @@ namespace vIDsafe
             {
                 EnableLoginComponents(false);
 
-                bool canLogin = false;
-
-                await Task.Run(() =>
-                {
-                    canLogin = MasterAccount.User.TryLogin(name, password);
-                });
+                bool canLogin = await Task.Run(() =>             
+                    MasterAccount.User.TryLogin(name, password)
+                );
 
                 if (canLogin.Equals(true))
                 {

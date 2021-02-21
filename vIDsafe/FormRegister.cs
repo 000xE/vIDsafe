@@ -27,17 +27,13 @@ namespace vIDsafe
         /// </summary>
         private async void RegisterAsync(string name, string password)
         {
-            //Todo: cleanup (put isvalid in btnregister and maybe pass in confirm pass as parameter)
             if (IsValid(name, password))
             {
                 EnableRegisterComponents(false);
 
-                bool canRegister = false;
-
-                await Task.Run(() =>
-                {
-                    canRegister = MasterAccount.User.TryRegister(name, password);
-                });
+                bool canRegister = await Task.Run(() =>           
+                    MasterAccount.User.TryRegister(name, password)
+                );
 
                 if (canRegister.Equals(true))
                 {

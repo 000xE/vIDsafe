@@ -134,14 +134,11 @@ namespace vIDsafe
         {
             EnableImportExportComponents(false);
 
-            MasterAccount.VaultFormat format = GetFormat(formatIndex);
+            Porting.VaultFormat format = GetFormat(formatIndex);
 
-            bool canImport = false;
-
-            await Task.Run(() =>
-            {
-                canImport = MasterAccount.User.TryImportVault(format, fileName, replace);
-            });
+            bool canImport = await Task.Run(() =>     
+                MasterAccount.User.TryImportVault(format, fileName, replace)
+            );
 
             if (canImport)
             {
@@ -163,7 +160,6 @@ namespace vIDsafe
             SelectFolder(cmbExportFormat.SelectedIndex);
         }
 
-        //Todo: refactor
         /// <summary>
         /// Exports the selected data
         /// </summary>
@@ -178,14 +174,11 @@ namespace vIDsafe
                 selectedEmail = cmbIdentity.SelectedItem.ToString();
             }
 
-            MasterAccount.VaultFormat format = GetFormat(formatIndex);
+            Porting.VaultFormat format = GetFormat(formatIndex);
 
-            bool canExport = false;
-
-            await Task.Run(() =>
-            {
-                canExport = MasterAccount.User.TryExportVault(format, selectedEmail, fileName);
-            });
+            bool canExport = await Task.Run(() =>
+                MasterAccount.User.TryExportVault(format, selectedEmail, fileName)
+            );
 
             if (canExport)
             {
@@ -222,20 +215,20 @@ namespace vIDsafe
         /// <returns>
         /// The format to import/export
         /// </returns>
-        private MasterAccount.VaultFormat GetFormat(int formatIndex)
+        private Porting.VaultFormat GetFormat(int formatIndex)
         {
-            MasterAccount.VaultFormat format = MasterAccount.VaultFormat.Encrypted;
+            Porting.VaultFormat format = Porting.VaultFormat.Encrypted;
 
             switch (formatIndex)
             {
                 case 0:
-                    format = MasterAccount.VaultFormat.CSV;
+                    format = Porting.VaultFormat.CSV;
                     break;
                 case 1:
-                    format = MasterAccount.VaultFormat.JSON;
+                    format = Porting.VaultFormat.JSON;
                     break;
                 case 2:
-                    format = MasterAccount.VaultFormat.Encrypted;
+                    format = Porting.VaultFormat.Encrypted;
                     break;
             }
 
