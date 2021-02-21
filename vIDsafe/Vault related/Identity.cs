@@ -165,7 +165,7 @@ namespace vIDsafe
         /// </summary>
         protected override void ResetCredentialCounts()
         {
-            foreach (Credential.CredentialStatus status in Enum.GetValues(typeof(Credential.CredentialStatus)))
+            foreach (Status.CredentialStatus status in Enum.GetValues(typeof(Status.CredentialStatus)))
             {
                 CredentialCounts[status] = 0;
             }
@@ -200,7 +200,7 @@ namespace vIDsafe
 
             if (Credentials.Count > 0)
             {
-                HealthScore = (int)((double)CredentialCounts[Credential.CredentialStatus.Safe] / Credentials.Count * 100);
+                HealthScore = (int)((double)CredentialCounts[Status.CredentialStatus.Safe] / Credentials.Count * 100);
             }
             else
             {

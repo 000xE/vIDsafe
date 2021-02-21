@@ -20,7 +20,7 @@ namespace vIDsafe.Tests
 
             //Act
             identity.GenerateCredential();
-            identity.GenerateCredential().Status = Credential.CredentialStatus.Weak;
+            identity.GenerateCredential().Status = Status.CredentialStatus.Weak;
 
             identity.CalculateHealthScore(false);
 

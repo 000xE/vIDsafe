@@ -11,12 +11,6 @@ namespace vIDsafe
 
         private readonly string _vaultFolder = "Vaults/";
 
-        ///<value>Get or set the vault name</value>
-        public string Name { get; protected set; } = "";
-
-        ///<value>Get or set the vault password</value>
-        protected string Password { get; set; } = "";
-
         /// <summary>
         /// Decrypts and deserialises the vault
         /// </summary>

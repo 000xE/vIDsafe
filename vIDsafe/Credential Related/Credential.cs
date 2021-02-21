@@ -43,13 +43,13 @@ namespace vIDsafe
         /// <returns>
         /// The credential
         /// </returns>
-        public Credential(string credentialID, string username, string password, string URL, string notes)
+        public Credential(string credentialID, string username, string password, string url, string notes)
         {
             CredentialID = credentialID;
 
             Username = username;
             Password = password;
-            this.URL = URL;
+            URL = url;
             Notes = notes;
         }
 
@@ -83,13 +83,13 @@ namespace vIDsafe
         /// The domain
         /// </returns>
         //https://www.csharp-console-examples.com/general/c-get-domain-name-from-url/
-        private string GetDomain(string URL)
+        private string GetDomain(string url)
         {
             string domain = "";
 
-            if (URL.Length > 0)
+            if (url.Length > 0)
             {
-                string host = new Uri(URL).Host;
+                string host = new Uri(url).Host;
 
                 try
                 {

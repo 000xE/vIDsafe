@@ -24,20 +24,9 @@ namespace vIDsafe
         /// <returns>
         /// True if vault is serialised, false if not
         /// </returns>
-        protected string TrySerializeVault(VaultFormat format, string selectedEmail, string fileName)
+        protected string TrySerializeVault(VaultFormat format, Vault vault, string password)
         {
-            Vault vault = Vault;
-
-            string writeContent = "";
-
-            if (selectedEmail.Length > 0)
-            {
-                vault.DeleteAllIdentities();
-
-                Identity identity = vault.TryGetIdentity(selectedEmail);
-
-                vault.TryAddIdentity(identity);
-            }
+            string serialisedVault = "";
 
             try
             {
@@ -62,22 +51,19 @@ namespace vIDsafe
                                     csvWriter.NextRecord();
                                 }
                             }
-                            writeContent = stringWriter.ToString();
+
+                            serialisedVault = stringWriter.ToString();
                         }
                         break;
                     case VaultFormat.JSON:
-                        string json = JsonConvert.SerializeObject(vault, Formatting.Indented);
-                        writeContent = json;
+                        serialisedVault = JsonConvert.SerializeObject(vault, Formatting.Indented);
                         break;
                     case VaultFormat.Encrypted:
-                        string encryptedVault = EncryptVault(vault, Password);
-                        writeContent = encryptedVault;
+                        serialisedVault = EncryptVault(vault, password);
                         break;
                 }
 
-                CreateFile(fileName, writeContent);
-
-                return writeContent;
+                return serialisedVault;
             }
             catch (Exception e)
             {
@@ -92,18 +78,16 @@ namespace vIDsafe
         /// <returns>
         /// True if vault is deserialise, false if not
         /// </returns>
-        protected Vault TryDeserializeObject(VaultFormat format, string fileName)
+        protected Vault TryDeserializeObject(VaultFormat format, string serialisedVault, string password)
         {
-            Vault importedVault = new Vault();
+            Vault deserialisedVault = new Vault();
 
             try
             {
-                string readContent = File.ReadAllText(fileName);
-
                 switch (format)
                 {
                     case VaultFormat.CSV:
-                        using (StringReader stringReader = new StringReader(readContent))
+                        using (StringReader stringReader = new StringReader(serialisedVault))
                         using (CsvReader csvReader = new CsvReader(stringReader, CultureInfo.InvariantCulture))
                         {
                             csvReader.Read();
@@ -113,7 +97,7 @@ namespace vIDsafe
                             {
                                 Identity identity = csvReader.GetRecord<Identity>();
 
-                                identity = importedVault.FindOrCreateIdentity(identity.Name, identity.Email, identity.Usage);
+                                identity = deserialisedVault.FindOrCreateIdentity(identity.Name, identity.Email, identity.Usage);
 
                                 Credential credential = csvReader.GetRecord<Credential>();
 
@@ -122,14 +106,14 @@ namespace vIDsafe
                         }
                         break;
                     case VaultFormat.JSON:
-                        importedVault = JsonConvert.DeserializeObject<Vault>(readContent);
+                        deserialisedVault = JsonConvert.DeserializeObject<Vault>(serialisedVault);
                         break;
                     case VaultFormat.Encrypted:
-                        importedVault = DecryptVault(readContent, Password);
+                        deserialisedVault = DecryptVault(serialisedVault, password);
                         break;
                 }
 
-                return importedVault;
+                return deserialisedVault;
             }
             catch (Exception e)
             {

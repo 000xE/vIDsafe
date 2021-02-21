@@ -15,6 +15,12 @@ namespace vIDsafe
     {
         public static readonly MasterAccount User = new MasterAccount();
 
+        ///<value>Get or set the account name</value>
+        public string Name { get; private set; } = "";
+
+        ///<value>Get or set the account password</value>
+        private string Password { get; set; } = "";
+
         /// <summary>
         /// Creates a master account singleton (private)
         /// </summary>
@@ -137,7 +143,9 @@ namespace vIDsafe
         /// </returns>
         public bool TryImportVault(VaultFormat format, string fileName, bool replace)
         {
-            Vault importedVault = TryDeserializeObject(format, fileName);
+            string serialisedVault = File.ReadAllText(fileName);
+
+            Vault importedVault = TryDeserializeObject(format, serialisedVault, Password);
 
             if (importedVault != null)
             {
@@ -158,11 +166,22 @@ namespace vIDsafe
         /// </returns>
         public bool TryExportVault(VaultFormat format, string email, string fileName)
         {
-            string vault = TrySerializeVault(format, email, fileName);
+            Vault vault = Vault;
 
-            if (vault.Length > 0)
+            if (email.Length > 0)
             {
-                CreateFile(fileName, vault);
+                vault.DeleteAllIdentities();
+
+                Identity identity = vault.TryGetIdentity(email);
+
+                vault.TryAddIdentity(identity);
+            }
+
+            string serialisedVault = TrySerializeVault(format, vault, Password);
+
+            if (serialisedVault.Length > 0)
+            {
+                CreateFile(fileName, serialisedVault);
                 return true;
             }
 

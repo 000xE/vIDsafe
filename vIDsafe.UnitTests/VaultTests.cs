@@ -23,7 +23,7 @@ namespace vIDsafe.Tests
 
             Identity identity2 = vault.GenerateIdentity();
 
-            identity2.GenerateCredential().Status = Credential.CredentialStatus.Weak;
+            identity2.GenerateCredential().Status = Status.CredentialStatus.Weak;
             identity2.CalculateHealthScore(false);
 
             //Act

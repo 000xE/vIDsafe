@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using CsvHelper.Configuration.Attributes;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -30,6 +31,7 @@ namespace vIDsafe
         public ConcurrentDictionary<string, Identity> Identities { get; private set; } = new ConcurrentDictionary<string, Identity>();
 
         ///<value>Get or set the total credential count</value>
+        [Ignore]
         [JsonIgnore]
         public int CredentialCount { get; protected set; } = 0;
 
@@ -190,7 +192,7 @@ namespace vIDsafe
         {
             CredentialCount = 0;
 
-            foreach (Credential.CredentialStatus status in Enum.GetValues(typeof(Credential.CredentialStatus)))
+            foreach (Status.CredentialStatus status in Enum.GetValues(typeof(Status.CredentialStatus)))
             {
                 CredentialCounts[status] = 0;
             }
@@ -209,7 +211,7 @@ namespace vIDsafe
 
                 identity.CalculateHealthScore(calculateStatuses);
 
-                foreach (KeyValuePair<Credential.CredentialStatus, int> status in identity.CredentialCounts)
+                foreach (KeyValuePair<Status.CredentialStatus, int> status in identity.CredentialCounts)
                 {
                     CredentialCounts[status.Key] += status.Value;
                 }
@@ -227,7 +229,7 @@ namespace vIDsafe
 
             if (CredentialCount > 0)
             {
-                HealthScore = (int)((double)CredentialCounts[Credential.CredentialStatus.Safe] / CredentialCount * 100);
+                HealthScore = (int)((double)CredentialCounts[Status.CredentialStatus.Safe] / CredentialCount * 100);
             }
             else
             {
