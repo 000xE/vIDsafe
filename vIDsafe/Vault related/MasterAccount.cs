@@ -21,10 +21,7 @@ namespace vIDsafe
         /// <returns>
         /// The master account
         /// </returns>
-        private MasterAccount()
-        {
-            
-        }
+        private MasterAccount() { }
 
         /// <summary>
         /// Tries to login to the account
