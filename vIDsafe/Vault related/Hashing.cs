@@ -21,16 +21,14 @@ namespace vIDsafe
         /// <returns>
         /// The derived key
         /// </returns>
-        public static byte[] DeriveKey(KeyDerivationFunction keyDerivationFunction, string secret, string salt)
+        public static byte[] DeriveKey(KeyDerivationFunction function, string secret, byte[] salt)
         {
-            byte[] convertedSalt = Encoding.ASCII.GetBytes(salt);
-
             byte[] derivedKey = null;
 
-            switch (keyDerivationFunction)
+            switch (function)
             {
                 case KeyDerivationFunction.PBKDF2:
-                    derivedKey = PBKDF2(secret, convertedSalt);
+                    derivedKey = PBKDF2(secret, salt);
                     break;
             }
 

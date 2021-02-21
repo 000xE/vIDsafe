@@ -15,6 +15,21 @@ namespace vIDsafe
         private const int _ivSize = _blockSize / 8;
 
         /// <summary>
+        /// Hashes the password
+        /// </summary>
+        /// <returns>
+        /// The hashed password if it's hashed, null if not
+        /// </returns>
+        public static string HashPassword(KeyDerivationFunction function, string password, string salt)
+        {
+            byte[] convertedSalt = Encoding.ASCII.GetBytes(salt);
+
+            string hashedPassword = Convert.ToBase64String(DeriveKey(function, password, convertedSalt));
+
+            return hashedPassword;
+        }
+
+        /// <summary>
         /// Encrypts plaintext using a key with AES256 CBC
         /// </summary>
         /// <returns>

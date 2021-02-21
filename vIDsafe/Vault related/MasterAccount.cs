@@ -39,8 +39,8 @@ namespace vIDsafe
         {
             if (VaultExists(name))
             {
-                Password = HashPassword(password, name);
                 Name = name;
+                Password = Encryption.HashPassword(Hashing.KeyDerivationFunction.PBKDF2, password, name);
 
                 Vault = RetrieveVault(Name, Password);
 
@@ -64,7 +64,7 @@ namespace vIDsafe
             if (!VaultExists(name))
             {
                 Name = name;
-                Password = HashPassword(password, name);
+                Password = Encryption.HashPassword(Hashing.KeyDerivationFunction.PBKDF2, password, name);
 
                 Vault = new Vault();
 
@@ -84,7 +84,7 @@ namespace vIDsafe
         /// </returns>
         private bool VerifyPassword(string password)
         {
-            if (HashPassword(password, Name).Equals(Password))
+            if (Encryption.HashPassword(Hashing.KeyDerivationFunction.PBKDF2, password, Name).Equals(Password))
             {
                 return true;
             }
@@ -102,7 +102,7 @@ namespace vIDsafe
         {
             if (VerifyPassword(password).Equals(true))
             {
-                Password = HashPassword(newPassword, Name);
+                Password = Encryption.HashPassword(Hashing.KeyDerivationFunction.PBKDF2, newPassword, Name);
 
                 SaveVault(Vault, Name, Password);
 
@@ -123,7 +123,7 @@ namespace vIDsafe
             if (VerifyPassword(password).Equals(true))
             {
                 Name = newName;
-                Password = HashPassword(password, newName);
+                Password = Encryption.HashPassword(Hashing.KeyDerivationFunction.PBKDF2, password, newName);
 
                 DeleteVault(Name);
 
@@ -188,17 +188,6 @@ namespace vIDsafe
             }
 
             return false;
-        }
-
-        /// <summary>
-        /// Hashes the password
-        /// </summary>
-        /// <returns>
-        /// The hashed password if it's hashed, null if not
-        /// </returns>
-        private string HashPassword(string password, string salt)
-        {
-            return Convert.ToBase64String(Hashing.DeriveKey(Hashing.KeyDerivationFunction.PBKDF2, password, salt));
         }
 
         /// <summary>
