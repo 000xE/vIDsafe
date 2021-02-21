@@ -21,6 +21,9 @@ namespace vIDsafe
         ///<value>Get or set the account password</value>
         private string Password { get; set; } = "";
 
+        ///<value>Get or set the vault</value>
+        public Vault Vault { get; private set; } = new Vault();
+
         /// <summary>
         /// Creates a master account singleton (private)
         /// </summary>
@@ -149,7 +152,7 @@ namespace vIDsafe
 
             if (importedVault != null)
             {
-                AddImportedData(importedVault, replace);
+                AddImportedData(Vault, importedVault, replace);
 
                 return true;
             }

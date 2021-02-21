@@ -125,28 +125,26 @@ namespace vIDsafe
         /// <summary>
         /// Adds the data inside the imported vault
         /// </summary>
-        protected void AddImportedData(Vault importedVault, bool replace)
+        protected void AddImportedData(Vault vault, Vault importedVault, bool replace)
         {
             if (replace)
             {
-                Vault = importedVault;
+                vault.DeleteAllIdentities();
             }
-            else
+
+            foreach (KeyValuePair<string, Identity> identityPair in importedVault.Identities)
             {
-                foreach (KeyValuePair<string, Identity> identityPair in importedVault.Identities)
+                string email = identityPair.Key;
+                Identity importedIdentity = identityPair.Value;
+
+                Identity identity = vault.FindOrCreateIdentity(importedIdentity.Name, email, importedIdentity.Usage);
+
+                foreach (KeyValuePair<string, Credential> credentialPair in importedIdentity.Credentials)
                 {
-                    string identityEmail = identityPair.Key;
-                    Identity importedIdentity = identityPair.Value;
+                    string credentialID = credentialPair.Key;
+                    Credential credential = credentialPair.Value;
 
-                    Identity identity = Vault.FindOrCreateIdentity(importedIdentity.Name, identityEmail, importedIdentity.Usage);
-
-                    foreach (KeyValuePair<string, Credential> credentialPair in importedIdentity.Credentials)
-                    {
-                        string credentialID = credentialPair.Key;
-                        Credential importedCredential = credentialPair.Value;
-
-                        identity.FindOrCreateCredential(credentialID, importedCredential.Username, importedCredential.Password, importedCredential.URL, importedCredential.Notes);
-                    }
+                    identity.FindOrCreateCredential(credentialID, credential.Username, credential.Password, credential.URL, credential.Notes);
                 }
             }
         }

@@ -6,9 +6,6 @@ namespace vIDsafe
 {
     public abstract class Storage
     {
-        ///<value>Get or set the vault</value>
-        public Vault Vault { get; protected set; } = new Vault();
-
         private readonly string _vaultFolder = "Vaults/";
 
         /// <summary>
