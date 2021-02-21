@@ -38,10 +38,19 @@ namespace vIDsafe
         [JsonIgnore]
         public int WeakCredentialCount => CredentialCounts[Credential.CredentialStatus.Weak];
 
+        /// <summary>
+        /// Resets the total credential status counts
+        /// </summary>
         protected abstract void ResetCredentialCounts();
 
+        /// <summary>
+        /// Counts the total credential statuses
+        /// </summary>
         protected abstract void CountCredentialStatus(bool calculateStatuses);
 
+        /// <summary>
+        /// Calculates the health score
+        /// </summary>
         public abstract void CalculateHealthScore(bool calculateStatuses);
     }
 }

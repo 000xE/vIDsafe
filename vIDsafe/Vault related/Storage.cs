@@ -112,7 +112,6 @@ namespace vIDsafe
             return false;
         }
 
-
         /// <summary>
         /// Deserialises a string to a vault
         /// </summary>

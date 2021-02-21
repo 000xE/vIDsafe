@@ -18,7 +18,13 @@ namespace vIDsafe
             Encrypted
         }
 
-        protected string ExportVault(VaultFormat format, string selectedEmail, string fileName)
+        /// <summary>
+        /// Tries to serialise a vault to a format
+        /// </summary>
+        /// <returns>
+        /// True if vault is serialised, false if not
+        /// </returns>
+        protected string TrySerializeVault(VaultFormat format, string selectedEmail, string fileName)
         {
             Vault vault = Vault;
 
@@ -79,7 +85,14 @@ namespace vIDsafe
                 return null;
             }
         }
-        protected Vault ImportVault(VaultFormat format, string fileName)
+
+        /// <summary>
+        /// Tries to deserialise a vault from a format
+        /// </summary>
+        /// <returns>
+        /// True if vault is deserialise, false if not
+        /// </returns>
+        protected Vault TryDeserializeObject(VaultFormat format, string fileName)
         {
             Vault importedVault = new Vault();
 

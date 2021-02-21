@@ -140,7 +140,7 @@ namespace vIDsafe
         /// </returns>
         public bool TryImportVault(VaultFormat format, string fileName, bool replace)
         {
-            Vault importedVault = ImportVault(format, fileName);
+            Vault importedVault = TryDeserializeObject(format, fileName);
 
             if (importedVault != null)
             {
@@ -161,7 +161,7 @@ namespace vIDsafe
         /// </returns>
         public bool TryExportVault(VaultFormat format, string selectedEmail, string fileName)
         {
-            string vault = ExportVault(format, selectedEmail, fileName);
+            string vault = TrySerializeVault(format, selectedEmail, fileName);
 
             if (vault.Length > 0)
             {
