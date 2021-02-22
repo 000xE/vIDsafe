@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using CsvHelper.Configuration.Attributes;
 using EnzoicClient;
-using Newtonsoft.Json;
 
 namespace vIDsafe
 {

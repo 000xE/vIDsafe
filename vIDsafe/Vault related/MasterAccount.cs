@@ -4,10 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-using CsvHelper;
-using System.Globalization;
-using Newtonsoft.Json;
 
 namespace vIDsafe
 {
