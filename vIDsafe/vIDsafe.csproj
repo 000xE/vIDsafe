@@ -129,8 +129,9 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Validation related\RegisterValidator.cs" />
-    <Compile Include="Validation related\LoginValidator.cs" />
+    <Compile Include="Validation related\AccountValidator.cs" />
+    <Compile Include="Validation related\DetailValidator.cs" />
+    <Compile Include="Validation related\NotificationManager.cs" />
     <Compile Include="Validation related\CredentialValidator.cs" />
     <Compile Include="Credential Related\Credential.cs" />
     <Compile Include="Credential Related\CredentialGeneration.cs" />

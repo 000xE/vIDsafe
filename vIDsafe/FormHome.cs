@@ -321,7 +321,7 @@ namespace vIDsafe
 
             MasterAccount.User.Vault.Log(Vault.LogType.Passwords, password.ToString());
 
-            FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Password", "Successfully generated and copied");
+            NotificationManager.ShowInfo("Password", "Successfully generated and copied");
         }
 
         private void alwaysOnTopToolStripMenuItem_CheckedChanged(object sender, EventArgs e)

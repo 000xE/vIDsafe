@@ -108,7 +108,7 @@ namespace vIDsafe
         private void CopyPassword(string password)
         {
             Clipboard.SetText(password);
-            FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Password", "Successfully copied");
+            NotificationManager.ShowInfo("Password", "Successfully copied");
         }
 
         private void tbPasswordLength_Scroll(object sender, EventArgs e)

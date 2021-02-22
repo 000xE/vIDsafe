@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace vIDsafe
 {
-    public class CredentialValidator
+    public class CredentialValidator : DetailValidator
     {
         /// <summary>
         /// Checks if the URL, username and password are valid
@@ -41,7 +40,7 @@ namespace vIDsafe
         {
             if (string.IsNullOrEmpty(URL))
             {
-                FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Validation error", "Please enter a URL");
+                ShowError("Validation error", "Please enter a URL");
                 return false;
             }
             else
@@ -55,44 +54,10 @@ namespace vIDsafe
                 }
                 else
                 {
-                    FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Validation error", "Invalid URL format");
+                    ShowError("Validation error", "Invalid URL format");
                     return false;
                 }
             }
-        }
-
-        /// <summary>
-        /// Checks if the username is valid
-        /// </summary>
-        /// <returns>
-        /// True if valid, false if not
-        /// </returns>
-        private static bool ValidateUsername(string username)
-        {
-            if (string.IsNullOrEmpty(username))
-            {
-                FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Validation error", "Please enter a username");
-                return false;
-            }
-
-            return true;
-        }
-
-        /// <summary>
-        /// Checks if the password is valid
-        /// </summary>
-        /// <returns>
-        /// True if valid, false if not
-        /// </returns>
-        private static bool ValidatePassword(string password)
-        {
-            if (string.IsNullOrEmpty(password))
-            {
-                FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Validation error", "Please enter a password");
-                return false;
-            }
-
-            return true;
         }
     }
 }

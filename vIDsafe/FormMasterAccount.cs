@@ -79,7 +79,7 @@ namespace vIDsafe
         {
             MasterAccount.User.Vault.DeleteAllCredentials();
 
-            FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Credential deletion", "Successfully deleted all credentials");
+            NotificationManager.ShowInfo("Credential deletion", "Successfully deleted all credentials");
 
             KeyValuePair<DateTime, string> log = MasterAccount.User.Vault.Log(Vault.LogType.Account, "All credentials deleted");
             DisplayLog(log.Key, log.Value);
@@ -103,7 +103,7 @@ namespace vIDsafe
         {
             MasterAccount.User.Vault.DeleteAllIdentities();
 
-            FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Identity deletion", "Successfully deleted all identities");
+            NotificationManager.ShowInfo("Identity deletion", "Successfully deleted all identities");
 
             KeyValuePair<DateTime, string> log = MasterAccount.User.Vault.Log(Vault.LogType.Account, "All identities deleted");
             DisplayLog(log.Key, log.Value);
@@ -127,7 +127,7 @@ namespace vIDsafe
         {
             MasterAccount.User.DeleteAccount();
 
-            FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Account deletion", "Successfully deleted account");
+            NotificationManager.ShowInfo("Account deletion", "Successfully deleted account");
 
             ParentForm.Close();
         }
@@ -151,7 +151,7 @@ namespace vIDsafe
         /// </summary>
         private async void ChangeNameAsync(string password, string name)
         {
-            if (LoginValidator.IsValid(name, password))
+            if (AccountValidator.IsValid(name, password))
             {
                 EnableMasterAccountComponents(false);
 
@@ -163,14 +163,14 @@ namespace vIDsafe
                 {
                     FormHome.SetName(name);
 
-                    FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Name change", "Successfully changed name");
+                    NotificationManager.ShowInfo("Name change", "Successfully changed name");
 
                     KeyValuePair<DateTime, string> log = MasterAccount.User.Vault.Log(Vault.LogType.Account, "Name changed");
                     DisplayLog(log.Key, log.Value);
                 }
                 else
                 {
-                    FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Password error", "Wrong old password");
+                    NotificationManager.ShowError("Password error", "Wrong old password");
                 }
 
                 EnableMasterAccountComponents(true);
@@ -187,7 +187,7 @@ namespace vIDsafe
         /// </summary>
         private async void ChangePasswordAsync(string password, string newPassword, string confirmPassword)
         {
-            if (RegisterValidator.ValidatePassword(newPassword, confirmPassword))
+            if (AccountValidator.ValidateConfirmPassword(newPassword, confirmPassword))
             {
                 EnableMasterAccountComponents(false);
 
@@ -197,14 +197,14 @@ namespace vIDsafe
 
                 if (canChangePass.Equals(true))
                 {
-                    FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Password change", "Successfully changed password");
+                    NotificationManager.ShowInfo("Password change", "Successfully changed password");
 
                     KeyValuePair<DateTime, string> log = MasterAccount.User.Vault.Log(Vault.LogType.Account, "Password changed");
                     DisplayLog(log.Key, log.Value);
                 }
                 else
                 {
-                    FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Password error", "Wrong old password");
+                    NotificationManager.ShowError("Password error", "Wrong old password");
                 }
 
                 EnableMasterAccountComponents(true);

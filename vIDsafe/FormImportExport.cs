@@ -142,14 +142,14 @@ namespace vIDsafe
 
             if (canImport)
             {
-                FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Import", "Successfully imported");
+                NotificationManager.ShowInfo("Import", "Successfully imported");
 
                 KeyValuePair<DateTime, string> log = MasterAccount.User.Vault.Log(Vault.LogType.Porting, "Imported data");
                 DisplayLog(log.Key, log.Value);
             }
             else
             {
-                FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Import error", "Check the file contents or its path");
+                NotificationManager.ShowError("Import error", "Check the file contents or its path");
             }
 
             EnableImportExportComponents(true);
@@ -182,14 +182,14 @@ namespace vIDsafe
 
             if (canExport)
             {
-                FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Export", "Successfully exported");
+                NotificationManager.ShowInfo("Export", "Successfully exported");
 
                 KeyValuePair<DateTime, string> log = MasterAccount.User.Vault.Log(Vault.LogType.Porting, "Exported data");
                 DisplayLog(log.Key, log.Value);
             }
             else
             {
-                FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Export error", "Check the file path");
+                NotificationManager.ShowError("Export error", "Check the file path");
             }
 
             EnableImportExportComponents(true);
@@ -273,7 +273,7 @@ namespace vIDsafe
         {
             if (rdbReplace.Checked)
             {
-                FormvIDsafe.ShowNotification(ToolTipIcon.Warning, "Warning", "This will erase your current vault details!");
+                NotificationManager.ShowWarning("Warning", "This will erase your current vault details!");
             }
         }
 

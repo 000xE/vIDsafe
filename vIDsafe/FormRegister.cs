@@ -27,7 +27,7 @@ namespace vIDsafe
         /// </summary>
         private async void RegisterAsync(string name, string password, string confirmPassword)
         {
-            if (RegisterValidator.IsValid(name, password, confirmPassword))
+            if (AccountValidator.IsValid(name, password, confirmPassword))
             {
                 EnableRegisterComponents(false);
 
@@ -44,7 +44,7 @@ namespace vIDsafe
                 }
                 else
                 {
-                    FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Registration error", "Account already exist");
+                    NotificationManager.ShowError("Registration error", "Account already exist");
                 }
 
                 EnableRegisterComponents(true);

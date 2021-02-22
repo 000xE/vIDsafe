@@ -134,7 +134,7 @@ namespace vIDsafe
             }
             else
             {
-                FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Email change error", "Email already exists");
+                NotificationManager.ShowInfo("Email change error", "Email already exists");
 
                 return false;
             }
@@ -147,7 +147,7 @@ namespace vIDsafe
         {
             if (useAPI)
             {
-                FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Breach checking", "Please wait until the breaches are checked");
+                NotificationManager.ShowInfo("Breach checking", "Please wait until the breaches are checked");
             }
 
             Identity identity = MasterAccount.User.Vault.TryGetIdentity(email);

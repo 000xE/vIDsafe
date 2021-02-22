@@ -351,7 +351,7 @@ namespace vIDsafe
 
                 identity.DeleteAllCredentials();
 
-                FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Credential deletion", "Successfully deleted all credentials");
+                NotificationManager.ShowInfo("Credential deletion", "Successfully deleted all credentials");
 
                 GetCredentials(email);
             }

@@ -4,11 +4,10 @@ using System.Linq;
 using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace vIDsafe
 {
-    public class IdentityValidator
+    public class IdentityValidator : DetailValidator
     {
         /// <summary>
         /// Checks if the name and email are valid
@@ -30,23 +29,6 @@ namespace vIDsafe
         }
 
         /// <summary>
-        /// Checks if the name is valid
-        /// </summary>
-        /// <returns>
-        /// True if valid, false if not
-        /// </returns>
-        private static bool ValidateName(string name)
-        {
-            if (string.IsNullOrEmpty(name))
-            {
-                FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Validation error", "Please enter a name");
-                return false;
-            }
-
-            return true;
-        }
-
-        /// <summary>
         /// Checks if the email is valid
         /// </summary>
         /// <returns>
@@ -56,7 +38,7 @@ namespace vIDsafe
         {
             if (string.IsNullOrEmpty(email))
             {
-                FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Validation error", "Please enter a email");
+                ShowError("Validation error", "Please enter a email");
 
                 return false;
             }
@@ -72,7 +54,7 @@ namespace vIDsafe
                 {
                     Console.WriteLine(e);
 
-                    FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Validation error", "Invalid email format");
+                    ShowError("Validation error", "Invalid email format");
 
                     return false;
                 }

@@ -27,7 +27,7 @@ namespace vIDsafe
         /// </summary>
         private async void LoginAsync(string name, string password)
         {
-            if (LoginValidator.IsValid(name, password))
+            if (AccountValidator.IsValid(name, password))
             {
                 EnableLoginComponents(false);
 
@@ -44,7 +44,7 @@ namespace vIDsafe
                 }
                 else
                 {
-                    FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Login error", "Account doesn't exist or wrong password");
+                    NotificationManager.ShowError("Login error", "Account doesn't exist or wrong password");
                 }
 
                 EnableLoginComponents(true);
