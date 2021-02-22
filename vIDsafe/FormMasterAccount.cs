@@ -149,19 +149,19 @@ namespace vIDsafe
         /// <summary>
         /// Tries to change the name
         /// </summary>
-        private async void ChangeNameAsync(string password, string newName)
+        private async void ChangeNameAsync(string password, string name)
         {
-            if (IsValidUsername(newName, password))
+            if (LoginValidator.IsValid(name, password))
             {
                 EnableMasterAccountComponents(false);
 
                 bool canChangeName = await Task.Run(() =>
-                    MasterAccount.User.TryChangeName(password, newName)
+                    MasterAccount.User.TryChangeName(password, name)
                 );
 
                 if (canChangeName.Equals(true))
                 {
-                    FormHome.SetName(newName);
+                    FormHome.SetName(name);
 
                     FormvIDsafe.ShowNotification(ToolTipIcon.Info, "Name change", "Successfully changed name");
 
@@ -179,15 +179,15 @@ namespace vIDsafe
 
         private void btnChangePassword_Click(object sender, EventArgs e)
         {
-            ChangePasswordAsync(txtCurrentPassword2.Text, txtNewPassword.Text);
+            ChangePasswordAsync(txtCurrentPassword2.Text, txtNewPassword.Text, txtConfirmPassword.Text);
         }
 
         /// <summary>
         /// Tries to change the password
         /// </summary>
-        private async void ChangePasswordAsync(string password, string newPassword)
+        private async void ChangePasswordAsync(string password, string newPassword, string confirmPassword)
         {
-            if (IsValidPassword(newPassword, password))
+            if (RegisterValidator.ValidatePassword(newPassword, confirmPassword))
             {
                 EnableMasterAccountComponents(false);
 
@@ -208,68 +208,6 @@ namespace vIDsafe
                 }
 
                 EnableMasterAccountComponents(true);
-            }
-        }
-
-        /// <summary>
-        /// Checks if the username is valid
-        /// </summary>
-        /// <returns>
-        /// True if valid, false if not
-        /// </returns>
-        private bool IsValidUsername(string name, string password)
-        {
-            if (name.Length >= 8)
-            {
-                if (password.Length > 0)
-                {
-                    return true;
-                }
-                else
-                {
-                    FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Validation error", "Please enter your password"); FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Validation error", "Please enter a password");
-                    return false;
-                }
-            }
-            else
-            {
-                FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Validation error", "Name is lower than 8 characters");
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// Checks if the password is valid
-        /// </summary>
-        /// <returns>
-        /// True if valid, false if not
-        /// </returns>
-        private bool IsValidPassword(string newPassword, string password)
-        {
-            if (password.Length > 0)
-            {
-                if (newPassword.Length > 0)
-                {
-                    if (newPassword.Equals(txtConfirmPassword.Text))
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Password error", "New passwords are not the same");
-                        return false;
-                    }
-                }
-                else
-                {
-                    FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Password error", "Please enter a new password");
-                    return false;
-                }
-            }
-            else
-            {
-                FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Validation error", "Please enter your old password");
-                return false;
             }
         }
 

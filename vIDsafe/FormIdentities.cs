@@ -101,44 +101,11 @@ namespace vIDsafe
         }
 
         /// <summary>
-        /// Checks if the name and email are valid
-        /// </summary>
-        /// <returns>
-        /// True if valid, false if not
-        /// </returns>
-        private bool IsValid(string name, string email)
-        {
-            if (email.Length > 0 && name.Length > 0)
-            {
-                try
-                {
-                    MailAddress m = new MailAddress(email);
-
-                    return true;
-                }
-                catch (FormatException e)
-                {
-                    Console.WriteLine(e);
-
-                    FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Validation error", "Invalid email format");
-
-                    return false;
-                }
-            }
-            else
-            {
-                FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Validation error", "Please enter all details");
-
-                return false;
-            }
-        }
-
-        /// <summary>
         /// Sets the details of an identity
         /// </summary>
         private void SetIdentityDetails(int selectedIdentityIndex, string email, string name, string newEmail, string usage)
         {
-            if (IsValid(name, newEmail))
+            if (IdentityValidator.IsValid(name, newEmail))
             {
                 Identity identity = MasterAccount.User.Vault.TryGetIdentity(email);
 

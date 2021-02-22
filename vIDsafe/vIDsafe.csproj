@@ -129,10 +129,14 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Validation related\RegisterValidator.cs" />
+    <Compile Include="Validation related\LoginValidator.cs" />
+    <Compile Include="Validation related\CredentialValidator.cs" />
     <Compile Include="Credential Related\Credential.cs" />
     <Compile Include="Credential Related\CredentialGeneration.cs" />
     <Compile Include="Credential Related\CryptoRandom.cs" />
     <Compile Include="Theme related\DarkTheme.cs" />
+    <Compile Include="Validation related\IdentityValidator.cs" />
     <Compile Include="Vault related\Encryption.cs" />
     <Compile Include="Credential Related\EnzoicAPI.cs" />
     <Compile Include="FormHome.cs">

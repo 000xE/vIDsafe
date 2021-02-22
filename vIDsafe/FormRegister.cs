@@ -19,15 +19,15 @@ namespace vIDsafe
 
         private void btnRegister_Click(object sender, EventArgs e)
         {
-            RegisterAsync(txtName.Text, txtPassword.Text);
+            RegisterAsync(txtName.Text, txtPassword.Text, txtConfirmPassword.Text);
         }
 
         /// <summary>
         /// Tries to register an account
         /// </summary>
-        private async void RegisterAsync(string name, string password)
+        private async void RegisterAsync(string name, string password, string confirmPassword)
         {
-            if (IsValid(name, password))
+            if (RegisterValidator.IsValid(name, password, confirmPassword))
             {
                 EnableRegisterComponents(false);
 
@@ -58,41 +58,6 @@ namespace vIDsafe
         {
             btnLogin.Enabled = enable;
             btnRegister.Enabled = enable;
-        }
-
-        /// <summary>
-        /// Checks if the name and password are valid
-        /// </summary>
-        /// <returns>
-        /// True if valid, false if not
-        /// </returns>
-        private bool IsValid(string name, string password)
-        {
-            if (name.Length >= 8)
-            {
-                if (password.Length > 0)
-                {
-                    if (password.Equals(txtConfirmPassword.Text))
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Validation error", "Passwords are not the same");
-                        return false;
-                    }
-                }
-                else
-                {
-                    FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Validation error", "Please enter a password");
-                    return false;
-                }
-            }
-            else
-            {
-                FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Validation error", "Name is lower than 8 characters");
-                return false;
-            }
         }
 
         private void btnLogin_Click(object sender, EventArgs e)

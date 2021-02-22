@@ -27,7 +27,7 @@ namespace vIDsafe
         /// </summary>
         private async void LoginAsync(string name, string password)
         {
-            if (IsValid(name))
+            if (LoginValidator.IsValid(name, password))
             {
                 EnableLoginComponents(false);
 
@@ -58,25 +58,6 @@ namespace vIDsafe
         {
             btnLogin.Enabled = enable;
             btnRegister.Enabled = enable;
-        }
-
-        /// <summary>
-        /// Checks if the name is valid
-        /// </summary>
-        /// <returns>
-        /// True if valid, false if not
-        /// </returns>
-        private bool IsValid(string name)
-        {
-            if (name.Length >= 8)
-            {
-                return true;
-            }
-            else
-            {
-                FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Validation error", "Name is lower than 8 characters");
-                return false;
-            }
         }
 
         private void btnRegister_Click(object sender, EventArgs e)

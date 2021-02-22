@@ -50,36 +50,6 @@ namespace vIDsafe
             SetCredentialDetails(cmbIdentity.SelectedItem.ToString(), lvCredentials.SelectedItems.Count, txtUsername.Text, txtPassword.Text, txtURL.Text, txtNotes.Text);
         }
 
-        /// <summary>
-        /// Checks if the URL, username and password are valid
-        /// </summary>
-        /// <returns>
-        /// True if valid, false if not
-        /// </returns>
-        private bool IsValid(string URL, string username, string password)
-        {
-            if (URL.Length > 0 && username.Length > 0 && password.Length > 0)
-            {
-                bool result = Uri.TryCreate(URL, UriKind.Absolute, out Uri uriResult)
-                    && (uriResult.Scheme.Equals(Uri.UriSchemeHttp) || uriResult.Scheme.Equals(Uri.UriSchemeHttps));
-
-                if (result)
-                {
-                    return true;
-                }
-                else
-                {
-                    FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Validation error", "Please check your URL");
-                    return false;
-                }
-            }
-            else
-            {
-                FormvIDsafe.ShowNotification(ToolTipIcon.Error, "Validation error", "Please enter all details");
-                return false;
-            }
-        }
-
         private void btnDelete_Click(object sender, EventArgs e)
         {
             DeleteCredential(cmbIdentity.SelectedItem.ToString(), lvCredentials.SelectedItems.Count);
@@ -109,9 +79,9 @@ namespace vIDsafe
         /// <summary>
         /// Generates a username based on an identity name
         /// </summary>
-        private void GenerateUsername(string selectedEmail)
+        private void GenerateUsername(string email)
         {
-            Identity identity = MasterAccount.User.Vault.TryGetIdentity(selectedEmail);
+            Identity identity = MasterAccount.User.Vault.TryGetIdentity(email);
 
             txtUsername.Text = CredentialGeneration.GenerateUsername(identity.Name);
         }
@@ -127,9 +97,9 @@ namespace vIDsafe
         /// <summary>
         /// Generates a credential for an identity
         /// </summary>
-        private void GenerateCredential(string selectedEmail)
+        private void GenerateCredential(string email)
         {
-            Identity identity = MasterAccount.User.Vault.TryGetIdentity(selectedEmail);
+            Identity identity = MasterAccount.User.Vault.TryGetIdentity(email);
 
             Credential credential = identity.GenerateCredential();
 
@@ -143,16 +113,16 @@ namespace vIDsafe
         /// <summary>
         /// Sets the details of a credential
         /// </summary>
-        private void SetCredentialDetails(string selectedEmail, int selectedCredentialCount, string username, string password, string URL, string Notes)
+        private void SetCredentialDetails(string email, int selectedCredentialCount, string username, string password, string URL, string Notes)
         {
-            if (IsValid(URL, username, password))
+            if (CredentialValidator.IsValid(URL, username, password))
             {
                 if (selectedCredentialCount > 0)
                 {
                     ListViewItem selectedCredential = lvCredentials.SelectedItems[0];
                     string credentialID = selectedCredential.SubItems[0].Text;
 
-                    Identity identity = MasterAccount.User.Vault.TryGetIdentity(selectedEmail);
+                    Identity identity = MasterAccount.User.Vault.TryGetIdentity(email);
 
                     Credential credential = identity.TryGetCredential(credentialID);
 
