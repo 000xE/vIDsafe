@@ -12,6 +12,9 @@ namespace vIDsafe
     [Serializable]
     public class Credential : Status
     {
+        private readonly Vault _vault;
+        private readonly Identity _identity;
+
         ///<value>Get or set the credential ID</value>
         [Name("credentialID")]
         public string CredentialID { get; private set; } = "";
@@ -43,10 +46,12 @@ namespace vIDsafe
         /// <returns>
         /// The credential
         /// </returns>
-        public Credential(string credentialID, string username, string password, string url, string notes)
+        public Credential(Vault vault, Identity identity, string credentialID, string username, string password, string url, string notes)
         {
-            CredentialID = credentialID;
+            _vault = vault;
+            _identity = identity;
 
+            CredentialID = credentialID;
             Username = username;
             Password = password;
             URL = url;
@@ -56,13 +61,13 @@ namespace vIDsafe
         /// <summary>
         /// Calculates the status of the credential using its vault and identity
         /// </summary>
-        public void CalculateStatus(Vault vault, Identity identity)
+        public void CalculateStatus()
         {
-            if (CheckBreached(identity.BreachedDomains, GetDomain(URL)))
+            if (CheckBreached(_identity.BreachedDomains, GetDomain(URL)))
             {
                 Status = CredentialStatus.Compromised;
             }
-            else if (CheckConflict(vault.Identities, CredentialID, Username, Password))
+            else if (CheckConflict(_vault.Identities, CredentialID, Username, Password))
             {
                 Status = CredentialStatus.Conflicted;
             }

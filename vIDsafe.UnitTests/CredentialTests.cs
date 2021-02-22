@@ -28,8 +28,8 @@ namespace vIDsafe.Tests
             credential2.Notes = credential2.Notes;
 
             //Assert
-            Credential.CredentialStatus expectedStatus = Status.CredentialStatus.Conflicted;
-            credential2.CalculateStatus(vault, identity);
+            Status.CredentialStatus expectedStatus = Status.CredentialStatus.Conflicted;
+            credential2.CalculateStatus();
 
             Assert.AreEqual(expectedStatus, credential2.Status);
         }

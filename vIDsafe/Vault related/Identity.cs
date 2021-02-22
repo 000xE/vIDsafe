@@ -13,8 +13,7 @@ namespace vIDsafe
     [Serializable]
     public class Identity : Health
     {
-        ///<value>Get or set the vault</value>
-        public Vault Vault { private get; set; } = new Vault();
+        private readonly Vault _vault;
 
         ///<value>Get or set the identity name</value>
         [Name("name")]
@@ -40,8 +39,10 @@ namespace vIDsafe
         /// <returns>
         /// The identity
         /// </returns>
-        public Identity(string name, string email, string usage)
+        public Identity(Vault vault, string name, string email, string usage)
         {
+            _vault = vault;
+
             Name = name;
             Email = email;
             Usage = usage;
@@ -76,7 +77,7 @@ namespace vIDsafe
         /// </returns>
         public Credential FindOrCreateCredential(string GUID, string username, string password, string url, string notes)
         {
-            Credential credential = new Credential(GUID, username, password, url, notes);
+            Credential credential = new Credential(_vault, this, GUID, username, password, url, notes);
             credential = Credentials.GetOrAdd(GUID, credential);
 
             return credential;
@@ -184,7 +185,7 @@ namespace vIDsafe
 
                 if (calculateStatuses)
                 {
-                    credential.CalculateStatus(Vault, this);
+                    credential.CalculateStatus();
                 }
 
                 CredentialCounts[credential.Status]++;

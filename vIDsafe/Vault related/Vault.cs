@@ -62,10 +62,7 @@ namespace vIDsafe
         /// </returns>
         public Identity FindOrCreateIdentity(string name, string email, string usage)
         {
-            Identity identity = new Identity(name, email, usage)
-            {
-                Vault = this
-            };
+            Identity identity = new Identity(this, name, email, usage);
 
             identity = Identities.GetOrAdd(email, identity);
 

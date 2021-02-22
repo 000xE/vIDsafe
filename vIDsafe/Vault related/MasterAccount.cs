@@ -22,7 +22,7 @@ namespace vIDsafe
         private string Password { get; set; } = "";
 
         ///<value>Get or set the vault</value>
-        public Vault Vault { get; private set; } = new Vault();
+        public Vault Vault { get; private set; }
 
         /// <summary>
         /// Creates a master account singleton (private)
@@ -30,7 +30,10 @@ namespace vIDsafe
         /// <returns>
         /// The master account
         /// </returns>
-        private MasterAccount() { }
+        private MasterAccount() 
+        { 
+
+        }
 
         /// <summary>
         /// Tries to login to the account
