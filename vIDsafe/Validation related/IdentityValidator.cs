@@ -29,6 +29,31 @@ namespace vIDsafe
         }
 
         /// <summary>
+        /// Checks if the name is valid
+        /// </summary>
+        /// <returns>
+        /// True if valid, false if not
+        /// </returns>
+        private static bool ValidateName(string name)
+        {
+            if (isEmpty(name))
+            {
+                ShowError("Validation error", "Please enter a name");
+                return false;
+            }
+            else
+            {
+                if (name.Length < 8)
+                {
+                    ShowError("Validation error", "Name is lower than 8 characters");
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
         /// Checks if the email is valid
         /// </summary>
         /// <returns>
@@ -36,7 +61,7 @@ namespace vIDsafe
         /// </returns>
         private static bool ValidateEmail(string email)
         {
-            if (string.IsNullOrEmpty(email))
+            if (isEmpty(email))
             {
                 ShowError("Validation error", "Please enter a email");
 
