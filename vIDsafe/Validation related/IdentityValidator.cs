@@ -41,14 +41,6 @@ namespace vIDsafe
                 ShowError("Validation error", "Please enter a name");
                 return false;
             }
-            else
-            {
-                if (name.Length < 8)
-                {
-                    ShowError("Validation error", "Name is lower than 8 characters");
-                    return false;
-                }
-            }
 
             return true;
         }

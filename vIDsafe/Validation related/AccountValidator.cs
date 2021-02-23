@@ -88,7 +88,7 @@
         /// <returns>
         /// True if valid, false if not
         /// </returns>
-        public static bool ValidateConfirmPassword(string password, string confirmPassword)
+        protected static bool ValidateConfirmPassword(string password, string confirmPassword)
         {
             if (!ValidatePassword(password))
             {

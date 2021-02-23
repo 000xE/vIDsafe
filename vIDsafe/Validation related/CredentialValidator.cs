@@ -36,7 +36,7 @@ namespace vIDsafe
         /// <returns>
         /// True if valid, false if not
         /// </returns>
-        protected static bool ValidatePassword(string password)
+        private static bool ValidatePassword(string password)
         {
             if (isEmpty(password))
             {

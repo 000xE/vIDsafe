@@ -187,7 +187,7 @@ namespace vIDsafe
         /// </summary>
         private async void ChangePasswordAsync(string password, string newPassword, string confirmPassword)
         {
-            if (AccountValidator.ValidateConfirmPassword(newPassword, confirmPassword))
+            if (AccountManageValidator.IsValid(newPassword, confirmPassword))
             {
                 EnableMasterAccountComponents(false);
 

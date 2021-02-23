@@ -129,6 +129,7 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountManageValidator.cs" />
     <Compile Include="Validation related\AccountValidator.cs" />
     <Compile Include="Validation related\DetailValidator.cs" />
     <Compile Include="Validation related\NotificationManager.cs" />
