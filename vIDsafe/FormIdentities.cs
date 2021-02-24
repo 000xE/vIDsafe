@@ -134,7 +134,7 @@ namespace vIDsafe
             }
             else
             {
-                NotificationManager.ShowInfo("Email change error", "Email already exists");
+                NotificationManager.ShowError("Email change error", "Email already exists");
 
                 return false;
             }
