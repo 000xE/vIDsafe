@@ -15,7 +15,7 @@ namespace vIDsafe
         /// <returns>
         /// True if valid, false if not
         /// </returns>
-        public static bool IsValid(string name, string email)
+        public static bool IsIdentityValid(string name, string email)
         {
             if (ValidateName(name))
             {

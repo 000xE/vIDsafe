@@ -115,7 +115,7 @@ namespace vIDsafe
         /// </summary>
         private void SetCredentialDetails(string email, int selectedCredentialCount, string username, string password, string URL, string Notes)
         {
-            if (CredentialValidator.IsValid(URL, username, password))
+            if (CredentialValidator.IsCredentialValid(URL, username, password))
             {
                 if (selectedCredentialCount > 0)
                 {

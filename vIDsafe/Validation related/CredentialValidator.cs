@@ -14,7 +14,7 @@ namespace vIDsafe
         /// <returns>
         /// True if valid, false if not
         /// </returns>
-        public static bool IsValid(string URL, string username, string password)
+        public static bool IsCredentialValid(string URL, string username, string password)
         {
             if (ValidateURL(URL))
             {

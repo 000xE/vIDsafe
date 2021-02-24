@@ -105,7 +105,7 @@ namespace vIDsafe
         /// </summary>
         private void SetIdentityDetails(int selectedIdentityIndex, string email, string name, string newEmail, string usage)
         {
-            if (IdentityValidator.IsValid(name, newEmail))
+            if (IdentityValidator.IsIdentityValid(name, newEmail))
             {
                 Identity identity = MasterAccount.User.Vault.TryGetIdentity(email);
 

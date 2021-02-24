@@ -151,7 +151,7 @@ namespace vIDsafe
         /// </summary>
         private async void ChangeNameAsync(string password, string name)
         {
-            if (AccountValidator.IsValid(name, password))
+            if (AccountValidator.IsLoginValid(name, password))
             {
                 EnableMasterAccountComponents(false);
 
@@ -187,7 +187,7 @@ namespace vIDsafe
         /// </summary>
         private async void ChangePasswordAsync(string password, string newPassword, string confirmPassword)
         {
-            if (AccountManageValidator.IsValid(newPassword, confirmPassword))
+            if (AccountValidator.IsConfirmPasswordValid(newPassword, confirmPassword))
             {
                 EnableMasterAccountComponents(false);
 

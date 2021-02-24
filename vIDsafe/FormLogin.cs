@@ -27,7 +27,7 @@ namespace vIDsafe
         /// </summary>
         private async void LoginAsync(string name, string password)
         {
-            if (AccountValidator.IsValid(name, password))
+            if (AccountValidator.IsLoginValid(name, password))
             {
                 EnableLoginComponents(false);
 

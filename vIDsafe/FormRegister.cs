@@ -27,7 +27,7 @@ namespace vIDsafe
         /// </summary>
         private async void RegisterAsync(string name, string password, string confirmPassword)
         {
-            if (AccountValidator.IsValid(name, password, confirmPassword))
+            if (AccountValidator.IsRegisterValid(name, password, confirmPassword))
             {
                 EnableRegisterComponents(false);
 
