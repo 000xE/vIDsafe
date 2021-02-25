@@ -375,6 +375,7 @@
             this.lvPasswordHistory.Tag = "InnerSubPanel";
             this.lvPasswordHistory.UseCompatibleStateImageBehavior = false;
             this.lvPasswordHistory.View = System.Windows.Forms.View.Details;
+            this.lvPasswordHistory.SelectedIndexChanged += new System.EventHandler(this.lvPasswordHistory_SelectedIndexChanged);
             // 
             // columnHeader1
             // 

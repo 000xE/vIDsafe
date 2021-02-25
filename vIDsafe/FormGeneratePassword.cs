@@ -203,5 +203,13 @@ namespace vIDsafe
         {
             CredentialGeneration.PasswordSettings[checkboxIndex] = value;
         }
+
+        private void lvPasswordHistory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lvPasswordHistory.SelectedItems.Count > 0)
+            {
+                lblGeneratedPassword.Text = lvPasswordHistory.SelectedItems[0].SubItems[2].Text;
+            }
+        }
     }
 }

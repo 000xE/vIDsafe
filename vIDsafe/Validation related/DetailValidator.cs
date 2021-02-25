@@ -12,10 +12,10 @@
         {
             if (string.IsNullOrEmpty(value))
             {
-                return false;
+                return true;
             }
 
-            return true;
+            return false;
         }
     }
 }
