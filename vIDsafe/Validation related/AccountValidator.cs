@@ -40,7 +40,6 @@
             return false;
         }
 
-
         /// <summary>
         /// Checks if the passwords are valid and match
         /// </summary>

@@ -28,7 +28,6 @@ namespace vIDsafe
         /// </returns>
         private MasterAccount() 
         { 
-
         }
 
         /// <summary>
