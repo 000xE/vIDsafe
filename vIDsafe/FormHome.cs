@@ -18,9 +18,9 @@ namespace vIDsafe
 {
     public partial class FormHome : Form
     {
-        private static Control.ControlCollection _ctrlsFormControls = null;
+        private static Control.ControlCollection _ctrlsFormControls;
 
-        private readonly List<Theme> _themes = new List<Theme>() { new DarkTheme(), new LightTheme() };
+        private readonly List<Theme> _themes = new List<Theme> { new DarkTheme(), new LightTheme() };
 
         private Theme _currentTheme;
 
@@ -319,7 +319,7 @@ namespace vIDsafe
             string password = CredentialGeneration.GeneratePassword();
             Clipboard.SetText(password);
 
-            MasterAccount.User.Vault.CreateLog(Vault.LogType.Passwords, password.ToString());
+            MasterAccount.User.Vault.CreateLog(Vault.LogType.Passwords, password);
 
             NotificationManager.ShowInfo("Password", "Successfully generated and copied");
         }

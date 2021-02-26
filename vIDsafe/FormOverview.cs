@@ -216,8 +216,6 @@ namespace vIDsafe
 
             scoreColor = ChangeColorBrightness(scoreColor, (float)colorMultiplier);
 
-            //Console.WriteLine(color);
-
             return scoreColor;
         }
 

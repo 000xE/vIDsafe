@@ -11,7 +11,7 @@ namespace vIDsafe
 {
     public partial class FormvIDsafe : Form
     {
-        public static FormvIDsafe Main;
+        public static FormvIDsafe Main { get; private set; }
 
         private static NotifyIcon _notifyIcon;
         private static Panel _pnlChildForm;

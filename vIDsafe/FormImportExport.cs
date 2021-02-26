@@ -95,7 +95,7 @@ namespace vIDsafe
         /// </returns>
         private string GetExtension(int formatIndex)
         {
-            string extension = "All files (*.*)|*.*";
+            string extension;
 
             switch (formatIndex)
             {
@@ -105,7 +105,7 @@ namespace vIDsafe
                 case 1:
                     extension = "JSON files (*.json)|*.json";
                     break;
-                case 2:
+                default:
                     extension = "All files (*.*)|*.*";
                     break;
             }
@@ -217,7 +217,7 @@ namespace vIDsafe
         /// </returns>
         private Porting.VaultFormat GetFormat(int formatIndex)
         {
-            Porting.VaultFormat format = Porting.VaultFormat.Encrypted;
+            Porting.VaultFormat format;
 
             switch (formatIndex)
             {
@@ -227,7 +227,7 @@ namespace vIDsafe
                 case 1:
                     format = Porting.VaultFormat.JSON;
                     break;
-                case 2:
+                default:
                     format = Porting.VaultFormat.Encrypted;
                     break;
             }
