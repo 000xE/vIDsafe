@@ -20,6 +20,8 @@
 
 ## Specification
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d63e47934b444a22b0d94dd1f45e2729)](https://app.codacy.com/gh/outerme/1808827-FYP?utm_source=github.com&utm_medium=referral&utm_content=outerme/1808827-FYP&utm_campaign=Badge_Grade_Settings)
+
 ### Functional requirements
 
 - [x] Master account:
