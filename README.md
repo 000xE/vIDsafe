@@ -7,20 +7,21 @@
 </p>
 
 <p align="center">
-  <a style="text-decoration:none" href="https://www.codefactor.io/repository/github/outerme/1808827-fyp">
-    <img src="https://www.codefactor.io/repository/github/outerme/1808827-fyp/badge" alt="CodeFactor" />
-  </a>
   <a style="text-decoration:none" href="https://github.com/outerme/1808827-FYP/releases">
     <img src="https://img.shields.io/github/v/release/outerme/1808827-FYP?include_prereleases" alt="Releases" />
   </a>
   <a style="text-decoration:none" href="https://github.com/outerme/1808827-FYP/actions">
     <img src="https://github.com/outerme/1808827-FYP/workflows/CI/badge.svg" alt="Tests" />
   </a>
+  <a style="text-decoration:none" href="https://app.codacy.com/gh/outerme/1808827-FYP?utm_source=github.com&utm_medium=referral&utm_content=outerme/1808827-FYP&utm_campaign=Badge_Grade_Settings">
+    <img src="https://api.codacy.com/project/badge/Grade/d63e47934b444a22b0d94dd1f45e2729" alt="Codacy Badge" />
+  </a>
+  <a style="text-decoration:none" href="https://www.codefactor.io/repository/github/outerme/1808827-fyp">
+    <img src="https://www.codefactor.io/repository/github/outerme/1808827-fyp/badge" alt="CodeFactor" />
+  </a>
 </p>
 
 ## Specification
-
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d63e47934b444a22b0d94dd1f45e2729)](https://app.codacy.com/gh/outerme/1808827-FYP?utm_source=github.com&utm_medium=referral&utm_content=outerme/1808827-FYP&utm_campaign=Badge_Grade_Settings)
 
 ### Functional requirements
 
