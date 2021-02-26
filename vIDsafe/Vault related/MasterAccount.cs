@@ -158,7 +158,6 @@ namespace vIDsafe
             return false;
         }
 
-        //Todo: Refactor the selected email thing
         /// <summary>
         /// Tries to export the vault
         /// </summary>
