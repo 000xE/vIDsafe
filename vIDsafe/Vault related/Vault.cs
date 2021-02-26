@@ -32,7 +32,7 @@ namespace vIDsafe
         ///<value>Get or set the total credential count</value>
         [Ignore]
         [JsonIgnore]
-        public int TotalCredentialCount { get; protected set; } = 0;
+        public int TotalCredentialCount { get; protected set; }
 
         /// <summary>
         /// Creates an identity with a generated email and name

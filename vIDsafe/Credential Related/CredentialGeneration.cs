@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace vIDsafe
 {
-    public class CredentialGeneration
+    public static class CredentialGeneration
     {
-        public const int MinPasswordLength = 5;
-        public const int MaxPasswordLength = 128;
+        public static readonly int MinPasswordLength = 5;
+        public static readonly int MaxPasswordLength = 128;
 
-        public const int MinPassphraseLength = 3;
-        public const int MaxPassphraseLength = 20;
+        public static readonly int MinPassphraseLength = 3;
+        public static readonly int MaxPassphraseLength = 20;
 
         private const int _defaultUsernameLength = 12;
         private const int _defaultPasswordLength = 12;
@@ -25,10 +25,10 @@ namespace vIDsafe
 
         public static bool Passphrase = false;
 
-        private static readonly char[] _lowerAZ = new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'm', 'n', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
-        private static readonly char[] _upperAZ = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
-        private static readonly char[] _numbers = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
-        private static readonly char[] _special = new char[] { '!', '$', '@', '^', '%', '#', '*' };
+        private static readonly char[] _lowerAZ = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'm', 'n', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+        private static readonly char[] _upperAZ = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
+        private static readonly char[] _numbers = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+        private static readonly char[] _special = { '!', '$', '@', '^', '%', '#', '*' };
 
         private static readonly Dictionary<int, char[]> _usableCharacters = new Dictionary<int, char[]>()
         {
@@ -185,17 +185,19 @@ namespace vIDsafe
         {
             double score = password.Length;
 
-            double maxScore;
-
             double regexMultiplier = 10;
 
-            string[] regexPatterns = new string[]
+            string[] regexPatterns =
             {
                     @"\d+",
                     @"[a-z]",
                     @"[A-Z]",
                     @"[!,@,#,$,%,^,&,*,?,_,~,-,£,(,)]",
             };
+
+            int bestPasswordLength = MaxPasswordLength;
+
+            double maxScore = bestPasswordLength + (regexPatterns.Length * regexMultiplier);
 
             foreach (string pattern in regexPatterns)
             {
@@ -204,10 +206,6 @@ namespace vIDsafe
                     score += regexMultiplier;
                 }
             }
-
-            int bestPasswordLength = MaxPasswordLength;
-
-            maxScore = bestPasswordLength + (regexPatterns.Length * regexMultiplier);
 
             double percent = (score / maxScore) * 100;
 

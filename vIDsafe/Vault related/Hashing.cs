@@ -23,12 +23,15 @@ namespace vIDsafe
         /// </returns>
         protected static byte[] DeriveKey(KeyDerivationFunction function, string secret, byte[] salt)
         {
-            byte[] derivedKey = null;
+            byte[] derivedKey;
 
             switch (function)
             {
                 case KeyDerivationFunction.PBKDF2:
                     derivedKey = PBKDF2(secret, salt);
+                    break;
+                default:
+                    derivedKey = null;
                     break;
             }
 

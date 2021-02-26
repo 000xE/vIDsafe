@@ -21,7 +21,7 @@ namespace vIDsafe
         ///<value>Get or set the health score</value>
         [Ignore]
         [JsonIgnore]
-        public int HealthScore { get; protected set; } = 0;
+        public int HealthScore { get; protected set; }
 
         ///<value>Gets the safe credential count</value>
         [Ignore]

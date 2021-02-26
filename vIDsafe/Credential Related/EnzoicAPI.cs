@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace vIDsafe
 {
-    class EnzoicAPI
+    static class EnzoicAPI
     {
         //https://www.enzoic.com/docs-dotnet-quick-start/
 

@@ -63,14 +63,12 @@ namespace vIDsafe
             {
                 try
                 {
-                    MailAddress m = new MailAddress(email);
+                    new MailAddress(email);
 
                     return true;
                 }
-                catch (FormatException e)
+                catch (FormatException)
                 {
-                    Console.WriteLine(e);
-
                     ShowError("Validation error", "Invalid email format");
 
                     return false;

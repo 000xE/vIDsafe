@@ -26,7 +26,7 @@ namespace vIDsafe
         /// </returns>
         protected string TrySerializeVault(VaultFormat format, Vault vault, string password)
         {
-            string serialisedVault = "";
+            string serialisedVault;
 
             try
             {
@@ -41,13 +41,15 @@ namespace vIDsafe
                     case VaultFormat.Encrypted:
                         serialisedVault = SerializeEncrypted(vault, password);
                         break;
+                    default:
+                        serialisedVault = "";
+                        break;
                 }
 
                 return serialisedVault;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                Console.WriteLine(e);
                 return null;
             }
         }
@@ -60,7 +62,7 @@ namespace vIDsafe
         /// </returns>
         protected Vault TryDeserializeObject(VaultFormat format, string vault, string password)
         {
-            Vault deserialisedVault = new Vault();
+            Vault deserialisedVault;
 
             try
             {
@@ -75,13 +77,15 @@ namespace vIDsafe
                     case VaultFormat.Encrypted:
                         deserialisedVault = DeserializeEncrypted(vault, password);
                         break;
+                    default:
+                        deserialisedVault = new Vault();
+                        break;
                 }
 
                 return deserialisedVault;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                Console.WriteLine(e);
                 return null;
             }
         }
