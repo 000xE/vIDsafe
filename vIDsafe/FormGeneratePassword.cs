@@ -67,7 +67,7 @@ namespace vIDsafe
             string password = CredentialGeneration.GeneratePassword();
             CheckStrength(password);
 
-            KeyValuePair<DateTime, string> passwordLog = MasterAccount.User.Vault.Log(Vault.LogType.Passwords, password.ToString());
+            KeyValuePair<DateTime, string> passwordLog = MasterAccount.User.Vault.CreateLog(Vault.LogType.Passwords, password.ToString());
             DisplayPassword(passwordLog.Key, passwordLog.Value);
 
             lblGeneratedPassword.Text = password;

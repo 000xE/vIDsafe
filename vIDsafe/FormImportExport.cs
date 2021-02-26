@@ -144,7 +144,7 @@ namespace vIDsafe
             {
                 NotificationManager.ShowInfo("Import", "Successfully imported");
 
-                KeyValuePair<DateTime, string> log = MasterAccount.User.Vault.Log(Vault.LogType.Porting, "Imported data");
+                KeyValuePair<DateTime, string> log = MasterAccount.User.Vault.CreateLog(Vault.LogType.Porting, "Imported data");
                 DisplayLog(log.Key, log.Value);
             }
             else
@@ -184,7 +184,7 @@ namespace vIDsafe
             {
                 NotificationManager.ShowInfo("Export", "Successfully exported");
 
-                KeyValuePair<DateTime, string> log = MasterAccount.User.Vault.Log(Vault.LogType.Porting, "Exported data");
+                KeyValuePair<DateTime, string> log = MasterAccount.User.Vault.CreateLog(Vault.LogType.Porting, "Exported data");
                 DisplayLog(log.Key, log.Value);
             }
             else

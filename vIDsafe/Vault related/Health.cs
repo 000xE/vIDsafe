@@ -10,7 +10,7 @@ namespace vIDsafe
     {
         [Ignore]
         [JsonIgnore]
-        public Dictionary<Status.CredentialStatus, int> CredentialCounts { get; private set; } = new Dictionary<Status.CredentialStatus, int>()
+        public Dictionary<Status.CredentialStatus, int> CredentialCounts { get; private set; } = new Dictionary<Status.CredentialStatus, int>
         {
             [Status.CredentialStatus.Safe] = 0,
             [Status.CredentialStatus.Compromised] = 0,

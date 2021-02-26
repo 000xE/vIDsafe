@@ -319,7 +319,7 @@ namespace vIDsafe
             string password = CredentialGeneration.GeneratePassword();
             Clipboard.SetText(password);
 
-            MasterAccount.User.Vault.Log(Vault.LogType.Passwords, password.ToString());
+            MasterAccount.User.Vault.CreateLog(Vault.LogType.Passwords, password.ToString());
 
             NotificationManager.ShowInfo("Password", "Successfully generated and copied");
         }

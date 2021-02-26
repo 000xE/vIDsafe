@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -30,7 +31,7 @@ namespace vIDsafe
         private static readonly char[] _numbers = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
         private static readonly char[] _special = { '!', '$', '@', '^', '%', '#', '*' };
 
-        private static readonly Dictionary<int, char[]> _usableCharacters = new Dictionary<int, char[]>()
+        private static readonly Dictionary<int, char[]> _usableCharacters = new Dictionary<int, char[]>
         {
             [0] = _lowerAZ,
             [1] = _numbers,
@@ -58,8 +59,8 @@ namespace vIDsafe
 
             StringBuilder username = new StringBuilder("");
 
-            char[] lowerUsername = deriveName.ToLower().ToCharArray();
-            char[] upperUsername = deriveName.ToUpper().ToCharArray();
+            char[] lowerUsername = deriveName.ToLower(CultureInfo.InvariantCulture).ToCharArray();
+            char[] upperUsername = deriveName.ToUpper(CultureInfo.InvariantCulture).ToCharArray();
 
             List<char[]> characters = new List<char[]>
             {

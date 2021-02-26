@@ -172,7 +172,7 @@ namespace vIDsafe
         /// <returns>
         /// Created log
         /// </returns>
-        public KeyValuePair<DateTime, string> Log(LogType key, string log)
+        public KeyValuePair<DateTime, string> CreateLog(LogType key, string log)
         {
             DateTime currentTime = DateTime.Now;
 

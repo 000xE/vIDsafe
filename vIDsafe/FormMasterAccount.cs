@@ -81,7 +81,7 @@ namespace vIDsafe
 
             NotificationManager.ShowInfo("Credential deletion", "Successfully deleted all credentials");
 
-            KeyValuePair<DateTime, string> log = MasterAccount.User.Vault.Log(Vault.LogType.Account, "All credentials deleted");
+            KeyValuePair<DateTime, string> log = MasterAccount.User.Vault.CreateLog(Vault.LogType.Account, "All credentials deleted");
             DisplayLog(log.Key, log.Value);
         }
 
@@ -105,7 +105,7 @@ namespace vIDsafe
 
             NotificationManager.ShowInfo("Identity deletion", "Successfully deleted all identities");
 
-            KeyValuePair<DateTime, string> log = MasterAccount.User.Vault.Log(Vault.LogType.Account, "All identities deleted");
+            KeyValuePair<DateTime, string> log = MasterAccount.User.Vault.CreateLog(Vault.LogType.Account, "All identities deleted");
             DisplayLog(log.Key, log.Value);
         }
 
@@ -165,7 +165,7 @@ namespace vIDsafe
 
                     NotificationManager.ShowInfo("Name change", "Successfully changed name");
 
-                    KeyValuePair<DateTime, string> log = MasterAccount.User.Vault.Log(Vault.LogType.Account, "Name changed");
+                    KeyValuePair<DateTime, string> log = MasterAccount.User.Vault.CreateLog(Vault.LogType.Account, "Name changed");
                     DisplayLog(log.Key, log.Value);
                 }
                 else
@@ -199,7 +199,7 @@ namespace vIDsafe
                 {
                     NotificationManager.ShowInfo("Password change", "Successfully changed password");
 
-                    KeyValuePair<DateTime, string> log = MasterAccount.User.Vault.Log(Vault.LogType.Account, "Password changed");
+                    KeyValuePair<DateTime, string> log = MasterAccount.User.Vault.CreateLog(Vault.LogType.Account, "Password changed");
                     DisplayLog(log.Key, log.Value);
                 }
                 else
