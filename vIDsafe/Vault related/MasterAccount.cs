@@ -7,7 +7,7 @@ using System.IO;
 
 namespace vIDsafe
 {
-    public sealed class MasterAccount : Porting
+    public sealed class MasterAccount : Storage
     {
         public static readonly MasterAccount User = new MasterAccount();
 

@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace vIDsafe
 {
-    public abstract class Porting : Storage
+    public abstract class Porting
     {
         public enum VaultFormat
         {
@@ -227,6 +228,73 @@ namespace vIDsafe
 
                     identity.FindOrCreateCredential(credentialID, credential.Username, credential.Password, credential.URL, credential.Notes);
                 }
+            }
+        }
+
+        /// <summary>
+        /// Decrypts and deserialises the vault
+        /// </summary>
+        /// <returns>
+        /// The decrypted vault if it's deserialised, null if not
+        /// </returns>
+        protected Vault DecryptVault(string encryptedVault, string key)
+        {
+            string decryptedVault = Encryption.AesDecrypt(encryptedVault, key);
+
+            if (decryptedVault != null)
+            {
+                return StringToVault(decryptedVault);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Serialises and encrypts the vault
+        /// </summary>
+        /// <returns>
+        /// The encrypted vault if it's encrypted, cleartext vault if not
+        /// </returns>
+        protected string EncryptVault(Vault vault, string key)
+        {
+            string serialisedVault = VaultToString(vault);
+
+            return Encryption.AesEncrypt(serialisedVault, key);
+        }
+
+        /// <summary>
+        /// Deserialises a string to a vault
+        /// </summary>
+        /// <returns>
+        /// The vault if deserialised
+        /// </returns>
+        //https://stackoverflow.com/questions/6979718/c-sharp-object-to-string-and-back/6979843#6979843
+        protected Vault StringToVault(string base64String)
+        {
+            byte[] bytes = Convert.FromBase64String(base64String);
+            using (MemoryStream ms = new MemoryStream())
+            {
+                ms.Write(bytes, 0, bytes.Length);
+                ms.Position = 0;
+                return (Vault)new BinaryFormatter().Deserialize(ms);
+            }
+        }
+
+        /// <summary>
+        /// Serialises the vault to a string
+        /// </summary>
+        /// <returns>
+        /// The vault as a string if serialised
+        /// </returns>
+        //https://stackoverflow.com/questions/6979718/c-sharp-object-to-string-and-back/6979843#6979843
+        protected string VaultToString(Vault vault)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                new BinaryFormatter().Serialize(ms, vault);
+                return Convert.ToBase64String(ms.ToArray());
             }
         }
     }
