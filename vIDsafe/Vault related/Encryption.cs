@@ -82,7 +82,7 @@ namespace vIDsafe
                     using (var ms = new MemoryStream(textBytes))
                     {
                         byte[] buffer = new byte[_ivSize];
-                        int ivByteCount = ms.Read(buffer, 0, _ivSize);
+                        ms.Read(buffer, 0, _ivSize);
                         AES.IV = buffer;
 
                         using (var decryptor = AES.CreateDecryptor(AES.Key, AES.IV))

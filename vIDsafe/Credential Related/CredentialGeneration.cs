@@ -20,11 +20,11 @@ namespace vIDsafe
         private const int _defaultPasswordLength = 12;
         private const int _defaultPassphraseLength = 3;
 
-        public static int CurrentUsernameLength = _defaultUsernameLength;
-        public static int CurrentPasswordLength = _defaultPasswordLength;
-        public static int CurrentPassphraseLength = _defaultPassphraseLength;
+        public static int CurrentUsernameLength { get; set; } = _defaultUsernameLength;
+        public static int CurrentPasswordLength { get; set; } = _defaultPasswordLength;
+        public static int CurrentPassphraseLength { get; set; } = _defaultPassphraseLength;
 
-        public static bool Passphrase = false;
+        public static bool Passphrase { get; set; }
 
         private static readonly char[] _lowerAZ = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'm', 'n', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
         private static readonly char[] _upperAZ = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
@@ -39,7 +39,7 @@ namespace vIDsafe
             [3] = _special
         };
 
-        public static Dictionary<int, bool> PasswordSettings = new Dictionary<int, bool>
+        public static readonly Dictionary<int, bool> PasswordSettings = new Dictionary<int, bool>
         {
             [0] = true,
             [1] = true,
