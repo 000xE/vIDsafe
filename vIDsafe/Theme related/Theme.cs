@@ -15,8 +15,6 @@ namespace vIDsafe
 
         protected Dictionary<string, Color> ThemeColors = new Dictionary<string, Color>();
 
-        private readonly object _lock = new object();
-
         /// <summary>
         /// Assigns colours to colour names to be used
         /// </summary>
@@ -48,15 +46,12 @@ namespace vIDsafe
         /// </summary>
         public void SetControlColors(Control control)
         {
-            lock (_lock)
+            if (control.Tag != null)
             {
-                if (control.Tag != null)
+                if (control.Tag.ToString().Length > 0)
                 {
-                    if (control.Tag.ToString().Length > 0)
-                    {
-                        control.ForeColor = GetForeColor(control.Tag.ToString());
-                        control.BackColor = GetBackColor(control.Tag.ToString());
-                    }
+                    control.ForeColor = GetForeColor(control.Tag.ToString());
+                    control.BackColor = GetBackColor(control.Tag.ToString());
                 }
             }
         }

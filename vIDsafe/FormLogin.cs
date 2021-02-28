@@ -37,10 +37,7 @@ namespace vIDsafe
 
                 if (canLogin.Equals(true))
                 {
-                    FormHome form = new FormHome();
-                    form.Show();
-
-                    ParentForm.Hide();
+                    OpenHome();
                 }
                 else
                 {
@@ -49,6 +46,17 @@ namespace vIDsafe
 
                 EnableLoginComponents(true);
             }
+        }
+
+        /// <summary>
+        /// Opens the home form
+        /// </summary>
+        private void OpenHome()
+        {
+            FormHome form = new FormHome();
+            form.Show();
+
+            ParentForm.Hide();
         }
 
         /// <summary>
