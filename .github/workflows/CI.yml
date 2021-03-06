@@ -322,8 +322,7 @@ jobs:
         uses: darenm/Setup-VSTest@v1
                 
       - name: Check code coverage
-        working-directory: ${{env.working-directory}}
-        run: packages\OpenCover.4.7.922\tools\OpenCover.Console.exe -target:"vstest.console.exe" -output:".\MyProject_coverage.xml" -register:user -filter:"+[vIDsafe]* -[vIDsafe]*.Form*  -[vIDsafe.UnitTests]*" "-targetargs:\"vIDsafe.UnitTests\bin\Debug\vIDsafe.UnitTests.dll""
+        run: vIDsafe\packages\OpenCover.4.7.922\tools\OpenCover.Console.exe -target:"vstest.console.exe" -output:".\MyProject_coverage.xml" -register:user -filter:"+[vIDsafe]* -[vIDsafe]*.Form*  -[vIDsafe.UnitTests]*" "-targetargs:\"vIDsafe.UnitTests\bin\Debug\vIDsafe.UnitTests.dll""
         
       - name: Upload results
         working-directory: ${{env.working-directory}}
