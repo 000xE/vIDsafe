@@ -320,9 +320,13 @@ jobs:
         # You may pin to the exact commit or the version.
         # uses: darenm/Setup-VSTest@fbb574e849d6225ce9702f86e64eb6cdc4b4e561
         uses: darenm/Setup-VSTest@v1
+        
+      - name: Check directory
+        run: dir
+
                 
       - name: Check code coverage
-        run: .\packages\OpenCover.4.7.922\tools\OpenCover.Console.exe -target:"vstest.console.exe" -output:".\MyProject_coverage.xml" -register:user -filter:"+[vIDsafe]* -[vIDsafe]*.Form*  -[vIDsafe.UnitTests]*" "-targetargs:\"vIDsafe.UnitTests\bin\Debug\vIDsafe.UnitTests.dll""
+        run: vIDsafe\packages\OpenCover.4.7.922\tools\OpenCover.Console.exe -target:"vstest.console.exe" -output:".\MyProject_coverage.xml" -register:user -filter:"+[vIDsafe]* -[vIDsafe]*.Form*  -[vIDsafe.UnitTests]*" "-targetargs:\"vIDsafe.UnitTests\bin\Debug\vIDsafe.UnitTests.dll""
         
       - name: Upload results
         working-directory: ${{env.working-directory}}
