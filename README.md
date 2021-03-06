@@ -87,6 +87,7 @@
 - 15/02/2021: 1 hour - Mock presentations
 - 18/02/2021: 30 minutes - Discussed testing and evaluation and presentations of the projects
 - 25/02/2021: 1 hour  - Discussed evaluation and the reports of the projects
+- 04/03/2021: 1 hour  - Discussed abstract and introduction of the reports of the projects
 
 ### 1-to-1 meetings
 
