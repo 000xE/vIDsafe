@@ -23,6 +23,7 @@ namespace vIDsafe.Tests
             Credential credential1 = identity.GenerateCredential();
             Credential credential2 = identity.GenerateCredential();
             Credential credential3 = identity.GenerateCredential();
+            Credential credential4 = identity.GenerateCredential();
 
             //Act
             credential1.URL = "https://www.google.com";
@@ -50,6 +51,15 @@ namespace vIDsafe.Tests
             credential3.CalculateStatus();
 
             Assert.AreEqual(expectedStatus, credential3.Status);
+
+            //Act
+            credential4.Password = "This-Is-A-Very-Very-Strong-Password";
+
+            //Assert
+            expectedStatus = Status.CredentialStatus.Safe;
+            credential4.CalculateStatus();
+
+            Assert.AreEqual(expectedStatus, credential4.Status);
         }
     }
 }
