@@ -328,7 +328,7 @@ jobs:
         run: choco install codecov
                       
       - name: Check code coverage
-        run: OpenCover.Console.exe -target:"vstest.console.exe" -output:".\MyProject_coverage.xml" -register:administrator -filter:"+[vIDsafe]* -[vIDsafe]*.Form* -[vIDsafe]*Properties* -[vIDsafe]*.Program" -targetargs:"vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll"
+        run: OpenCover.Console.exe -target:"vstest.console.exe" -output:".\MyProject_coverage.xml" -register:administrator -filter:"+[vIDsafe]* -[vIDsafe]*.Form* -[vIDsafe]*Properties* -[vIDsafe]*.Program" -[vIDsafe]*.EnzoicAPI -[vIDsafe]*.CryptoRandom -[vIDsafe]*.WordList" -targetargs:"vIDsafe.UnitTests\bin\Release\vIDsafe.UnitTests.dll"
         
       - name: Upload results
         run: codecov.exe -f "MyProject_coverage.xml"
