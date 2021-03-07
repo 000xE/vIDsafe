@@ -331,4 +331,4 @@ jobs:
         run: OpenCover.Console.exe -target:"vstest.console.exe" -output:".\MyProject_coverage.xml" -register:user -filter:"+[vIDsafe]* -[vIDsafe]*.Form*  -[vIDsafe.UnitTests]*" -targetargs:"vIDsafe.UnitTests\bin\Debug\vIDsafe.UnitTests.dll"
         
       - name: Upload results
-        run: codecov.exe -f "MyProject_coverage.xml"
+        run: codecov.exe -f "test.xml"
