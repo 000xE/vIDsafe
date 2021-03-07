@@ -13,6 +13,9 @@
   <a style="text-decoration:none" href="https://github.com/outerme/1808827-FYP/actions">
     <img src="https://github.com/outerme/1808827-FYP/workflows/CI/badge.svg" alt="Tests" />
   </a>
+  <a href="https://codecov.io/gh/outerme/1808827-FYP">
+    <img src="https://codecov.io/gh/outerme/1808827-FYP/branch/main/graph/badge.svg?token=li7YnXYBZb" alt="Codecov" />
+  </a>   
   <a style="text-decoration:none" href="https://www.codefactor.io/repository/github/outerme/1808827-fyp">
     <img src="https://www.codefactor.io/repository/github/outerme/1808827-fyp/badge" alt="CodeFactor" />
   </a>
