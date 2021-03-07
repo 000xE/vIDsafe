@@ -121,21 +121,6 @@ namespace vIDsafe.Tests
         }
 
         [TestMethod()]
-        public void TryRegisterTest()
-        {
-            //Arrange
-            MasterAccount user = MasterAccount.User;
-
-            //Act
-            bool registered = user.TryRegister("TestAccountName", "TestAccountPassword");
-
-            //Assert
-            Assert.IsTrue(registered);
-
-            user.DeleteAccount();
-        }
-
-        [TestMethod()]
         public void TryChangePasswordTest()
         {
             //Arrange

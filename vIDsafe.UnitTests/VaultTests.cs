@@ -101,5 +101,34 @@ namespace vIDsafe.Tests
 
             Assert.AreEqual(expectedIdentityCount, vault.Identities.Count);
         }
+
+
+        [TestMethod()]
+        public void TryGetIdentityTest()
+        {
+            //Arrange
+            Vault vault = new Vault();
+            Identity identity = vault.GenerateIdentity();
+
+            //Act
+            Identity retrievedIdentity = vault.TryGetIdentity(identity.Email);
+
+            //Assert
+            Assert.AreEqual(identity, retrievedIdentity);
+        }
+
+        [TestMethod()]
+        public void GetLogsTest()
+        {
+            //Arrange
+            Vault vault = new Vault();
+            KeyValuePair<DateTime, string> log = vault.CreateLog(Vault.LogType.Account, "Test Log");
+
+            //Act
+            Dictionary<DateTime, string> logs = vault.GetLogs(Vault.LogType.Account);
+
+            //Assert
+            Assert.AreEqual(log.Value, logs[log.Key]);
+        }
     }
 }

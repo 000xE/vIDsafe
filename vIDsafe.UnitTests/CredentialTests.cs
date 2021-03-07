@@ -18,20 +18,38 @@ namespace vIDsafe.Tests
             Vault vault = new Vault();
             Identity identity = vault.GenerateIdentity();
 
-            //Act
+            identity.BreachedDomains.Add("google.com", "TestDate");
+
             Credential credential1 = identity.GenerateCredential();
             Credential credential2 = identity.GenerateCredential();
+            Credential credential3 = identity.GenerateCredential();
 
-            credential2.Username = credential2.Username;
-            credential2.Password = credential1.Password;
-            credential2.URL = credential2.URL;
-            credential2.Notes = credential2.Notes;
+            //Act
+            credential1.URL = "https://www.google.com";
 
             //Assert
-            Status.CredentialStatus expectedStatus = Status.CredentialStatus.Conflicted;
+            Status.CredentialStatus expectedStatus = Status.CredentialStatus.Compromised;
+            credential1.CalculateStatus();
+
+            Assert.AreEqual(expectedStatus, credential1.Status);
+
+            //Act
+            credential2.Password = credential1.Password;
+
+            //Assert
+            expectedStatus = Status.CredentialStatus.Conflicted;
             credential2.CalculateStatus();
 
             Assert.AreEqual(expectedStatus, credential2.Status);
+
+            //Act
+            credential3.Password = "12345";
+
+            //Assert
+            expectedStatus = Status.CredentialStatus.Weak;
+            credential3.CalculateStatus();
+
+            Assert.AreEqual(expectedStatus, credential3.Status);
         }
     }
 }
