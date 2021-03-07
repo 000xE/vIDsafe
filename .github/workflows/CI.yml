@@ -48,6 +48,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nuget-
             
+      - name: Check directory
+        working-directory: ${{env.working-directory}}/packages
+        run: dir
+            
       - name: Build the solution
         working-directory: ${{env.working-directory}}
         run: msbuild ..\vIDsafe.UnitTests\vIDsafe.UnitTests.csproj /p:Configuration=Release         
@@ -324,7 +328,6 @@ jobs:
       - name: Check directory
         working-directory: ${{env.working-directory}}/packages
         run: dir
-
                 
       - name: Check code coverage
         run: vIDsafe\packages\OpenCover.4.7.922\tools\OpenCover.Console.exe -target:"vstest.console.exe" -output:".\MyProject_coverage.xml" -register:user -filter:"+[vIDsafe]* -[vIDsafe]*.Form*  -[vIDsafe.UnitTests]*" "-targetargs:\"vIDsafe.UnitTests\bin\Debug\vIDsafe.UnitTests.dll""
