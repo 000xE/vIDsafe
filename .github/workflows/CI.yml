@@ -48,10 +48,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nuget-
             
-      - name: Check directory
-        working-directory: ${{env.working-directory}}/packages
-        run: dir
-            
       - name: Build the solution
         working-directory: ${{env.working-directory}}
         run: msbuild ..\vIDsafe.UnitTests\vIDsafe.UnitTests.csproj /p:Configuration=Release         
@@ -324,14 +320,9 @@ jobs:
         # You may pin to the exact commit or the version.
         # uses: darenm/Setup-VSTest@fbb574e849d6225ce9702f86e64eb6cdc4b4e561
         uses: darenm/Setup-VSTest@v1
-        
-      - name: Check directory
-        working-directory: ${{env.working-directory}}/packages
-        run: dir
                 
       - name: Check code coverage
         run: vIDsafe\packages\OpenCover.4.7.922\tools\OpenCover.Console.exe -target:"vstest.console.exe" -output:".\MyProject_coverage.xml" -register:user -filter:"+[vIDsafe]* -[vIDsafe]*.Form*  -[vIDsafe.UnitTests]*" "-targetargs:\"vIDsafe.UnitTests\bin\Debug\vIDsafe.UnitTests.dll""
         
       - name: Upload results
-        working-directory: ${{env.working-directory}}
-        run: packages/Codecov.1.13.0/tools/codecov.exe -f "MyProject_coverage.xml"
+        run: vIDsafe/packages/Codecov.1.13.0/tools/codecov.exe -f "MyProject_coverage.xml"
