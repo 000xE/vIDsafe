@@ -83,21 +83,6 @@ namespace vIDsafe
         }
 
         /// <summary>
-        /// Add a credential to an identity
-        /// </summary>
-        /// <returns>
-        /// True if added, false if not
-        /// </returns>
-        public bool TryAddCredential(Credential credential)
-        {
-            string credentialID = credential.CredentialID;
-
-            bool added = Credentials.TryAdd(credentialID, credential);
-
-            return added;
-        }
-
-        /// <summary>
         /// Gets a credential from an identity using an ID
         /// </summary>
         /// <returns>

@@ -45,5 +45,37 @@ namespace vIDsafe.Tests
 
             Assert.AreEqual(expectedCredentialCount, identity.Credentials.Count);
         }
+
+        [TestMethod()]
+        public void TryGetCredentialTest()
+        {
+            //Arrange
+            Vault vault = new Vault();
+            Identity identity = vault.GenerateIdentity();
+            Credential credential = identity.GenerateCredential();
+            string credentialID = credential.CredentialID;
+
+            //Act
+            Credential retrievedCredential = identity.TryGetCredential(credentialID);
+
+            //Assert
+            Assert.AreEqual(credential, retrievedCredential);
+        }
+
+        [TestMethod()]
+        public void TryDeleteCredentialTest()
+        {
+            //Arrange
+            Vault vault = new Vault();
+            Identity identity = vault.GenerateIdentity();
+            Credential credential = identity.GenerateCredential();
+            string credentialID = credential.CredentialID;
+
+            //Act
+            bool deleted = identity.TryDeleteCredential(credentialID);
+
+            //Assert
+            Assert.IsTrue(deleted);
+        }
     }
 }

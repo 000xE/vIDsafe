@@ -24,10 +24,10 @@ namespace vIDsafe.Tests
 
             //CSV files
             //Act
-            user.TryExportVault(MasterAccount.VaultFormat.CSV, "", "ImportTestData/testvault.csv");
+            user.TryExportVault(Porting.VaultFormat.CSV, "", "ImportTestData/testvault.csv");
 
             vault.DeleteAllCredentials();
-            user.TryImportVault(MasterAccount.VaultFormat.CSV, "ImportTestData/testvault.csv", false);
+            user.TryImportVault(Porting.VaultFormat.CSV, "ImportTestData/testvault.csv", false);
 
             vault.CalculateHealthScore(false);
 
@@ -40,10 +40,10 @@ namespace vIDsafe.Tests
 
             //JSON files
             //Act
-            user.TryExportVault(MasterAccount.VaultFormat.JSON, "", "ImportTestData/testvault.json");
+            user.TryExportVault(Porting.VaultFormat.JSON, "", "ImportTestData/testvault.json");
 
             vault.DeleteAllCredentials();
-            user.TryImportVault(MasterAccount.VaultFormat.JSON, "ImportTestData/testvault.json", false);
+            user.TryImportVault(Porting.VaultFormat.JSON, "ImportTestData/testvault.json", false);
 
             vault.CalculateHealthScore(false);
 
@@ -56,10 +56,10 @@ namespace vIDsafe.Tests
 
             //Encrypted files
             //Act
-            user.TryExportVault(MasterAccount.VaultFormat.Encrypted, "", "ImportTestData/testvault");
+            user.TryExportVault(Porting.VaultFormat.Encrypted, "", "ImportTestData/testvault");
 
             vault.DeleteAllCredentials();
-            user.TryImportVault(MasterAccount.VaultFormat.Encrypted, "ImportTestData/testvault", false);
+            user.TryImportVault(Porting.VaultFormat.Encrypted, "ImportTestData/testvault", false);
 
             vault.CalculateHealthScore(false);
 
@@ -82,24 +82,105 @@ namespace vIDsafe.Tests
 
             //CSV files
             //Act
-            bool exportedCSV = user.TryExportVault(MasterAccount.VaultFormat.CSV, "", "ExportTestData/testvault.csv");
+            bool exportedCSV = user.TryExportVault(Porting.VaultFormat.CSV, "", "ExportTestData/testvault.csv");
 
             //Assert
             Assert.IsTrue(exportedCSV);
 
             //JSON files
             //Act
-            bool exportedJSON = user.TryExportVault(MasterAccount.VaultFormat.CSV, "", "ExportTestData/testvault.json");
+            bool exportedJSON = user.TryExportVault(Porting.VaultFormat.CSV, "", "ExportTestData/testvault.json");
 
             //Assert
             Assert.IsTrue(exportedJSON);
 
             //Encrypted files
             //Act
-            bool exportedEncrypted = user.TryExportVault(MasterAccount.VaultFormat.CSV, "", "ExportTestData/testvault");
+            bool exportedEncrypted = user.TryExportVault(Porting.VaultFormat.CSV, "", "ExportTestData/testvault");
 
             //Assert
             Assert.IsTrue(exportedEncrypted);
+
+            user.DeleteAccount();
+        }
+
+        [TestMethod()]
+        public void TryLoginTest()
+        {
+            //Arrange
+            MasterAccount user = MasterAccount.User;
+            user.TryRegister("TestAccountName", "TestAccountPassword");
+
+            //Act
+            bool loggedIn = user.TryLogin("TestAccountName", "TestAccountPassword");
+
+            //Assert
+            Assert.IsTrue(loggedIn);
+
+            user.DeleteAccount();
+        }
+
+        [TestMethod()]
+        public void TryRegisterTest()
+        {
+            //Arrange
+            MasterAccount user = MasterAccount.User;
+
+            //Act
+            bool registered = user.TryRegister("TestAccountName", "TestAccountPassword");
+
+            //Assert
+            Assert.IsTrue(registered);
+
+            user.DeleteAccount();
+        }
+
+        [TestMethod()]
+        public void TryChangePasswordTest()
+        {
+            //Arrange
+            MasterAccount user = MasterAccount.User;
+            user.TryRegister("TestAccountName", "TestAccountPassword");
+
+            //Act
+            bool changed = user.TryChangePassword("TestAccountPassword", "TestNewAccountPassword");
+
+            //Assert
+            Assert.IsTrue(changed);
+
+            user.DeleteAccount();
+        }
+
+        [TestMethod()]
+        public void TryChangeNameTest()
+        {
+            //Arrange
+            MasterAccount user = MasterAccount.User;
+            user.TryRegister("TestAccountName", "TestAccountPassword");
+
+            //Act
+            bool changed = user.TryChangeName("TestAccountPassword", "TestNewAccountName");
+
+            //Assert
+            Assert.IsTrue(changed);
+
+            user.DeleteAccount();
+        }
+
+        [TestMethod()]
+        public void LogoutTest()
+        {
+            //Arrange
+            MasterAccount user = MasterAccount.User;
+            user.TryRegister("TestAccountName", "TestAccountPassword");
+
+            //Act
+            user.Logout();
+
+            //Assert
+            Assert.IsNull(user.Vault);
+
+            user.TryLogin("TestAccountName", "TestAccountPassword");
 
             user.DeleteAccount();
         }
