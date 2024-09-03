@@ -83,7 +83,7 @@ jobs:
         uses: microsoft/setup-msbuild@v1
         
       - name: Download test build
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4.1.7
         with:
           name: test-build
           path: vIDsafe.UnitTests
@@ -121,7 +121,7 @@ jobs:
         uses: microsoft/setup-msbuild@v1
         
       - name: Download test build
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4.1.7
         with:
           name: test-build
           path: vIDsafe.UnitTests
@@ -159,7 +159,7 @@ jobs:
         uses: microsoft/setup-msbuild@v1
         
       - name: Download test build
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4.1.7
         with:
           name: test-build
           path: vIDsafe.UnitTests
@@ -197,7 +197,7 @@ jobs:
         uses: microsoft/setup-msbuild@v1
         
       - name: Download test build
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4.1.7
         with:
           name: test-build
           path: vIDsafe.UnitTests
@@ -235,7 +235,7 @@ jobs:
         uses: microsoft/setup-msbuild@v1
         
       - name: Download test build
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4.1.7
         with:
           name: test-build
           path: vIDsafe.UnitTests
@@ -273,7 +273,7 @@ jobs:
         uses: microsoft/setup-msbuild@v1
         
       - name: Download test build
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4.1.7
         with:
           name: test-build
           path: vIDsafe.UnitTests
@@ -311,7 +311,7 @@ jobs:
         uses: microsoft/setup-msbuild@v1
         
       - name: Download test build
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4.1.7
         with:
           name: test-build
           path: vIDsafe.UnitTests
